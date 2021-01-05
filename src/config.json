@@ -1,0 +1,64 @@
+{
+  "contest_info": {
+    "name": "関東夏ロボコン19"
+  },
+  "rule": {
+    "task_objects": [{
+        "id": "slipper_10",
+        "description": "10点スリッパ",
+        "initialValue": 12,
+        "min": 0,
+        "max": 24
+      },
+      {
+        "id": "slipper_20",
+        "description": "20点スリッパ"
+      },
+      {
+        "id": "violation",
+        "description": "違反スリッパ"
+      }
+    ],
+    "score": [{
+        "coefficient": 10,
+        "id": "slipper_10"
+      },
+      {
+        "coefficient": 20,
+        "id": "slipper_20"
+      },
+      {
+        "coefficient": -10,
+        "id": "violation"
+      }
+    ],
+    "info": {
+      "vgoal": 240,
+      "vname": "潜入完了"
+    }
+  },
+  "time_progress": [{
+      "type": "ready",
+      "description": "セッティングタイム"
+    },
+    {
+      "type": "countup",
+      "time": 60,
+      "description": "セッティングタイム"
+    },
+    {
+      "type": "ready",
+      "description": "READY"
+    },
+    {
+      "type": "countdown",
+      "time": 5,
+      "description": "READY"
+    },
+    {
+      "type": "countup",
+      "time": 160,
+      "description": "試合"
+    }
+  ]
+}
