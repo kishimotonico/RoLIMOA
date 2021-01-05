@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button, Card, Statistic } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LyricalSocket } from './lyricalSocket';
 import { TaskObjectsState, TaskObjectsType } from './reducer';
 import * as actions from "./actions";
 
@@ -32,6 +33,18 @@ const TaskObject: FC<TaskObjectProps> = ({
   const increment = () => {
     dispatch(actions.setValue(id, currentValue + 1));
   };
+
+  useEffect(() => {
+    const socket = LyricalSocket.instance;
+    socket.socket.emit("update", {
+      taskObjectId: id,
+      afterValue: currentValue,
+    });
+
+    return () => {
+      console.log('useEffect-return');
+    };
+  }, [id, currentValue]);
 
   return (
     <Card>
