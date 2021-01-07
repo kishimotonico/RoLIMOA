@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import TaskObject from './TaskObject';
+import TaskObject from './TaskObjectContainer';
 import { LyricalSocket } from './lyricalSocket';
 import config from './config.json';
 import { useDispatch } from 'react-redux';
@@ -199,19 +199,10 @@ const App: FC = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <h1>ふぇぇ…ロボコン試合管理するよぉ</h1>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={classes.paper}>
-                {config.rule.task_objects.map(config => (
-                  <TaskObject {...config} />
-                ))}
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper}>
-              </Paper>
-            </Grid>
+            {config.rule.task_objects.map(config => (
+              <TaskObject {...config} />
+            ))}
           </Grid>
         </Container>
       </main>

@@ -1,11 +1,9 @@
-import React, { FC, useEffect } from 'react';
-import { Button, Card, Statistic } from 'semantic-ui-react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
 import { TaskObjectsState, TaskObjectsType } from './reducer';
 import * as actions from "./actions";
-
-import 'semantic-ui-css/semantic.min.css';
+import { TaskObjectComponent } from "./TaskObjectComponent";
 
 interface TaskObjectProps {
   id: string;
@@ -16,8 +14,8 @@ interface TaskObjectProps {
 }
 
 const TaskObject: FC<TaskObjectProps> = ({
-  id = "",
-  description = "",
+  id,
+  description,
   initialValue = 0,
   min = 0,
   max = 524,
@@ -29,12 +27,14 @@ const TaskObject: FC<TaskObjectProps> = ({
   if (currentValue === undefined) {
     console.error("ふぇぇ！", taskObjects, id);
   }
-  const decrement = () => {
+  
+  const decrement = useCallback(() => {
     dispatch(actions.setValue(id, currentValue - 1));
-  };
-  const increment = () => {
+  }, [dispatch, currentValue, id]);
+  
+  const increment = useCallback(() => {
     dispatch(actions.setValue(id, currentValue + 1));
-  };
+  }, [dispatch, currentValue, id]);
 
   useEffect(() => {
     const socket = LyricalSocket.instance;
@@ -49,23 +49,14 @@ const TaskObject: FC<TaskObjectProps> = ({
   }, [id, currentValue]);
 
   return (
-    <Card>
-      <Statistic className="number-board">
-        <Statistic.Label>{description}</Statistic.Label>
-        <Statistic.Value>{currentValue}</Statistic.Value>
-      </Statistic>
-      <Card.Content>
-        <div className="ui two buttons">
-          <Button onClick={decrement} disabled={currentValue === min}>
-            -1
-          </Button>
-          <Button color="blue" onClick={increment} disabled={currentValue === max}>
-            +1
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-    // <div></div>
+    <TaskObjectComponent
+      description={description}
+      currentValue={currentValue}
+      min={min}
+      max={max}
+      decrement={decrement}
+      increment={increment}
+    />
   );
 };
 
