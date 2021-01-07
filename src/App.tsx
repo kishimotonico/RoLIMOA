@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import TaskObject from './TaskObjectContainer';
+import { ScoreInput } from './ScoreInput';
 import { LyricalSocket } from './lyricalSocket';
 import config from './config.json';
 import { useDispatch } from 'react-redux';
@@ -121,7 +121,7 @@ const App: FC = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <AppBar color="default" position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -199,11 +199,7 @@ const App: FC = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {config.rule.task_objects.map(config => (
-              <TaskObject {...config} />
-            ))}
-          </Grid>
+          <ScoreInput fieldSide="red" />
         </Container>
       </main>
     </div>

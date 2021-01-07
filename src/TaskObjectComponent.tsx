@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 interface TaskObjectComponentProps {
   description: string;
   currentValue: number;
+  fieldSide: "blue" | "red";
   min?: number;
   max?: number;
   increment?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
@@ -33,25 +34,27 @@ interface TaskObjectComponentProps {
 export const TaskObjectComponent: FC<TaskObjectComponentProps> = ({
   description,
   currentValue,
+  fieldSide,
   min = 0,
   max = 524,
   increment = () => {},
   decrement = () => {},
 }) => {
   const classes = useStyles();
+  const color = fieldSide === "blue" ? "primary" : "secondary";
 
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper className={classes.root}>
-        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+        <Typography component="h2" variant="h6" gutterBottom>
           {description}
         </Typography>
-        <Typography variant="h5" component="p">
+        <Typography component="p" variant="h5" >
           {currentValue}
         </Typography>
 
         <Container className={classes.buttonContainer}>
-          <ButtonGroup className={classes.buttonGroup} color="primary" aria-label="outlined primary button group">
+          <ButtonGroup className={classes.buttonGroup} color={color} aria-label="outlined primary button group">
             <Button className={classes.innnerButton} variant="outlined" onClick={decrement} disabled={currentValue === min}>
               -1
             </Button>

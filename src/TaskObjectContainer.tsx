@@ -8,15 +8,15 @@ import { TaskObjectComponent } from "./TaskObjectComponent";
 interface TaskObjectProps {
   id: string;
   description: string;
-  initialValue?: number;
+  fieldSide: "blue" | "red";
   min?: number;
   max?: number;
 }
 
-const TaskObject: FC<TaskObjectProps> = ({
+export const TaskObject: FC<TaskObjectProps> = ({
   id,
   description,
-  initialValue = 0,
+  fieldSide,
   min = 0,
   max = 524,
 }) => {
@@ -27,11 +27,11 @@ const TaskObject: FC<TaskObjectProps> = ({
   if (currentValue === undefined) {
     console.error("ふぇぇ！", taskObjects, id);
   }
-  
+
   const decrement = useCallback(() => {
     dispatch(actions.setValue(id, currentValue - 1));
   }, [dispatch, currentValue, id]);
-  
+
   const increment = useCallback(() => {
     dispatch(actions.setValue(id, currentValue + 1));
   }, [dispatch, currentValue, id]);
@@ -54,11 +54,9 @@ const TaskObject: FC<TaskObjectProps> = ({
       currentValue={currentValue}
       min={min}
       max={max}
+      fieldSide={fieldSide}
       decrement={decrement}
       increment={increment}
     />
   );
 };
-
-
-export default TaskObject;
