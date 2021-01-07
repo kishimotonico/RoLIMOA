@@ -7,7 +7,6 @@ import { taskObjectsReducer, initialState } from './reducer';
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

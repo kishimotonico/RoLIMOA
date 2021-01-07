@@ -5,6 +5,8 @@ import { LyricalSocket } from './lyricalSocket';
 import { TaskObjectsState, TaskObjectsType } from './reducer';
 import * as actions from "./actions";
 
+import 'semantic-ui-css/semantic.min.css';
+
 interface TaskObjectProps {
   id: string;
   description: string;
@@ -63,6 +65,7 @@ const TaskObject: FC<TaskObjectProps> = ({
         </div>
       </Card.Content>
     </Card>
+    // <div></div>
   );
 };
 
