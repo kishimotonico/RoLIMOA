@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import clsx from 'clsx';
+import { Link } from "react-router-dom";
 import { AppBar, Badge, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, makeStyles, Toolbar, Typography, ListSubheader } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -71,6 +72,10 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
+  drawerListLink: {
+    textDecoration: "none",
+    color: theme.palette.text.primary,
+  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -141,24 +146,30 @@ export const Dashboard: FC<DashboardProps> = ({
         </div>
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="青チーム入力" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="赤チーム入力" />
-          </ListItem>
+          <Link to="/" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <Link to="/score/blue/" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="青チーム入力" />
+            </ListItem>
+          </Link>
+          <Link to="/score/red/" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="赤チーム入力" />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
           <ListSubheader inset>ふぇぇ…</ListSubheader>

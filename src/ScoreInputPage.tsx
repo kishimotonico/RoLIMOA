@@ -9,13 +9,15 @@ interface ScoreInputPageProps {
 }
 
 export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
+  const kanji = {blue: "青", red: "赤"}[fieldSide];
+
   return (
-    <Dashboard title="赤チーム得点入力">
+    <Dashboard title={`${kanji}チーム得点入力`}>
       <Grid container spacing={3}>
         {config.rule.task_objects.map(config => (
           <TaskObject {...config} fieldSide={fieldSide}/>
         ))}
-      </Grid>      
+      </Grid>
     </Dashboard>
   );
 }

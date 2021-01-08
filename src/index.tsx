@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { applyMiddleware, compose, createStore } from "redux";
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import { taskObjectsReducer, initialState } from './reducer';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
 
 import './index.css';
 
@@ -19,9 +20,11 @@ const store = createStore(
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -3,6 +3,8 @@ import { ScoreInputPage } from './ScoreInputPage';
 import { LyricalSocket } from './lyricalSocket';
 import { useDispatch } from 'react-redux';
 import { setValue } from "./actions";
+import { Route, Routes } from 'react-router';
+import { HomePage } from './HomePage';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -16,15 +18,15 @@ const App: FC = () => {
       console.log(operation);
       dispatch(setValue(operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
     });
-
-    return () => {
-      // console.log('useEffect-return');
-    };
   });
 
   return (
-    <ScoreInputPage fieldSide="red" />
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
+      <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
+    </Routes>
   );
 }
-
+  
 export default App;
