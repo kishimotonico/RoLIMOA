@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
-import { TaskObjectsState, TaskObjectsType } from './reducer';
+import { GlobalState, TaskObjectsType } from './reducer';
 import * as actions from "./actions";
 import { TaskObjectComponent } from "./TaskObjectComponent";
 
@@ -20,7 +20,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<TaskObjectsState, TaskObjectsType>((state) => state.taskObjects);
+  const taskObjects = useSelector<GlobalState, TaskObjectsType>((state) => state.taskObjects);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];
