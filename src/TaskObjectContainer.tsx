@@ -29,24 +29,26 @@ export const TaskObject: FC<TaskObjectProps> = ({
   }
 
   const decrement = useCallback(() => {
-    dispatch(actions.setValue(id, currentValue - 1));
-  }, [dispatch, currentValue, id]);
+    const nextValue = currentValue - 1;
+    dispatch(actions.setValue(id, nextValue));
 
-  const increment = useCallback(() => {
-    dispatch(actions.setValue(id, currentValue + 1));
-  }, [dispatch, currentValue, id]);
-
-  useEffect(() => {
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {
       taskObjectId: id,
-      afterValue: currentValue,
+      afterValue: nextValue,
     });
+  }, [dispatch, id, currentValue]);
 
-    return () => {
-      console.log('useEffect-return');
-    };
-  }, [id, currentValue]);
+  const increment = useCallback(() => {
+    const nextValue = currentValue + 1;
+    dispatch(actions.setValue(id, nextValue));
+
+    const socket = LyricalSocket.instance;
+    socket.socket.emit("update", {
+      taskObjectId: id,
+      afterValue: nextValue,
+    });
+  }, [dispatch, id, currentValue]);
 
   return (
     <TaskObjectComponent
