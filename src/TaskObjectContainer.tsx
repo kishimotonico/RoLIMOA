@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
 import { TaskObjectsState, TaskObjectsType } from './reducer';
@@ -30,7 +30,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const decrement = useCallback(() => {
     const nextValue = currentValue - 1;
-    dispatch(actions.setValue(id, nextValue));
+    dispatch(actions.setTaskObjectValue(id, nextValue));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {
@@ -41,7 +41,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const increment = useCallback(() => {
     const nextValue = currentValue + 1;
-    dispatch(actions.setValue(id, nextValue));
+    dispatch(actions.setTaskObjectValue(id, nextValue));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {

@@ -2,9 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { ScoreInputPage } from './ScoreInputPage';
 import { LyricalSocket } from './lyricalSocket';
 import { useDispatch } from 'react-redux';
-import { setValue } from "./actions";
+import { setTaskStateAll, setTaskObjectValue } from "./actions";
 import { Route, Routes } from 'react-router';
 import { HomePage } from './HomePage';
+import { TaskObjectsType } from './reducer';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -12,11 +13,15 @@ const App: FC = () => {
   // Websocketを用意
   useEffect(() => {
     const socket = LyricalSocket.instance;
-    socket.socket.emit("message", "hey");
+
+    socket.socket.on("welcome", (currentState: TaskObjectsType) => {
+      console.log("welcome", currentState);
+      dispatch(setTaskStateAll(currentState)); // サーバでのバリデーションを信じる
+    });
 
     socket.socket.on("update", (operation: {taskObjectId: string, afterValue: number}) => {
-      console.log(operation);
-      dispatch(setValue(operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
+      console.log("update", operation);
+      dispatch(setTaskObjectValue(operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
     });
   });
 

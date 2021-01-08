@@ -1,33 +1,36 @@
+import { TaskObjectsType } from "./reducer";
+
 export const TaskUpdateActionType = {
-  TASK_UPDATE: 'TASK_UPDATE',
-}
+  TASK_UPDATE: 'task/update',
+  TASK_SET_STATE: 'task/set_state',
+} as const;
 
-type ValueOf<T> = T[keyof T];
-
-export type TaskUpdateAction = {
-  type: ValueOf<typeof TaskUpdateActionType>;
-  taskObjectId: string;
-  operation: string;
-  afterValue: number;
+type TaskUpdateAction = {
+  type: 'task/update';
+  payload: {
+    taskObjectId: string;
+    operation: string;
+    afterValue: number;
+  };
 };
 
-export const increment = (taskObjectId: string, afterValue: number): TaskUpdateAction => ({
+type TaskSetStateAction = {
+  type: 'task/set_state';
+  payload: TaskObjectsType;
+};
+
+export type ActionType = TaskUpdateAction | TaskSetStateAction;
+
+export const setTaskObjectValue = (taskObjectId: string, afterValue: number): ActionType => ({
   type: TaskUpdateActionType.TASK_UPDATE,
-  taskObjectId,
-  operation: "increment",
-  afterValue,
+  payload: {
+    taskObjectId,
+    operation: "setValue",
+    afterValue,
+  },
 });
 
-export const decrement = (taskObjectId: string, afterValue: number): TaskUpdateAction => ({
-  type: TaskUpdateActionType.TASK_UPDATE,
-  taskObjectId,
-  operation: "decrement",
-  afterValue,
-});
-
-export const setValue = (taskObjectId: string, afterValue: number): TaskUpdateAction => ({
-  type: TaskUpdateActionType.TASK_UPDATE,
-  taskObjectId,
-  operation: "setValue",
-  afterValue,
+export const setTaskStateAll = (newState: TaskObjectsType): ActionType => ({
+  type: TaskUpdateActionType.TASK_SET_STATE,
+  payload: newState,
 });
