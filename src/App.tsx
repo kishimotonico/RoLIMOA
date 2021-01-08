@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTaskStateAll, setTaskObjectValue, setIsConnect } from "./actions";
 import { Route, Routes } from 'react-router';
 import { HomePage } from './HomePage';
-import { GlobalState, TaskObjectsType } from './reducer';
+import { FieldSideType, GlobalState, WholeTaskState } from './reducer';
 import { LoadingOverlay } from "./LoadingOverlay";
 
 const App: FC = () => {
@@ -16,7 +16,7 @@ const App: FC = () => {
   useEffect(() => {
     const socket = LyricalSocket.instance;
 
-    socket.socket.on("welcome", (currentState: TaskObjectsType) => {
+    socket.socket.on("welcome", (currentState: WholeTaskState) => {
       console.log("welcome", currentState);
       dispatch(setTaskStateAll(currentState));
       dispatch(setIsConnect(true));
@@ -26,9 +26,9 @@ const App: FC = () => {
       dispatch(setIsConnect(false));
     });
 
-    socket.socket.on("update", (operation: {taskObjectId: string, afterValue: number}) => {
+    socket.socket.on("update", (operation: {fieldSide: FieldSideType, taskObjectId: string, afterValue: number}) => {
       console.log("update", operation);
-      dispatch(setTaskObjectValue(operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
+      dispatch(setTaskObjectValue(operation.fieldSide, operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
     });
   });
 

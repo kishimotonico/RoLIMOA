@@ -1,4 +1,4 @@
-import { TaskObjectsType } from "./reducer";
+import { FieldSideType, WholeTaskState } from "./reducer";
 
 export const TaskUpdateActionType = {
   CONNECT_SET: 'connect/set',
@@ -16,15 +16,16 @@ type ConnectSetAction = {
 type TaskUpdateAction = {
   type: 'task/update';
   payload: {
+    fieldSide: FieldSideType;
     taskObjectId: string;
-    operation: string;
     afterValue: number;
+    operation: string;
   };
 };
 
 type TaskSetStateAction = {
   type: 'task/set_state';
-  payload: TaskObjectsType;
+  payload: WholeTaskState;
 };
 
 export type ActionType = ConnectSetAction | TaskUpdateAction | TaskSetStateAction;
@@ -36,16 +37,17 @@ export const setIsConnect = (isConnect: boolean): ActionType => ({
   },
 });
 
-export const setTaskObjectValue = (taskObjectId: string, afterValue: number): ActionType => ({
+export const setTaskObjectValue = (fieldSide: FieldSideType, taskObjectId: string, afterValue: number): ActionType => ({
   type: TaskUpdateActionType.TASK_UPDATE,
   payload: {
+    fieldSide,
     taskObjectId,
-    operation: "setValue",
     afterValue,
+    operation: "setValue",
   },
 });
 
-export const setTaskStateAll = (newState: TaskObjectsType): ActionType => ({
+export const setTaskStateAll = (newState: WholeTaskState): ActionType => ({
   type: TaskUpdateActionType.TASK_SET_STATE,
   payload: newState,
 });

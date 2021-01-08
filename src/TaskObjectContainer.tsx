@@ -20,7 +20,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<GlobalState, TaskObjectsType>((state) => state.taskObjects);
+  const taskObjects = useSelector<GlobalState, TaskObjectsType>((state) => state.taskObjects[fieldSide]);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];
@@ -30,25 +30,27 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const decrement = useCallback(() => {
     const nextValue = currentValue - 1;
-    dispatch(actions.setTaskObjectValue(id, nextValue));
+    dispatch(actions.setTaskObjectValue(fieldSide, id, nextValue));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {
+      fieldSide,
       taskObjectId: id,
       afterValue: nextValue,
     });
-  }, [dispatch, id, currentValue]);
+  }, [dispatch, fieldSide, id, currentValue]);
 
   const increment = useCallback(() => {
     const nextValue = currentValue + 1;
-    dispatch(actions.setTaskObjectValue(id, nextValue));
+    dispatch(actions.setTaskObjectValue(fieldSide, id, nextValue));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {
+      fieldSide,
       taskObjectId: id,
       afterValue: nextValue,
     });
-  }, [dispatch, id, currentValue]);
+  }, [dispatch, fieldSide, id, currentValue]);
 
   return (
     <TaskObjectComponent

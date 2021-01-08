@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Button, ButtonGroup, Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import { LoadingOverlay } from './LoadingOverlay';
 
 const useStyles = makeStyles((theme) => ({
   root: {
