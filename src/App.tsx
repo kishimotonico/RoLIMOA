@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router';
 import { HomePage } from './HomePage';
 import { FieldSideType, GlobalState, WholeTaskState } from './reducer';
 import { LoadingOverlay } from "./LoadingOverlay";
+import { AdminPage } from './AdminPage';
 
 const App: FC = () => {
   const isConnect = useSelector<GlobalState, boolean>((state) => state.isConnect);
@@ -38,6 +39,7 @@ const App: FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
         <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
     </>

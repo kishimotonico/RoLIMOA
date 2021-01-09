@@ -173,12 +173,14 @@ export const Dashboard: FC<DashboardProps> = ({
         </List>
         <Divider />
           <ListSubheader inset>ふぇぇ…</ListSubheader>
-          <ListItem button>
-            <ListItemIcon>
-              <BuildIcon />
-            </ListItemIcon>
-            <ListItemText primary="試合管理" />
-          </ListItem>
+          <Link to="/admin" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <BuildIcon />
+              </ListItemIcon>
+              <ListItemText primary="試合管理" />
+            </ListItem>
+          </Link>
           <ListItem button>
             <ListItemIcon>
               <CastIcon />
