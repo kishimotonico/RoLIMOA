@@ -35,12 +35,12 @@ interface ScoreBlockComponentProps {
 export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
   score,
   fieldSide,
-  focused = undefined,
+  focused = true,
   verticalPadding = '.6em',
 }) => {
   const classes = useStyles({
     fieldColor: fieldSide === "blue" ? "primary" : "secondary",
-    isFocused: focused ?? true,
+    isFocused: focused,
     mainOrLight: focused ? "main" : "light",
     verticalPadding,
   });
