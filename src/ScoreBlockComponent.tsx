@@ -5,6 +5,7 @@ type StyleProps = {
   fieldColor: "primary"|"secondary",
   isFocused: boolean,
   mainOrLight: "main"|"light",
+  verticalPadding: string,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -12,34 +13,36 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     textAlign: 'center',
     border: (props: StyleProps) => `1px solid ${theme.palette[props.fieldColor][props.mainOrLight]}`,
-    marginBottom: '1em',
   },
   scoreBlockHeader: {
     backgroundColor: (props: StyleProps) => theme.palette[props.fieldColor][props.mainOrLight],
     color: theme.palette.background.default,
+    lineHeight: 2,
   },
   scoreBlockContent: {
-    padding: '.3em 0',
+    padding: (props: StyleProps) => `${props.verticalPadding} 0`,
     color: (props: StyleProps) => props.isFocused ? theme.palette.text.primary : theme.palette.text.secondary,
   },
-
 }));
 
-interface ScoreBlockProps {
+interface ScoreBlockComponentProps {
   score: number;
   fieldSide: "blue"|"red";
-  focused?: boolean,
+  focused?: boolean;
+  verticalPadding?: string;
 }
 
-export const ScoreBlock: FC<ScoreBlockProps> = ({
+export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
   score,
   fieldSide,
   focused = undefined,
+  verticalPadding = '.6em',
 }) => {
   const classes = useStyles({
     fieldColor: fieldSide === "blue" ? "primary" : "secondary",
     isFocused: focused ?? true,
     mainOrLight: focused ? "main" : "light",
+    verticalPadding,
   });
 
   return (

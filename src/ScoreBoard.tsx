@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { makeStyles, Paper } from '@material-ui/core';
-import { ScoreBlock } from './ScoreDisplayBlock';
+import { Grid, makeStyles, Paper } from '@material-ui/core';
+import { ScoreBlockContainer } from './ScoreBlockContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,15 +8,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface ScoreBoardComponentProps {
-  blueScore: number;
-  redScore: number;
+interface ScoreBoardProps {
   focusedFieldSide?: "blue"|"red"|undefined;
 }
 
-export const ScoreBoardComponent: FC<ScoreBoardComponentProps> = ({
-  blueScore,
-  redScore,
+export const ScoreBoard: FC<ScoreBoardProps> = ({
   focusedFieldSide = undefined,
 }) => {
   const classes = useStyles();
@@ -27,8 +23,14 @@ export const ScoreBoardComponent: FC<ScoreBoardComponentProps> = ({
 
   return (
     <Paper className={classes.root}>
-      <ScoreBlock score={blueScore} fieldSide="blue" focused={blueFocused} />
-      <ScoreBlock score={redScore} fieldSide="red" focused={redFocused} />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <ScoreBlockContainer fieldSide="blue" focused={blueFocused} />
+        </Grid>
+        <Grid item xs={12}>
+          <ScoreBlockContainer fieldSide="red" focused={redFocused} />
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

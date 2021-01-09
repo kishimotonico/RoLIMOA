@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Grid } from '@material-ui/core';
 import { Dashboard } from './Dashboard';
 import { TaskObject } from './TaskObjectContainer';
-import { ScoreBoardContainer } from './ScoreBoardContainer';
+import { ScoreBoard } from './ScoreBoard';
 import config from './config.json';
 
 interface ScoreInputPageProps {
@@ -24,7 +24,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
           </Grid>
         </Grid>
         <Grid item xs={12} lg={4}>
-          <ScoreBoardContainer focusedFieldSide={fieldSide}/>
+          <ScoreBoard focusedFieldSide={fieldSide}/>
         </Grid>
       </Grid>
     </Dashboard>
