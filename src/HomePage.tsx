@@ -3,6 +3,7 @@ import { Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/co
 import CachedIcon from '@material-ui/icons/Cached';
 import { Dashboard } from './Dashboard';
 import { ScoreBlockContainer } from './ScoreBlockContainer';
+import { TimerDisplayContainer } from './TimerDisplayContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,18 +40,7 @@ export const HomePage: FC = () => {
                 </Grid>
               </Grid>
               {/* タイム */}
-              <Grid item container justify="center" spacing={1}>
-                <Grid item xs={12}>
-                  <Typography component="p" variant="h4" align="center" color="textSecondary">
-                    セッティングタイム
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography component="p" variant="h1" align="center">
-                    READY
-                  </Typography>
-                </Grid>
-              </Grid>
+              <TimerDisplayContainer descriptionVariant="h4" displayTimeVariant="h1" />
             </Grid>
           </Paper>
         </Grid>

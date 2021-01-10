@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Paper, Typography, Grid, Button, makeStyles, ButtonGroup } from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
+import { TimerDisplayContainer } from './TimerDisplayContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,14 +13,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface TimerMasterComponentProps {
-  displayTime: string;
-  description: string;
   onNextPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
-  displayTime,
-  description,
   onNextPhase,
 }) => {
   const classes = useStyles();
@@ -29,12 +26,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         時刻マスタ
       </Typography>
-      <Typography component="h2" variant="h6" align="center" color="textSecondary" className={classes.displayDescription}>
-        {description}
-      </Typography>
-      <Typography component="h2" variant="h2" align="center">
-        {displayTime}
-      </Typography>
+      <TimerDisplayContainer descriptionVariant="h6" displayTimeVariant="h2" />
       <Grid container spacing={1}>
       <Grid item xs={8}>
       </Grid>
