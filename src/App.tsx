@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTaskStateAll, setTaskObjectValue, setIsConnect, setPhaseState } from "./actions";
 import { Route, Routes } from 'react-router';
 import { HomePage } from './HomePage';
-import { FieldSideType, GlobalState, PhaseState, PhaseType, WholeTaskState } from './reducer';
+import { FieldSideType, GlobalState, PhaseState, WholeTaskState } from './reducer';
 import { LoadingOverlay } from "./LoadingOverlay";
 import { AdminPage } from './AdminPage';
 
@@ -33,7 +33,7 @@ const App: FC = () => {
       dispatch(setTaskObjectValue(operation.fieldSide, operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
     });
 
-    socket.socket.on("phase_update", (operation: {id: string, description : string, type: PhaseType, elapsedTime?: number}) => {
+    socket.socket.on("phase_update", (operation: PhaseState) => {
       console.log("phase_update", operation);
       dispatch(setPhaseState(operation));
     });

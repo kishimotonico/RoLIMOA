@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Paper, Typography, Grid, Button, makeStyles, ButtonGroup } from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 import { TimerDisplayContainer } from './TimerDisplayContainer';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,10 +14,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface TimerMasterComponentProps {
+  isLastPhase: boolean,
   onNextPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
+  isLastPhase,
   onNextPhase,
 }) => {
   const classes = useStyles();
@@ -32,11 +35,20 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
       </Grid>
       <Grid item xs={5}>
         <ButtonGroup >
-          <Button variant="contained" color="default" onClick={onNextPhase}>
+          <Button
+            variant="contained"
+            color="default"
+          >
             <ReplayIcon />
           </Button>
-          <Button variant="contained" color="primary" onClick={onNextPhase}>
-            次のフェーズへ
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onNextPhase}
+            disabled={isLastPhase}
+            // endIcon={}
+          >
+            次のフェーズへ <SkipNextIcon />
           </Button>
         </ButtonGroup>
       </Grid>

@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { LyricalSocket } from './lyricalSocket';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { GlobalState, PhaseState } from './reducer';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
+import * as Phase from "./util/PhaseStateUtil";
 
 function displayTime(time: number|undefined): string {
   if (time === undefined) {
@@ -18,27 +18,38 @@ function displayTime(time: number|undefined): string {
 
 export const TimerDisplayContainer: FC<TimerDisplayStyleProps> = (props) => {
   const [second, setSecond] = useState(0);
-  const [timer, setTimer] = useState<NodeJS.Timeout|null>(null);
-  const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
-  // const [beforeTime, setBeforeTime] = useState(0);
-  // const dispatch = useDispatch();
+  const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
+  const phaseState = useSelector<GlobalState, PhaseState|undefined>((state) => state.phaseState);
 
-  // Websocketを用意
   useEffect(() => {
+    // マウント時に、タイマをセットアップ
+    if (phaseState === undefined) {
+      return () => {};  // フェーズ状態の読み込み中なので何もしない
+    }
     function timerUpdate(): void {
       setSecond(sec => sec + 1);
-      setTimer(setTimeout(timerUpdate, 1000));  // 時刻の微調整のため再帰的なsetTimeoutに
+      timeoutHandler.current = setTimeout(timerUpdate, 1000); // 時刻の微調整のため再帰的なsetTimeoutに
     }
-    
-    setTimer(setTimeout(timerUpdate, 1000));
+    const now = Date.now();
+    const elapsedSec = Math.floor((now - phaseState.startTime) / 1000);
+    const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
+    setSecond(elapsedSec);
+    timeoutHandler.current = setTimeout(() => { timerUpdate(); }, nextTickTime - now);
 
+    // アンマウント時にタイマを停止
     return () => {
-      console.log("clear timer");
-      if (timer !== null) {
-        clearTimeout(timer);
+      if (timeoutHandler.current !== undefined) {
+        console.log("clear timer");
+        clearTimeout(timeoutHandler.current);
       }
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [phaseState]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <TimerDisplayComponent displayTime={displayTime(second)} description={phaseState.description} {...props}/>;
+  return (
+    <TimerDisplayComponent
+      displayTime={displayTime(second)}
+      description={ phaseState === undefined ? "" : Phase.getConfig(phaseState.id).description }
+      {...props}
+    />
+  );
 }

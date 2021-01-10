@@ -8,13 +8,12 @@ export type TaskObjectsType = { [objectId: string]: number; };
 export type WholeTaskState = { blue: TaskObjectsType, red: TaskObjectsType };
 
 export type PhaseType = "ready" | "countup" | "countdown";
-export type PhaseState = { id: string, type: PhaseType, description: string, elapsedTime?: number };
-export type PhaseTick = { elapsedTime: number };
+export type PhaseState = { id: string, startTime: number };
 
 export type GlobalState = {
   isConnect: boolean;
   taskObjects: WholeTaskState;
-  phaseState: PhaseState,
+  phaseState?: PhaseState,
 };
 
 export const initialState: GlobalState = {
@@ -23,11 +22,7 @@ export const initialState: GlobalState = {
     blue: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
     red: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
   },
-  phaseState: {
-    id: "initialized",
-    description: "initialized",
-    type: "ready",
-  },
+  phaseState: undefined,
 };
 
 export const taskObjectsReducer: Reducer<GlobalState, ActionType> = (
@@ -57,11 +52,6 @@ export const taskObjectsReducer: Reducer<GlobalState, ActionType> = (
       case (TaskUpdateActionType.PHASE_SET_STATE):
         return produce(state, (draftState) => {
           draftState.phaseState = action.payload;
-        });
-        
-      case (TaskUpdateActionType.PHASE_TICK):
-        return produce(state, (draftState) => {
-          draftState.phaseState.elapsedTime = action.payload.elapsedTime;
         });
 
     default:
