@@ -1,7 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { Alert, AlertProps } from "@material-ui/lab";
 import { Dashboard } from './Dashboard';
+import { TimerMasterContainer } from './TimerMasterContainer';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);
@@ -36,26 +37,7 @@ export const AdminPage: FC = () => {
         </ClosableAlert>
 
         <Grid item xs={12} lg={6}>
-          <Paper className={classes.root}>
-            <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              時刻マスタ
-            </Typography>
-            <Typography component="h2" variant="h6" align="center">
-              セッティングタイム
-            </Typography>
-            <Typography component="h2" variant="h3" align="center">
-              READY
-            </Typography>
-            <Grid container spacing={1}>
-              <Grid item xs={8}>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" color="primary">
-                  次のフェーズへ移行
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
+          <TimerMasterContainer />
         </Grid>
       </Grid>
     </Dashboard>

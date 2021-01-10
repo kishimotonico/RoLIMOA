@@ -2,10 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { ScoreInputPage } from './ScoreInputPage';
 import { LyricalSocket } from './lyricalSocket';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTaskStateAll, setTaskObjectValue, setIsConnect } from "./actions";
+import { setTaskStateAll, setTaskObjectValue, setIsConnect, setPhaseState } from "./actions";
 import { Route, Routes } from 'react-router';
 import { HomePage } from './HomePage';
-import { FieldSideType, GlobalState, WholeTaskState } from './reducer';
+import { FieldSideType, GlobalState, PhaseState, PhaseType, WholeTaskState } from './reducer';
 import { LoadingOverlay } from "./LoadingOverlay";
 import { AdminPage } from './AdminPage';
 
@@ -17,9 +17,10 @@ const App: FC = () => {
   useEffect(() => {
     const socket = LyricalSocket.instance;
 
-    socket.socket.on("welcome", (currentState: WholeTaskState) => {
-      console.log("welcome", currentState);
-      dispatch(setTaskStateAll(currentState));
+    socket.socket.on("welcome", (data: { taskStatus: WholeTaskState, phaseState: PhaseState} ) => {
+      console.log("welcome", data);
+      dispatch(setTaskStateAll(data.taskStatus));
+      dispatch(setPhaseState(data.phaseState));
       dispatch(setIsConnect(true));
     });
 
@@ -31,7 +32,12 @@ const App: FC = () => {
       console.log("update", operation);
       dispatch(setTaskObjectValue(operation.fieldSide, operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
     });
-  });
+
+    socket.socket.on("phase_update", (operation: {id: string, description : string, type: PhaseType, elapsedTime?: number}) => {
+      console.log("phase_update", operation);
+      dispatch(setPhaseState(operation));
+    });
+  }, [dispatch]);
 
   return (
     <>
