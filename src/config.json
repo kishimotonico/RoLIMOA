@@ -54,19 +54,19 @@
     {
       "id": "match_ready",
       "type": "ready",
-      "description": "READY"
+      "description": "開始前"
     },
     {
       "id": "match_countdown",
       "type": "countdown",
       "time": 5,
-      "description": "READY"
+      "description": ""
     },
     {
       "id": "match",
       "type": "countup",
-      "time": 60,
-      "description": "試合"
+      "time": 180,
+      "description": "試合中"
     },
     {
       "id": "match_finish",

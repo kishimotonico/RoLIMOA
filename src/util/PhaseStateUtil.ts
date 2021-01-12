@@ -1,7 +1,7 @@
 import config from "../config.json";
 
 // config.jsonでのフェーズ型
-type TimeProgressConfig = {
+export type TimeProgressConfig = {
   id: string,
   type: string, // "ready"|"countup"|"countdown"
   description: string,
