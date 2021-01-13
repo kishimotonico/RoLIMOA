@@ -5,11 +5,7 @@ import { LyricalSocket } from './lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from "./util/PhaseStateUtil";
 
-function gotoPhaseCommand(currentPhase: PhaseState|undefined, type: "first"|"prev"|"next"|"last") {
-  if (currentPhase === undefined) {
-    return;
-  }
-
+function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|"last") {
   let id = currentPhase.id;
   if (type === "first")
   id = Phase.getFirstPhase();
@@ -25,11 +21,7 @@ function gotoPhaseCommand(currentPhase: PhaseState|undefined, type: "first"|"pre
 }
 
 // フェーズの自動遷移を行うかを判断
-function isAutoTransition(currentPhase: PhaseState|undefined, elapsedSecond: number): boolean {
-  if (currentPhase === undefined) {
-    return false;
-  }
-
+function isAutoTransition(currentPhase: PhaseState, elapsedSecond: number): boolean {
   const config = Phase.getConfig(currentPhase.id);
   if (config.type === "ready") {
     return false;
@@ -41,7 +33,7 @@ function isAutoTransition(currentPhase: PhaseState|undefined, elapsedSecond: num
 }
 
 export const TimerMasterContainer: FC = () => {
-  const phaseState = useSelector<GlobalState, PhaseState|undefined>((state) => state.phaseState);
+  const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
   const onFirstPhase = useCallback(() => {
     gotoPhaseCommand(phaseState, "first")
   }, [phaseState]);
@@ -62,10 +54,6 @@ export const TimerMasterContainer: FC = () => {
     }
   }, [phaseState]);
 
-  if (phaseState === undefined) {
-    return <></>;
-  }
-
   return (
     <TimerMasterComponent
       onTick={onTick}
@@ -76,7 +64,7 @@ export const TimerMasterContainer: FC = () => {
       onNextPhase={onNextPhase}
       onLastPhase={onLastPhase}
       isEnabledNextButton={true} // 今は次へボタンを有効にしておく
-      phaseConfig={Phase.getConfig(phaseState.id)}
+      phaseConfig={Phase.getRawConfig(phaseState.id)}
     />
   );
 }

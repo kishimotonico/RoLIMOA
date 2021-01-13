@@ -9,15 +9,42 @@ export type TimeProgressConfig = {
   isAutoTransition?: boolean,
 };
 
-export function getIndex(phaseId: string): number {
+const defaultConfig = {
+  id: "default",
+  type: "ready",
+  description: "",
+  time: Number.MAX_SAFE_INTEGER,
+  isAutoTransition: false,
+}
+
+export function getIndex(phaseId?: string): number {
+  if (phaseId === undefined || phaseId === "default") {
+    return 0;
+  }
   return config.time_progress.findIndex(phase => phase.id === phaseId);
 }
 
-export function getConfig(phaseId: string): TimeProgressConfig {
-  return config.time_progress[getIndex(phaseId)]; // phaseIdが正しいことを信じる
+export function getConfig(phaseId?: string): Required<TimeProgressConfig> {
+  if (phaseId === undefined || phaseId === "default") {
+    return defaultConfig;
+  }
+  return {
+    ...defaultConfig,
+    ...config.time_progress[getIndex(phaseId)],
+  };
+}
+
+export function getRawConfig(phaseId: string): TimeProgressConfig {
+  if (phaseId === "default") {
+    return defaultConfig;
+  }
+  return config.time_progress[getIndex(phaseId)];
 }
 
 export function isLast(phaseId: string): boolean {
+  if (phaseId === "default") {
+    return true;
+  }
   return getIndex(phaseId) + 1 === config.time_progress.length;
 }
 
@@ -30,14 +57,14 @@ export function getLastPhase(): string {
 }
 
 export function getPrevPhase(phaseId: string): string {
-  if (getIndex(phaseId) === 0) {
+  if (phaseId === "default" || getIndex(phaseId) === 0) {
     return phaseId;
   }
   return config.time_progress[getIndex(phaseId) - 1].id;
 }
 
 export function getNextPhase(phaseId: string): string {
-  if (isLast(phaseId)) {
+  if (phaseId === "default" || isLast(phaseId)) {
     return phaseId;
   }
   return config.time_progress[getIndex(phaseId) + 1].id;

@@ -13,7 +13,7 @@ export type PhaseState = { id: string, startTime: number };
 export type GlobalState = {
   isConnect: boolean;
   taskObjects: WholeTaskState;
-  phaseState?: PhaseState,
+  phaseState: PhaseState,
 };
 
 export const initialState: GlobalState = {
@@ -22,7 +22,10 @@ export const initialState: GlobalState = {
     blue: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
     red: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
   },
-  phaseState: undefined,
+  phaseState: {
+    id: "default",
+    startTime: Date.now(),
+  },
 };
 
 export const taskObjectsReducer: Reducer<GlobalState, ActionType> = (
