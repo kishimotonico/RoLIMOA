@@ -17,7 +17,7 @@
       },
       {
         "id": "violation",
-        "description": "違反スリッパ"
+        "description": "-10点スリッパ"
       }
     ],
     "score": [
@@ -60,7 +60,8 @@
       "id": "match_countdown",
       "type": "countdown",
       "time": 5,
-      "description": ""
+      "description": "",
+      "isAutoTransition": true
     },
     {
       "id": "match",

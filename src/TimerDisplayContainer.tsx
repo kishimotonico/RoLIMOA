@@ -25,7 +25,14 @@ function calcElapsedSecond(startTime: number, nowTime?: number): number {
   return Math.floor((now - startTime) / 1000);
 }
 
-export const TimerDisplayContainer: FC<TimerDisplayStyleProps> = (props) => {
+type TimerDisplayContainerProps = {
+  onTick?: (elapsedSecond: number) => void,
+} & TimerDisplayStyleProps;
+
+export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
+  onTick = (_) => {},
+  ...rest
+}) => {
   const [second, setSecond] = useState(0);
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<GlobalState, PhaseState|undefined>((state) => state.phaseState);
@@ -47,10 +54,10 @@ export const TimerDisplayContainer: FC<TimerDisplayStyleProps> = (props) => {
       }
       const elapsedSec = calcElapsedSecond(phaseState.startTime);
       const limitSec = config.time ?? Number.MAX_SAFE_INTEGER;
+      onTick(elapsedSec);
       if (limitSec < elapsedSec) {
         return; // 時間が経過したので次回タイマ停止
       }
-
       setSecond(sec => sec + 1);
       timeoutHandler.current = setTimeout(timerUpdate, 1000); // 時刻の微調整のため再帰的なsetTimeoutに
     }
@@ -63,7 +70,7 @@ export const TimerDisplayContainer: FC<TimerDisplayStyleProps> = (props) => {
     // アンマウント時にタイマを停止
     return () => {
       if (timeoutHandler.current !== undefined) {
-        console.log("clear timer");
+        console.log("clear timer", Date.now());
         clearTimeout(timeoutHandler.current);
       }
     };
@@ -80,7 +87,7 @@ export const TimerDisplayContainer: FC<TimerDisplayStyleProps> = (props) => {
     <TimerDisplayComponent
       displayTime={displayTime(second, config)}
       description={config.description}
-      {...props}
+      {...rest}
     />
   );
 }

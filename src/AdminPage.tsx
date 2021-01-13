@@ -36,7 +36,7 @@ export const AdminPage: FC = () => {
           このページで時刻の同期や試合の進行などを管理するので、管理者以外はこのページを開かないでください
         </ClosableAlert>
 
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={7}>
           <TimerMasterContainer />
         </Grid>
       </Grid>
