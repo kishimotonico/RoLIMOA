@@ -54,18 +54,17 @@ export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
       }
       const elapsedSec = calcElapsedSecond(phaseState.startTime);
       const limitSec = config.time ?? Number.MAX_SAFE_INTEGER;
+      const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
+
+      setSecond(_ => elapsedSec);
       onTick(elapsedSec);
+  
       if (limitSec < elapsedSec) {
-        return; // 時間が経過したので次回タイマ停止
+        return; // 時間が経過したのでタイマ停止
       }
-      setSecond(sec => sec + 1);
-      timeoutHandler.current = setTimeout(timerUpdate, 1000); // 時刻の微調整のため再帰的なsetTimeoutに
+      timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
     }
-    const now = Date.now();
-    const elapsedSec = calcElapsedSecond(phaseState.startTime, now);
-    const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
-    setSecond(elapsedSec);
-    timeoutHandler.current = setTimeout(() => { timerUpdate(); }, nextTickTime - now);
+    timerUpdate();
 
     // アンマウント時にタイマを停止
     return () => {
