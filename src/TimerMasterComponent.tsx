@@ -81,7 +81,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
               onTick={onTick}
             />
           </Grid>
-          <Grid item xs={12} justify="center" className={classes.controlButtons}>
+          <Grid item xs={12} className={classes.controlButtons}>
             <ButtonGroup size="small" className={classes.controlButtonsGroup}>
               {/* 未実装 */}
               <Tooltip title="最初のフェーズに">

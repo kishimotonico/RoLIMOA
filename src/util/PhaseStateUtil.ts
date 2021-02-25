@@ -53,7 +53,7 @@ export function getFirstPhase(): string {
 }
 
 export function getLastPhase(): string {
-  return config.time_progress[-1].id;
+  return config.time_progress[config.time_progress.length - 1].id;
 }
 
 export function getPrevPhase(phaseId: string): string {
