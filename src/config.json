@@ -47,9 +47,13 @@
     },
     {
       "id": "setting",
-      "type": "countup",
+      "type": "count",
       "time": 60,
-      "description": "セッティングタイム"
+      "description": "セッティングタイム",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
     },
     {
       "id": "match_ready",
@@ -58,16 +62,24 @@
     },
     {
       "id": "match_countdown",
-      "type": "countdown",
+      "type": "count",
       "time": 5,
       "description": "",
-      "isAutoTransition": true
+      "isAutoTransition": true,
+      "style": {
+        "timerFormat": "s",
+        "timerType": "countdown"
+      }
     },
     {
       "id": "match",
-      "type": "countup",
+      "type": "count",
       "time": 180,
-      "description": "試合中"
+      "description": "試合中",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
     },
     {
       "id": "match_finish",

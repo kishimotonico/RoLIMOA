@@ -8,16 +8,24 @@ function displayTime(elapsedSec: number, config: Required<Phase.TimeProgressConf
   if (config.type === "ready") {
     return "READY";
   }
-  let displaySec = elapsedSec;
-  if (config.type === "countdown") {
+
+  let displaySec = Math.min(elapsedSec, config.time); // 最大時間を超過しないで表示
+  if (config.style.timerType === "countdown") {       // カウントダウンする
     displaySec = config.time - elapsedSec;
   }
-  if (config.time < elapsedSec) {
-    displaySec = config.time;
-  }
+
   const m = Math.floor(displaySec / 60);
   const s = displaySec % 60;
-  return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  if (config.style.timerFormat === "mm:ss") {
+    return `${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+  }
+  if (config.style.timerFormat === "m:ss") {
+    return `${m.toString().padStart(1, '0')} : ${s.toString().padStart(2, '0')}`;
+  }
+  if (config.style.timerFormat === "s") {
+    return displaySec.toString();
+  }
+  return "-";
 }
 
 function calcElapsedSecond(startTime: number, nowTime?: number): number {

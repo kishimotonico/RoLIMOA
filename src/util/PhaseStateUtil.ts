@@ -1,12 +1,18 @@
 import config from "../config.json";
 
 // config.jsonでのフェーズ型
+export type TimerStyleConfig = {
+  timerFormat?: string,
+  timerType?: string,
+};
+
 export type TimeProgressConfig = {
   id: string,
-  type: string, // "ready"|"countup"|"countdown"
+  type: string, // "ready"|"count"
   description: string,
   time?: number,
   isAutoTransition?: boolean,
+  style?: TimerStyleConfig,
 };
 
 const defaultConfig = {
@@ -15,6 +21,10 @@ const defaultConfig = {
   description: "",
   time: Number.MAX_SAFE_INTEGER,
   isAutoTransition: false,
+  style: {
+    timerFormat: "s",
+    timerType: "countup",
+  },
 }
 
 export function getIndex(phaseId?: string): number {

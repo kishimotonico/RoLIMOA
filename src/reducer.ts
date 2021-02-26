@@ -7,7 +7,7 @@ export type FieldSideType = "blue" | "red";
 export type TaskObjectsType = { [objectId: string]: number; };
 export type WholeTaskState = { blue: TaskObjectsType, red: TaskObjectsType };
 
-export type PhaseType = "ready" | "countup" | "countdown";
+export type PhaseType = "ready" | "count";
 export type PhaseState = { id: string, startTime: number };
 
 export type GlobalState = {
