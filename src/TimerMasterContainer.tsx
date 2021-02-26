@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GlobalState, PhaseState } from './reducer';
 import { LyricalSocket } from './lyricalSocket';
@@ -32,8 +32,24 @@ function isAutoTransition(currentPhase: PhaseState, elapsedSecond: number): bool
   return config.isAutoTransition && config.time <= elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
 }
 
+// フェーズの手動遷移ボタンの有効/無効
+function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): boolean {
+  const config = Phase.getConfig(currentPhase.id);
+  if (Phase.isLast(currentPhase.id)) {
+    return false;
+  }
+  if (config.type === "ready") {
+    return true;
+  }
+  if (config.isAutoTransition || config.time > elapsedSecond) {
+    return false;
+  }
+  return true;
+}
+
 export const TimerMasterContainer: FC = () => {
   const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
+  const [isEnabledNextButton, setIsEnabledNextButton] = useState(false);
   const onFirstPhase = useCallback(() => {
     gotoPhaseCommand(phaseState, "first")
   }, [phaseState]);
@@ -47,11 +63,13 @@ export const TimerMasterContainer: FC = () => {
     gotoPhaseCommand(phaseState, "last")
   }, [phaseState]);
 
-  // タイマーの更新時にフェーズ移行を確認
   const onTick = useCallback((elapsedSecond: number) => {
+    // タイマーの更新時にフェーズ移行を確認
     if (isAutoTransition(phaseState, elapsedSecond)) {
       gotoPhaseCommand(phaseState, "next");
     }
+    // 次フェーズボタンの有効/無効を設定
+    setIsEnabledNextButton(isManualTransition(phaseState, elapsedSecond));
   }, [phaseState]);
 
   return (
@@ -63,7 +81,7 @@ export const TimerMasterContainer: FC = () => {
       onPrevPhase={onPrevPhase}
       onNextPhase={onNextPhase}
       onLastPhase={onLastPhase}
-      isEnabledNextButton={true} // 今は次へボタンを有効にしておく
+      isEnabledNextButton={isEnabledNextButton}
       phaseConfig={Phase.getRawConfig(phaseState.id)}
     />
   );
