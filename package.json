@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.15",
     "@types/socket.io-client": "^1.4.34",
+    "dseg": "^0.46.0",
     "history": "^5.0.0",
     "immer": "^8.0.0",
     "react": "^17.0.1",

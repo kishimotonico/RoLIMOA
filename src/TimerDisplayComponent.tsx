@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
 import { Typography, Grid, makeStyles } from '@material-ui/core';
+import "dseg/css/dseg.css";
 
 const useStyles = makeStyles((theme) => ({
   displayDescription: {
     minHeight: (prop: TimerDisplayStyleProps) => `${theme.typography[prop.descriptionVariant].lineHeight}em`,
+  },
+  displayTime: {
+    fontFamily: "DSEG14-Classic",
+    fontWeight: 500,
   },
 }));
 
@@ -33,7 +38,7 @@ export const TimerDisplayComponent: FC<TimerDisplayComponentProps> = ({
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography component="p" variant={displayTimeVariant} align="center">
+        <Typography component="p" variant={displayTimeVariant} align="center" className={classes.displayTime}>
           {displayTime}
         </Typography>
       </Grid>
