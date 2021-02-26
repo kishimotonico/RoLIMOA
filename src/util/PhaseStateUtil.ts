@@ -6,6 +6,12 @@ export type TimerStyleConfig = {
   timerType?: string,
 };
 
+export type TimerCustomConfig = {
+  elapsedTime: number,
+  displayText?: string,
+  sound?: string,
+};
+
 export type TimeProgressConfig = {
   id: string,
   type: string, // "ready"|"count"
@@ -13,6 +19,7 @@ export type TimeProgressConfig = {
   time?: number,
   isAutoTransition?: boolean,
   style?: TimerStyleConfig,
+  custom?: TimerCustomConfig[],
 };
 
 const defaultConfig = {
@@ -25,6 +32,7 @@ const defaultConfig = {
     timerFormat: "s",
     timerType: "countup",
   },
+  custom: [],
 }
 
 export function getIndex(phaseId?: string): number {

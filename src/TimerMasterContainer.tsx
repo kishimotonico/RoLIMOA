@@ -49,7 +49,7 @@ function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): bo
 
 export const TimerMasterContainer: FC = () => {
   const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
-  const [isEnabledNextButton, setIsEnabledNextButton] = useState(false);
+  const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);
   const onFirstPhase = useCallback(() => {
     gotoPhaseCommand(phaseState, "first")
   }, [phaseState]);

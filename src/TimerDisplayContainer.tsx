@@ -4,9 +4,15 @@ import { GlobalState, PhaseState } from './reducer';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
 import * as Phase from "./util/PhaseStateUtil";
 
+// 表示する時間の文字列を生成
 function displayTime(elapsedSec: number, config: Required<Phase.TimeProgressConfig>): string {
   if (config.type === "ready") {
-    return "READY";
+    return config.custom[0]?.displayText ?? "READY";
+  }
+
+  const custom = config.custom.find(elem => elem.elapsedTime === elapsedSec);
+  if (custom?.displayText) {
+    return custom.displayText;
   }
 
   let displaySec = Math.min(elapsedSec, config.time); // 最大時間を超過しないで表示
@@ -48,18 +54,18 @@ export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
   useEffect(() => {
     // マウント時に、タイマをセットアップ
     function timerUpdate(): void {
-      const config = Phase.getConfig(phaseState.id);
-      if (config.type === "ready") {
-        return; // READYタイプはカウントアップしない
-      }
       const elapsedSec = calcElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
 
       setSecond(_ => elapsedSec);
       onTick(elapsedSec);
-  
+
+      const config = Phase.getConfig(phaseState.id);
       if (config.time < elapsedSec) {
         return; // 時間が経過したのでタイマ停止
+      }
+      if (config.type === "ready") {
+        return; // READYタイプはカウントアップしない
       }
       timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
     }
