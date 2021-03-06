@@ -1,7 +1,7 @@
 import express from "express";
 import http from "http";
-import { Socket } from "socket.io";
-import { TaskStateController, UpdateOperation, WholeTaskStateController } from './model';
+import { Socket, Server } from "socket.io";
+import { UpdateOperation, WholeTaskStateController } from './model';
 import { PhaseManager, configHelper } from "./timer";
 import config from './config.json';
 
@@ -12,7 +12,11 @@ const io = require('socket.io')(server, {
         origin: "http://localhost:3000",
         methods: ["GET", "POST"],
     }
-});
+}) as Server;
+
+// クライアントのホスティング
+app.use(express.static('../client/build'));
+
 
 const taskStatus = WholeTaskStateController.initializeByConfig(config.rule.task_objects);
 const phaseState = PhaseManager.initializedByConfig(configHelper(config.time_progress));
@@ -30,18 +34,13 @@ io.on('connection', (socket: Socket) => {
         console.log(`disconnect: ${socket.id} (${reason})`);
     });
 
-    // for debug
-    socket.on('message', (data) => {
-        console.log('on message', data);
-    });
-
     // 得点の更新リクエスト
     socket.on('update', (data: UpdateOperation) => {
         console.log(`on update (${socket.id})`, data);
         taskStatus.applyOperation(data);
 
-        socket.broadcast.emit('update', data);
-        io.to(socket.id).emit('accept', data); // 死活監視のackとは別
+        socket.broadcast.emit('update', data);  // 送信元以外に送信
+        io.to(socket.id).emit('accept', data);  // 送信元だけに返信
     });
 
     // フェーズ状況の更新セット
