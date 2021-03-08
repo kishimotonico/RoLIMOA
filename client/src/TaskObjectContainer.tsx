@@ -1,8 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
-import { GlobalState, TaskObjectsType } from './reducer';
-import * as actions from "./actions";
+import { RootState, TaskObjectsType, taskStateSlice } from './store';
 import { TaskObjectComponent } from "./TaskObjectComponent";
 
 interface TaskObjectProps {
@@ -20,7 +19,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<GlobalState, TaskObjectsType>((state) => state.taskObjects[fieldSide]);
+  const taskObjects = useSelector<RootState, TaskObjectsType>((state) => state.task[fieldSide]);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];
@@ -30,7 +29,11 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const decrement = useCallback(() => {
     const nextValue = currentValue - 1;
-    dispatch(actions.setTaskObjectValue(fieldSide, id, nextValue));
+    dispatch(taskStateSlice.actions.setTaskUpdate({
+      fieldSide,
+      taskObjectId: id,
+      afterValue: nextValue,
+    }));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {
@@ -42,7 +45,11 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const increment = useCallback(() => {
     const nextValue = currentValue + 1;
-    dispatch(actions.setTaskObjectValue(fieldSide, id, nextValue));
+    dispatch(taskStateSlice.actions.setTaskUpdate({
+      fieldSide,
+      taskObjectId: id,
+      afterValue: nextValue,
+    }));
 
     const socket = LyricalSocket.instance;
     socket.socket.emit("update", {

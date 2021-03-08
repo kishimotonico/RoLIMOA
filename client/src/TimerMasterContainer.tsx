@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { GlobalState, PhaseState } from './reducer';
+import { RootState, PhaseState } from './store';
 import { LyricalSocket } from './lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from "./util/PhaseStateUtil";
@@ -48,7 +48,7 @@ function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): bo
 }
 
 export const TimerMasterContainer: FC = () => {
-  const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
+  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);
   const onFirstPhase = useCallback(() => {
     gotoPhaseCommand(phaseState, "first")

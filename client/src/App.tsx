@@ -2,40 +2,39 @@ import React, { FC, useEffect } from 'react';
 import { ScoreInputPage } from './ScoreInputPage';
 import { LyricalSocket } from './lyricalSocket';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTaskStateAll, setTaskObjectValue, setIsConnect, setPhaseState } from "./actions";
 import { Route, Routes } from 'react-router';
+import { FieldSideType, WholeTaskState, PhaseState, RootState, connectionStateSlice, phaseStateSlice, taskStateSlice } from './store';
 import { HomePage } from './HomePage';
-import { FieldSideType, GlobalState, PhaseState, WholeTaskState } from './reducer';
 import { LoadingOverlay } from "./LoadingOverlay";
 import { AdminPage } from './AdminPage';
 
 const App: FC = () => {
-  const isConnect = useSelector<GlobalState, boolean>((state) => state.isConnect);
+  const isConnect = useSelector<RootState, boolean>((state) => state.connection);
   const dispatch = useDispatch();
 
   // Websocketを用意
   useEffect(() => {
     const socket = LyricalSocket.instance;
 
-    socket.socket.on("welcome", (data: { taskStatus: WholeTaskState, phaseState: PhaseState} ) => {
+    socket.socket.on("welcome", (data: {taskStatus: WholeTaskState, phaseState: PhaseState}) => {
       console.log("welcome", data);
-      dispatch(setTaskStateAll(data.taskStatus));
-      dispatch(setPhaseState(data.phaseState));
-      dispatch(setIsConnect(true));
+      dispatch(taskStateSlice.actions.setCurrent(data.taskStatus));
+      dispatch(phaseStateSlice.actions.setCurrent(data.phaseState));
+      dispatch(connectionStateSlice.actions.setCurrent(true));
     });
 
     socket.socket.io.on("reconnect_attempt", () => {
-      dispatch(setIsConnect(false));
+      dispatch(connectionStateSlice.actions.setCurrent(false));
     });
 
     socket.socket.on("update", (operation: {fieldSide: FieldSideType, taskObjectId: string, afterValue: number}) => {
       console.log("update", operation);
-      dispatch(setTaskObjectValue(operation.fieldSide, operation.taskObjectId, operation.afterValue)); // サーバでのバリデーションを信じる
+      dispatch(taskStateSlice.actions.setTaskUpdate(operation));
     });
 
     socket.socket.on("phase_update", (operation: PhaseState) => {
       console.log("phase_update", operation);
-      dispatch(setPhaseState(operation));
+      dispatch(phaseStateSlice.actions.setCurrent(operation));
     });
   }, [dispatch]);
 

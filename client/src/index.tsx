@@ -2,21 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
-import { applyMiddleware, compose, createStore } from "redux";
-import { taskObjectsReducer, initialState } from './reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from './store';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 
 import './index.css';
 
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  taskObjectsReducer,
-  initialState,
-  composeEnhancers(applyMiddleware()),
-);
-/* eslint-enable */
+const store = configureStore({
+  reducer: rootReducer,
+  // devTools: process.env.NODE_ENV !== 'production',     // 今は prod でも開発ツールを有効に
+});
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { GlobalState, PhaseState } from './reducer';
+import { RootState, PhaseState } from './store';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
 import * as Phase from "./util/PhaseStateUtil";
 
@@ -49,7 +49,7 @@ export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
 }) => {
   const [second, setSecond] = useState(0);
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
-  const phaseState = useSelector<GlobalState, PhaseState>((state) => state.phaseState);
+  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
 
   useEffect(() => {
     // マウント時に、タイマをセットアップ

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { GlobalState, TaskObjectsType } from './reducer';
+import { RootState, TaskObjectsType } from './store';
 import { ScoreBlockComponent } from './ScoreBlockComponent';
 import config from './config.json';
 
@@ -24,7 +24,7 @@ export const ScoreBlockContainer: FC<ScoreBlockContainerProps> = ({
   fieldSide,
   ...props
 }) => {
-  const taskState = useSelector<GlobalState, TaskObjectsType>((state) => state.taskObjects[fieldSide]);
+  const taskState = useSelector<RootState, TaskObjectsType>((state) => state.task[fieldSide]);
   const score = calcScore(config.rule.score, taskState);
 
   return <ScoreBlockComponent score={score} fieldSide={fieldSide} {...props} />;
