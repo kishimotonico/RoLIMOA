@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, PhaseState } from './store';
+import { RootState, PhaseState, phaseStateSlice } from './store';
 import { LyricalSocket } from './lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from "./util/PhaseStateUtil";
@@ -8,7 +8,7 @@ import * as Phase from "./util/PhaseStateUtil";
 function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|"last") {
   let id = currentPhase.id;
   if (type === "first")
-  id = Phase.getFirstPhase();
+    id = Phase.getFirstPhase();
   if (type === "prev")
     id = Phase.getPrevPhase(currentPhase.id);
   if (type === "next")
@@ -16,8 +16,11 @@ function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|
   if (type === "last")
     id = Phase.getLastPhase();
 
-  const socket = LyricalSocket.instance;
-  socket.socket.emit("phase_update", { id: id });
+  const socket = LyricalSocket.instance.socket;
+  socket.emit("dispatch", phaseStateSlice.actions.setCurrent({
+    id,
+    startTime: 0,   // dummy
+  }));
 }
 
 // フェーズの自動遷移を行うかを判断

@@ -29,34 +29,33 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const decrement = useCallback(() => {
     const nextValue = currentValue - 1;
-    dispatch(taskStateSlice.actions.setTaskUpdate({
-      fieldSide,
-      taskObjectId: id,
-      afterValue: nextValue,
-    }));
-
-    const socket = LyricalSocket.instance;
-    socket.socket.emit("update", {
+    const action = taskStateSlice.actions.setTaskUpdate({
       fieldSide,
       taskObjectId: id,
       afterValue: nextValue,
     });
+    dispatch(action);
+
+    const socket = LyricalSocket.instance.socket;
+    socket.emit("dispatch", action);
   }, [dispatch, fieldSide, id, currentValue]);
 
   const increment = useCallback(() => {
     const nextValue = currentValue + 1;
-    dispatch(taskStateSlice.actions.setTaskUpdate({
-      fieldSide,
-      taskObjectId: id,
-      afterValue: nextValue,
-    }));
-
-    const socket = LyricalSocket.instance;
-    socket.socket.emit("update", {
+    const action = taskStateSlice.actions.setTaskUpdate({
       fieldSide,
       taskObjectId: id,
       afterValue: nextValue,
     });
+    dispatch(action);
+
+    const socket = LyricalSocket.instance.socket;
+    // socket.emit("update", {
+    //   fieldSide,
+    //   taskObjectId: id,
+    //   afterValue: nextValue,
+    // });
+    socket.emit("dispatch", action);
   }, [dispatch, fieldSide, id, currentValue]);
 
   return (
