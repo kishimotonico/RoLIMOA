@@ -24,7 +24,7 @@ io.on('connection', (socket: Socket) => {
     console.log(`connected: ${socket.id}`);
     // 初回接続したクライアントに、現在の試合状況を送信する
     io.to(socket.id).emit('welcome', {
-        taskStatus: store.getState().task,
+        scoreState: store.getState().score,
         phaseState: store.getState().phase,
     });
 

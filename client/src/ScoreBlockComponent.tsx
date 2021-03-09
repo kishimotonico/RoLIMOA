@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface ScoreBlockComponentProps {
-  score: number;
+  score: string;
   fieldSide: "blue"|"red";
   focused?: boolean;
   verticalPadding?: string;

@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
-import { RootState, TaskObjectsType, taskStateSlice } from './store';
+import { RootState, TaskStateType, scoreStateSlice } from './store';
 import { TaskObjectComponent } from "./TaskObjectComponent";
 
 interface TaskObjectProps {
@@ -19,7 +19,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<RootState, TaskObjectsType>((state) => state.task[fieldSide]);
+  const taskObjects = useSelector<RootState, TaskStateType>((state) => state.score[fieldSide].tasks);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];
@@ -29,7 +29,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const decrement = useCallback(() => {
     const nextValue = currentValue - 1;
-    const action = taskStateSlice.actions.setTaskUpdate({
+    const action = scoreStateSlice.actions.setTaskUpdate({
       fieldSide,
       taskObjectId: id,
       afterValue: nextValue,
@@ -42,7 +42,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
 
   const increment = useCallback(() => {
     const nextValue = currentValue + 1;
-    const action = taskStateSlice.actions.setTaskUpdate({
+    const action = scoreStateSlice.actions.setTaskUpdate({
       fieldSide,
       taskObjectId: id,
       afterValue: nextValue,

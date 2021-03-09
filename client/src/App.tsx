@@ -3,7 +3,7 @@ import { ScoreInputPage } from './ScoreInputPage';
 import { LyricalSocket } from './lyricalSocket';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router';
-import { WholeTaskState, PhaseState, RootState, connectionStateSlice, phaseStateSlice, taskStateSlice } from './store';
+import { WholeScoreState, PhaseState, RootState, connectionStateSlice, phaseStateSlice, scoreStateSlice } from './store';
 import { HomePage } from './HomePage';
 import { LoadingOverlay } from "./LoadingOverlay";
 import { AdminPage } from './AdminPage';
@@ -16,9 +16,9 @@ const App: FC = () => {
   useEffect(() => {
     const socket = LyricalSocket.instance.socket;
 
-    socket.on("welcome", (data: {taskStatus: WholeTaskState, phaseState: PhaseState}) => {
+    socket.on("welcome", (data: {scoreState: WholeScoreState, phaseState: PhaseState}) => {
       console.log("welcome", data);
-      dispatch(taskStateSlice.actions.setCurrent(data.taskStatus));
+      dispatch(scoreStateSlice.actions.setCurrent(data.scoreState));
       dispatch(phaseStateSlice.actions.setCurrent(data.phaseState));
       dispatch(connectionStateSlice.actions.setCurrent(true));
     });
