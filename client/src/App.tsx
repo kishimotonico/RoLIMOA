@@ -1,12 +1,16 @@
 import React, { FC, useEffect } from 'react';
-import { ScoreInputPage } from './ScoreInputPage';
-import { LyricalSocket } from './lyricalSocket';
-import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router';
-import { RootState, connectionStateSlice, phaseStateSlice, scoreStateSlice, teamsStateSlice } from './store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './features';
+import { scoreStateSlice } from './features/score';
+import { phaseStateSlice } from './features/phase';
+import { teamsStateSlice } from './features/teams';
+import { connectionStateSlice } from './features/connection';
 import { HomePage } from './HomePage';
 import { LoadingOverlay } from "./LoadingOverlay";
+import { ScoreInputPage } from './ScoreInputPage';
 import { AdminPage } from './AdminPage';
+import { LyricalSocket } from './lyricalSocket';
 
 const App: FC = () => {
   const isConnect = useSelector<RootState, boolean>((state) => state.connection);

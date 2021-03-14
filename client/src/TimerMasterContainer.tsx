@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, PhaseState, phaseStateSlice } from './store';
+import { RootState } from './features';
+import { PhaseState, phaseStateSlice } from './features/phase';
 import { LyricalSocket } from './lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from "./util/PhaseStateUtil";

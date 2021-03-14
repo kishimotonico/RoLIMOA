@@ -1,8 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from './lyricalSocket';
-import { RootState, TaskStateType, scoreStateSlice } from './store';
+import { RootState } from './features';
 import { TaskObjectComponent } from "./TaskObjectComponent";
+import { scoreStateSlice, TaskStateType } from './features/score';
 
 interface TaskObjectProps {
   id: string;
@@ -50,11 +51,6 @@ export const TaskObject: FC<TaskObjectProps> = ({
     dispatch(action);
 
     const socket = LyricalSocket.instance.socket;
-    // socket.emit("update", {
-    //   fieldSide,
-    //   taskObjectId: id,
-    //   afterValue: nextValue,
-    // });
     socket.emit("dispatch", action);
   }, [dispatch, fieldSide, id, currentValue]);
 

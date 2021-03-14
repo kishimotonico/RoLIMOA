@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, phaseStateSlice, teamsStateSlice } from './store';
+import { RootState } from './features';
+import { teamsStateSlice } from './features/teams';
+import { phaseStateSlice } from './features/phase';
 import { LyricalSocket } from './lyricalSocket';
 import { MatchMasterComponent } from './MatchMasterComponent';
 import * as Phase from "./util/PhaseStateUtil";

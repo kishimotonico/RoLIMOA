@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import { Socket, Server } from "socket.io";
 import { createStore } from "redux";
-import { rootReducer } from "./store";
+import { rootReducer } from "./features";
 
 const app = express();
 const server = http.createServer(app).listen(8000);

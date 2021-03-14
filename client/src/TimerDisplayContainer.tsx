@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, PhaseState } from './store';
+import { RootState } from './features';
+import { PhaseState } from './features/phase';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
 import * as Phase from "./util/PhaseStateUtil";
 

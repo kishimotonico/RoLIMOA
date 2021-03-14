@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, ScoreStateType } from './store';
+import { RootState } from './features';
 import { ScoreBlockComponent } from './ScoreBlockComponent';
 import config from './config.json';
+import { ScoreStateType } from './features/score';
 
 function calcScore(rule: { coefficient: number; id: string; }[], scoreStete: ScoreStateType): string {
   if (! scoreStete.enable) {

@@ -5,9 +5,10 @@ import CheckIcon from '@material-ui/icons/Check';
 import { Dashboard } from './Dashboard';
 import { TaskObject } from './TaskObjectContainer';
 import { ScoreBoard } from './ScoreBoard';
-import { RootState, scoreStateSlice } from './store';
-import config from './config.json';
+import { RootState } from './features';
+import { scoreStateSlice } from './features/score';
 import { LyricalSocket } from './lyricalSocket';
+import config from './config.json';
 
 interface ScoreInputPageProps {
   fieldSide: "blue" | "red";
