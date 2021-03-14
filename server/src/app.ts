@@ -23,10 +23,7 @@ const store = createStore(rootReducer);
 io.on('connection', (socket: Socket) => {
     console.log(`connected: ${socket.id}`);
     // 初回接続したクライアントに、現在の試合状況を送信する
-    io.to(socket.id).emit('welcome', {
-        scoreState: store.getState().score,
-        phaseState: store.getState().phase,
-    });
+    io.to(socket.id).emit('welcome', store.getState());
 
     // 切断
     socket.on('disconnect', (reason) => {
@@ -39,6 +36,11 @@ io.on('connection', (socket: Socket) => {
 
         store.dispatch(action);                     // サーバサイドのストアに反映
         socket.broadcast.emit('dispatch', action);  // 送信元以外にdispatchを転送
+
+        // FIXME: actionを送信元にも送る場合
+        if (action.type.includes("phase") | action.type.includes("teams")) {
+            io.to(socket.id).emit('dispatch', action);
+        }
     });
 });
 

@@ -19,7 +19,7 @@ function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|
   const socket = LyricalSocket.instance.socket;
   socket.emit("dispatch", phaseStateSlice.actions.setCurrent({
     id,
-    startTime: 0,   // dummy
+    startTime: Date.now(),
   }));
 }
 

@@ -24,7 +24,7 @@ export type TimeProgressConfig = {
 
 const defaultConfig = {
   id: "default",
-  type: "ready",
+  type: "default",
   description: "",
   time: Number.MAX_SAFE_INTEGER,
   isAutoTransition: false,

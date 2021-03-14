@@ -29,7 +29,8 @@ export const ScoreBlockContainer: FC<ScoreBlockContainerProps> = ({
   ...props
 }) => {
   const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
+  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide]);
   const scoreValue = calcScore(config.rule.score, scoreState);
 
-  return <ScoreBlockComponent score={scoreValue} fieldSide={fieldSide} {...props} />;
+  return <ScoreBlockComponent score={scoreValue} teamName={teamName} fieldSide={fieldSide} {...props} />;
 };

@@ -6,6 +6,9 @@ import * as Phase from "./util/PhaseStateUtil";
 
 // 表示する時間の文字列を生成
 function displayTime(elapsedSec: number, config: Required<Phase.TimeProgressConfig>): string {
+  if (config.type === "default") {
+    return "----";
+  }
   if (config.type === "ready") {
     return config.custom[0]?.displayText ?? "READY";
   }

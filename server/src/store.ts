@@ -22,6 +22,8 @@ export type PhaseState = {
   startTime: number
 };
 
+export type TeamsState = Record<FieldSideType, string>;
+
 export const scoreStateSlice = createSlice({
   name: 'task',
   initialState: {
@@ -56,6 +58,17 @@ export const phaseStateSlice = createSlice({
   },
 });
 
+export const teamsStateSlice = createSlice({
+  name: 'teams',
+  initialState: {
+    blue: "",
+    red: "",
+  } as TeamsState,
+  reducers: {
+    setCurrent: (_, action: PayloadAction<TeamsState>) => action.payload,
+  },
+});
+
 export const connectionStateSlice = createSlice({
   name: 'connection',
   initialState: false as boolean,
@@ -68,5 +81,6 @@ export const rootReducer = combineReducers({
   connection: connectionStateSlice.reducer,
   score: scoreStateSlice.reducer,
   phase: phaseStateSlice.reducer,
+  teams: teamsStateSlice.reducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 interface ScoreBlockComponentProps {
   score: string;
   fieldSide: "blue"|"red";
+  teamName: string;
   focused?: boolean;
   verticalPadding?: string;
 }
@@ -35,6 +36,7 @@ interface ScoreBlockComponentProps {
 export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
   score,
   fieldSide,
+  teamName,
   focused = true,
   verticalPadding = '.6em',
 }) => {
@@ -48,7 +50,7 @@ export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
   return (
     <Box className={classes.scoreBlock}>
       <Typography component="div" variant="h6" className={classes.scoreBlockHeader}>
-        {"ふぇぇ…チーム"}
+        {teamName}
       </Typography>
       <Typography component="div" variant="h4" className={classes.scoreBlockContent}>
         {score}
