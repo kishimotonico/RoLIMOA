@@ -18,7 +18,7 @@ function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|
     id = Phase.getLastPhase();
 
   const socket = LyricalSocket.instance.socket;
-  socket.emit("dispatch", phaseStateSlice.actions.setCurrent({
+  socket.emit("dispatch_all", phaseStateSlice.actions.setCurrent({
     id,
     startTime: Date.now(),
   }));

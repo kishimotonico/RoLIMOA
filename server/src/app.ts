@@ -35,12 +35,13 @@ io.on('connection', (socket: Socket) => {
         console.log(`on dispatch (${socket.id})`, action);
 
         store.dispatch(action);                     // サーバサイドのストアに反映
-        socket.broadcast.emit('dispatch', action);  // 送信元以外にdispatchを転送
+        socket.broadcast.emit('dispatch', action);  // 送信元以外にactionを転送
+    });
+    socket.on('dispatch_all', (action) => {
+        console.log(`on dispatch_all (${socket.id})`, action);
 
-        // FIXME: actionを送信元にも送る場合
-        if (action.type.includes("phase") | action.type.includes("teams")) {
-            io.to(socket.id).emit('dispatch', action);
-        }
+        store.dispatch(action);                     // サーバサイドのストアに反映
+        io.emit('dispatch', action);                // 送信元を含む全てに転送
     });
 });
 

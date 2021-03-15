@@ -31,7 +31,6 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
       fieldSide,
       enable: true,
     });
-    console.log(action);
     dispatch(action);
 
     const socket = LyricalSocket.instance.socket;
