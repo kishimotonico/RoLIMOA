@@ -1,77 +1,258 @@
 {
-    "contest_info": {
-        "name": "関東夏ロボコン19"
-    },
-    "rule": {
-        "task_objects": [
+  "contest_info": {
+    "name": "春ロボコン2021"
+  },
+  "rule": {
+    "task_objects": [
+      {
+        "id": "A_pickup_bento",
+        "description": "A.弁当箱取得",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "B_pickup_sheet",
+        "description": "B.レジャーシート取得",
+        "max": 1
+      },
+      {
+        "id": "C_enter_hanami",
+        "description": "C.花見ゾーン侵入",
+        "max": 1
+      },
+      {
+        "id": "D_open_sheet",
+        "description": "D.レジャーシート展開",
+        "max": 1
+      },
+      {
+        "id": "E_put_bento",
+        "description": "E.弁当箱設置",
+        "max": 2
+      },
+      {
+        "id": "F_ride_sheet",
+        "description": "F.シート",
+        "max": 1
+      }
+    ],
+    "score": [
+      {
+        "id": "A_pickup_bento",
+        "coefficient": 5
+      },
+      {
+        "id": "B_pickup_sheet",
+        "coefficient": 5
+      },
+      {
+        "id": "C_enter_hanami",
+        "coefficient": 10
+      },
+      {
+        "id": "D_open_sheet",
+        "coefficient": 15
+      },
+      {
+        "id": "E_put_bento",
+        "coefficient": 5
+      },
+      {
+        "id": "F_ride_sheet",
+        "coefficient": 10
+      }
+    ],
+    "vgoal": {
+      "name": "乾杯",
+      "condition": {
+        "type": "manual",
+        "required": {
+          "tasks": [
             {
-                "id": "slipper_10",
-                "description": "10点スリッパ",
-                "initialValue": 12,
-                "min": 0,
-                "max": 24
+              "id": "A_pickup_bento",
+              "count": 2
             },
             {
-                "id": "slipper_20",
-                "description": "20点スリッパ"
+              "id": "B_pickup_sheet",
+              "count": 1
             },
             {
-                "id": "violation",
-                "description": "違反スリッパ"
+              "id": "C_enter_hanami",
+              "count": 1
+            },
+            {
+              "id": "D_open_sheet",
+              "count": 1
+            },
+            {
+              "id": "E_put_bento",
+              "count": 2
+            },
+            {
+              "id": "F_ride_sheet",
+              "count": 1
             }
-        ],
-        "score": [
-            {
-                "coefficient": 10,
-                "id": "slipper_10"
-            },
-            {
-                "coefficient": 20,
-                "id": "slipper_20"
-            },
-            {
-                "coefficient": -10,
-                "id": "violation"
-            }
-        ],
-        "info": {
-            "vgoal": 240,
-            "vname": "潜入完了"
+          ]
         }
+      }
+    }
+  },
+  "time_progress": [
+    {
+      "id": "red_setting_ready",
+      "type": "ready",
+      "description": "セッティングタイム"
     },
-    "time_progress": [
+    {
+      "id": "red_setting",
+      "type": "count",
+      "time": 60,
+      "description": "赤コートセッティングタイム",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
+    },
+    {
+      "id": "red_match_ready",
+      "type": "ready",
+      "description": "赤コート試合前"
+    },
+    {
+      "id": "red_match_countdown",
+      "type": "count",
+      "time": 5,
+      "description": "",
+      "isAutoTransition": true,
+      "style": {
+        "timerFormat": "s",
+        "timerType": "countdown"
+      },
+      "custom": [
         {
-            "id": "setting_ready",
-            "type": "ready",
-            "description": "セッティングタイム"
+          "elapsedTime": 2,
+          "sound": "tone_440hz_500ms.mp3"
         },
         {
-            "id": "setting",
-            "type": "countup",
-            "time": 60,
-            "description": "セッティングタイム"
+          "elapsedTime": 3,
+          "sound": "tone_440hz_500ms.mp3"
         },
         {
-            "id": "match_ready",
-            "type": "ready",
-            "description": " "
-        },
-        {
-            "id": "match_countdown",
-            "type": "countdown",
-            "time": 5,
-            "description": " "
-        },
-        {
-            "id": "match",
-            "type": "countup",
-            "time": 300,
-            "description": "試合"
-        },
-        {
-            "id": "match_finish",
-            "type": "ready",
-            "description": "試合終了"
+          "elapsedTime": 4,
+          "sound": "tone_880hz_1000ms.mp3"
         }
-    ]
+      ]
+    },
+    {
+      "id": "red_match",
+      "type": "count",
+      "time": 180,
+      "description": "赤コート試合",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "GO"
+        }
+      ]
+    },
+    {
+      "id": "blue_setting_ready",
+      "type": "ready",
+      "description": "青コート試合準備"
+    },
+    {
+      "id": "blue_setting",
+      "type": "count",
+      "time": 60,
+      "description": "青コートセッティングタイム",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
+    },
+    {
+      "id": "blue_match_ready",
+      "type": "ready",
+      "description": "青コート試合前"
+    },
+    {
+      "id": "blue_match_countdown",
+      "type": "count",
+      "time": 5,
+      "description": "",
+      "isAutoTransition": true,
+      "style": {
+        "timerFormat": "s",
+        "timerType": "countdown"
+      },
+      "custom": [
+        {
+          "elapsedTime": 2,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 3,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 4,
+          "sound": "tone_880hz_1000ms.mp3"
+        }
+      ]
+    },
+    {
+      "id": "blue_match",
+      "type": "count",
+      "time": 180,
+      "description": "青コート試合",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "GO"
+        }
+      ]
+    },
+    {
+      "id": "match_finish",
+      "type": "ready",
+      "description": "試合終了",
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "FINISH"
+        }
+      ]
+    }
+  ],
+  "teams_info": [
+    {
+      "name": "ホットココアチーム",
+      "school": "ラビット大学",
+      "short": "ホットココア（ラビ大）"
+    },
+    {
+      "name": "カプチーノチーム",
+      "school": "ラビット大学",
+      "short": "カプチーノ（ラビ大）"
+    },
+    {
+      "name": "宇治抹茶チーム",
+      "school": "うさぎ大学",
+      "short": "宇治抹茶（うさぎ大）"
+    },
+    {
+      "name": "君のためなら寝坊する",
+      "school": "うさぎ大学",
+      "short": "君のためなら寝坊（うさぎ大）"
+    }
+  ]
 }

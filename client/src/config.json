@@ -1,67 +1,126 @@
 {
   "contest_info": {
-    "name": "関東夏ロボコン19"
+    "name": "春ロボコン2021"
   },
   "rule": {
     "task_objects": [
       {
-        "id": "slipper_10",
-        "description": "10点スリッパ",
-        "initialValue": 12,
+        "id": "A_pickup_bento",
+        "description": "A.弁当箱取得",
+        "initialValue": 0,
         "min": 0,
-        "max": 24
+        "max": 2
       },
       {
-        "id": "slipper_20",
-        "description": "20点スリッパ"
+        "id": "B_pickup_sheet",
+        "description": "B.レジャーシート取得",
+        "max": 1
       },
       {
-        "id": "violation",
-        "description": "-10点スリッパ"
+        "id": "C_enter_hanami",
+        "description": "C.花見ゾーン侵入",
+        "max": 1
+      },
+      {
+        "id": "D_open_sheet",
+        "description": "D.レジャーシート展開",
+        "max": 1
+      },
+      {
+        "id": "E_put_bento",
+        "description": "E.弁当箱設置",
+        "max": 2
+      },
+      {
+        "id": "F_ride_sheet",
+        "description": "F.シート",
+        "max": 1
       }
     ],
     "score": [
       {
-        "coefficient": 10,
-        "id": "slipper_10"
+        "id": "A_pickup_bento",
+        "coefficient": 5
       },
       {
-        "coefficient": 20,
-        "id": "slipper_20"
+        "id": "B_pickup_sheet",
+        "coefficient": 5
       },
       {
-        "coefficient": -10,
-        "id": "violation"
+        "id": "C_enter_hanami",
+        "coefficient": 10
+      },
+      {
+        "id": "D_open_sheet",
+        "coefficient": 15
+      },
+      {
+        "id": "E_put_bento",
+        "coefficient": 5
+      },
+      {
+        "id": "F_ride_sheet",
+        "coefficient": 10
       }
     ],
-    "info": {
-      "vgoal": 240,
-      "vname": "潜入完了"
+    "vgoal": {
+      "name": "乾杯",
+      "condition": {
+        "type": "manual",
+        "required": {
+          "tasks": [
+            {
+              "id": "A_pickup_bento",
+              "count": 2
+            },
+            {
+              "id": "B_pickup_sheet",
+              "count": 1
+            },
+            {
+              "id": "C_enter_hanami",
+              "count": 1
+            },
+            {
+              "id": "D_open_sheet",
+              "count": 1
+            },
+            {
+              "id": "E_put_bento",
+              "count": 2
+            },
+            {
+              "id": "F_ride_sheet",
+              "count": 1
+            }
+          ]
+        }
+      }
     }
   },
   "time_progress": [
     {
-      "id": "setting_ready",
+      "id": "red_setting_ready",
       "type": "ready",
       "description": "セッティングタイム"
     },
     {
-      "id": "setting",
+      "id": "red_setting",
       "type": "count",
       "time": 60,
-      "description": "セッティングタイム",
+      "description": "赤コートセッティングタイム",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
       }
     },
     {
-      "id": "match_ready",
+      "id": "red_match_ready",
       "type": "ready",
-      "description": "開始前"
+      "description": "赤コート試合前"
     },
     {
-      "id": "match_countdown",
+      "id": "red_match_countdown",
       "type": "count",
       "time": 5,
       "description": "",
@@ -86,10 +145,71 @@
       ]
     },
     {
-      "id": "match",
+      "id": "red_match",
       "type": "count",
       "time": 180,
-      "description": "試合中",
+      "description": "赤コート試合",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "GO"
+        }
+      ]
+    },
+    {
+      "id": "blue_setting_ready",
+      "type": "ready",
+      "description": "青コート試合準備"
+    },
+    {
+      "id": "blue_setting",
+      "type": "count",
+      "time": 60,
+      "description": "青コートセッティングタイム",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
+    },
+    {
+      "id": "blue_match_ready",
+      "type": "ready",
+      "description": "青コート試合前"
+    },
+    {
+      "id": "blue_match_countdown",
+      "type": "count",
+      "time": 5,
+      "description": "",
+      "isAutoTransition": true,
+      "style": {
+        "timerFormat": "s",
+        "timerType": "countdown"
+      },
+      "custom": [
+        {
+          "elapsedTime": 2,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 3,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 4,
+          "sound": "tone_880hz_1000ms.mp3"
+        }
+      ]
+    },
+    {
+      "id": "blue_match",
+      "type": "count",
+      "time": 180,
+      "description": "青コート試合",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
