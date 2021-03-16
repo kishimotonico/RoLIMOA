@@ -64,7 +64,7 @@
       }
     ],
     "vgoal": {
-      "name": "乾杯",
+      "name": "乾杯達成",
       "condition": {
         "type": "manual",
         "required": {

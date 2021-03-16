@@ -5,12 +5,18 @@ import { ScoreBlockComponent } from './ScoreBlockComponent';
 import config from './config.json';
 import { ScoreStateType } from './features/score';
 
-function calcScore(rule: { coefficient: number; id: string; }[], scoreStete: ScoreStateType): string {
-  if (! scoreStete.enable) {
-    return "---"; // スコア無効時
+function calcScore(rule: { coefficient: number; id: string; }[], scoreState: ScoreStateType): string {
+  // スコア無効時
+  if (! scoreState.enable) {
+    return "---";
   }
+  // Vゴール時
+  if (scoreState.vgoal) {
+    return config.rule.vgoal.name;
+  }
+
   const scoreValue = rule.map(({coefficient, id}) => {
-    const val = scoreStete.tasks[id];
+    const val = scoreState.tasks[id];
     if (val === undefined) {
       return NaN; // error
     }

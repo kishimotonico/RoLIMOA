@@ -7,6 +7,7 @@ export type TaskStateType = { [objectId: string]: number; };
 export type ScoreStateType = {
   tasks: TaskStateType,   // タスクの進行状況
   enable: boolean,        // スコアの有効フラグ
+  vgoal?: number,         // Vゴールタイム
 };
 export type WholeScoreState = Record<FieldSideType, ScoreStateType>;
 
@@ -21,10 +22,12 @@ export const initialState: WholeScoreState = {
   blue: {
     tasks: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
     enable: false,
+    vgoal: undefined,
   },
   red: {
     tasks: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
     enable: false,
+    vgoal: undefined,
   },
 };
 
@@ -37,6 +40,12 @@ export const scoreStateSlice = createSlice({
     },
     setScoreEnable: (state, action: PayloadAction<{fieldSide: FieldSideType, enable: boolean}>) => {
       state[action.payload.fieldSide].enable = action.payload.enable;
+    },
+    setVgoalTime: (state, action: PayloadAction<{fieldSide: FieldSideType, vgoalTime: number}>) => {
+      state[action.payload.fieldSide].vgoal = action.payload.vgoalTime;
+    },
+    unsetVgoalTime: (state, action: PayloadAction<{fieldSide: FieldSideType}>) => {
+      state[action.payload.fieldSide].vgoal = undefined;
     },
     setCurrent: (_, action: PayloadAction<WholeScoreState>) => action.payload,
   },
