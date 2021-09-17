@@ -10,6 +10,7 @@ import { HomePage } from './HomePage';
 import { LoadingOverlay } from "./LoadingOverlay";
 import { ScoreInputPage } from './ScoreInputPage';
 import { AdminPage } from './AdminPage';
+import { StreamingOverlayPage } from './StreamingOverlayPage';
 import { LyricalSocket } from './lyricalSocket';
 
 const App: FC = () => {
@@ -45,6 +46,7 @@ const App: FC = () => {
         <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
         <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
     </>
