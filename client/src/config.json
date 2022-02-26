@@ -37,32 +37,35 @@
         "max": 1
       }
     ],
-    "score": [
-      {
-        "id": "A_pickup_bento",
-        "coefficient": 5
-      },
-      {
-        "id": "B_pickup_sheet",
-        "coefficient": 5
-      },
-      {
-        "id": "C_enter_hanami",
-        "coefficient": 10
-      },
-      {
-        "id": "D_open_sheet",
-        "coefficient": 15
-      },
-      {
-        "id": "E_put_bento",
-        "coefficient": 5
-      },
-      {
-        "id": "F_ride_sheet",
-        "coefficient": 10
-      }
-    ],
+    "score": {
+      "format": "simple",
+      "expression": [
+        {
+          "id": "A_pickup_bento",
+          "coefficient": 5
+        },
+        {
+          "id": "B_pickup_sheet",
+          "coefficient": 5
+        },
+        {
+          "id": "C_enter_hanami",
+          "coefficient": 10
+        },
+        {
+          "id": "D_open_sheet",
+          "coefficient": 15
+        },
+        {
+          "id": "E_put_bento",
+          "coefficient": 5
+        },
+        {
+          "id": "F_ride_sheet",
+          "coefficient": 10
+        }
+      ]
+    },
     "vgoal": {
       "name": "乾杯達成",
       "condition": {
