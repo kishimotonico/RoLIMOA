@@ -1,7 +1,9 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 import { RootState } from './features';
 import { PhaseState } from './features/phase';
+import { timerClockState } from './atoms/timerClockState';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
 import * as Phase from "./util/PhaseStateUtil";
 
@@ -38,11 +40,6 @@ function displayTime(elapsedSec: number, config: Required<Phase.TimeProgressConf
   return "-";
 }
 
-function calcElapsedSecond(startTime: number, nowTime?: number): number {
-  const now = nowTime ?? Date.now();
-  return Math.floor((now - startTime) / 1000);
-}
-
 type TimerDisplayContainerProps = {
   onTick?: (elapsedSecond: number) => void,
 } & TimerDisplayStyleProps;
@@ -51,39 +48,16 @@ export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
   onTick = (_) => {},
   ...rest
 }) => {
-  const [second, setSecond] = useState(0);
-  const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-
-  useEffect(() => {
-    // マウント時に、タイマをセットアップ
-    function timerUpdate(): void {
-      const elapsedSec = calcElapsedSecond(phaseState.startTime);
-      const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
-
-      setSecond(_ => elapsedSec);
-      onTick(elapsedSec);
-
-      const config = Phase.getConfig(phaseState.id);
-      if (config.time < elapsedSec) {
-        return; // 時間が経過したのでタイマ停止
-      }
-      if (config.type === "ready") {
-        return; // READYタイプはカウントアップしない
-      }
-      timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
-    }
-    timerUpdate();
-
-    // アンマウント時にタイマを停止
-    return () => {
-      if (timeoutHandler.current !== undefined) {
-        clearTimeout(timeoutHandler.current);
-      }
-    };
-  }, [phaseState]); // eslint-disable-line react-hooks/exhaustive-deps
+  const timerClock = useRecoilValue(timerClockState);
 
   const config = Phase.getConfig(phaseState.id);
+  const second = timerClock ?? 0;
+
+  // タイマの更新ごとに実行
+  useEffect(() => {
+    onTick(second);
+  }, [onTick, second]);
 
   return (
     <TimerDisplayComponent

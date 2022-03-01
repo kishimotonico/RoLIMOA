@@ -12,6 +12,7 @@ import { ScoreInputPage } from './ScoreInputPage';
 import { AdminPage } from './AdminPage';
 import { StreamingOverlayPage } from './StreamingOverlayPage';
 import { LyricalSocket } from './lyricalSocket';
+import { LocalTimerClock } from './LocalTimerClock';
 
 const App: FC = () => {
   const isConnect = useSelector<RootState, boolean>((state) => state.connection);
@@ -49,6 +50,7 @@ const App: FC = () => {
         <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
+      <LocalTimerClock />
     </>
   );
 }
