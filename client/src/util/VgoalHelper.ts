@@ -7,24 +7,38 @@ type VgoalInfoType = {
   name: string,                   // Vゴール名称
   condition: VgoalConditionType,  // Vゴールを達成する条件
 };
-type VgoalConditionType = ManualConditionType;
+type VgoalConditionType = ManualConditionType | AlwaysOkConditionType;
 type ManualConditionType = {
   type: "manual",
-  required?: {
+  required: {
     tasks: {
       id: string,
       count: number,
     }[],
   },
 };
+type AlwaysOkConditionType = {
+  type: "alwaysOk",
+}
+
+function isManualConditionType(arg: any): arg is ManualConditionType {
+  return arg.type === "manual";
+}
+function isAlwaysOkConditionType(arg: any): arg is AlwaysOkConditionType {
+  return arg.type === "alwaysOk";
+}
 
 // Vゴールが可能な状況かを判断する
 export function isVgoalAvailable(scoreState: ScoreStateType): boolean {
-  // TODO: "manual"type以外のVゴール判定の実装
-  console.assert(rootConfig.rule.vgoal.condition.type === "manual");
+  const vgoalCondition = rootConfig.rule.vgoal.condition as VgoalConditionType;
 
-  const required = rootConfig.rule.vgoal.condition.required;
-  return ! required.tasks.every((requiredTask) => {
-    return scoreState.tasks[requiredTask.id] >= requiredTask.count;
-  });
+  // type: manual
+  if (isManualConditionType(vgoalCondition)) {
+    const requiredTasks = vgoalCondition.required.tasks;
+    return ! requiredTasks.every((requiredTask) => scoreState.tasks[requiredTask.id] >= requiredTask.count);
+  }
+
+  // type: alwaysOk
+  console.assert(isAlwaysOkConditionType(vgoalCondition));
+  return true;
 }

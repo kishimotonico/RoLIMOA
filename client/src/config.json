@@ -1,129 +1,505 @@
 {
   "contest_info": {
-    "name": "春ロボコン2021"
+    "name": "春ロボコン2022"
   },
   "rule": {
     "task_objects": [
       {
-        "id": "A_pickup_bento",
-        "description": "A.弁当箱取得",
+        "id": "A_yellow_in",
+        "description": "A.黄色（中）",
         "initialValue": 0,
         "min": 0,
-        "max": 2
+        "max": 7
       },
       {
-        "id": "B_pickup_sheet",
-        "description": "B.レジャーシート取得",
-        "max": 1
+        "id": "B_yellow_on",
+        "description": "B.黄色（裏）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 7
       },
       {
-        "id": "C_enter_hanami",
-        "description": "C.花見ゾーン侵入",
-        "max": 1
+        "id": "C1_red_in",
+        "description": "C1.赤色（中）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 7
       },
       {
-        "id": "D_open_sheet",
-        "description": "D.レジャーシート展開",
-        "max": 1
+        "id": "D1_red_on",
+        "description": "D1.赤色（裏）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 7
       },
       {
-        "id": "E_put_bento",
-        "description": "E.弁当箱設置",
-        "max": 2
+        "id": "C2_blue_in",
+        "description": "C2.青色（中）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 7
       },
       {
-        "id": "F_ride_sheet",
-        "description": "F.シート",
-        "max": 1
+        "id": "D2_blue_on",
+        "description": "D2.青色（裏）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 7
+      },
+      {
+        "id": "E_ball_in",
+        "description": "A.思い出（中）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 6
+      },
+      {
+        "id": "F_ball_on",
+        "description": "B.思い出（裏）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 6
       }
     ],
     "score": {
-      "format": "simple",
-      "expression": [
-        {
-          "id": "A_pickup_bento",
-          "coefficient": 5
-        },
-        {
-          "id": "B_pickup_sheet",
-          "coefficient": 5
-        },
-        {
-          "id": "C_enter_hanami",
-          "coefficient": 10
-        },
-        {
-          "id": "D_open_sheet",
-          "coefficient": 15
-        },
-        {
-          "id": "E_put_bento",
-          "coefficient": 5
-        },
-        {
-          "id": "F_ride_sheet",
-          "coefficient": 10
-        }
-      ]
+      "format": "formulaExpression",
+      "expression": {
+        "operator": "sum",
+        "operands": [
+          {
+            "//": {
+              "record": "1_basic_score",
+              "comment": ""
+            },
+            "operator": "sum",
+            "operands": [
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "A_yellow_in"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 10
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "B_yellow_on"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 15
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "C1_red_in"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 15
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "D1_red_on"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 30
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "C2_blue_in"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 15
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "D2_blue_on"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 30
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "E_ball_in"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 30
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "prod",
+                "operands": [
+                  {
+                    "value": {
+                      "type": "taskObject",
+                      "ref": "F_ball_on"
+                    }
+                  },
+                  {
+                    "value": {
+                      "const": 60
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "operator": "prod",
+            "operands": [
+              {
+                "//": {
+                  "record": "2_box_count_bonus",
+                  "comment": ""
+                },
+                "operator": "sum",
+                "operands": [
+                  {
+                    "operator": "prod",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "const": 2
+                            }
+                          },
+                          {
+                            "//": {
+                              "record": "XYZ_matched_count",
+                              "comment": ""
+                            },
+                            "operator": "sum",
+                            "operands": [
+                              {
+                                "//": "黄色の生活用品が入っている",
+                                "operator": "or",
+                                "operands": [
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "A_yellow_in"
+                                    }
+                                  },
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "B_yellow_on"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "//": "赤色の生活用品が入っている",
+                                "operator": "or",
+                                "operands": [
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "C1_red_in"
+                                    }
+                                  },
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "D1_red_on"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "//": "黄色の生活用品が入っている",
+                                "operator": "or",
+                                "operands": [
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "C2_blue_in"
+                                    }
+                                  },
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "D2_blue_on"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "//": "思い出の品が入っている",
+                                "operator": "or",
+                                "operands": [
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "E_ball_in"
+                                    }
+                                  },
+                                  {
+                                    "value": {
+                                      "type": "taskObject",
+                                      "ref": "F_ball_on"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 20
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "prod",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "const": 3
+                            }
+                          },
+                          {
+                            "value": {
+                              "type": "refRecord",
+                              "ref": "XYZ_matched_count"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 40
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "prod",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "const": 4
+                            }
+                          },
+                          {
+                            "value": {
+                              "type": "refRecord",
+                              "ref": "XYZ_matched_count"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 60
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "//": {
+                  "record": "3_time_bonus_coefficient",
+                  "comment": ""
+                },
+                "operator": "match",
+                "operands": [
+                  {
+                    "operator": "case",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "type": "matchStatus",
+                              "ref": "elapsedTime"
+                            }
+                          },
+                          {
+                            "value": {
+                              "const": 45
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 2.5
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "case",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "type": "matchStatus",
+                              "ref": "elapsedTime"
+                            }
+                          },
+                          {
+                            "value": {
+                              "const": 90
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 2.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "case",
+                    "operands": [
+                      {
+                        "operator": "le",
+                        "operands": [
+                          {
+                            "value": {
+                              "type": "matchStatus",
+                              "ref": "elapsedTime"
+                            }
+                          },
+                          {
+                            "value": {
+                              "const": 135
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "value": {
+                          "const": 1.5
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "default",
+                    "operands": [
+                      {
+                        "value": {
+                          "const": 1.0
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "vgoal": {
       "name": "乾杯達成",
       "condition": {
-        "type": "manual",
-        "required": {
-          "tasks": [
-            {
-              "id": "A_pickup_bento",
-              "count": 2
-            },
-            {
-              "id": "B_pickup_sheet",
-              "count": 1
-            },
-            {
-              "id": "C_enter_hanami",
-              "count": 1
-            },
-            {
-              "id": "D_open_sheet",
-              "count": 1
-            },
-            {
-              "id": "E_put_bento",
-              "count": 2
-            },
-            {
-              "id": "F_ride_sheet",
-              "count": 1
-            }
-          ]
-        }
+        "type": "alwaysOk"
       }
     }
   },
   "time_progress": [
     {
-      "id": "red_setting_ready",
+      "id": "setting_ready",
       "type": "ready",
       "description": "セッティングタイム"
     },
     {
-      "id": "red_setting",
+      "id": "setting",
       "type": "count",
       "time": 60,
-      "description": "赤コートセッティングタイム",
+      "description": "セッティングタイム",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
       }
     },
     {
-      "id": "red_match_ready",
+      "id": "match_ready",
       "type": "ready",
-      "description": "赤コート試合前"
+      "description": "試合前"
     },
     {
-      "id": "red_match_countdown",
+      "id": "match_countdown",
       "type": "count",
       "time": 5,
       "description": "",
@@ -148,71 +524,10 @@
       ]
     },
     {
-      "id": "red_match",
+      "id": "match",
       "type": "count",
       "time": 180,
-      "description": "赤コート試合",
-      "style": {
-        "timerFormat": "m:ss",
-        "timerType": "countup"
-      },
-      "custom": [
-        {
-          "elapsedTime": 0,
-          "displayText": "GO"
-        }
-      ]
-    },
-    {
-      "id": "blue_setting_ready",
-      "type": "ready",
-      "description": "青コート試合準備"
-    },
-    {
-      "id": "blue_setting",
-      "type": "count",
-      "time": 60,
-      "description": "青コートセッティングタイム",
-      "style": {
-        "timerFormat": "m:ss",
-        "timerType": "countup"
-      }
-    },
-    {
-      "id": "blue_match_ready",
-      "type": "ready",
-      "description": "青コート試合前"
-    },
-    {
-      "id": "blue_match_countdown",
-      "type": "count",
-      "time": 5,
-      "description": "",
-      "isAutoTransition": true,
-      "style": {
-        "timerFormat": "s",
-        "timerType": "countdown"
-      },
-      "custom": [
-        {
-          "elapsedTime": 2,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 3,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 4,
-          "sound": "tone_880hz_1000ms.mp3"
-        }
-      ]
-    },
-    {
-      "id": "blue_match",
-      "type": "count",
-      "time": 180,
-      "description": "青コート試合",
+      "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
