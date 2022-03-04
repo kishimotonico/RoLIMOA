@@ -4,6 +4,7 @@ import { Alert, AlertProps } from "@material-ui/lab";
 import { Dashboard } from './Dashboard';
 import { TimerMasterContainer } from './TimerMasterContainer';
 import { MatchMasterContainer } from './MatchMasterContainer';
+import { DeviceListContainer } from './DeviceListContainer';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);
@@ -42,6 +43,9 @@ export const AdminPage: FC = () => {
         </Grid>
         <Grid item xs={12} lg={7}>
           <MatchMasterContainer />
+        </Grid>
+        <Grid item xs={12} lg={7}>
+          <DeviceListContainer />
         </Grid>
       </Grid>
     </Dashboard>

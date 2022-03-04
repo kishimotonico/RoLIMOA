@@ -3,9 +3,17 @@ import { Dialog, DialogTitle, IconButton, Badge, DialogContent, DialogContentTex
 import SettingsIcon from '@material-ui/icons/Settings';
 import { LyricalSocket } from './lyricalSocket';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { connectedDevicesStateSlice } from './features/connectedDevices';
+import { useDispatch } from 'react-redux';
 
 const LOCAL_STORAGE_KEY = "deviceName";
-const defaultDeviceName = "anonymous@見るだけ";
+const defaultDeviceName = "anonymous@役割なし";
+export function GetDeviceName(): string {
+  return localStorage.getItem(LOCAL_STORAGE_KEY) ?? defaultDeviceName;
+}
+export function SetDeviceName(deviceName: string) {
+  localStorage.setItem(LOCAL_STORAGE_KEY, deviceName);
+}
 
 type FormValues = {
   deviceName: string,
@@ -20,8 +28,9 @@ export const SettingModal: FC<SettingModalProps> = ({
   open,
   onClose,
 }) => {
+  const dispatch = useDispatch();
   const prevDeviceName = useRef<string | null>(null);
-  const savedDeviceName = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const savedDeviceName = GetDeviceName();
 
   // useEffect しない簡略化　
   useEffect(() => {
@@ -33,7 +42,7 @@ export const SettingModal: FC<SettingModalProps> = ({
   const { control, handleSubmit } = useForm({
     reValidateMode: "onChange",
     defaultValues: {
-      deviceName: savedDeviceName ?? defaultDeviceName,
+      deviceName: savedDeviceName,
     },
   });
 
@@ -42,15 +51,22 @@ export const SettingModal: FC<SettingModalProps> = ({
       return;
     }
     if (form.deviceName !== prevDeviceName.current) {
-      // デバイス名の変更時、サーバに送信する
-      const socket = LyricalSocket.instance.socket;
-      socket.emit("deviceNameUpdate", form.deviceName);
-      
-      localStorage.setItem(LOCAL_STORAGE_KEY, form.deviceName);
+      // デバイス名の変更をlocalStorageに保存
+      SetDeviceName(form.deviceName);
       prevDeviceName.current = form.deviceName;
+
+      // Reduxのストアにデバイスの追加を反映
+      // TODO: App.tsxとのコードの重複を解消
+      const socket = LyricalSocket.instance.socket;
+      const action = connectedDevicesStateSlice.actions.addDevice({
+        sockId: socket.id,
+        deviceName: GetDeviceName(),
+      });
+      dispatch(action)
+      socket.emit("dispatch", action);
     }
     onClose();
-  }, [onClose]);
+  }, [onClose, dispatch]);
 
   const closeHandler = () => {
     handleSubmit(onSubmit)();
@@ -118,7 +134,7 @@ const AnimationBadge = withStyles((theme) => ({
 
 export const SettingButton: FC = () => {
   const [open, setOpen] = useState(false);
-  const savedDeviceName = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const savedDeviceName = GetDeviceName();
   const invisibleeBadge = savedDeviceName ? savedDeviceName !== defaultDeviceName : false;
 
   const onClick = () => {

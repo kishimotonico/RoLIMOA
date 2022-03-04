@@ -3,6 +3,7 @@ import http from "http";
 import { Socket, Server } from "socket.io";
 import { createStore } from "redux";
 import { rootReducer } from "./features";
+import { connectedDevicesStateSlice } from "./features/connectedDevices";
 
 const app = express();
 const server = http.createServer(app).listen(8000);
@@ -28,6 +29,12 @@ io.on('connection', (socket: Socket) => {
     // 切断
     socket.on('disconnect', (reason) => {
         console.log(`disconnect: ${socket.id} (${reason})`);
+
+        const action = connectedDevicesStateSlice.actions.removeDevice({
+            sockId: socket.id
+        });
+        store.dispatch(action);
+        socket.emit("dispatch", action);    
     });
 
     // クライアントから送られたdispatchの処理

@@ -14,6 +14,8 @@ import { AdminPage } from './AdminPage';
 import { StreamingOverlayPage } from './StreamingOverlayPage';
 import { LyricalSocket } from './lyricalSocket';
 import { LocalTimerClock } from './LocalTimerClock';
+import { connectedDevicesStateSlice } from './features/connectedDevices';
+import { GetDeviceName } from './SettingModal';
 
 const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
@@ -24,11 +26,19 @@ const App: FC = () => {
     const socket = LyricalSocket.instance.socket;
 
     socket.on("welcome", (data: RootState) => {
-      console.log("welcome", data);
+      console.log(`welcome: ${socket.id}`, data);
       dispatch(scoreStateSlice.actions.setCurrent(data.score));
       dispatch(phaseStateSlice.actions.setCurrent(data.phase));
       dispatch(teamsStateSlice.actions.setCurrent(data.teams));
+      dispatch(connectedDevicesStateSlice.actions.setCurrent(data.connectedDevices));
       setIsConnect(true);
+
+      const action = connectedDevicesStateSlice.actions.addDevice({
+        sockId: socket.id,
+        deviceName: GetDeviceName(),
+      });
+      dispatch(action)
+      socket.emit("dispatch", action);
     });
 
     socket.io.on("reconnect_attempt", () => {
