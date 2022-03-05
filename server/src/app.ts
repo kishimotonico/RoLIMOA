@@ -24,7 +24,10 @@ const store = createStore(rootReducer);
 io.on('connection', (socket: Socket) => {
     console.log(`connected: ${socket.id}`);
     // 初回接続したクライアントに、現在の試合状況を送信する
-    io.to(socket.id).emit('welcome', store.getState());
+    io.to(socket.id).emit('welcome', {
+        time: Date.now(),
+        state: store.getState(),
+    });
 
     // 切断
     socket.on('disconnect', (reason) => {

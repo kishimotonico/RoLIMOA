@@ -20,6 +20,11 @@ import { LyricalSocket } from './lyricalSocket';
 
 const theme = createMuiTheme();
 
+type WelcomeData = {
+  time: number,
+  state: RootState,
+};
+
 const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
   const dispatch = useDispatch();
@@ -28,13 +33,16 @@ const App: FC = () => {
   useEffect(() => {
     const socket = LyricalSocket.instance.socket;
 
-    socket.on("welcome", (data: RootState) => {
-      console.log(`welcome: ${socket.id}`, data);
-      dispatch(scoreStateSlice.actions.setCurrent(data.score));
-      dispatch(phaseStateSlice.actions.setCurrent(data.phase));
-      dispatch(teamsStateSlice.actions.setCurrent(data.teams));
-      dispatch(connectedDevicesStateSlice.actions.setCurrent(data.connectedDevices));
+    socket.on("welcome", (data: WelcomeData) => {
+      console.debug(`welcome: ${socket.id}`, data);
+      dispatch(scoreStateSlice.actions.setCurrent(data.state.score));
+      dispatch(phaseStateSlice.actions.setCurrent(data.state.phase));
+      dispatch(teamsStateSlice.actions.setCurrent(data.state.teams));
+      dispatch(connectedDevicesStateSlice.actions.setCurrent(data.state.connectedDevices));
       setIsConnect(true);
+
+      const delayTime = Date.now() - data.time;
+      console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
 
       const action = connectedDevicesStateSlice.actions.addDevice({
         sockId: socket.id,
