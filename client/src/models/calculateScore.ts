@@ -24,7 +24,7 @@ function isScoreRuleFormulaExpressionType(arg: any): arg is ScoreRuleFormulaExpr
 }
 
 // `scoreRule`に基づいてスコアを算出する
-export function calculateScore(scoreRule: ScoreRuleType, taskStates: TaskStateType, elapsedSecond?: number): number {
+export function calculateScore(scoreRule: ScoreRuleType, taskStates: TaskStateType, elapsedSecond?: number): { value: number, refs?: {[id: string]: number} } {
   // タスクオブジェクトと係数の組み合わせによるシンプルなルール
   if (isScoreRuleSimpleType(scoreRule)) {
     const subTotal = scoreRule.expression.map(({coefficient, id}) => {
@@ -34,7 +34,8 @@ export function calculateScore(scoreRule: ScoreRuleType, taskStates: TaskStateTy
       }
       return val * coefficient;
     });
-    return subTotal.reduce((acc, cur) => acc + cur, 0);
+    const value = subTotal.reduce((acc, cur) => acc + cur, 0);
+    return { value };
   }
 
   // 汎用的な計算表現による複雑なルール記述
@@ -45,8 +46,14 @@ export function calculateScore(scoreRule: ScoreRuleType, taskStates: TaskStateTy
         elapsedTime: elapsedSecond ?? NaN,
       },
     };
-    return evaluateFormula(scoreRule.expression, referencedStats);
+    const value = evaluateFormula(scoreRule.expression, referencedStats);
+    return {
+      value,
+      refs: referencedStats.refRecords
+    };
   }
 
-  return NaN;
+  return {
+    value: NaN,
+  };
 }

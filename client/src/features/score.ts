@@ -1,32 +1,39 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import config from '../config.json';
 
+export type WholeScoreState = Record<FieldSideType, ScoreStateType>;
+
 export type FieldSideType = "blue" | "red";
 
-export type TaskStateType = { [objectId: string]: number; };
 export type ScoreStateType = {
-  tasks: TaskStateType,   // タスクの進行状況
-  enable: boolean,        // スコアの有効フラグ
-  vgoal?: number,         // Vゴールタイム
+  tasks: TaskStateType,       // タスクの進行状況
+  enable: boolean,            // スコアの有効フラグ
+  winner: boolean,            // 勝利フラグ
+  refValues: RefValuesType,   // 途中式などの値
+  vgoal?: number,             // Vゴールタイム
 };
-export type WholeScoreState = Record<FieldSideType, ScoreStateType>;
+export type TaskStateType = { [objectId: string]: number; };
+export type RefValuesType = { [referenceId: string]: number; };
 
 type TaskUpdateActionPayload = {
   fieldSide: FieldSideType,
   taskObjectId: string,
   afterValue: number,
-  // operation: string,     // バリデーションのために "increment"|"decrement" を指定する予定だったが現在使っていない
 };
 
 export const initialState: WholeScoreState = {
   blue: {
     tasks: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
-    enable: false,
+    enable: true,
+    winner: false,
+    refValues: {},
     vgoal: undefined,
   },
   red: {
     tasks: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
-    enable: false,
+    enable: true,
+    winner: false,
+    refValues: {},
     vgoal: undefined,
   },
 };
@@ -41,11 +48,17 @@ export const scoreStateSlice = createSlice({
     setScoreEnable: (state, action: PayloadAction<{fieldSide: FieldSideType, enable: boolean}>) => {
       state[action.payload.fieldSide].enable = action.payload.enable;
     },
+    setWinnerFlag: (state, action: PayloadAction<{fieldSide: FieldSideType, enable: boolean}>) => {
+      state[action.payload.fieldSide].winner = action.payload.enable;
+    },
     setVgoalTime: (state, action: PayloadAction<{fieldSide: FieldSideType, vgoalTime: number}>) => {
       state[action.payload.fieldSide].vgoal = action.payload.vgoalTime;
     },
     unsetVgoalTime: (state, action: PayloadAction<{fieldSide: FieldSideType}>) => {
       state[action.payload.fieldSide].vgoal = undefined;
+    },
+    setRefValues: (state, action: PayloadAction<{fieldSide: FieldSideType, refValues: RefValuesType}>) => {
+      state[action.payload.fieldSide].refValues = action.payload.refValues;
     },
     setCurrent: (_, action: PayloadAction<WholeScoreState>) => action.payload,
   },
