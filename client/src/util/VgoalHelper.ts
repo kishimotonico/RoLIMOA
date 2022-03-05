@@ -35,7 +35,7 @@ export function isVgoalAvailable(scoreState: ScoreStateType): boolean {
   // type: manual
   if (isManualConditionType(vgoalCondition)) {
     const requiredTasks = vgoalCondition.required.tasks;
-    return ! requiredTasks.every((requiredTask) => scoreState.tasks[requiredTask.id] >= requiredTask.count);
+    return requiredTasks.every((requiredTask) => scoreState.tasks[requiredTask.id] >= requiredTask.count);
   }
 
   // type: alwaysOk

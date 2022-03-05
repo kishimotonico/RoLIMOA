@@ -47,18 +47,18 @@ export const ScoreInputVgloaButton: FC<ScoreInputVgloaButtonProps> = ({
     socket.emit("dispatch", action);
   }, [dispatch, fieldSide]);
 
-  const isVgoaled = scoreState.vgoal === undefined;
+  const isNotVgoaled = scoreState.vgoal === undefined;
 
   return (
     <Button
       variant="contained"
       size="medium" 
-      onClick={isVgoaled ? onVgoalButton : onVgoalCancelButton}
-      disabled={isVgoaled ? Vgoal.isVgoalAvailable(scoreState) : false}
-      color={isVgoaled ? color : "default"}
+      onClick={isNotVgoaled ? onVgoalButton : onVgoalCancelButton}
+      disabled={isNotVgoaled ? !Vgoal.isVgoalAvailable(scoreState) : false}
+      color={isNotVgoaled ? color : "default"}
       className={classes.vgoalButton}
     >
-      {isVgoaled ? "Vゴール 達成" : "Vゴール 取り消し"}
+      {isNotVgoaled ? "Vゴール 達成" : "Vゴール 取り消し"}
     </Button>
   );
 };
