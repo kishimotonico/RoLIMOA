@@ -48,17 +48,23 @@
       },
       {
         "id": "E_ball_in",
-        "description": "A.思い出（中）",
+        "description": "E.思い出（中）",
         "initialValue": 0,
         "min": 0,
         "max": 6
       },
       {
         "id": "F_ball_on",
-        "description": "B.思い出（裏）",
+        "description": "F.思い出（裏）",
         "initialValue": 0,
         "min": 0,
         "max": 6
+      },
+      {
+        "id": "violation",
+        "description": "違反",
+        "initialValue": 0,
+        "min": 0
       }
     ],
     "score": {
@@ -471,7 +477,7 @@
       }
     },
     "vgoal": {
-      "name": "乾杯達成",
+      "name": "準備万端",
       "condition": {
         "type": "alwaysOk"
       }
@@ -519,7 +525,7 @@
         },
         {
           "elapsedTime": 4,
-          "sound": "tone_880hz_1000ms.mp3"
+          "sound": "tone_440hz_500ms.mp3"
         }
       ]
     },
@@ -535,7 +541,24 @@
       "custom": [
         {
           "elapsedTime": 0,
-          "displayText": "GO"
+          "displayText": "GO",
+          "sound": "tone_880hz_1000ms.mp3"  
+        },
+        {
+          "elapsedTime": 177,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 178,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 179,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 180,
+          "sound": "tone_880hz_1000ms.mp3"  
         }
       ]
     },
@@ -553,24 +576,39 @@
   ],
   "teams_info": [
     {
-      "name": "ホットココアチーム",
-      "school": "ラビット大学",
-      "short": "ホットココア（ラビ大）"
+      "name": "シャトランガチ勢",
+      "school": "東京大学",
+      "short": "シャトランガチ勢（東大）"
     },
     {
-      "name": "カプチーノチーム",
-      "school": "ラビット大学",
-      "short": "カプチーノ（ラビ大）"
+      "name": "砲学部",
+      "school": "早稲田大学",
+      "short": "砲学部（早稲田）"
     },
     {
-      "name": "宇治抹茶チーム",
-      "school": "うさぎ大学",
-      "short": "宇治抹茶（うさぎ大）"
+      "name": "E-TITAN",
+      "school": "早稲田大学",
+      "short": "E-TITAN（早稲田）"
     },
     {
-      "name": "君のためなら寝坊する",
-      "school": "うさぎ大学",
-      "short": "君のためなら寝坊（うさぎ大）"
+      "name": "Amabie",
+      "school": "東京大学",
+      "short": "Amabie（東大）"
+    },
+    {
+      "name": "腐ったら赤さび",
+      "school": "東京大学",
+      "short": "腐ったら赤さび（東大）"
+    },
+    {
+      "name": "閃光の片付け",
+      "school": "千葉大学",
+      "short": "閃光の片付け（千葉）"
+    },
+    {
+      "name": "f11",
+      "school": "東京都立産業技術高等専門学校",
+      "short": "f11（産技高等）"
     }
   ]
 }

@@ -17,6 +17,7 @@ import { StreamingOverlayPage } from './StreamingOverlayPage';
 import { LocalTimerClock } from './LocalTimerClock';
 import { GetDeviceName } from './SettingModal';
 import { LyricalSocket } from './lyricalSocket';
+import { ScreenPage } from './ScreenPage';
 
 const theme = createMuiTheme();
 
@@ -71,6 +72,7 @@ const App: FC = () => {
           <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
+          <Route path="/screen" element={<ScreenPage />} />
         </Routes>
         <LoadingOverlay loading={!isConnect}/>
         <LocalTimerClock />
