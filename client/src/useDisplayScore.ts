@@ -38,3 +38,40 @@ export function useDisplayScore(fieldSide: FieldSideType): string {
 
   return value.toString();
 }
+
+export function useDisplayScoreV2(fieldSide: FieldSideType): {
+  text: string,
+  refValues: { [id: string]: number; },
+} {
+  const dispatch = useDispatch();
+  const isScoreEnabled = useSelector<RootState, boolean>((state) => state.score[fieldSide].enable);
+  const isScoreVgoaled = useSelector<RootState, number | undefined>((state) => state.score[fieldSide].vgoal);
+  const taskObject = useSelector<RootState, TaskStateType>((state) => state.score[fieldSide].tasks);
+  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
+  const timerClock = useRecoilValue(timerClockState);
+
+  // スコア無効時
+  if (! isScoreEnabled) {
+    return {
+      text: "---",
+      refValues: {},
+    };
+  }
+
+  // 得点計算
+  let elapsedSecond = timerClock ?? 0;
+  if (phaseState.id !== "match") { // TODO: フェーズIDのハードコーディングをそのうち修正
+    elapsedSecond = 0;
+  }
+
+  const { value, refs } = calculateScore(scoreRule, taskObject, isScoreVgoaled ?? elapsedSecond);
+  const refValues = refs ?? {};
+  dispatch(scoreStateSlice.actions.setRefValues({ fieldSide, refValues }));
+
+  let text = value.toString();
+
+  return {
+    text,
+    refValues,
+  };
+}

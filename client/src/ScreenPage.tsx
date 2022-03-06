@@ -3,15 +3,14 @@ import { Grid, makeStyles } from '@material-ui/core';
 import { ScoreBlockContainer } from './ScoreBlockContainer';
 import { TimerDisplayContainer } from './TimerDisplayContainer';
 import { usePlayBeepIfNeeded } from './usePlayBeepIfNeeded';
+import { ScoreBlockV3 } from './ScoreBlockV3';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '2em',
   },
   header: {
-    display: 'flex',
-    width: '100%',
-    height: '260px',
+    height: '300px',
   },
 }));
 
@@ -25,9 +24,9 @@ export const ScreenPage: FC = () => {
     <div className={classes.root}>
       <Grid container spacing={6}>
         {/* スコア */}
-        <Grid item container justify="space-between" alignItems="center">
+        <Grid item container justify="space-between" alignItems="center" className={classes.header}>
           <Grid item xs={5}>
-            <ScoreBlockContainer fieldSide="blue" />
+            <ScoreBlockV3 fieldSide="blue" />
           </Grid>
           <Grid item xs={2}>
             {/* <IconButton aria-label="delete" color="default" onClick={onReverseClick}>
@@ -35,7 +34,7 @@ export const ScreenPage: FC = () => {
             </IconButton> */}
           </Grid>
           <Grid item xs={5}>
-            <ScoreBlockContainer fieldSide="red" />
+            <ScoreBlockV3 fieldSide="red" />
           </Grid>
         </Grid>
         {/* タイム */}
