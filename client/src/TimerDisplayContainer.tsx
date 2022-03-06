@@ -54,6 +54,7 @@ export const TimerDisplayContainer: FC<TimerDisplayContainerProps> = ({
   const config = Phase.getConfig(phaseState.id);
   const second = timerClock ?? 0;
 
+  // TODO: ここで局所的なタイマを作ってしまっているので、あとでリファクタ
   // タイマの更新ごとに実行
   useEffect(() => {
     onTick(second);

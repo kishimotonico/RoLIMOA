@@ -87,3 +87,9 @@ export function getNextPhase(phaseId: string): string {
   }
   return config.time_progress[getIndex(phaseId) + 1].id;
 }
+
+// ローカルで指定時間を過ぎてから、マスターでフェーズを更新するまでの間を検知
+export function isGapPhase(phaseId: string, elapsedTime: number): boolean {
+  const config = getConfig(phaseId);
+  return !isLast(phaseId) && config.isAutoTransition && config.time === elapsedTime;
+}
