@@ -543,22 +543,6 @@
           "elapsedTime": 0,
           "displayText": "GO",
           "sound": "tone_880hz_1000ms.mp3"  
-        },
-        {
-          "elapsedTime": 177,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 178,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 179,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 180,
-          "sound": "tone_880hz_1000ms.mp3"  
         }
       ]
     },
@@ -609,6 +593,16 @@
       "name": "f11",
       "school": "東京都立産業技術高等専門学校",
       "short": "f11（産技高等）"
+    },
+    {
+      "name": "Robo+ism",
+      "school": "横浜国立大学",
+      "short": "Robo+ism（横浜国立）"
+    },
+    {
+      "name": "　",
+      "school": "　",
+      "short": "　"
     }
   ]
 }

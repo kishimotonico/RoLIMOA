@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const StreamingOverlayPage: FC = () => {
+export const StreamingOverlayPageInverse: FC = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <ScoreBlockV4 fieldSide="red" />
-        <TimerDisplayV2Container />
         <ScoreBlockV4 fieldSide="blue" />
+        <TimerDisplayV2Container />
+        <ScoreBlockV4 fieldSide="red" />
       </div>
     </div>
   );
