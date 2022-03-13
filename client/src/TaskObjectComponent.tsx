@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Button, ButtonGroup, Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Container, Grid, Paper, Typography } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

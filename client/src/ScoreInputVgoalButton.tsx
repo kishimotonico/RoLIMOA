@@ -1,6 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { RootState } from './features';
 import { scoreStateSlice, ScoreStateType } from './features/score';
 import { useRecoilValue } from 'recoil';
@@ -55,7 +56,8 @@ export const ScoreInputVgloaButton: FC<ScoreInputVgloaButtonProps> = ({
       size="medium" 
       onClick={isNotVgoaled ? onVgoalButton : onVgoalCancelButton}
       disabled={isNotVgoaled ? !Vgoal.isVgoalAvailable(scoreState) : false}
-      color={isNotVgoaled ? color : "default"}
+      color="info"
+      // color={isNotVgoaled ? color : "default"}
       className={classes.vgoalButton}
     >
       {isNotVgoaled ? "Vゴール 達成" : "Vゴール 取り消し"}

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Grid, makeStyles, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { ScoreBlockContainer } from './ScoreBlockContainer';
 
 const useStyles = makeStyles((theme) => ({

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Typography, Grid, makeStyles } from '@material-ui/core';
+import { Typography, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import "dseg/css/dseg.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ export const TimerDisplayComponent: FC<TimerDisplayComponentProps> = ({
   const classes = useStyles({ descriptionVariant, displayTimeVariant });
 
   return (
-    <Grid item container justify="center" spacing={1}>
+    <Grid item container justifyContent="center" spacing={1}>
       <Grid item xs={12}>
         <Typography component="p" variant={descriptionVariant} align="center" color="textSecondary" className={classes.displayDescription}>
           {description}

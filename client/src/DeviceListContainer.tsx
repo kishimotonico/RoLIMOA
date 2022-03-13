@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useSelector } from 'react-redux';
 import { RootState } from './features';
 import { ConnectedDevice } from './features/connectedDevices';

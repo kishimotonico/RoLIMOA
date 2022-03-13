@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
-import CachedIcon from '@material-ui/icons/Cached';
+import { Grid, IconButton, Paper, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CachedIcon from '@mui/icons-material/Cached';
 import { Dashboard } from './Dashboard';
 import { ScoreBlockContainer } from './ScoreBlockContainer';
 import { TimerDisplayContainer } from './TimerDisplayContainer';
@@ -26,12 +27,12 @@ export const HomePage: FC = () => {
             </Typography>
             <Grid container spacing={6}>
               {/* スコア */}
-              <Grid item container justify="space-between" alignItems="center" direction={isReverse ? "row-reverse" : "row"}>
+              <Grid item container justifyContent="space-between" alignItems="center" direction={isReverse ? "row-reverse" : "row"}>
                 <Grid item xs={5}>
                   <ScoreBlockContainer fieldSide="blue" />
                 </Grid>
                 <Grid item xs={1}>
-                  <IconButton aria-label="delete" color="default" onClick={onReverseClick}>
+                  <IconButton aria-label="delete" color="default" onClick={onReverseClick} size="large">
                     <CachedIcon />
                   </IconButton>
                 </Grid>

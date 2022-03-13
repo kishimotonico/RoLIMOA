@@ -1,6 +1,17 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { Dialog, DialogTitle, IconButton, Badge, DialogContent, DialogContentText, TextField, DialogActions, Button, withStyles } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
+import {
+  Dialog,
+  DialogTitle,
+  IconButton,
+  Badge,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
+  Button,
+} from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { LyricalSocket } from './lyricalSocket';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { connectedDevicesStateSlice } from './features/connectedDevices';
@@ -145,14 +156,12 @@ export const SettingButton: FC = () => {
     setOpen(false);
   };
 
-  return (
-    <>
-      <IconButton color="inherit" onClick={onClick}>
-        <AnimationBadge color="secondary" badgeContent="!" invisible={invisibleeBadge}>
-          <SettingsIcon />
-        </AnimationBadge>
-      </IconButton>
-      <SettingModal open={open} onClose={onClose} />
-    </>
-  );
+  return <>
+    <IconButton color="inherit" onClick={onClick} size="large">
+      <AnimationBadge color="secondary" badgeContent="!" invisible={invisibleeBadge}>
+        <SettingsIcon />
+      </AnimationBadge>
+    </IconButton>
+    <SettingModal open={open} onClose={onClose} />
+  </>;
 }

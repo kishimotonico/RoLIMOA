@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
 import { Route, Routes } from 'react-router';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, Theme, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import { RootState } from './features';
 import { scoreStateSlice } from './features/score';
 import { phaseStateSlice } from './features/phase';
@@ -18,7 +18,14 @@ import { LocalTimerClock } from './LocalTimerClock';
 import { GetDeviceName } from './SettingModal';
 import { LyricalSocket } from './lyricalSocket';
 
-const theme = createMuiTheme();
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+const theme = createTheme();
 
 type WelcomeData = {
   time: number,
@@ -62,8 +69,8 @@ const App: FC = () => {
     });
   }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
-    <>
+  return <>
+    <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -75,8 +82,8 @@ const App: FC = () => {
         <LoadingOverlay loading={!isConnect}/>
         <LocalTimerClock />
       </ThemeProvider>
-    </>
-  );
+    </StyledEngineProvider>
+  </>;
 }
-  
+
 export default App;

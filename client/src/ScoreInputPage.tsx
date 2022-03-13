@@ -1,7 +1,8 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Backdrop, Fab, Grid, makeStyles } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
+import { Backdrop, Fab, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CheckIcon from '@mui/icons-material/Check';
 import { Dashboard } from './Dashboard';
 import { TaskObject } from './TaskObjectContainer';
 import { ScoreBoard } from './ScoreBoard';

@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Paper, Typography, Grid, Button, makeStyles, ButtonGroup, Tooltip } from '@material-ui/core';
-import PauseIcon from '@material-ui/icons/Pause';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import FastRewindIcon from '@material-ui/icons/FastRewind';
-import FastForwardIcon from '@material-ui/icons/FastForward';
+import { Paper, Typography, Grid, Button, ButtonGroup, Tooltip } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import PauseIcon from '@mui/icons-material/Pause';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
+import FastForwardIcon from '@mui/icons-material/FastForward';
 
 import { TimerDisplayContainer } from './TimerDisplayContainer';
 import * as Phase from "./util/PhaseStateUtil";
@@ -85,27 +86,27 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
             <ButtonGroup size="small" className={classes.controlButtonsGroup}>
               {/* 未実装 */}
               <Tooltip title="最初のフェーズに">
-                <Button variant="contained" color="default" onClick={onFirstPhase} disabled={isFirstPhase}>
+                <Button variant="contained" onClick={onFirstPhase} disabled={isFirstPhase}>
                   <SkipPreviousIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="前のフェーズに">
-                <Button variant="contained" color="default" onClick={onPrevPhase} disabled={isFirstPhase}>
+                <Button variant="contained" onClick={onPrevPhase} disabled={isFirstPhase}>
                   <FastRewindIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="【未実装】一時停止/再開">
-                <Button variant="contained" color="default" onClick={() => {}} disabled={true}>
+                <Button variant="contained" onClick={() => {}} disabled={true}>
                   <PauseIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="次のフェーズに">
-                <Button variant="contained" color="default" onClick={onNextPhase} disabled={isLastPhase}>
+                <Button variant="contained" onClick={onNextPhase} disabled={isLastPhase}>
                   <FastForwardIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="最初のフェーズに">
-                <Button variant="contained" color="default" onClick={onLastPhase} disabled={isLastPhase}>
+                <Button variant="contained" onClick={onLastPhase} disabled={isLastPhase}>
                   <SkipNextIcon />
                 </Button>
               </Tooltip>

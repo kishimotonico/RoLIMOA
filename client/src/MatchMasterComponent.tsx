@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Paper, Typography, Grid, Button, makeStyles, TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { Paper, Typography, Grid, Button, TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Autocomplete } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {

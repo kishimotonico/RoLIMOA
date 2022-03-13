@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
-import { Alert, AlertProps } from "@material-ui/lab";
+import { Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Alert } from '@mui/material';
+import { AlertProps } from '@mui/lab';
 import { Dashboard } from './Dashboard';
 import { TimerMasterContainer } from './TimerMasterContainer';
 import { MatchMasterContainer } from './MatchMasterContainer';

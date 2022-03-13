@@ -1,15 +1,29 @@
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
-import { AppBar, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, makeStyles, Toolbar, Typography, ListSubheader } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import BuildIcon from '@material-ui/icons/Build';
-import CastIcon from '@material-ui/icons/Cast';
-import VideocamIcon from '@material-ui/icons/Videocam';
+import {
+  AppBar,
+  Container,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Toolbar,
+  Typography,
+  ListSubheader,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BuildIcon from '@mui/icons-material/Build';
+import CastIcon from '@mui/icons-material/Cast';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import { SettingButton } from './SettingModal';
 
 const drawerWidth = 240;
@@ -119,7 +133,7 @@ export const Dashboard: FC<DashboardProps> = ({
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
+            size="large">
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
@@ -136,7 +150,7 @@ export const Dashboard: FC<DashboardProps> = ({
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} size="large">
             <ChevronLeftIcon />
           </IconButton>
         </div>
