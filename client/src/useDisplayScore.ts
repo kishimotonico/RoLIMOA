@@ -6,6 +6,7 @@ import { calculateScore, ScoreRuleType } from './models/calculateScore';
 import { useRecoilValue } from 'recoil';
 import { timerClockState } from './atoms/timerClockState';
 import config from './config.json';
+import { useEffect } from 'react';
 
 const scoreRule = config.rule.score as ScoreRuleType;
 
@@ -17,15 +18,6 @@ export function useDisplayScore(fieldSide: FieldSideType): string {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
   const timerClock = useRecoilValue(timerClockState);
 
-  // スコア無効時
-  if (! isScoreEnabled) {
-    return "---";
-  }
-  // Vゴール時
-  if (isScoreVgoaled) {
-    return config.rule.vgoal.name;
-  }
-
   // 得点計算
   let elapsedSecond = timerClock ?? 0;
   if (phaseState.id !== "match") { // TODO: フェーズIDのハードコーディングをそのうち修正
@@ -33,8 +25,23 @@ export function useDisplayScore(fieldSide: FieldSideType): string {
   }
 
   const { value, refs } = calculateScore(scoreRule, taskObject, elapsedSecond);
-  const refValues = refs ?? {};
-  dispatch(scoreStateSlice.actions.setRefValues({ fieldSide, refValues }));
+
+  // refValuesを必要に応じて更新
+  useEffect(() => {
+    const refValues = refs ?? {};
+
+    dispatch(scoreStateSlice.actions.setRefValues({ fieldSide, refValues }));
+  }, [dispatch, fieldSide, refs]);
+
+  // スコア無効時
+  if (! isScoreEnabled) {
+    return "---";
+  }
+
+  // Vゴール時
+  if (isScoreVgoaled) {
+    return config.rule.vgoal.name;
+  }
 
   return value.toString();
 }
