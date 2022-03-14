@@ -2,7 +2,6 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
 import { Route, Routes } from 'react-router';
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import { RootState } from './features';
 import { scoreStateSlice } from './features/score';
 import { phaseStateSlice } from './features/phase';
@@ -17,15 +16,7 @@ import { StreamingOverlayPage } from './StreamingOverlayPage';
 import { LocalTimerClock } from './LocalTimerClock';
 import { GetDeviceName } from './SettingModal';
 import { LyricalSocket } from './lyricalSocket';
-
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
-
-
-const theme = createTheme();
+import { AppMuiThemeProvider } from './AppMuiThemeProvider';
 
 type WelcomeData = {
   time: number,
@@ -70,19 +61,17 @@ const App: FC = () => {
   }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
-          <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
-        </Routes>
-        <LoadingOverlay loading={!isConnect}/>
-        <LocalTimerClock />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <AppMuiThemeProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
+        <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
+      </Routes>
+      <LoadingOverlay loading={!isConnect}/>
+      <LocalTimerClock />
+    </AppMuiThemeProvider>
   </>;
 }
 

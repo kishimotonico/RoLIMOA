@@ -56,7 +56,7 @@ export const TaskObjectComponent: FC<TaskObjectComponentProps> = ({
         </Typography>
 
         <Container className={classes.buttonContainer}>
-          <ButtonGroup className={classes.buttonGroup} color={color} aria-label="outlined primary button group">
+          <ButtonGroup className={classes.buttonGroup} color={color}>
             <Button className={classes.innnerButton} variant="outlined" onClick={decrement} disabled={currentValue === min}>
               -1
             </Button>

@@ -56,8 +56,7 @@ export const ScoreInputVgloaButton: FC<ScoreInputVgloaButtonProps> = ({
       size="medium" 
       onClick={isNotVgoaled ? onVgoalButton : onVgoalCancelButton}
       disabled={isNotVgoaled ? !Vgoal.isVgoalAvailable(scoreState) : false}
-      color="info"
-      // color={isNotVgoaled ? color : "default"}
+      color={isNotVgoaled ? color : "grey"}
       className={classes.vgoalButton}
     >
       {isNotVgoaled ? "Vゴール 達成" : "Vゴール 取り消し"}

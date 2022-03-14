@@ -86,27 +86,27 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
             <ButtonGroup size="small" className={classes.controlButtonsGroup}>
               {/* 未実装 */}
               <Tooltip title="最初のフェーズに">
-                <Button variant="contained" onClick={onFirstPhase} disabled={isFirstPhase}>
+                <Button variant="contained" color="grey" onClick={onFirstPhase} disabled={isFirstPhase}>
                   <SkipPreviousIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="前のフェーズに">
-                <Button variant="contained" onClick={onPrevPhase} disabled={isFirstPhase}>
+                <Button variant="contained" color="grey" onClick={onPrevPhase} disabled={isFirstPhase}>
                   <FastRewindIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="【未実装】一時停止/再開">
-                <Button variant="contained" onClick={() => {}} disabled={true}>
+                <Button variant="contained" color="grey" onClick={() => {}} disabled={true}>
                   <PauseIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="次のフェーズに">
-                <Button variant="contained" onClick={onNextPhase} disabled={isLastPhase}>
+                <Button variant="contained" color="grey" onClick={onNextPhase} disabled={isLastPhase}>
                   <FastForwardIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="最初のフェーズに">
-                <Button variant="contained" onClick={onLastPhase} disabled={isLastPhase}>
+                <Button variant="contained" color="grey" onClick={onLastPhase} disabled={isLastPhase}>
                   <SkipNextIcon />
                 </Button>
               </Tooltip>
