@@ -48,17 +48,23 @@
       },
       {
         "id": "E_ball_in",
-        "description": "A.思い出（中）",
+        "description": "E.思い出（中）",
         "initialValue": 0,
         "min": 0,
         "max": 6
       },
       {
         "id": "F_ball_on",
-        "description": "B.思い出（裏）",
+        "description": "F.思い出（裏）",
         "initialValue": 0,
         "min": 0,
         "max": 6
+      },
+      {
+        "id": "violation",
+        "description": "違反",
+        "initialValue": 0,
+        "min": 0
       }
     ],
     "score": {
@@ -471,7 +477,7 @@
       }
     },
     "vgoal": {
-      "name": "乾杯達成",
+      "name": "準備万端",
       "condition": {
         "type": "alwaysOk"
       }
@@ -519,7 +525,7 @@
         },
         {
           "elapsedTime": 4,
-          "sound": "tone_880hz_1000ms.mp3"
+          "sound": "tone_440hz_500ms.mp3"
         }
       ]
     },
@@ -535,7 +541,24 @@
       "custom": [
         {
           "elapsedTime": 0,
-          "displayText": "GO"
+          "displayText": "GO",
+          "sound": "tone_880hz_1000ms.mp3"  
+        },
+        {
+          "elapsedTime": 177,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 178,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 179,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 180,
+          "sound": "tone_880hz_1000ms.mp3"  
         }
       ]
     },
