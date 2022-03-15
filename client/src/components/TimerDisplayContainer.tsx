@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { TimerDisplayComponent, TimerDisplayStyleProps } from './TimerDisplayComponent';
-import { useDisplayTimer } from '../functional/useDisplayTimer';
+import { useDisplayTimer } from 'functional/useDisplayTimer';
 
 type TimerDisplayContainerProps = {} & TimerDisplayStyleProps;
 

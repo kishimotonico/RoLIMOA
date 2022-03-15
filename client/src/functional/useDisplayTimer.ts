@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../slices';
-import { PhaseState } from '../slices/phase';
+import { RootState } from 'slices';
+import { PhaseState } from 'slices/phase';
 import { useRecoilValue } from 'recoil';
-import { timerClockState } from '../atoms/timerClockState';
-import * as Phase from "../util/PhaseStateUtil";
+import { timerClockState } from 'atoms/timerClockState';
+import * as Phase from 'util/PhaseStateUtil';
 
 // 表示する時間の文字列を生成
 function _displayTime(elapsedSec: number, config: Required<Phase.TimeProgressConfig>): string {

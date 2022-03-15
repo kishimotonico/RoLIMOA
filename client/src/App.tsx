@@ -2,21 +2,21 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
 import { Route, Routes } from 'react-router';
-import { RootState } from './slices';
-import { scoreStateSlice } from './slices/score';
-import { phaseStateSlice } from './slices/phase';
-import { teamsStateSlice } from './slices/teams';
-import { connectedDevicesStateSlice } from './slices/connectedDevices';
-import { connectionState } from './atoms/connectionState';
-import { HomePage } from './pages/HomePage';
-import { LoadingOverlay } from "./ui/LoadingOverlay";
-import { ScoreInputPage } from './pages/ScoreInputPage';
-import { AdminPage } from './pages/AdminPage';
-import { StreamingOverlayPage } from './pages/StreamingOverlayPage';
-import { LocalTimerClock } from './functional/LocalTimerClock';
-import { GetDeviceName } from './components/SettingModal';
-import { LyricalSocket } from './lyricalSocket';
-import { AppMuiThemeProvider } from './AppMuiThemeProvider';
+import { RootState } from 'slices';
+import { scoreStateSlice } from 'slices/score';
+import { phaseStateSlice } from 'slices/phase';
+import { teamsStateSlice } from 'slices/teams';
+import { connectedDevicesStateSlice } from 'slices/connectedDevices';
+import { connectionState } from 'atoms/connectionState';
+import { HomePage } from 'pages/HomePage';
+import { ScoreInputPage } from 'pages/ScoreInputPage';
+import { AdminPage } from 'pages/AdminPage';
+import { StreamingOverlayPage } from 'pages/StreamingOverlayPage';
+import { LocalTimerClock } from 'functional/LocalTimerClock';
+import { GetDeviceName } from 'components/SettingModal';
+import { LoadingOverlay } from 'ui/LoadingOverlay';
+import { LyricalSocket } from 'lyricalSocket';
+import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
 
 type WelcomeData = {
   time: number,

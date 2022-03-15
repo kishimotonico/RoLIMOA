@@ -2,12 +2,12 @@ import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { RootState } from '../slices';
-import { scoreStateSlice, ScoreStateType } from '../slices/score';
+import { RootState } from 'slices';
+import { scoreStateSlice, ScoreStateType } from 'slices/score';
 import { useRecoilValue } from 'recoil';
-import { timerClockState } from '../atoms/timerClockState';
-import { LyricalSocket } from '../lyricalSocket';
-import * as Vgoal from '../util/VgoalHelper';
+import { timerClockState } from 'atoms/timerClockState';
+import { LyricalSocket } from 'lyricalSocket';
+import * as Vgoal from 'util/VgoalHelper';
 
 const useStyles = makeStyles((theme) => ({
   vgoalButton: {

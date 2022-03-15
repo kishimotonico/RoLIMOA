@@ -2,9 +2,9 @@ import React, { FC, useCallback, useState } from 'react';
 import { Grid, IconButton, Paper, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CachedIcon from '@mui/icons-material/Cached';
-import { Dashboard } from '../components/Dashboard';
-import { ScoreBlockContainer } from '../components/ScoreBlockContainer';
-import { TimerDisplayContainer } from '../components/TimerDisplayContainer';
+import { Dashboard } from 'components/Dashboard';
+import { ScoreBlockContainer } from 'components/ScoreBlockContainer';
+import { TimerDisplayContainer } from 'components/TimerDisplayContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {

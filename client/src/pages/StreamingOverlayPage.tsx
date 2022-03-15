@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
-import { ScoreBlockV2Container } from '../components/ScoreBlockV2Container';
-import { TimerDisplayV2Container } from '../components/TimerDisplayV2Container';
+import { ScoreBlockV2Container } from 'components/ScoreBlockV2Container';
+import { TimerDisplayV2Container } from 'components/TimerDisplayV2Container';
 
 const useStyles = makeStyles((theme) => ({
   root: {

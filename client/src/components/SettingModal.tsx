@@ -12,9 +12,9 @@ import {
 } from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { LyricalSocket } from '../lyricalSocket';
+import { LyricalSocket } from 'lyricalSocket';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { connectedDevicesStateSlice } from '../slices/connectedDevices';
+import { connectedDevicesStateSlice } from 'slices/connectedDevices';
 import { useDispatch } from 'react-redux';
 
 const LOCAL_STORAGE_KEY = "deviceName";

@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Provider } from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './slices';
+import { rootReducer } from 'slices';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 

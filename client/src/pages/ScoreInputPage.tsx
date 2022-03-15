@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Backdrop, Fab, Grid } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CheckIcon from '@mui/icons-material/Check';
-import { Dashboard } from '../components/Dashboard';
-import { TaskObject } from '../components/TaskObjectContainer';
-import { ScoreBoard } from '../components/ScoreBoard';
-import { RootState } from '../slices';
-import { scoreStateSlice } from '../slices/score';
-import { LyricalSocket } from '../lyricalSocket';
-import config from '../config.json';
-import { ScoreInputVgloaButton } from '../components/ScoreInputVgoalButton';
+import { RootState } from 'slices';
+import { scoreStateSlice } from 'slices/score';
+import { Dashboard } from 'components/Dashboard';
+import { TaskObject } from 'components/TaskObjectContainer';
+import { ScoreBoard } from 'components/ScoreBoard';
+import { ScoreInputVgloaButton } from 'components/ScoreInputVgoalButton';
+import { LyricalSocket } from 'lyricalSocket';
+import config from 'config.json';
 
 interface ScoreInputPageProps {
   fieldSide: "blue" | "red";

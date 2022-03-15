@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../slices';
+import { RootState } from 'slices';
+import { useDisplayScore } from 'functional/useDisplayScore';
 import { ScoreBlockV2Component } from './ScoreBlockV2Component';
-import { useDisplayScore } from '../functional/useDisplayScore';
 
 type ScoreBlockV2ContainerProps = {
   fieldSide: "blue"|"red";
