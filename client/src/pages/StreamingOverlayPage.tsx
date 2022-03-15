@@ -1,7 +1,11 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'slices';
+import { FieldSideType } from 'slices/score';
+import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { ScoreBlockV2Container } from 'components/ScoreBlockV2Container';
 import { TimerDisplayV2Container } from 'components/TimerDisplayV2Container';
+import { useDisplayScore } from 'functional/useDisplayScore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,15 +23,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type ScoreBlockProps = {
+  fieldSide: FieldSideType,
+};
+
+const ScoreBlock: FC<ScoreBlockProps> = ({
+  fieldSide,
+}) => {
+  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide]);
+  const displayScore = useDisplayScore(fieldSide);
+
+  const color = fieldSide as string;
+
+  return (
+    <Box sx={{
+      width: '600px',
+      height: '100%',
+      textAlign: 'center',
+      border: `8px solid ${color}`,
+      boxSizing: 'border-box',
+      backgroundColor: 'rgba(240, 240, 240, 0.8)',
+    }}>
+      <Box sx={{
+        height: '80px',
+        lineHeight: '80px',
+        borderBottom: `8px solid ${color}`,
+        fontSize: '42px',
+        display: 'flex',
+        justifyContent: 'center',        
+      }}>
+        {teamName}
+      </Box>
+      <Box sx={{
+        fontSize: '120px',
+        lineHeight: '180px',        
+      }}>
+        {displayScore}
+      </Box>
+    </Box>
+  );
+}
+
 export const StreamingOverlayPage: FC = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <ScoreBlockV2Container fieldSide="red" />
+        <ScoreBlock fieldSide="red" />
         <TimerDisplayV2Container />
-        <ScoreBlockV2Container fieldSide="blue" />
+        <ScoreBlock fieldSide="blue" />
       </div>
     </div>
   );

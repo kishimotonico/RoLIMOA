@@ -3,7 +3,7 @@ import { Grid, IconButton, Paper, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Dashboard } from 'components/Dashboard';
-import { ScoreBlockContainer } from 'components/ScoreBlockContainer';
+import { ScoreBlock } from 'components/ScoreBlock';
 import { TimerDisplayContainer } from 'components/TimerDisplayContainer';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ export const HomePage: FC = () => {
               {/* スコア */}
               <Grid item container justifyContent="space-between" alignItems="center" direction={isReverse ? "row-reverse" : "row"}>
                 <Grid item xs={5}>
-                  <ScoreBlockContainer fieldSide="blue" />
+                  <ScoreBlock fieldSide="blue" />
                 </Grid>
                 <Grid item xs={1}>
                   <IconButton aria-label="delete" color="default" onClick={onReverseClick} size="large">
@@ -37,7 +37,7 @@ export const HomePage: FC = () => {
                   </IconButton>
                 </Grid>
                 <Grid item xs={5}>
-                  <ScoreBlockContainer fieldSide="red" />
+                  <ScoreBlock fieldSide="red" />
                 </Grid>
               </Grid>
               {/* タイム */}

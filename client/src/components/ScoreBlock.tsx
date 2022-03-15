@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
-
+import { FieldSideType } from 'slices/score';
+import { useSelector } from 'react-redux';
+import { useDisplayScore } from 'functional/useDisplayScore';
+import { RootState } from 'slices';
 import makeStyles from '@mui/styles/makeStyles';
 
 type StyleProps = {
@@ -27,21 +30,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface ScoreBlockComponentProps {
-  score: string;
-  fieldSide: "blue"|"red";
-  teamName: string;
+interface ScoreBlockProps {
+  fieldSide: FieldSideType;
   focused?: boolean;
   verticalPadding?: string;
 }
 
-export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
-  score,
+export const ScoreBlock: FC<ScoreBlockProps> = ({
   fieldSide,
-  teamName,
   focused = true,
   verticalPadding = '.6em',
 }) => {
+  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide]);
+  const displayScore = useDisplayScore(fieldSide);
+
   const classes = useStyles({
     fieldColor: fieldSide === "blue" ? "primary" : "secondary",
     isFocused: focused,
@@ -55,7 +57,7 @@ export const ScoreBlockComponent: FC<ScoreBlockComponentProps> = ({
         {teamName}
       </Typography>
       <Typography component="div" variant="h4" className={classes.scoreBlockContent}>
-        {score}
+        {displayScore}
       </Typography>
     </Box>
   );
