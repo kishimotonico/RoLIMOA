@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface TimerMasterComponentProps {
-  onTick: (elapsedSecond: number) => void,
   isFirstPhase: boolean,
   isLastPhase: boolean,
   onFirstPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
@@ -56,7 +55,6 @@ interface TimerMasterComponentProps {
 }
 
 export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
-  onTick,
   isFirstPhase,
   isLastPhase,
   onFirstPhase,
@@ -79,7 +77,6 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
             <TimerDisplayContainer
               descriptionVariant="h6"
               displayTimeVariant="h2"
-              onTick={onTick}
             />
           </Grid>
           <Grid item xs={12} className={classes.controlButtons}>

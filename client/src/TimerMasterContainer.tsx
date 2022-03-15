@@ -1,5 +1,7 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
+import { timerClockState } from './atoms/timerClockState';
 import { RootState } from './features';
 import { PhaseState, phaseStateSlice } from './features/phase';
 import { LyricalSocket } from './lyricalSocket';
@@ -53,6 +55,7 @@ function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): bo
 
 export const TimerMasterContainer: FC = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
+  const timerClock = useRecoilValue(timerClockState);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);
   const onFirstPhase = useCallback(() => {
     gotoPhaseCommand(phaseState, "first")
@@ -67,18 +70,18 @@ export const TimerMasterContainer: FC = () => {
     gotoPhaseCommand(phaseState, "last")
   }, [phaseState]);
 
-  const onTick = useCallback((elapsedSecond: number) => {
+  useEffect(() => {
+    const elapsedSecond = timerClock ?? 0;
     // タイマーの更新時にフェーズ移行を確認
     if (isAutoTransition(phaseState, elapsedSecond)) {
       gotoPhaseCommand(phaseState, "next");
     }
     // 次フェーズボタンの有効/無効を設定
     setIsEnabledNextButton(isManualTransition(phaseState, elapsedSecond));
-  }, [phaseState]);
+  }, [timerClock, phaseState]);
 
   return (
     <TimerMasterComponent
-      onTick={onTick}
       isFirstPhase={Phase.getIndex(phaseState.id) === 0}
       isLastPhase={Phase.isLast(phaseState.id)}
       onFirstPhase={onFirstPhase}
