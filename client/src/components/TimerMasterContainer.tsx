@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import { timerClockState } from './atoms/timerClockState';
-import { RootState } from './features';
-import { PhaseState, phaseStateSlice } from './features/phase';
-import { LyricalSocket } from './lyricalSocket';
+import { timerClockState } from '../atoms/timerClockState';
+import { RootState } from '../slices';
+import { PhaseState, phaseStateSlice } from '../slices/phase';
+import { LyricalSocket } from '../lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
-import * as Phase from "./util/PhaseStateUtil";
+import * as Phase from "../util/PhaseStateUtil";
 
 function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|"last") {
   let id = currentPhase.id;

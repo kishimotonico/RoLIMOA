@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './features';
-import { PhaseState } from './features/phase';
-import { FieldSideType, scoreStateSlice, TaskStateType } from './features/score';
-import { calculateScore, ScoreRuleType } from './models/calculateScore';
+import { RootState } from '../slices';
+import { PhaseState } from '../slices/phase';
+import { FieldSideType, scoreStateSlice, TaskStateType } from '../slices/score';
+import { calculateScore, ScoreRuleType } from '../util/calculateScore';
 import { useRecoilValue } from 'recoil';
-import { timerClockState } from './atoms/timerClockState';
-import config from './config.json';
+import { timerClockState } from '../atoms/timerClockState';
+import config from '../config.json';
 import { useEffect } from 'react';
 
 const scoreRule = config.rule.score as ScoreRuleType;

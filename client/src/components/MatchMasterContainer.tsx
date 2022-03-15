@@ -1,13 +1,13 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from './features';
-import { teamsStateSlice } from './features/teams';
-import { phaseStateSlice } from './features/phase';
-import { LyricalSocket } from './lyricalSocket';
+import { RootState } from '../slices';
+import { teamsStateSlice } from '../slices/teams';
+import { phaseStateSlice } from '../slices/phase';
+import { LyricalSocket } from '../lyricalSocket';
 import { MatchMasterComponent } from './MatchMasterComponent';
-import * as Phase from "./util/PhaseStateUtil";
-import config from './config.json';
-import { initialState as scoreInitialState, scoreStateSlice } from './features/score';
+import * as Phase from "../util/PhaseStateUtil";
+import config from '../config.json';
+import { initialState as scoreInitialState, scoreStateSlice } from '../slices/score';
 
 export const MatchMasterContainer: FC = () => {
   const teamList = config.teams_info.map(info => info.short);

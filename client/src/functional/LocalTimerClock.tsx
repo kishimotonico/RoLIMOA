@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
-import { timerClockState } from './atoms/timerClockState';
-import { RootState } from './features';
-import { PhaseState } from './features/phase';
+import { timerClockState } from '../atoms/timerClockState';
+import { RootState } from '../slices';
+import { PhaseState } from '../slices/phase';
 
 function calcElapsedSecond(startTime: number): number {
   const now = Date.now();

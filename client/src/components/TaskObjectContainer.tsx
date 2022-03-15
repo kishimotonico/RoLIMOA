@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LyricalSocket } from './lyricalSocket';
-import { RootState } from './features';
+import { LyricalSocket } from '../lyricalSocket';
+import { RootState } from '../slices';
 import { TaskObjectComponent } from "./TaskObjectComponent";
-import { scoreStateSlice, TaskStateType } from './features/score';
+import { scoreStateSlice, TaskStateType } from '../slices/score';
 
 interface TaskObjectProps {
   id: string;

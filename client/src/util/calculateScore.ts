@@ -1,4 +1,4 @@
-import { TaskStateType } from "../features/score";
+import { TaskStateType } from "../slices/score";
 import { evaluateFormula, FormulaExpression, ReferencedStatsType } from "./formulaExpression";
 
 export type ScoreRuleType = ScoreRuleSimpleType | ScoreRuleFormulaExpressionType;

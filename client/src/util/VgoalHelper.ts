@@ -1,4 +1,4 @@
-import { ScoreStateType } from "../features/score";
+import { ScoreStateType } from "../slices/score";
 import rootConfig from "../config.json";
 
 // この型定義でJSONを扱えれば便利なのだけど……

@@ -8,7 +8,7 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 
 import { TimerDisplayContainer } from './TimerDisplayContainer';
-import * as Phase from "./util/PhaseStateUtil";
+import * as Phase from "../util/PhaseStateUtil";
 
 const useStyles = makeStyles((theme) => ({
   root: {

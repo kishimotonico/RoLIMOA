@@ -3,10 +3,10 @@ import { Grid } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Alert } from '@mui/material';
 import { AlertProps } from '@mui/lab';
-import { Dashboard } from './Dashboard';
-import { TimerMasterContainer } from './TimerMasterContainer';
-import { MatchMasterContainer } from './MatchMasterContainer';
-import { DeviceListContainer } from './DeviceListContainer';
+import { Dashboard } from '../components/Dashboard';
+import { TimerMasterContainer } from '../components/TimerMasterContainer';
+import { MatchMasterContainer } from '../components/MatchMasterContainer';
+import { DeviceListContainer } from '../components/DeviceListContainer';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);

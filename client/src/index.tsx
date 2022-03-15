@@ -4,11 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Provider } from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './features';
+import { rootReducer } from './slices';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-
-import './index.css';
 
 const store = configureStore({
   reducer: rootReducer,

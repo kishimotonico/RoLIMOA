@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { useSelector } from 'react-redux';
-import { RootState } from './features';
-import { ConnectedDevice } from './features/connectedDevices';
+import { RootState } from '../slices';
+import { ConnectedDevice } from '../slices/connectedDevices';
 
 const useStyles = makeStyles((theme) => ({
   root: {
