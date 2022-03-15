@@ -178,12 +178,14 @@ export const Dashboard: FC<DashboardProps> = ({
               <ListItemText primary="試合管理" />
             </ListItem>
           </Link>
-          <ListItem button>
-            <ListItemIcon>
-              <CastIcon />
-            </ListItemIcon>
-            <ListItemText primary="スクリーン" />
-          </ListItem>
+          <Link to="/screen" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <CastIcon />
+              </ListItemIcon>
+              <ListItemText primary="スクリーン" />
+            </ListItem>
+          </Link>
           <ListItem button>
             <ListItemIcon>
               <VideocamIcon />

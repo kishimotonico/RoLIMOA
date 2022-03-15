@@ -12,6 +12,7 @@ import { HomePage } from 'pages/HomePage';
 import { ScoreInputPage } from 'pages/ScoreInputPage';
 import { AdminPage } from 'pages/AdminPage';
 import { StreamingOverlayPage } from 'pages/StreamingOverlayPage';
+import { ScreenPage } from 'pages/ScreenPage';
 import { LocalTimerClock } from 'functional/LocalTimerClock';
 import { GetDeviceName } from 'components/SettingModal';
 import { LoadingOverlay } from 'ui/LoadingOverlay';
@@ -69,6 +70,7 @@ const App: FC = () => {
         <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
+        <Route path="/screen" element={<ScreenPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
       <LocalTimerClock />
