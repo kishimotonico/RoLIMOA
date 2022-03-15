@@ -17,6 +17,7 @@ import { GetDeviceName } from 'components/SettingModal';
 import { LoadingOverlay } from 'ui/LoadingOverlay';
 import { LyricalSocket } from 'lyricalSocket';
 import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
+import "dseg/css/dseg.css";
 
 type WelcomeData = {
   time: number,

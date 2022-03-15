@@ -7,7 +7,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 
-import { TimerDisplayContainer } from './TimerDisplayContainer';
+import { TimerDisplay } from './TimerDisplay';
 import * as Phase from 'util/PhaseStateUtil';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +74,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
       <Grid container spacing={1}>
         <Grid item container xs={8} spacing={1}>
           <Grid item xs={12}>
-            <TimerDisplayContainer
+            <TimerDisplay
               descriptionVariant="h6"
               displayTimeVariant="h2"
             />

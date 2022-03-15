@@ -4,7 +4,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Dashboard } from 'components/Dashboard';
 import { ScoreBlock } from 'components/ScoreBlock';
-import { TimerDisplayContainer } from 'components/TimerDisplayContainer';
+import { TimerDisplay } from 'components/TimerDisplay';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +41,7 @@ export const HomePage: FC = () => {
                 </Grid>
               </Grid>
               {/* タイム */}
-              <TimerDisplayContainer descriptionVariant="h4" displayTimeVariant="h1" />
+              <TimerDisplay descriptionVariant="h4" displayTimeVariant="h1" />
             </Grid>
           </Paper>
         </Grid>

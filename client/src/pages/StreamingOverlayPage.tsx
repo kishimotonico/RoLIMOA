@@ -4,8 +4,8 @@ import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
 import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { TimerDisplayV2Container } from 'components/TimerDisplayV2Container';
 import { useDisplayScore } from 'functional/useDisplayScore';
+import { useDisplayTimer } from 'functional/useDisplayTimer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +62,40 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
       </Box>
     </Box>
   );
-}
+};
+
+const TimerDisplay: FC = () => {
+  const { description, displayTime } = useDisplayTimer();
+
+  return <>
+    <Box sx={{
+      width: '400px',
+      height: '100%',
+      textAlign: 'center',
+      backgroundColor: 'rgba(10, 10, 10, 0.9)',
+      boxSizing: 'border-box',
+      color: 'rgba(240, 240, 240, 0.95)',
+    }}>
+      <Box sx={{
+        height: '80px',
+        lineHeight: '120px',
+        fontSize: '24px',
+        display: 'flex',
+        justifyContent: 'center',        
+      }}>
+        {description}
+      </Box>
+      <Box sx={{
+        fontFamily: "DSEG14-Classic",
+        fontWeight: 500,
+        fontSize: '80px',
+        lineHeight: '180px',
+      }}>
+        {displayTime}
+      </Box>
+    </Box>
+  </>;
+};
 
 export const StreamingOverlayPage: FC = () => {
   const classes = useStyles();
@@ -71,7 +104,7 @@ export const StreamingOverlayPage: FC = () => {
     <div className={classes.root}>
       <div className={classes.header}>
         <ScoreBlock fieldSide="red" />
-        <TimerDisplayV2Container />
+        <TimerDisplay />
         <ScoreBlock fieldSide="blue" />
       </div>
     </div>
