@@ -36,7 +36,7 @@ const App: FC = () => {
     socket.on("welcome", (data: WelcomeData) => {
       console.debug(`welcome: ${socket.id}`, data);
       dispatch(scoreStateSlice.actions.setCurrent(data.state.score));
-      dispatch(phaseStateSlice.actions.setCurrent(data.state.phase));
+      dispatch(phaseStateSlice.actions.setCurrent(data.state.phase.current));
       dispatch(teamsStateSlice.actions.setCurrent(data.state.teams));
       dispatch(connectedDevicesStateSlice.actions.setCurrent(data.state.connectedDevices));
       setIsConnect(true);

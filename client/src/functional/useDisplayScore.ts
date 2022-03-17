@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
 import { FieldSideType, scoreStateSlice, TaskStateType } from 'slices/score';
-import { timerClockState } from 'atoms/timerClockState';
 import { calculateScore, ScoreRuleType } from 'util/calculateScore';
 import config from 'config.json';
 
@@ -16,11 +14,10 @@ export function useDisplayScore(fieldSide: FieldSideType): string {
   const isScoreVgoaled = useSelector<RootState, number | undefined>((state) => state.score[fieldSide].vgoal);
   const taskObject = useSelector<RootState, TaskStateType>((state) => state.score[fieldSide].tasks);
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const timerClock = useRecoilValue(timerClockState);
 
   // 得点計算
-  let elapsedSecond = timerClock ?? 0;
-  if (phaseState.id !== "match") { // TODO: フェーズIDのハードコーディングをそのうち修正
+  let elapsedSecond = phaseState.elapsedSecond;
+  if (phaseState.current.id !== "match") { // TODO: フェーズIDのハードコーディングをそのうち修正
     elapsedSecond = 0;
   }
 

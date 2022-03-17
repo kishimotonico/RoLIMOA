@@ -1,9 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useSetRecoilState } from 'recoil';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { PhaseState } from 'slices/phase';
-import { timerClockState } from 'atoms/timerClockState';
+import { CurrentPhaseState, phaseStateSlice } from 'slices/phase';
 
 function calcElapsedSecond(startTime: number): number {
   const now = Date.now();
@@ -11,17 +9,18 @@ function calcElapsedSecond(startTime: number): number {
 }
 
 export const LocalTimerClock: FC = () => {
+  const dispatch = useDispatch();
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
-  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-
-  const setTimerClockState = useSetRecoilState(timerClockState);
+  const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
 
   useEffect(() => {
     function timerUpdate(): void {
       const elapsedSec = calcElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
   
-      setTimerClockState(_ => elapsedSec);
+      dispatch(phaseStateSlice.actions.setElapsedSecond({
+        newElapsedSecond: elapsedSec,
+      }));
 
       timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
     }

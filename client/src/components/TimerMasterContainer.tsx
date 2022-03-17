@@ -1,14 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 import { RootState } from 'slices';
-import { PhaseState, phaseStateSlice } from 'slices/phase';
-import { timerClockState } from 'atoms/timerClockState';
+import { PhaseState, CurrentPhaseState, phaseStateSlice } from 'slices/phase';
 import { LyricalSocket } from 'lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from 'util/PhaseStateUtil';
 
-function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|"last") {
+function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last") {
   let id = currentPhase.id;
   if (type === "first")
     id = Phase.getFirstPhase();
@@ -27,27 +25,27 @@ function gotoPhaseCommand(currentPhase: PhaseState, type: "first"|"prev"|"next"|
 }
 
 // フェーズの自動遷移を行うかを判断
-function isAutoTransition(currentPhase: PhaseState, elapsedSecond: number): boolean {
-  const config = Phase.getConfig(currentPhase.id);
+function isAutoTransition(phaseState: PhaseState): boolean {
+  const config = Phase.getConfig(phaseState.current.id);
   if (config.type === "ready") {
     return false;
   }
   if (config.time === undefined || config.isAutoTransition === undefined) {
     return false;
   }
-  return config.isAutoTransition && config.time <= elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
+  return config.isAutoTransition && config.time <= phaseState.elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
 }
 
 // フェーズの手動遷移ボタンの有効/無効
-function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): boolean {
-  const config = Phase.getConfig(currentPhase.id);
-  if (Phase.isLast(currentPhase.id)) {
+function isManualTransition(phaseState: PhaseState): boolean {
+  const config = Phase.getConfig(phaseState.current.id);
+  if (Phase.isLast(phaseState.current.id)) {
     return false;
   }
   if (config.type === "ready") {
     return true;
   }
-  if (config.isAutoTransition || config.time > elapsedSecond) {
+  if (config.isAutoTransition || config.time > phaseState.elapsedSecond) {
     return false;
   }
   return true;
@@ -55,41 +53,41 @@ function isManualTransition(currentPhase: PhaseState, elapsedSecond: number): bo
 
 export const TimerMasterContainer: FC = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const timerClock = useRecoilValue(timerClockState);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);
+
+  const currentPhase = phaseState.current;
   const onFirstPhase = useCallback(() => {
-    gotoPhaseCommand(phaseState, "first")
-  }, [phaseState]);
+    gotoPhaseCommand(currentPhase, "first")
+  }, [currentPhase]);
   const onPrevPhase = useCallback(() => {
-    gotoPhaseCommand(phaseState, "prev")
-  }, [phaseState]);
+    gotoPhaseCommand(currentPhase, "prev")
+  }, [currentPhase]);
   const onNextPhase = useCallback(() => {
-    gotoPhaseCommand(phaseState, "next")
-  }, [phaseState]);
+    gotoPhaseCommand(currentPhase, "next")
+  }, [currentPhase]);
   const onLastPhase = useCallback(() => {
-    gotoPhaseCommand(phaseState, "last")
-  }, [phaseState]);
+    gotoPhaseCommand(currentPhase, "last")
+  }, [currentPhase]);
 
   useEffect(() => {
-    const elapsedSecond = timerClock ?? 0;
     // タイマーの更新時にフェーズ移行を確認
-    if (isAutoTransition(phaseState, elapsedSecond)) {
-      gotoPhaseCommand(phaseState, "next");
+    if (isAutoTransition(phaseState)) {
+      gotoPhaseCommand(phaseState.current, "next");
     }
     // 次フェーズボタンの有効/無効を設定
-    setIsEnabledNextButton(isManualTransition(phaseState, elapsedSecond));
-  }, [timerClock, phaseState]);
+    setIsEnabledNextButton(isManualTransition(phaseState));
+  }, [phaseState]);
 
   return (
     <TimerMasterComponent
-      isFirstPhase={Phase.getIndex(phaseState.id) === 0}
-      isLastPhase={Phase.isLast(phaseState.id)}
+      isFirstPhase={Phase.getIndex(phaseState.current.id) === 0}
+      isLastPhase={Phase.isLast(phaseState.current.id)}
       onFirstPhase={onFirstPhase}
       onPrevPhase={onPrevPhase}
       onNextPhase={onNextPhase}
       onLastPhase={onLastPhase}
       isEnabledNextButton={isEnabledNextButton}
-      phaseConfig={Phase.getRawConfig(phaseState.id)}
+      phaseConfig={Phase.getRawConfig(phaseState.current.id)}
     />
   );
 }

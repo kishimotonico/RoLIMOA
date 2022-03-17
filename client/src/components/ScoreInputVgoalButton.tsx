@@ -4,8 +4,6 @@ import { Button } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { RootState } from 'slices';
 import { scoreStateSlice, ScoreStateType } from 'slices/score';
-import { useRecoilValue } from 'recoil';
-import { timerClockState } from 'atoms/timerClockState';
 import { LyricalSocket } from 'lyricalSocket';
 import * as Vgoal from 'util/VgoalHelper';
 
@@ -29,16 +27,16 @@ export const ScoreInputVgloaButton: FC<ScoreInputVgloaButtonProps> = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
-  const timerClock = useRecoilValue(timerClockState);
+  const elapsedSec = useSelector<RootState, number>((state) => state.phase.elapsedSecond);
 
   const onVgoalButton = useCallback(() => {
-    const vgoalTime = timerClock ?? 0;
+    const vgoalTime = elapsedSec;
     const action = scoreStateSlice.actions.setVgoalTime({ fieldSide, vgoalTime });
     dispatch(action);
 
     const socket = LyricalSocket.instance.socket;
     socket.emit("dispatch", action);
-  }, [dispatch, fieldSide, timerClock]);
+  }, [dispatch, fieldSide, elapsedSec]);
 
   const onVgoalCancelButton = useCallback(() => {
     const action = scoreStateSlice.actions.unsetVgoalTime({ fieldSide });

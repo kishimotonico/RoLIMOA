@@ -11,7 +11,7 @@ import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score
 
 export const MatchMasterContainer: FC = () => {
   const teamList = config.teams_info.map(info => info.short);
-  const currentPhaseId = useSelector<RootState, string>((state) => state.phase.id);
+  const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
   const [blueTeamName, setBlueTeamName] = useState("");
   const [redTeamName, setRedTeamName] = useState("");
 

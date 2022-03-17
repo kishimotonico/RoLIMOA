@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
-import { timerClockState } from '../atoms/timerClockState';
 import { RootState } from 'slices';
-import { PhaseState } from 'slices/phase';
+import { CurrentPhaseState } from 'slices/phase';
 import * as Phase from "util/PhaseStateUtil";
 
 export const usePlaySoundEffect = () => {
-  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const elapsedSec = useRecoilValue(timerClockState);
+  const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
+  const elapsedSec = useSelector<RootState, number>((state) => state.phase.elapsedSecond);
 
   const phaseConfig = Phase.getConfig(phaseState.id);
 

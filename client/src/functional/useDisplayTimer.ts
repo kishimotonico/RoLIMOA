@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
-import { useRecoilValue } from 'recoil';
-import { timerClockState } from 'atoms/timerClockState';
 import * as Phase from 'util/PhaseStateUtil';
 
 // 表示する時間の文字列を生成
@@ -40,10 +38,9 @@ function _displayTime(elapsedSec: number, config: Required<Phase.TimeProgressCon
 
 export function useDisplayTimer() {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const timerClock = useRecoilValue(timerClockState);
 
-  const config = Phase.getConfig(phaseState.id);
-  const second = timerClock ?? 0;
+  const config = Phase.getConfig(phaseState.current.id);
+  const second = phaseState.elapsedSecond;
 
   const displayTime = _displayTime(second, config);
   const description = config.description;
