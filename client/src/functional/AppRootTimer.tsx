@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { CurrentPhaseState, phaseStateSlice } from 'slices/phase';
 
-function calcElapsedSecond(startTime: number): number {
+function calculateElapsedSecond(startTime: number): number {
   const now = Date.now();
   return Math.floor((now - startTime) / 1000);
 }
 
-export const LocalTimerClock: FC = () => {
+export const AppRootTimer: FC = () => {
   const dispatch = useDispatch();
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
 
   useEffect(() => {
     function timerUpdate(): void {
-      const elapsedSec = calcElapsedSecond(phaseState.startTime);
+      const elapsedSec = calculateElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
   
       dispatch(phaseStateSlice.actions.setElapsedSecond({
@@ -35,5 +35,5 @@ export const LocalTimerClock: FC = () => {
     };
   }, [phaseState]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <></>;
+  return null;
 }

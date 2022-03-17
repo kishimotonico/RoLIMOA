@@ -13,7 +13,7 @@ import { ScoreInputPage } from 'pages/ScoreInputPage';
 import { AdminPage } from 'pages/AdminPage';
 import { StreamingOverlayPage } from 'pages/StreamingOverlayPage';
 import { ScreenPage } from 'pages/ScreenPage';
-import { LocalTimerClock } from 'functional/LocalTimerClock';
+import { AppRootTimer } from 'functional/AppRootTimer';
 import { GetDeviceName } from 'components/SettingModal';
 import { LoadingOverlay } from 'ui/LoadingOverlay';
 import { LyricalSocket } from 'lyricalSocket';
@@ -73,7 +73,7 @@ const App: FC = () => {
         <Route path="/screen" element={<ScreenPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
-      <LocalTimerClock />
+      <AppRootTimer />
     </AppMuiThemeProvider>
   </>;
 }
