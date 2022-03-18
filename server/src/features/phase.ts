@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// `startTime`から経過した現在の秒数を取得する
+export function calculateElapsedSecond(startTime: number): number {
+  const now = Date.now();
+  return Math.floor((now - startTime) / 1000);
+}
+
 export type PhaseState = {
   current: CurrentPhaseState, // sever-sync: 現在のフェーズ
   elapsedSecond: number,      // client-only:フェーズ移行後の経過秒数
@@ -22,8 +28,8 @@ export const phaseStateSlice = createSlice({
   name: 'phase',
   initialState,
   reducers: {
-    setCurrent: (state, action: PayloadAction<CurrentPhaseState>) => {
-      state.elapsedSecond = 0;
+    setState: (state, action: PayloadAction<CurrentPhaseState>) => {
+      state.elapsedSecond = calculateElapsedSecond(action.payload.startTime);
       state.current = action.payload;
     },
     setElapsedSecond: (state, action: PayloadAction<{ newElapsedSecond: number}>) => {

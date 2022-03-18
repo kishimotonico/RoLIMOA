@@ -42,6 +42,7 @@ export const scoreStateSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
+    setState: (_, action: PayloadAction<WholeScoreState>) => action.payload,
     setTaskUpdate: (state, action: PayloadAction<TaskUpdateActionPayload>) => {
       state[action.payload.fieldSide].tasks[action.payload.taskObjectId] = action.payload.afterValue;
     },
@@ -60,6 +61,5 @@ export const scoreStateSlice = createSlice({
     setRefValues: (state, action: PayloadAction<{fieldSide: FieldSideType, refValues: RefValuesType}>) => {
       state[action.payload.fieldSide].refValues = action.payload.refValues;
     },
-    setCurrent: (_, action: PayloadAction<WholeScoreState>) => action.payload,
   },
 });

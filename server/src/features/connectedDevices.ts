@@ -6,7 +6,7 @@ export type ConnectedDevice = {
   currentPath: string,
 };
 
-type PartialExcept<T, K extends keyof T> = Pick<T, K> & Partial<Omit<T, K>>; // T型からK以外のプロパティをPartialにする
+type PartialExcept<T, K extends keyof T> = Pick<T, K> & Partial<T>; // T型からK以外のプロパティをPartialにする
 type PartialConnectedDevice = PartialExcept<ConnectedDevice, "sockId">;
 
 const initialState: ConnectedDevice[] = [];
@@ -15,7 +15,7 @@ export const connectedDevicesStateSlice = createSlice({
   name: 'connectedDevices',
   initialState,
   reducers: {
-    setCurrent: (_, action: PayloadAction<ConnectedDevice[]>) => action.payload,
+    setState: (_, action: PayloadAction<ConnectedDevice[]>) => action.payload,
     // デバイスの追加もしくは更新
     addDeviceOrUpdate: (cur, action: PayloadAction<PartialConnectedDevice>) => {
       const i = cur.findIndex(device => device.sockId === action.payload.sockId);

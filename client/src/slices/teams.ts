@@ -23,6 +23,6 @@ export const teamsStateSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    setCurrent: (_, action: PayloadAction<TeamsState>) => action.payload,
+    setState: (_, action: PayloadAction<TeamsState>) => action.payload,
   },
 });

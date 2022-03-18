@@ -36,10 +36,10 @@ const App: FC = () => {
 
     socket.on("welcome", (data: WelcomeData) => {
       console.debug(`welcome: ${socket.id}`, data);
-      dispatch(scoreStateSlice.actions.setCurrent(data.state.score));
-      dispatch(phaseStateSlice.actions.setCurrent(data.state.phase.current));
-      dispatch(teamsStateSlice.actions.setCurrent(data.state.teams));
-      dispatch(connectedDevicesStateSlice.actions.setCurrent(data.state.connectedDevices));
+      dispatch(scoreStateSlice.actions.setState(data.state.score));
+      dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
+      dispatch(teamsStateSlice.actions.setState(data.state.teams));
+      dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
       setIsConnect(true);
 
       const delayTime = Date.now() - data.time;

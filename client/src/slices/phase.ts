@@ -28,7 +28,7 @@ export const phaseStateSlice = createSlice({
   name: 'phase',
   initialState,
   reducers: {
-    setCurrent: (state, action: PayloadAction<CurrentPhaseState>) => {
+    setState: (state, action: PayloadAction<CurrentPhaseState>) => {
       state.elapsedSecond = calculateElapsedSecond(action.payload.startTime);
       state.current = action.payload;
     },
