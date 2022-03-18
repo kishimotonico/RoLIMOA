@@ -58,7 +58,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
         fontSize: '120px',
         lineHeight: '180px',        
       }}>
-        {displayScore}
+        {displayScore.text}
       </Box>
     </Box>
   );

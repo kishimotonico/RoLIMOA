@@ -57,7 +57,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         {teamName}
       </Typography>
       <Typography component="div" variant="h4" className={classes.scoreBlockContent}>
-        {displayScore}
+        {displayScore.text}
       </Typography>
     </Box>
   );
