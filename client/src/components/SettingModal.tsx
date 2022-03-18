@@ -73,8 +73,7 @@ export const SettingModal: FC<SettingModalProps> = ({
         sockId: socket.id,
         deviceName: GetDeviceName(),
       });
-      dispatch(action)
-      socket.emit("dispatch", action);
+      LyricalSocket.dispatch(action, dispatch);
     }
     onClose();
   }, [onClose, dispatch]);

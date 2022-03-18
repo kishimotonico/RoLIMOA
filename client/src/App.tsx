@@ -48,8 +48,8 @@ const App: FC = () => {
         sockId: socket.id,
         deviceName: GetDeviceName(),
       });
-      dispatch(action)
-      socket.emit("dispatch", action);
+
+      LyricalSocket.dispatch(action, dispatch);
     });
 
     socket.io.on("reconnect_attempt", () => {
@@ -57,7 +57,7 @@ const App: FC = () => {
     });
 
     socket.on("dispatch", (action: any) => {
-      console.log("dispatch from server", action);
+      console.debug("dispatch from server", action);
       dispatch(action);
     });
   }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps

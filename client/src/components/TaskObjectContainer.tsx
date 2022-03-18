@@ -35,10 +35,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
       taskObjectId: id,
       afterValue: nextValue,
     });
-    dispatch(action);
-
-    const socket = LyricalSocket.instance.socket;
-    socket.emit("dispatch", action);
+    LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide, id, currentValue]);
 
   const increment = useCallback(() => {
@@ -48,10 +45,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
       taskObjectId: id,
       afterValue: nextValue,
     });
-    dispatch(action);
-
-    const socket = LyricalSocket.instance.socket;
-    socket.emit("dispatch", action);
+    LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide, id, currentValue]);
 
   return (

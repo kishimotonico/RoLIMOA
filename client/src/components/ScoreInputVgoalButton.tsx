@@ -32,18 +32,12 @@ export const ScoreInputVgloaButton: FC<ScoreInputVgloaButtonProps> = ({
   const onVgoalButton = useCallback(() => {
     const vgoalTime = elapsedSec;
     const action = scoreStateSlice.actions.setVgoalTime({ fieldSide, vgoalTime });
-    dispatch(action);
-
-    const socket = LyricalSocket.instance.socket;
-    socket.emit("dispatch", action);
+    LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide, elapsedSec]);
 
   const onVgoalCancelButton = useCallback(() => {
     const action = scoreStateSlice.actions.unsetVgoalTime({ fieldSide });
-    dispatch(action);
-
-    const socket = LyricalSocket.instance.socket;
-    socket.emit("dispatch", action);
+    LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide]);
 
   const isNotVgoaled = scoreState.vgoal === undefined;

@@ -23,16 +23,15 @@ export const MatchMasterContainer: FC = () => {
   }, []);
 
   const onSubmitButton = useCallback((event) => {
-    const socket = LyricalSocket.instance.socket;
     // スコアの初期化
-    socket.emit("dispatch_all", scoreStateSlice.actions.setCurrent(scoreInitialState));
+    LyricalSocket.dispatchAll(scoreStateSlice.actions.setCurrent(scoreInitialState));
     // チーム情報の更新
-    socket.emit("dispatch_all", teamsStateSlice.actions.setCurrent({
+    LyricalSocket.dispatchAll(teamsStateSlice.actions.setCurrent({
       blue: blueTeamName,
       red: redTeamName,
     }));
     // フェーズ遷移
-    socket.emit("dispatch_all", phaseStateSlice.actions.setCurrent({
+    LyricalSocket.dispatchAll(phaseStateSlice.actions.setCurrent({
       id: Phase.getFirstPhase(),
       startTime: Date.now(),
     }));

@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import io from "socket.io-client";
 
 export class LyricalSocket {
@@ -17,5 +18,18 @@ export class LyricalSocket {
       transports:['websocket'],
     });
     console.log(`is connected: ${this.socket.connected}`);
+  }
+
+  // サーバを経由して、別のクライアントにactionをdispatchする
+  public static dispatch(action: AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
+    if (reduxDispatch) {
+      reduxDispatch(action);
+    }
+    this._instance.socket.emit("dispatch", action);
+  }
+
+  // サーバを経由して、自分を含めた全クライアントにactionをdispatchする
+  public static dispatchAll(action: AnyAction) {
+    this._instance.socket.emit("dispatch_all", action);
   }
 }

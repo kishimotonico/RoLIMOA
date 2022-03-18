@@ -32,10 +32,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
       fieldSide,
       enable: true,
     });
-    dispatch(action);
-
-    const socket = LyricalSocket.instance.socket;
-    socket.emit("dispatch", action);
+    LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide]);
 
   const kanji = {blue: "青", red: "赤"}[fieldSide];
