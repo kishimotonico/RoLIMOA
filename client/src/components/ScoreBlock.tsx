@@ -41,7 +41,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
   focused = true,
   verticalPadding = '.6em',
 }) => {
-  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide]);
+  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
   const displayScore = useDisplayScore(fieldSide);
 
   const classes = useStyles({

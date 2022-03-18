@@ -1,13 +1,22 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { teamsStateSlice } from 'slices/teams';
+import { TeamInfo, teamsStateSlice } from 'slices/teams';
 import { phaseStateSlice } from 'slices/phase';
+import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score';
 import { LyricalSocket } from 'lyricalSocket';
 import { MatchMasterComponent } from './MatchMasterComponent';
 import * as Phase from 'util/PhaseStateUtil';
 import config from 'config.json';
-import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score';
+
+// 省略名からチームリストの情報を取得、なければスタブを作成
+function getTeamInfo(short: string): TeamInfo {
+  const team = config.teams_info.find(team => team.short === short);
+  return {
+    short,
+    ...team,
+  };
+}
 
 export const MatchMasterContainer: FC = () => {
   const teamList = config.teams_info.map(info => info.short);
@@ -27,8 +36,8 @@ export const MatchMasterContainer: FC = () => {
     LyricalSocket.dispatchAll(scoreStateSlice.actions.setCurrent(scoreInitialState));
     // チーム情報の更新
     LyricalSocket.dispatchAll(teamsStateSlice.actions.setCurrent({
-      blue: blueTeamName,
-      red: redTeamName,
+      blue: getTeamInfo(blueTeamName),
+      red: getTeamInfo(redTeamName),
     }));
     // フェーズ遷移
     LyricalSocket.dispatchAll(phaseStateSlice.actions.setCurrent({

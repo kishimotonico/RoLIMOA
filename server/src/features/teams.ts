@@ -1,11 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FieldSideType } from './score';
 
-export type TeamsState = Record<FieldSideType, string>;
+export type TeamsState = Record<FieldSideType, TeamInfo>;
+
+export type TeamInfo = {
+  short: string,      // 表示名
+  id?: string,
+  name?: string,
+  school?: string,
+};
 
 const initialState: TeamsState = {
-  blue: "",
-  red: "",
+  blue: {
+    short: "",
+  },
+  red: {
+    short: "",
+  },
 };
 
 export const teamsStateSlice = createSlice({

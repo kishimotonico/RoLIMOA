@@ -30,7 +30,7 @@ type ScoreBlockProps = {
 const ScoreBlock: FC<ScoreBlockProps> = ({
   fieldSide,
 }) => {
-  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide]);
+  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
   const displayScore = useDisplayScore(fieldSide);
 
   const color = fieldSide as string;

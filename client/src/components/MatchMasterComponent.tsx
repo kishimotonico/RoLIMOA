@@ -37,7 +37,7 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
             freeSolo
             disableClearable
             options={teamOptions}
-            onChange={onChangeBlueTeamName}
+            onInputChange={onChangeBlueTeamName}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -52,7 +52,7 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
             freeSolo
             disableClearable
             options={teamOptions}
-            onChange={onChangeRedTeamName}
+            onInputChange={onChangeRedTeamName}
             renderInput={(params) => (
               <TextField
                 {...params}
