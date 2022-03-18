@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { WritableDraft } from 'immer/dist/internal';
 
 export type ConnectedDevice = {
   deviceName: string,
   sockId: string,
-  currentPath?: string,
+  currentPath: string,
 };
+
+type PartialExcept<T, K extends keyof T> = Pick<T, K> & Partial<Omit<T, K>>; // T型からK以外のプロパティをPartialにする
+type PartialConnectedDevice = PartialExcept<ConnectedDevice, "sockId">;
 
 const initialState: ConnectedDevice[] = [];
 
@@ -14,24 +16,22 @@ export const connectedDevicesStateSlice = createSlice({
   initialState,
   reducers: {
     setCurrent: (_, action: PayloadAction<ConnectedDevice[]>) => action.payload,
-    // デバイスの追加およびデバイス名の更新
-    addDevice: (cur, action: PayloadAction<ConnectedDevice>) => {
-      addDeviceToArray(cur, action.payload);
-    },
-    // デバイスがアクセスしているページのパスを更新
-    updatePath: (cur, action: PayloadAction<{ sockId: string, currentPath: string }>) => {
-      const existing = cur.find(device => device.sockId === action.payload.sockId);
-      // 既存のデバイスのcurrentPathを変更
-      if (existing) {
-        existing.currentPath = action.payload.currentPath;
-      }
-      // 既存のデバイスがないので、新規追加
-      else {
-        const newDevice: ConnectedDevice = {
+    // デバイスの追加もしくは更新
+    addDeviceOrUpdate: (cur, action: PayloadAction<PartialConnectedDevice>) => {
+      const i = cur.findIndex(device => device.sockId === action.payload.sockId);
+      if (i === -1) {
+        // 既存デバイスがないときはデバイスを新規追加
+        cur.push({
           deviceName: "",
+          currentPath: "",
+          ...action.payload,
+        });
+      } else {
+        // 既存のデバイスがあるときは各プロパティを上書き
+        cur[i] = {
+          ...cur[i],
           ...action.payload,
         };
-        addDeviceToArray(cur, newDevice);
       }
     },
     // デバイスの削除（サーバ側でdispatch）
@@ -40,15 +40,3 @@ export const connectedDevicesStateSlice = createSlice({
     },    
   },
 });
-
-// 現在のデバイスに追加する
-function addDeviceToArray(currents: WritableDraft<ConnectedDevice>[], newDevice: ConnectedDevice): void {
-  const existing = currents.find(device => device.sockId === newDevice.sockId);
-  if (existing) {
-    // 既存のデバイスがあるときはデバイス名を更新
-    existing.deviceName = newDevice.deviceName;
-  } else {
-    // 既存デバイスがないときはデバイスを新規追加
-    currents.push(newDevice);
-  }
-}

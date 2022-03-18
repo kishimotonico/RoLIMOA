@@ -69,7 +69,7 @@ export const SettingModal: FC<SettingModalProps> = ({
       // Reduxのストアにデバイスの追加を反映
       // TODO: App.tsxとのコードの重複を解消
       const socket = LyricalSocket.instance.socket;
-      const action = connectedDevicesStateSlice.actions.addDevice({
+      const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
         sockId: socket.id,
         deviceName: GetDeviceName(),
       });

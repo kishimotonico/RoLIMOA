@@ -44,14 +44,6 @@ const App: FC = () => {
 
       const delayTime = Date.now() - data.time;
       console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
-
-      const action = connectedDevicesStateSlice.actions.addDevice({
-        sockId: socket.id,
-        currentPath: location.pathname,
-        deviceName: GetDeviceName(),
-      });
-
-      LyricalSocket.dispatch(action, dispatch);
     });
 
     socket.io.on("reconnect_attempt", () => {
@@ -67,12 +59,10 @@ const App: FC = () => {
   // ページ遷移時に、表示ページのパスを更新する
   useEffect(() => {
     if (isConnect) {
-      const sockId = LyricalSocket.instance.socket.id;
-      const currentPath = location.pathname;
-      console.log(`${sockId}が${currentPath}にページ遷移したよぉ`);
-      LyricalSocket.dispatch(connectedDevicesStateSlice.actions.updatePath({
-        sockId,
-        currentPath,
+      LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
+        sockId: LyricalSocket.instance.socket.id,
+        deviceName: GetDeviceName(),
+        currentPath: location.pathname,
       }), dispatch);
     }
   }, [isConnect, location]); // eslint-disable-line react-hooks/exhaustive-deps
