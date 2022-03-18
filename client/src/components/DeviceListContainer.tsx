@@ -28,8 +28,11 @@ export const DeviceListContainer: FC = () => {
                 <TableCell scope="row">
                   {device.deviceName}
                 </TableCell>
-                <TableCell scope="row">
+                <TableCell>
                   {device.sockId}
+                </TableCell>
+                <TableCell>
+                  {device.currentPath ?? "-"}
                 </TableCell>
               </TableRow>
             ))}

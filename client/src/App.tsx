@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import { RootState } from 'slices';
 import { scoreStateSlice } from 'slices/score';
 import { phaseStateSlice } from 'slices/phase';
@@ -27,9 +27,10 @@ type WelcomeData = {
 
 const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
+  const location = useLocation();
   const dispatch = useDispatch();
 
-  // Websocketを用意
+  // websocketの初回接続と受信イベント処理
   useEffect(() => {
     const socket = LyricalSocket.instance.socket;
 
@@ -46,6 +47,7 @@ const App: FC = () => {
 
       const action = connectedDevicesStateSlice.actions.addDevice({
         sockId: socket.id,
+        currentPath: location.pathname,
         deviceName: GetDeviceName(),
       });
 
@@ -60,7 +62,20 @@ const App: FC = () => {
       console.debug("dispatch from server", action);
       dispatch(action);
     });
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ページ遷移時に、表示ページのパスを更新する
+  useEffect(() => {
+    if (isConnect) {
+      const sockId = LyricalSocket.instance.socket.id;
+      const currentPath = location.pathname;
+      console.log(`${sockId}が${currentPath}にページ遷移したよぉ`);
+      LyricalSocket.dispatch(connectedDevicesStateSlice.actions.updatePath({
+        sockId,
+        currentPath,
+      }), dispatch);
+    }
+  }, [isConnect, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <>
     <AppMuiThemeProvider>
