@@ -1,12 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { CurrentPhaseState, phaseStateSlice } from 'slices/phase';
-
-function calculateElapsedSecond(startTime: number): number {
-  const now = Date.now();
-  return Math.floor((now - startTime) / 1000);
-}
+import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from 'slices/phase';
 
 export const AppRootTimer: FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +12,7 @@ export const AppRootTimer: FC = () => {
     function timerUpdate(): void {
       const elapsedSec = calculateElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
-  
+
       dispatch(phaseStateSlice.actions.setElapsedSecond({
         newElapsedSecond: elapsedSec,
       }));
