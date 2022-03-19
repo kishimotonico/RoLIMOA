@@ -186,12 +186,14 @@ export const Dashboard: FC<DashboardProps> = ({
               <ListItemText primary="スクリーン" />
             </ListItem>
           </Link>
-          <ListItem button>
-            <ListItemIcon>
-              <VideocamIcon />
-            </ListItemIcon>
-            <ListItemText primary="配信overlay" />
-          </ListItem>
+          <Link to="/streaming-overlay-opener" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <VideocamIcon />
+              </ListItemIcon>
+              <ListItemText primary="配信オーバーレイ" />
+            </ListItem>
+          </Link>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

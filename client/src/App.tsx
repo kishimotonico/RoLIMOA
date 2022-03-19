@@ -12,6 +12,7 @@ import { HomePage } from 'pages/HomePage';
 import { ScoreInputPage } from 'pages/ScoreInputPage';
 import { AdminPage } from 'pages/AdminPage';
 import { StreamingOverlayPage } from 'pages/StreamingOverlayPage';
+import { StreamingOverlayOpenerPage } from 'pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from 'pages/ScreenPage';
 import { AppRootTimer } from 'functional/AppRootTimer';
 import { GetDeviceName } from 'components/SettingModal';
@@ -74,7 +75,8 @@ const App: FC = () => {
         <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
         <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/streaming_overlay" element={<StreamingOverlayPage />} />
+        <Route path="/streaming-overlay-opener" element={<StreamingOverlayOpenerPage />} />
+        <Route path="/streaming-overlay" element={<StreamingOverlayPage />} />
         <Route path="/screen" element={<ScreenPage />} />
       </Routes>
       <LoadingOverlay loading={!isConnect}/>
