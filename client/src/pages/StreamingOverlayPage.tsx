@@ -3,25 +3,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
 import { Box } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDisplayTimer } from 'functional/useDisplayTimer';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '1600px',
-    height: '900px',
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-  },
-  header: {
-    display: 'flex',
-    width: '100%',
-    height: '260px',
-  },
-}));
+import { useSearchParams } from 'react-router-dom';
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -33,7 +17,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
   const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
   const displayScore = useDisplayScore(fieldSide);
 
-  const color = fieldSide as string;
+  const color = fieldSide as string; // "blue" | "red"をそのまま文字列として使う
 
   return (
     <Box sx={{
@@ -50,13 +34,13 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
         borderBottom: `8px solid ${color}`,
         fontSize: '42px',
         display: 'flex',
-        justifyContent: 'center',        
+        justifyContent: 'center',
       }}>
         {teamName}
       </Box>
       <Box sx={{
         fontSize: '120px',
-        lineHeight: '180px',        
+        lineHeight: '180px',
       }}>
         {displayScore.text}
       </Box>
@@ -81,7 +65,7 @@ const TimerDisplay: FC = () => {
         lineHeight: '120px',
         fontSize: '24px',
         display: 'flex',
-        justifyContent: 'center',        
+        justifyContent: 'center',
       }}>
         {description}
       </Box>
@@ -97,16 +81,35 @@ const TimerDisplay: FC = () => {
   </>;
 };
 
+export type StreamingOverlayPageParams = {
+  reverse: boolean,
+};
+
 export const StreamingOverlayPage: FC = () => {
-  const classes = useStyles();
+  const [searchParams] = useSearchParams();
+  const params: StreamingOverlayPageParams = {
+    reverse: searchParams.get("reverse") !== null,
+  };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.header}>
+    <Box sx={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '1600px',
+      height: '900px',
+      backgroundColor: 'rgba(255, 255, 255, 0)',
+    }}>
+      <Box sx={{
+        width: '100%',
+        height: '260px',
+        display: 'flex',
+        flexDirection: params.reverse ? 'row-reverse' : 'row',
+      }}>
         <ScoreBlock fieldSide="red" />
         <TimerDisplay />
         <ScoreBlock fieldSide="blue" />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
