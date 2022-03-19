@@ -46,8 +46,8 @@ export const scoreStateSlice = createSlice({
     setScoreEnable: (state, action: PayloadAction<{fieldSide: FieldSideType, enable: boolean}>) => {
       state[action.payload.fieldSide].enable = action.payload.enable;
     },
-    setWinnerFlag: (state, action: PayloadAction<{fieldSide: FieldSideType, enable: boolean}>) => {
-      state[action.payload.fieldSide].winner = action.payload.enable;
+    setWinnerFlag: (state, action: PayloadAction<{fieldSide: FieldSideType, winner: boolean}>) => {
+      state[action.payload.fieldSide].winner = action.payload.winner;
     },
     setVgoalTime: (state, action: PayloadAction<{fieldSide: FieldSideType, vgoalTime: number}>) => {
       state[action.payload.fieldSide].vgoal = action.payload.vgoalTime;

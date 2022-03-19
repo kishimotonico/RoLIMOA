@@ -14,25 +14,27 @@ type DisplayScoreType = {
   refs?: Record<string, number>,
 };
 
-export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType  {
+export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
   const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
 
-  // 得点計算
-  const { value, refs } = useMemo(() => calculateScore(scoreRule, scoreState, phaseState), [scoreState, phaseState]);
+  return useMemo(() => {
+    const { value, refs } = calculateScore(scoreRule, scoreState, phaseState);
 
-  // スコア無効時
-  if (! scoreState.enable) {
-    const text = "---";
+    // スコア無効時
+    if (! scoreState.enable) {
+      const text = "---";
+      return { text, scoreState, refs };
+    }
+  
+    // Vゴール時
+    if (scoreState.vgoal) {
+      const text = config.rule.vgoal.name
+      return { text, scoreState, refs };
+    }
+
+    // 通常時
+    const text = value.toString()
     return { text, scoreState, refs };
-  }
-
-  // Vゴール時
-  if (scoreState.vgoal) {
-    const text = config.rule.vgoal.name
-    return { text, scoreState, refs };
-  }
-
-  const text = value.toString()
-  return { text, scoreState, refs };
+  }, [scoreState, phaseState]);
 }

@@ -46,7 +46,7 @@ export const TaskObjectComponent: FC<TaskObjectComponentProps> = ({
   const color = fieldSide === "blue" ? "primary" : "secondary";
 
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} sm={6}>
       <Paper className={classes.root}>
         <Typography component="h2" variant="h6" gutterBottom>
           {description}
