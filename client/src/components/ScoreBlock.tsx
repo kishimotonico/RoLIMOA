@@ -1,63 +1,61 @@
 import React, { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { FieldSideType } from 'slices/score';
 import { useSelector } from 'react-redux';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { RootState } from 'slices';
-import makeStyles from '@mui/styles/makeStyles';
 
-type StyleProps = {
-  fieldColor: "primary"|"secondary",
-  isFocused: boolean,
-  mainOrLight: "main"|"light",
-  verticalPadding: string,
+type TypographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "caption";
+
+export type ScoreBlockProps = {
+  fieldSide: FieldSideType,
+  focused?: boolean,
+  // 各要素の描画調整
+  rootSx?: SxProps,
+  teamNameVariant?: TypographyVariant,
+  teamNameSx?: SxProps,
+  scoreVariant?: TypographyVariant,
+  scoreSx?: SxProps,
 };
-
-const useStyles = makeStyles((theme) => ({
-  scoreBlock: {
-    width: '100%',
-    textAlign: 'center',
-    border: (props: StyleProps) => `1px solid ${theme.palette[props.fieldColor][props.mainOrLight]}`,
-  },
-  scoreBlockHeader: {
-    backgroundColor: (props: StyleProps) => theme.palette[props.fieldColor][props.mainOrLight],
-    color: theme.palette.background.default,
-    lineHeight: 2,
-  },
-  scoreBlockContent: {
-    padding: (props: StyleProps) => `${props.verticalPadding} 0`,
-    color: (props: StyleProps) => props.isFocused ? theme.palette.text.primary : theme.palette.text.secondary,
-  },
-}));
-
-interface ScoreBlockProps {
-  fieldSide: FieldSideType;
-  focused?: boolean;
-  verticalPadding?: string;
-}
 
 export const ScoreBlock: FC<ScoreBlockProps> = ({
   fieldSide,
   focused = true,
-  verticalPadding = '.6em',
+  rootSx = {},
+  teamNameVariant = "h6",
+  teamNameSx = {},
+  scoreVariant = "h4",
+  scoreSx = {},
 }) => {
   const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
-  const displayScore = useDisplayScore(fieldSide);
+  const { text } = useDisplayScore(fieldSide);
 
-  const classes = useStyles({
-    fieldColor: fieldSide === "blue" ? "primary" : "secondary",
-    isFocused: focused,
-    mainOrLight: focused ? "main" : "light",
-    verticalPadding,
-  });
+  const fieldColor = fieldSide === "blue" ? "primary" : "secondary";
+  const mainOrLight = focused ? "main" : "light";
 
   return (
-    <Box className={classes.scoreBlock}>
-      <Typography component="div" variant="h6" className={classes.scoreBlockHeader}>
+    <Box sx={{
+      width: "100%",
+      textAlign: "center",
+      border: (theme: Theme) => `1px solid ${theme.palette[fieldColor][mainOrLight]}`,
+      ...rootSx,
+    }} >
+      {/* チーム名 */}
+      <Typography component="div" variant={teamNameVariant} sx={{
+        lineHeight: 2,
+        color: (theme: Theme) => theme.palette.background.default,
+        backgroundColor: (theme: Theme) => theme.palette[fieldColor][mainOrLight],
+        ...teamNameSx,
+      }}>
         {teamName}
       </Typography>
-      <Typography component="div" variant="h4" className={classes.scoreBlockContent}>
-        {displayScore.text}
+      {/* スコア表示 */}
+      <Typography component="div" variant={scoreVariant} sx={{
+        padding: ".4em 0",
+        color: (theme: Theme) => focused ? theme.palette.text.primary : theme.palette.text.secondary,
+        ...scoreSx,
+      }}>
+        {text}
       </Typography>
     </Box>
   );

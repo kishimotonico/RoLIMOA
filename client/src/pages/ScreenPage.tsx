@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { ScoreBlock } from 'components/ScoreBlock';
+import { ScoreBlock, ScoreBlockProps } from 'components/ScoreBlock';
 import { TimerDisplay } from 'components/TimerDisplay';
 import { usePlaySoundEffect } from 'functional/usePlaySoundEffect';
 import { Box, Grid, IconButton } from '@mui/material';
@@ -11,7 +11,15 @@ export const ScreenPage: FC = () => {
 
   const [reverse, setReverse] = useState(false);
   const onReverseClick = () => { setReverse(toggle => !toggle) };
-  
+ 
+  const scoreBlockProps: Partial<ScoreBlockProps> = {
+    rootSx: {
+      borderWidth: "3px",
+    },
+    scoreVariant: "h1",
+    teamNameVariant: "h4",
+  };
+
   return (
     <Box sx={{ padding: '2em' }}>
       <Grid container spacing={6}>
@@ -22,7 +30,7 @@ export const ScreenPage: FC = () => {
           flexDirection: reverse ? "row-reverse" : "row",
         }}>
           <Grid item xs={5}>
-            <ScoreBlock fieldSide="blue" />
+            <ScoreBlock fieldSide="blue" {...scoreBlockProps}/>
           </Grid>
           <Grid item xs={2}>
             <CenterFlex sx={{
@@ -38,11 +46,20 @@ export const ScreenPage: FC = () => {
             </CenterFlex>
           </Grid>
           <Grid item xs={5}>
-            <ScoreBlock fieldSide="red" />
+            <ScoreBlock fieldSide="red" {...scoreBlockProps}/>
           </Grid>
         </Grid>
         {/* タイム */}
-        <TimerDisplay descriptionVariant="h2" displayTimeVariant="h1" />
+        <TimerDisplay
+          descriptionSx={{
+            marginTop: ".5em",
+            marginBottom: ".5em",
+            fontSize: "400%",
+          }}
+          displayTimeSx={{
+            fontSize: "1200%",
+          }}
+        />
       </Grid>
     </Box>
   );
