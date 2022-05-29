@@ -12,6 +12,8 @@ import BuildIcon from '@mui/icons-material/Build';
 import CastIcon from '@mui/icons-material/Cast';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { SettingButton } from './SettingModal';
+import { isDrawerOpen } from 'atoms/isDrawerOpen';
+import { useRecoilState } from 'recoil';
 
 const drawerWidth = 240;
 
@@ -105,7 +107,7 @@ export const Dashboard: FC<DashboardProps> = ({
   title,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useRecoilState(isDrawerOpen);
   const handleDrawerOpen = () => { setOpen(true); };
   const handleDrawerClose = () => { setOpen(false); };
 
