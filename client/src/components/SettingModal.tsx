@@ -1,16 +1,14 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Dialog,
   DialogTitle,
   IconButton,
-  Badge,
   DialogContent,
   DialogContentText,
   TextField,
   DialogActions,
   Button,
 } from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { LyricalSocket } from 'lyricalSocket';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -113,39 +111,8 @@ export const SettingModal: FC<SettingModalProps> = ({
   );
 };
 
-const AnimationBadge = withStyles((theme) => ({
-  '@keyframes breatheAnimation': {
-    '0%': {
-      transform: "scale(1.2) translate(50%, -50%);",
-    },
-    '20%': {
-      transform: "scale(1.2) translate(50%, -50%);",
-    },
-    '50%': {
-      transform: "scale(0.8) translate(50%, -50%);",
-    },
-    '80%': {
-      transform: "scale(1.2) translate(50%, -50%);",
-    },
-    '100%': {
-      transform: "scale(1.2) translate(50%, -50%);",
-    },
-  },
-  badge: {
-    animationName: "$breatheAnimation",
-    animationDuration: "0.5s",
-    animationTimingFunction: "ease-in-out",
-    animationIterationCount: "infinite",
-  },
-  invisible: {
-    display: "none",
-  },
-}))(Badge);
-
 export const SettingButton: FC = () => {
   const [open, setOpen] = useState(false);
-  const savedDeviceName = GetDeviceName();
-  const invisibleeBadge = savedDeviceName ? savedDeviceName !== defaultDeviceName : false;
 
   const onClick = () => {
     setOpen(true);
@@ -157,9 +124,7 @@ export const SettingButton: FC = () => {
 
   return <>
     <IconButton color="inherit" onClick={onClick} size="large">
-      <AnimationBadge color="secondary" badgeContent="!" invisible={invisibleeBadge}>
-        <SettingsIcon />
-      </AnimationBadge>
+      <SettingsIcon />
     </IconButton>
     <SettingModal open={open} onClose={onClose} />
   </>;
