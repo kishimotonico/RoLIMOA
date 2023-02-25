@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 export class LyricalSocket {
   // singleton
-  private static _instance:LyricalSocket;
+  private static _instance: LyricalSocket;
   public static get instance():LyricalSocket {
     if (!this._instance) {
       this._instance = new LyricalSocket();

@@ -213,5 +213,8 @@
       "school": "うさぎ大学",
       "short": "君のためなら寝坊（うさぎ大）"
     }
-  ]
+  ],
+  "client": {
+    "standalone_mode": false
+  }
 }

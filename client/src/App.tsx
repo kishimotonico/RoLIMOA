@@ -19,6 +19,7 @@ import { GetDeviceName } from 'components/SettingModal';
 import { LoadingOverlay } from 'ui/LoadingOverlay';
 import { LyricalSocket } from 'lyricalSocket';
 import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
+import config from 'config.json';
 import "dseg/css/dseg.css";
 
 type WelcomeData = {
@@ -33,6 +34,11 @@ const App: FC = () => {
 
   // websocketの初回接続と受信イベント処理
   useEffect(() => {
+    if (config.client.standalone_mode) {
+      console.log("スタンドアロンモードなので、Websocketを使わないよ");
+      return;
+    }
+
     const socket = LyricalSocket.instance.socket;
 
     socket.on("welcome", (data: WelcomeData) => {
@@ -79,7 +85,7 @@ const App: FC = () => {
         <Route path="/streaming-overlay" element={<StreamingOverlayPage />} />
         <Route path="/screen" element={<ScreenPage />} />
       </Routes>
-      <LoadingOverlay loading={!isConnect}/>
+      <LoadingOverlay loading={!config.client.standalone_mode && !isConnect}/>
       <AppRootTimer />
     </AppMuiThemeProvider>
   </>;
