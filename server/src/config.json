@@ -1,47 +1,75 @@
 {
   "contest_info": {
-    "name": "関東夏ロボコン2022"
+    "name": "関東春ロボコン2023"
   },
   "rule": {
     "task_objects": [
       {
-        "id": "A_fetch_cube",
-        "description": "A. キューブを初めて回収",
+        "id": "A_fetch_toy",
+        "description": "A.おもちゃを外に出す",
         "initialValue": 0,
         "min": 0,
         "max": 1
       },
       {
-        "id": "B_put_cube",
-        "description": "B.キューブ設置",
+        "id": "B_sword_on_back",
+        "description": "B.剣（バックヤード）",
         "initialValue": 0,
         "min": 0,
-        "max": 10
+        "max": 4
       },
       {
-        "id": "C_enter_sugoroku",
-        "description": "C.すごろくエリア進入",
+        "id": "C_sword_on_front",
+        "description": "C.剣（売り場）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "D_sword_on_showcase",
+        "description": "D.剣（ショーケース）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "E_hat_on_back",
+        "description": "E.ハット（バックヤード）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 4
+      },
+      {
+        "id": "F_hat_on_front",
+        "description": "F.ハット（売り場）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "G_hat_on_showcase",
+        "description": "G.ハット（ショーケース）",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "H_put_toy",
+        "description": "H.おもちゃを集荷室に配置",
+        "initialValue": 0,
+        "min": 0,
+        "max": 6
+      },
+      {
+        "id": "I_soldout",
+        "description": "I.完売達成",
         "initialValue": 0,
         "min": 0,
         "max": 1
       },
       {
-        "id": "D_fetch_piece",
-        "description": "D.駒を初めて取得",
-        "initialValue": 0,
-        "min": 0,
-        "max": 1
-      },
-      {
-        "id": "E_put_piece",
-        "description": "E.駒を進めたマス数",
-        "initialValue": 0,
-        "min": 0,
-        "max": 7
-      },
-      {
-        "id": "F_finish",
-        "description": "F.駒をあがりマスに",
+        "id": "J_soldout_first",
+        "description": "J.先に完売",
         "initialValue": 0,
         "min": 0,
         "max": 1
@@ -57,33 +85,49 @@
       "format": "simple",
       "expression": [
         {
-          "id": "A_fetch_cube",
+          "id": "A_fetch_toy",
           "coefficient": 5
         },
         {
-          "id": "B_put_cube",
-          "coefficient": 10
-        },
-        {
-          "id": "C_enter_sugoroku",
-          "coefficient": 10
-        },
-        {
-          "id": "D_fetch_piece",
-          "coefficient": 10
-        },
-        {
-          "id": "E_put_piece",
+          "id": "B_sword_on_back",
           "coefficient": 5
         },
         {
-          "id": "F_finish",
+          "id": "C_sword_on_front",
+          "coefficient": 15
+        },
+        {
+          "id": "D_sword_on_showcase",
+          "coefficient": 20
+        },
+        {
+          "id": "E_hat_on_back",
+          "coefficient": 10
+        },
+        {
+          "id": "F_hat_on_front",
+          "coefficient": 25
+        },
+        {
+          "id": "G_hat_on_showcase",
           "coefficient": 30
+        },
+        {
+          "id": "H_put_toy",
+          "coefficient": 10
+        },
+        {
+          "id": "I_soldout",
+          "coefficient": 40
+        },
+        {
+          "id": "J_soldout_first",
+          "coefficient": 10
         }
       ]
     },
     "vgoal": {
-      "name": "あがり",
+      "name": "完売",
       "condition": {
         "type": "manual",
         "required": {
