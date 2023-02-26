@@ -13,8 +13,9 @@ export const AppRootTimer: FC = () => {
       const elapsedSec = calculateElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
 
+      const newElapsedSecond = Math.max(0, elapsedSec);
       dispatch(phaseStateSlice.actions.setElapsedSecond({
-        newElapsedSecond: elapsedSec,
+        newElapsedSecond,
       }));
 
       timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
