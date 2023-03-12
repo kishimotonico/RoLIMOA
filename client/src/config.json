@@ -129,41 +129,38 @@
     "vgoal": {
       "name": "完売",
       "condition": {
-        "type": "manual",
-        "required": {
-          "tasks": [
-            {
-              "id": "F_finish",
-              "count": 1
-            }
-          ]
-        }
+        "type": "alwaysOk"
       }
     }
   },
   "time_progress": [
     {
-      "id": "setting_ready",
+      "id": "preparing",
       "type": "ready",
-      "description": "セッティングタイム"
+      "description": "試合開始準備中"
     },
     {
-      "id": "setting",
+      "id": "setting1_ready",
+      "type": "ready",
+      "description": "セッティングタイム１"
+    },
+    {
+      "id": "setting1",
       "type": "count",
       "time": 60,
-      "description": "セッティングタイム",
+      "description": "セッティングタイム１",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
       }
     },
     {
-      "id": "match_ready",
+      "id": "putting_ready",
       "type": "ready",
       "description": "試合前"
     },
     {
-      "id": "match_countdown",
+      "id": "putting_countdown",
       "type": "count",
       "time": 5,
       "description": "",
@@ -188,10 +185,10 @@
       ]
     },
     {
-      "id": "match",
+      "id": "putting",
       "type": "count",
-      "time": 180,
-      "description": "競技中",
+      "time": 90,
+      "description": "陳列タイム",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
@@ -203,19 +200,97 @@
           "sound": "tone_880hz_1000ms.mp3"
         },
         {
-          "elapsedTime": 177,
+          "elapsedTime": 87,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 178,
+          "elapsedTime": 88,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 179,
+          "elapsedTime": 89,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 180,
+          "elapsedTime": 90,
+          "sound": "tone_880hz_1000ms.mp3"  
+        }
+      ]
+    },
+    {
+      "id": "setting2_ready",
+      "type": "ready",
+      "description": "セッティングタイム２"
+    },
+    {
+      "id": "setting2",
+      "type": "count",
+      "time": 60,
+      "description": "セッティングタイム２",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      }
+    },
+    {
+      "id": "selling_ready",
+      "type": "ready",
+      "description": "試合前"
+    },
+    {
+      "id": "selling_countdown",
+      "type": "count",
+      "time": 5,
+      "description": "",
+      "isAutoTransition": true,
+      "style": {
+        "timerFormat": "s",
+        "timerType": "countdown"
+      },
+      "custom": [
+        {
+          "elapsedTime": 2,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 3,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 4,
+          "sound": "tone_440hz_500ms.mp3"
+        }
+      ]
+    },
+    {
+      "id": "selling",
+      "type": "count",
+      "time": 90,
+      "description": "販売タイム",
+      "style": {
+        "timerFormat": "m:ss",
+        "timerType": "countup"
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "GO",
+          "sound": "tone_880hz_1000ms.mp3"
+        },
+        {
+          "elapsedTime": 87,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 88,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 89,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 90,
           "sound": "tone_880hz_1000ms.mp3"  
         }
       ]
@@ -223,13 +298,7 @@
     {
       "id": "match_finish",
       "type": "ready",
-      "description": "試合終了",
-      "custom": [
-        {
-          "elapsedTime": 0,
-          "displayText": "FINISH"
-        }
-      ]
+      "description": "試合終了"
     }
   ],
   "teams_info": [
