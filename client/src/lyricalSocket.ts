@@ -21,15 +21,21 @@ export class LyricalSocket {
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
-  public static dispatch(action: AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
-    if (reduxDispatch) {
-      reduxDispatch(action);
+  public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
+    if (!Array.isArray(actions)) {
+      actions = [actions];
     }
-    this._instance.socket.emit("dispatch", action);
+
+    if (reduxDispatch) {
+      actions.forEach(action => {
+        reduxDispatch(action);
+      });
+    }
+    this._instance.socket.emit("dispatch", actions);
   }
 
   // サーバを経由して、自分を含めた全クライアントにactionをdispatchする
-  public static dispatchAll(action: AnyAction) {
-    this._instance.socket.emit("dispatch_all", action);
+  public static dispatchAll(actions: AnyAction[]) {
+    this._instance.socket.emit("dispatch_all", actions);
   }
 }

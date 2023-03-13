@@ -32,18 +32,20 @@ export const MatchMasterContainer: FC = () => {
   }, []);
 
   const onSubmitButton = useCallback((event) => {
-    // スコアの初期化
-    LyricalSocket.dispatchAll(scoreStateSlice.actions.setState(scoreInitialState));
-    // チーム情報の更新
-    LyricalSocket.dispatchAll(teamsStateSlice.actions.setState({
-      blue: getTeamInfo(blueTeamName),
-      red: getTeamInfo(redTeamName),
-    }));
-    // フェーズ遷移
-    LyricalSocket.dispatchAll(phaseStateSlice.actions.setState({
-      id: Phase.getFirstPhase(),
-      startTime: Date.now(),
-    }));
+    LyricalSocket.dispatchAll([
+      // スコアの初期化
+      scoreStateSlice.actions.setState(scoreInitialState),
+      // チーム情報の更新
+      teamsStateSlice.actions.setState({
+        blue: getTeamInfo(blueTeamName),
+        red: getTeamInfo(redTeamName),
+      }),
+      // フェーズ遷移
+      phaseStateSlice.actions.setState({
+        id: Phase.getFirstPhase(),
+        startTime: Date.now(),
+      }),
+    ]);
   }, [blueTeamName, redTeamName]);
 
   return (

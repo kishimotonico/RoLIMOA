@@ -57,9 +57,11 @@ const App: FC = () => {
       setIsConnect(false);
     });
 
-    socket.on("dispatch", (action: any) => {
-      console.debug("dispatch from server", action);
-      dispatch(action);
+    socket.on("dispatch", (actions: any[]) => {
+      console.debug("dispatch from server", actions);
+      actions.forEach((action) => {
+        dispatch(action);
+      });
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

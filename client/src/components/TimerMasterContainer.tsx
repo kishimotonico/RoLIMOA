@@ -17,10 +17,10 @@ function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|
   if (type === "last")
     id = Phase.getLastPhase();
 
-  LyricalSocket.dispatchAll(phaseStateSlice.actions.setState({
+  LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
     id,
     startTime: Date.now(),
-  }));
+  })]);
 }
 
 // フェーズの自動遷移を行うかを判断

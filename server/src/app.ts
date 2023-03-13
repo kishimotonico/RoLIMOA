@@ -45,17 +45,21 @@ io.on("connection", (socket: Socket) => {
     });
 
     // クライアントから送られたdispatchの処理
-    socket.on("dispatch", (action) => {
-        console.log(`on dispatch (${socket.id})`, action);
+    socket.on("dispatch", (actions: any[]) => {
+        console.debug(`on dispatch (${socket.id})`, actions);
 
-        store.dispatch(action);                     // サーバサイドのストアに反映
-        socket.broadcast.emit("dispatch", action);  // 送信元以外にactionを転送
+        actions.forEach((action) => {
+            store.dispatch(action);                 // サーバサイドのストアに反映
+        });
+        socket.broadcast.emit("dispatch", actions);  // 送信元以外にactionを転送
     });
-    socket.on("dispatch_all", (action) => {
-        console.log(`on dispatch_all (${socket.id})`, action);
+    socket.on("dispatch_all", (actions: any[]) => {
+        console.debug(`on dispatch_all (${socket.id})`, actions);
 
-        store.dispatch(action);                     // サーバサイドのストアに反映
-        io.emit("dispatch", action);                // 送信元を含む全てに転送
+        actions.forEach((action) => {
+            store.dispatch(action);                 // サーバサイドのストアに反映
+        });
+        io.emit("dispatch", actions);                // 送信元を含む全てに転送
     });
 });
 
