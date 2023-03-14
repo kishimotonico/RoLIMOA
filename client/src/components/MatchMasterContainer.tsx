@@ -21,9 +21,13 @@ function getTeamInfo(short: string): TeamType {
 export const MatchMasterContainer: FC = () => {
   const teamList = config.teams_info.map(info => info.short);
   const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
+  const [matchName, setMatchName] = useState("");
   const [blueTeamName, setBlueTeamName] = useState("");
   const [redTeamName, setRedTeamName] = useState("");
 
+  const onChangeMatchName = useCallback((event) => {
+    setMatchName(event.target.value);
+  }, []);
   const onChangeBlueTeamName = useCallback((_, name) => {
     setBlueTeamName(name);
   }, []);
@@ -37,7 +41,7 @@ export const MatchMasterContainer: FC = () => {
       scoreStateSlice.actions.setState(scoreInitialState),
       // チーム情報の更新
       matchStateSlice.actions.setState({
-        name: "name", // TODO: to be implemented
+        name: matchName,
         teams: {
           blue: getTeamInfo(blueTeamName),
           red: getTeamInfo(redTeamName),
@@ -49,11 +53,12 @@ export const MatchMasterContainer: FC = () => {
         startTime: Date.now(),
       }),
     ]);
-  }, [blueTeamName, redTeamName]);
+  }, [matchName, blueTeamName, redTeamName]);
 
   return (
     <MatchMasterComponent
       teamOptions={teamList}
+      onChangeMatchName={onChangeMatchName}
       onChangeBlueTeamName={onChangeBlueTeamName}
       onChangeRedTeamName={onChangeRedTeamName}
       onStartButton={onSubmitButton}

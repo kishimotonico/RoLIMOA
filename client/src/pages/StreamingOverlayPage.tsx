@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
@@ -68,6 +68,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
 
 const TimerDisplay: FC = () => {
   const { description, displayTime } = useDisplayTimer();
+  const matchName = useSelector<RootState, string>((state) => state.match.name);
 
   return <>
     <Box sx={{
@@ -79,8 +80,8 @@ const TimerDisplay: FC = () => {
       color: 'rgba(240, 240, 240, 0.95)',
     }}>
       <Box sx={{
-        height: '80px',
-        lineHeight: '120px',
+        height: '70px',
+        lineHeight: '70px',
         fontSize: '24px',
         display: 'flex',
         justifyContent: 'center',
@@ -90,10 +91,22 @@ const TimerDisplay: FC = () => {
       <Box sx={{
         fontFamily: "DSEG14-Classic",
         fontWeight: 500,
-        fontSize: '80px',
-        lineHeight: '180px',
+        height: '120px',
+        lineHeight: '120px',
+        fontSize: '72px',
       }}>
         {displayTime}
+      </Box>
+      <Divider sx={{
+        margin: '0 30px',
+        borderColor: 'rgba(240, 240, 240, 0.5)',
+       }}/>
+      <Box sx={{
+        height: '69px',
+        lineHeight: '69px',
+        fontSize: '24px',
+      }}>
+        {matchName ?? ""}
       </Box>
     </Box>
   </>;

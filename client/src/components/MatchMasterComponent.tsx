@@ -11,14 +11,16 @@ const useStyles = makeStyles((theme) => ({
 
 interface MatchMasterComponentProps {
   teamOptions: string[],
-  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+  onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void,
   onChangeBlueTeamName: (event: React.ChangeEvent<{}>, value: string) => void,
   onChangeRedTeamName: (event: React.ChangeEvent<{}>, value: string) => void,
+  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   isEnabledStartButton: boolean,
 }
 
 export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
   teamOptions,
+  onChangeMatchName,
   onChangeBlueTeamName,
   onChangeRedTeamName,
   onStartButton,
@@ -33,6 +35,13 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
       </Typography>
       <Grid container spacing={1}>
         <Grid item xs={12}>
+          <TextField
+            label="試合名"
+            onChange={onChangeMatchName}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
           <Autocomplete
             freeSolo
             disableClearable

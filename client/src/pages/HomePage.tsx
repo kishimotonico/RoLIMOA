@@ -5,6 +5,8 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { Dashboard } from 'components/Dashboard';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { TimerDisplay } from 'components/TimerDisplay';
+import { useSelector } from 'react-redux';
+import { RootState } from 'slices';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,17 +15,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const HomePage: FC = () => {
-  const classes = useStyles();
+  const classes = useStyles();  
   const [isReverse, setIsReverse] = useState(false);
   const onReverseClick = useCallback(() => { setIsReverse(!isReverse) }, [isReverse]);
+  const matchName = useSelector<RootState, string>((state) => state.match.name);
 
   return (
     <Dashboard title="Dashboard">
       <Grid container spacing={3}>
+
         <Grid item xs={12} lg={8}>
           <Paper className={classes.root}>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              試合状況
+              現在の試合：{matchName}
             </Typography>
             <Grid container spacing={6}>
               {/* スコア */}
