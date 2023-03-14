@@ -1,13 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { scoreStateSlice } from './score';
 import { phaseStateSlice } from './phase';
-import { teamsStateSlice } from './teams';
+import { matchStateSlice } from './match';
 import { connectedDevicesStateSlice } from './connectedDevices';
 
 export const rootReducer = combineReducers({
   score: scoreStateSlice.reducer,
   phase: phaseStateSlice.reducer,
-  teams: teamsStateSlice.reducer,
+  match: matchStateSlice.reducer,
   connectedDevices: connectedDevicesStateSlice.reducer,
 });
 

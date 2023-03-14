@@ -5,7 +5,7 @@ import { Route, Routes, useLocation } from 'react-router';
 import { RootState } from 'slices';
 import { scoreStateSlice } from 'slices/score';
 import { phaseStateSlice } from 'slices/phase';
-import { teamsStateSlice } from 'slices/teams';
+import { matchStateSlice } from 'slices/match';
 import { connectedDevicesStateSlice } from 'slices/connectedDevices';
 import { connectionState } from 'atoms/connectionState';
 import { HomePage } from 'pages/HomePage';
@@ -45,7 +45,7 @@ const App: FC = () => {
       console.debug(`welcome: ${socket.id}`, data);
       dispatch(scoreStateSlice.actions.setState(data.state.score));
       dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
-      dispatch(teamsStateSlice.actions.setState(data.state.teams));
+      dispatch(matchStateSlice.actions.setState(data.state.match));
       dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
       setIsConnect(true);
 

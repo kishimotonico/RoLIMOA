@@ -41,7 +41,7 @@ io.on("connection", (socket: Socket) => {
             sockId: socket.id
         });
         store.dispatch(action);
-        io.emit("dispatch", action);
+        io.emit("dispatch", [action]);
     });
 
     // クライアントから送られたdispatchの処理

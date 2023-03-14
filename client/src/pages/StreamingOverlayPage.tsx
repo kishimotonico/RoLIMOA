@@ -17,7 +17,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
   fieldSide,
   placement,
 }) => {
-  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
+  const teamName = useSelector<RootState, string | undefined>((state) => state.match.teams[fieldSide]?.shortName);
   const displayScore = useDisplayScore(fieldSide);
 
   const color = fieldSide as string; // "blue" | "red"をそのまま文字列として使う
@@ -37,7 +37,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
           borderBottom: `8px solid ${color}`,
           fontSize: '42px',
         }}>
-          {teamName}
+          {teamName ?? " "}
         </CenterFlex>
         <CenterFlex sx={{
           fontSize: '120px',

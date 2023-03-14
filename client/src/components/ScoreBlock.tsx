@@ -27,7 +27,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
   scoreVariant = "h4",
   scoreSx = {},
 }) => {
-  const teamName = useSelector<RootState, string>((state) => state.teams[fieldSide].short);
+  const teamName = useSelector<RootState, string | undefined>((state) => state.match.teams[fieldSide]?.shortName);
   const { text } = useDisplayScore(fieldSide);
 
   const fieldColor = fieldSide === "blue" ? "primary" : "secondary";
@@ -47,7 +47,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         backgroundColor: (theme: Theme) => theme.palette[fieldColor][mainOrLight],
         ...teamNameSx,
       }}>
-        {teamName}
+        {teamName ?? " "}
       </Typography>
       {/* スコア表示 */}
       <Typography component="div" variant={scoreVariant} sx={{

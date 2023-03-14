@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { TeamInfo, teamsStateSlice } from 'slices/teams';
+import { TeamType, matchStateSlice } from 'slices/match';
 import { phaseStateSlice } from 'slices/phase';
 import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score';
 import { LyricalSocket } from 'lyricalSocket';
@@ -10,10 +10,10 @@ import * as Phase from 'util/PhaseStateUtil';
 import config from 'config.json';
 
 // 省略名からチームリストの情報を取得、なければスタブを作成
-function getTeamInfo(short: string): TeamInfo {
+function getTeamInfo(short: string): TeamType {
   const team = config.teams_info.find(team => team.short === short);
   return {
-    short,
+    shortName: short,
     ...team,
   };
 }
@@ -36,9 +36,12 @@ export const MatchMasterContainer: FC = () => {
       // スコアの初期化
       scoreStateSlice.actions.setState(scoreInitialState),
       // チーム情報の更新
-      teamsStateSlice.actions.setState({
-        blue: getTeamInfo(blueTeamName),
-        red: getTeamInfo(redTeamName),
+      matchStateSlice.actions.setState({
+        name: "name", // TODO: to be implemented
+        teams: {
+          blue: getTeamInfo(blueTeamName),
+          red: getTeamInfo(redTeamName),
+        },
       }),
       // フェーズ遷移
       phaseStateSlice.actions.setState({
