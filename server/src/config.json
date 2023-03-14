@@ -137,7 +137,13 @@
     {
       "id": "preparing",
       "type": "ready",
-      "description": "試合開始準備中"
+      "description": "試合開始準備中",
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "--   --"
+        }
+      ]
     },
     {
       "id": "setting1_ready",
@@ -157,7 +163,7 @@
     {
       "id": "putting_ready",
       "type": "ready",
-      "description": "試合前"
+      "description": "陳列タイム"
     },
     {
       "id": "putting_countdown",
@@ -235,7 +241,7 @@
     {
       "id": "selling_ready",
       "type": "ready",
-      "description": "試合前"
+      "description": "販売タイム"
     },
     {
       "id": "selling_countdown",
@@ -298,7 +304,13 @@
     {
       "id": "match_finish",
       "type": "ready",
-      "description": "試合終了"
+      "description": "試合終了",
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "displayText": "__   __"
+        }
+      ]
     }
   ],
   "teams_info": [
