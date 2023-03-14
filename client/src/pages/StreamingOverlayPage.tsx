@@ -22,25 +22,42 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
 
   const color = fieldSide as string; // "blue" | "red"をそのまま文字列として使う
 
+  const containerHeight = 260;
+  const outlineBorderWidth = 8;
+  const innerBorderWidth = 6;
+  const nameBlockHeight = 80;
+  const scoreBlockHeight = 16 + containerHeight - nameBlockHeight - outlineBorderWidth * 2 - innerBorderWidth; // 文字を下に下げるため微調整
+
+  let teamNameFontSize = 40;
+  if (teamName && teamName?.length > 12) {
+    teamNameFontSize = 36;
+  }
+  if (teamName && teamName?.length > 14) {
+    teamNameFontSize = 30;
+  }
+
   return (
     <Box>
       <Box sx={{
         width: '600px',
-        height: '260px',
+        height: `${containerHeight}px`,
         textAlign: 'center',
-        border: `8px solid ${color}`,
+        border: `${outlineBorderWidth}px solid ${color}`,
         boxSizing: 'border-box',
         backgroundColor: 'rgba(240, 240, 240, 0.8)',
       }}>
         <CenterFlex sx={{
-          height: '80px',
-          borderBottom: `8px solid ${color}`,
-          fontSize: '42px',
+          height: `${nameBlockHeight}px`,
+          lineHeight: `${nameBlockHeight}px`,
+          borderBottom: `${innerBorderWidth}px solid ${color}`,
+          fontSize: `${teamNameFontSize}px`,
         }}>
           {teamName ?? " "}
         </CenterFlex>
         <CenterFlex sx={{
-          fontSize: '120px',
+          height: `${scoreBlockHeight}px`,
+          lineHeight: `${scoreBlockHeight}px`,
+          fontSize: '100px',
         }}>
           {displayScore.text}
         </CenterFlex>
@@ -100,7 +117,7 @@ const TimerDisplay: FC = () => {
       <Divider sx={{
         margin: '0 30px',
         borderColor: 'rgba(240, 240, 240, 0.5)',
-       }}/>
+      }}/>
       <Box sx={{
         height: '69px',
         lineHeight: '69px',
