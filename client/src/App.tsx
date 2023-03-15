@@ -22,6 +22,7 @@ import { LyricalSocket } from 'lyricalSocket';
 import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
 import config from 'config.json';
 import "dseg/css/dseg.css";
+import { resultRecordsStateSlice } from 'slices/resultRecord';
 
 type WelcomeData = {
   time: number,
@@ -47,6 +48,7 @@ const App: FC = () => {
       dispatch(scoreStateSlice.actions.setState(data.state.score));
       dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
       dispatch(matchStateSlice.actions.setState(data.state.match));
+      dispatch(resultRecordsStateSlice.actions.setState(data.state.resultRecords));
       dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
       setIsConnect(true);
 

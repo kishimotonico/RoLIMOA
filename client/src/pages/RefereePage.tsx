@@ -7,7 +7,7 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { Dashboard } from 'components/Dashboard';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { FieldSideType, WholeScoreState } from 'slices/score';
 import { resultRecordsStateSlice } from 'slices/resultRecord';
@@ -96,11 +96,12 @@ const ScoreDetailTable: FC<ScoreDetailTableProps> = ({
 export const RefereePage: FC = () => {
   // TODO: 細かい処理もここに放り込んじゃったので、もうちょときれいにする
   const classes = useStyles();  
+  const dispath = useDispatch();
   const match = useSelector<RootState, MatchState>((state) => state.match);
   const score = useSelector<RootState, WholeScoreState>((state) => state.score);
   const currentPhase = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
   
-  const { value: blueScoreValue } = useDisplayScore("red");
+  const { value: blueScoreValue } = useDisplayScore("blue");
   const { value: redScoreValue } = useDisplayScore("red");
   const matchName = match.name;
   const isLastPhase = Phase.isLast(currentPhase.id);
@@ -126,21 +127,21 @@ export const RefereePage: FC = () => {
     const confirmedAt = Number(new Date());
     const confirmedBy = "not implemented";
 
-    LyricalSocket.dispatch([
-      matchStateSlice.actions.setConfirmed(true),
-      resultRecordsStateSlice.actions.addResult({
-        match,
-        finalScore: score,
-        confirmedScore: {
-          blue: blueScoreValue,   // 現在は確定スコアの編集機能がないため
-          red: redScoreValue,     // 最終スコアと同じ値になる
-        },
-        comment,
-        confirmedAt,
-        confirmedBy,
-      }),
-    ]);
-  }, [match, score, blueScoreValue, redScoreValue, comment]);
+    const matchAction = matchStateSlice.actions.setConfirmed(true);
+    const resultRecordAction = resultRecordsStateSlice.actions.addResult({
+      match,
+      finalScore: score,
+      confirmedScore: {
+        blue: blueScoreValue,   // 現在は確定スコアの編集機能がないため
+        red: redScoreValue,     // 最終スコアと同じ値になる
+      },
+      comment,
+      confirmedAt,
+      confirmedBy,
+    });
+
+    LyricalSocket.dispatch([matchAction, resultRecordAction], dispath);
+  }, [match, score, blueScoreValue, redScoreValue, comment, dispath]);
 
   return (
     <Dashboard title="主審入力">
