@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useRef, Ref } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Slide } from '@mui/material';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
@@ -102,12 +102,12 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
   );
 };
 
-const TimerDisplay: FC = () => {
+const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
   const { description, displayTime } = useDisplayTimer();
   const matchName = useSelector<RootState, string>((state) => state.match.name);
 
   return <>
-    <Box sx={{
+    <Box ref={ref} sx={{
       width: '400px',
       height: '260px',
       textAlign: 'center',
@@ -158,6 +158,8 @@ export const StreamingOverlayPage: FC = () => {
     reverse: searchParams.get("reverse") !== null,
   };
 
+  const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
+  
   return (
     <Box sx={{
       position: 'absolute',
@@ -167,21 +169,23 @@ export const StreamingOverlayPage: FC = () => {
       height: '900px',
       backgroundColor: 'rgba(255, 255, 255, 0)',
     }}>
-      <Box sx={{
-        width: '100%',
-        height: '260px',
-        display: 'flex',
-      }}>
-        <ScoreBlock
-          fieldSide={ params.reverse ? "blue" : "red" }
-          placement="left"
-        />
-        <TimerDisplay />
-        <ScoreBlock
-          fieldSide={ params.reverse ? "red" : "blue" }
-          placement="right"
-        />
-      </Box>
+      <Slide in={showMainHud} direction="down" timeout={1000} >
+        <Box sx={{
+          width: '100%',
+          height: '260px',
+          display: 'flex',
+        }}>
+          <ScoreBlock
+            fieldSide={ params.reverse ? "blue" : "red" }
+            placement="left"
+          />
+          <TimerDisplay />
+          <ScoreBlock
+            fieldSide={ params.reverse ? "red" : "blue" }
+            placement="right"
+          />
+        </Box>
+      </Slide>
     </Box>
   );
 }

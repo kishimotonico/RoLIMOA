@@ -5,6 +5,10 @@ import { useResolvedPath } from 'react-router';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'slices';
+import { streamingInterfaceSlice } from 'slices/streamingInterface';
+import { LyricalSocket } from 'lyricalSocket';
 
 function useAbsoluteUrl(to: string) {
   // 現在のURLとpathnameから`to`のURLを生成
@@ -53,6 +57,7 @@ export const StreamingOverlayOpenerPage: FC = () => {
                 label="配信オーバーレイURL"
                 value={overlayUrl}
                 fullWidth
+                sx={{ marginBottom: 2 }}
                 InputProps={{
                   readOnly: true,
                   endAdornment: (
@@ -73,7 +78,6 @@ export const StreamingOverlayOpenerPage: FC = () => {
                   ),
                 }}
               />
-              <Divider sx={{ marginTop: 3, marginBottom: 3 }} />
               <FormControlLabel
                 control={
                   <Switch value={reverse} onChange={(event) => { setReverse(event.target.checked); }} />
@@ -81,9 +85,35 @@ export const StreamingOverlayOpenerPage: FC = () => {
                 label="左右を逆にする"
               />
             </Box>
+            <Divider sx={{ marginTop: 3, marginBottom: 3 }} />
+            <Box>
+              <StreamingInterfaceController />
+            </Box>
           </Paper>
         </Grid>
       </Grid>
     </Dashboard>
+  );
+}
+
+const StreamingInterfaceController: FC = () => {
+  const dispatch = useDispatch();
+  const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
+
+  const onChangeShowMainHud = (event: React.ChangeEvent<HTMLInputElement>) => {
+    LyricalSocket.dispatch([
+      streamingInterfaceSlice.actions.setShowMainHud(event.target.checked),
+    ], dispatch);
+  };
+
+  return (
+    <Box>
+      <FormControlLabel
+        control={
+          <Switch checked={showMainHud} onChange={onChangeShowMainHud} />
+        }
+        label="メインHUDを表示する"
+      />
+    </Box>
   );
 }
