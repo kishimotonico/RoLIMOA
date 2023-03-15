@@ -7,6 +7,13 @@ import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
 import { CenterFlex } from 'ui/CenterFlex';
+import config from 'config.json';
+
+const secToTime = (sec: number) => {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s < 10 ? "0" : ""}${s}`;
+};
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -56,10 +63,22 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
         </CenterFlex>
         <CenterFlex sx={{
           height: `${scoreBlockHeight}px`,
-          lineHeight: `${scoreBlockHeight}px`,
           fontSize: '100px',
+          flexDirection: placement === "left" ? 'row' : 'row-reverse',
         }}>
-          {displayScore.text}
+          {displayScore.scoreState.vgoal && (
+            <Box sx={{ fontSize: "40px" }}>
+              <Box>
+                {config.rule.vgoal.name}
+              </Box>
+              <Box>
+                🏴 {secToTime(displayScore.scoreState.vgoal)}
+              </Box>
+            </Box>
+          )}
+          <Box sx={{ padding: "0 .5em", lineHeight: `${scoreBlockHeight}px`, }}>
+            {displayScore.value}
+          </Box>
         </CenterFlex>
       </Box>
       <Box sx={{
