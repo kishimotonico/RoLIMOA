@@ -9,6 +9,7 @@ import { matchStateSlice } from 'slices/match';
 import { connectedDevicesStateSlice } from 'slices/connectedDevices';
 import { connectionState } from 'atoms/connectionState';
 import { HomePage } from 'pages/HomePage';
+import { RefereePage } from 'pages/RefereePage';
 import { ScoreInputPage } from 'pages/ScoreInputPage';
 import { AdminPage } from 'pages/AdminPage';
 import { StreamingOverlayPage } from 'pages/StreamingOverlayPage';
@@ -80,6 +81,7 @@ const App: FC = () => {
     <AppMuiThemeProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/referee" element={<RefereePage />} />
         <Route path="/score/red" element={<ScoreInputPage fieldSide="red" />} />
         <Route path="/score/blue" element={<ScoreInputPage fieldSide="blue" />} />
         <Route path="/admin" element={<AdminPage />} />

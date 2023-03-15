@@ -46,6 +46,7 @@ export const MatchMasterContainer: FC = () => {
           blue: getTeamInfo(blueTeamName),
           red: getTeamInfo(redTeamName),
         },
+        isConfirmed: false,
       }),
       // フェーズ遷移
       phaseStateSlice.actions.setState({

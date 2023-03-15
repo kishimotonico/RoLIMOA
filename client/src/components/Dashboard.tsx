@@ -8,6 +8,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import BuildIcon from '@mui/icons-material/Build';
 import CastIcon from '@mui/icons-material/Cast';
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -145,12 +146,20 @@ export const Dashboard: FC<DashboardProps> = ({
         </div>
         <Divider />
         <List>
-          <Link to="/" className={classes.drawerListLink}>
+        <Link to="/" className={classes.drawerListLink}>
             <ListItem button>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <Link to="/referee" className={classes.drawerListLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <SportsScoreIcon />
+              </ListItemIcon>
+              <ListItemText primary="主審入力" />
             </ListItem>
           </Link>
           <Link to="/score/blue/" className={classes.drawerListLink}>

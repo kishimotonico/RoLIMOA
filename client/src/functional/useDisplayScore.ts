@@ -11,6 +11,7 @@ const scoreRule = config.rule.score as ScoreRuleType;
 type DisplayScoreType = {
   text: string,
   scoreState: ScoreStateType,
+  value: number,
   refs?: Record<string, number>,
 };
 
@@ -24,17 +25,17 @@ export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType {
     // スコア無効時
     if (! scoreState.enable) {
       const text = "---";
-      return { text, scoreState, refs };
+      return { text, value, scoreState, refs };
     }
   
     // Vゴール時
     if (scoreState.vgoal) {
       const text = config.rule.vgoal.name
-      return { text, scoreState, refs };
+      return { text, value, scoreState, refs };
     }
 
     // 通常時
     const text = value.toString()
-    return { text, scoreState, refs };
+    return { text, value, scoreState, refs };
   }, [scoreState, phaseState]);
 }

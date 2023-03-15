@@ -4,6 +4,7 @@ import { FieldSideType } from './score';
 export type MatchState = {
   name: string,         // 試合名
   teams: TeamsType,     // 各チームの情報
+  isConfirmed: boolean, // 試合の結果が確定したかどうか
 };
 
 type TeamsType = Record<FieldSideType, TeamType | undefined>;
@@ -21,6 +22,7 @@ const initialState: MatchState = {
     blue: undefined,
     red: undefined,
   },
+  isConfirmed: false,
 };
 
 export const matchStateSlice = createSlice({
@@ -28,5 +30,8 @@ export const matchStateSlice = createSlice({
   initialState,
   reducers: {
     setState: (_, action: PayloadAction<MatchState>) => action.payload,
+    setConfirmed: (cur, action: PayloadAction<boolean>) => {
+      cur.isConfirmed = action.payload;
+    },
   },
 });
