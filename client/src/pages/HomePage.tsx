@@ -1,57 +1,77 @@
-import React, { FC, useCallback, useState } from 'react';
-import { Grid, IconButton, Paper, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import CachedIcon from '@mui/icons-material/Cached';
+import React, { FC } from 'react';
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { blue, red } from '@mui/material/colors';
 import { Dashboard } from 'components/Dashboard';
-import { ScoreBlock } from 'components/ScoreBlock';
-import { TimerDisplay } from 'components/TimerDisplay';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
+import { ResultRecordsType } from 'slices/resultRecord';
+import styled from '@emotion/styled';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '1em',
-  },
-}));
+const GameResultsList: React.FC = () => {
+  const results = useSelector<RootState, ResultRecordsType>((state) => state.resultRecords);
+
+  const WinMark = styled('span')({
+    color: blue[500],
+    fontWeight: 'bold',
+  });
+  
+  const LossMark = styled('span')({
+    color: red[500],
+    fontWeight: 'bold',
+  });
+  
+  return (
+    <Box>
+      <TableContainer>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>試合名</TableCell>
+              <TableCell align="right">青チーム</TableCell>
+              <TableCell align="right">得点</TableCell>
+              <TableCell align="right">Vゴール</TableCell>
+              <TableCell align="right">赤チーム</TableCell>
+              <TableCell align="right">得点</TableCell>
+              <TableCell align="right">Vゴール</TableCell>
+              <TableCell align="right">勝者</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {results.map((result) => {
+              const shouldMarkBlue = result.finalScore.blue.winner;
+              const shouldMarkRed = result.finalScore.red.winner;
+
+              return (
+                <TableRow key={result.confirmedAt}>
+                  <TableCell>{result.match.name}</TableCell>
+                  <TableCell align="right">{result.match.teams.blue?.shortName}</TableCell>
+                  <TableCell align="right">{result.confirmedScore.blue}</TableCell>
+                  <TableCell align="right">{result.finalScore.blue.vgoal ?? "-"}</TableCell>
+                  <TableCell align="right">{result.match.teams.red?.shortName}</TableCell>
+                  <TableCell align="right">{result.confirmedScore.red}</TableCell>
+                  <TableCell align="right">{result.finalScore.red.vgoal ?? "-"}</TableCell>
+                  <TableCell align="right">
+                    {shouldMarkBlue && <WinMark>青</WinMark>}
+                    {shouldMarkRed && <LossMark>赤</LossMark>}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+
+  );
+};
 
 export const HomePage: FC = () => {
-  const classes = useStyles();  
-  const [isReverse, setIsReverse] = useState(false);
-  const onReverseClick = useCallback(() => { setIsReverse(!isReverse) }, [isReverse]);
-  const matchName = useSelector<RootState, string>((state) => state.match.name);
-
   return (
     <Dashboard title="Dashboard">
-      <Grid container spacing={3}>
-
-        <Grid item xs={12} lg={8}>
-          <Paper className={classes.root}>
-            <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              現在の試合：{matchName}
-            </Typography>
-            <Grid container spacing={6}>
-              {/* スコア */}
-              <Grid item container justifyContent="space-between" alignItems="center" direction={isReverse ? "row-reverse" : "row"}>
-                <Grid item xs={5}>
-                  <ScoreBlock fieldSide="blue" />
-                </Grid>
-                <Grid item xs={1}>
-                  <IconButton aria-label="delete" color="default" onClick={onReverseClick} size="large">
-                    <CachedIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item xs={5}>
-                  <ScoreBlock fieldSide="red" />
-                </Grid>
-              </Grid>
-              {/* タイム */}
-              <TimerDisplay descriptionVariant="h4" displayTimeVariant="h1" />
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Paper className={classes.root}>
-            {"// このへんに何かいい感じの情報表示"}
+      <Grid container>
+        <Grid item xs={12}>
+          <Paper sx={{ padding: "1em" }}>
+            <GameResultsList />
           </Paper>
         </Grid>
       </Grid>
