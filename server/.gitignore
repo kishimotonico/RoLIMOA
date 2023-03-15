@@ -25,3 +25,5 @@ yarn-error.log*
 # 524 add
 .eslintcache
 .vscode
+
+save/*.json

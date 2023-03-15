@@ -4,7 +4,9 @@ import { Socket, Server } from "socket.io";
 import { createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
+import { format } from "date-fns";
 import path from "path";
+import fs from "fs";
 
 const app = express();
 const server = http.createServer(app).listen(8000);
@@ -22,8 +24,16 @@ app.get("*", (req, res, next) => {
 });
 
 
-// Redux ストアを生成
-const store = createStore(rootReducer);
+let initialState = undefined;
+const latestSaveFile = fs.readdirSync("./save").filter((file) => file.endsWith('.json')).sort().reverse()[0];
+if (latestSaveFile) {
+    console.log(`${latestSaveFile}が見つかったため、ストアを復元します`);
+    initialState = JSON.parse(fs.readFileSync(`./save/${latestSaveFile}`, "utf-8"));
+    // 復元しない項目を無理やり初期化
+    initialState.connectedDevices = []; 
+}
+
+const store = createStore(rootReducer, initialState);
 
 io.on("connection", (socket: Socket) => {
     console.log(`connected: ${socket.id}`);
@@ -60,6 +70,18 @@ io.on("connection", (socket: Socket) => {
             store.dispatch(action);                 // サーバサイドのストアに反映
         });
         io.emit("dispatch", actions);                // 送信元を含む全てに転送
+    });
+
+    // クライアントから保存指示が送られたとき
+    socket.on("save_store", async () => {
+        const storeStaet = store.getState();
+
+        const datetime = format(new Date(), "yyyyMMddHHmmss");
+        const filePath = `./save/store_${datetime}.json`;
+        fs.writeFileSync(filePath, JSON.stringify(storeStaet), {
+            encoding: "utf-8",
+        });
+        console.log(`succeeded save file: ${filePath}`);
     });
 });
 
