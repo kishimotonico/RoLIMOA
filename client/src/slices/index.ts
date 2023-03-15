@@ -2,8 +2,9 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { scoreStateSlice } from './score';
 import { phaseStateSlice } from './phase';
 import { matchStateSlice } from './match';
-import { connectedDevicesStateSlice } from './connectedDevices';
 import { resultRecordsStateSlice } from './resultRecord';
+import { connectedDevicesStateSlice } from './connectedDevices';
+import { streamingInterfaceSlice } from './streamingInterface';
 
 export const rootReducer = combineReducers({
   score: scoreStateSlice.reducer,
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
   match: matchStateSlice.reducer,
   resultRecords: resultRecordsStateSlice.reducer,
   connectedDevices: connectedDevicesStateSlice.reducer,
+  streamingInterface: streamingInterfaceSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

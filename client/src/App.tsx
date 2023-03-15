@@ -23,6 +23,7 @@ import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
 import config from 'config.json';
 import "dseg/css/dseg.css";
 import { resultRecordsStateSlice } from 'slices/resultRecord';
+import { streamingInterfaceSlice } from 'slices/streamingInterface';
 
 type WelcomeData = {
   time: number,
@@ -50,6 +51,7 @@ const App: FC = () => {
       dispatch(matchStateSlice.actions.setState(data.state.match));
       dispatch(resultRecordsStateSlice.actions.setState(data.state.resultRecords));
       dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
+      dispatch(streamingInterfaceSlice.actions.setState(data.state.streamingInterface));
       setIsConnect(true);
 
       const delayTime = Date.now() - data.time;
