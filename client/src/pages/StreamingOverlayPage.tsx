@@ -1,4 +1,4 @@
-import { FC, useRef, Ref } from 'react';
+import { FC, Ref } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
@@ -7,8 +7,9 @@ import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
 import { CenterFlex } from 'ui/CenterFlex';
-import config from 'config.json';
 import { formatTime } from 'util/formatTime';
+import config from 'config.json';
+import { SlideTransition } from 'ui/SlideTransition';
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -109,6 +110,7 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
       backgroundColor: 'rgba(10, 10, 10, 0.9)',
       boxSizing: 'border-box',
       color: 'rgba(240, 240, 240, 0.95)',
+      zIndex: 10,
     }}>
       <Box sx={{
         height: '70px',
@@ -154,6 +156,7 @@ export const StreamingOverlayPage: FC = () => {
   };
 
   const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
+  const showScoreBoard = useSelector<RootState, boolean>((state) => state.streamingInterface.showScoreBoard);
   
   return (
     <Box sx={{
@@ -164,21 +167,29 @@ export const StreamingOverlayPage: FC = () => {
       height: '900px',
       backgroundColor: 'rgba(255, 255, 255, 0)',
     }}>
-      <Slide in={showMainHud} direction="down" timeout={1000} >
+      <Slide in={showMainHud} direction="down" timeout={1000} appear={false}>
         <Box sx={{
           width: '100%',
-          height: '260px',
+          height: '320px',
           display: 'flex',
         }}>
-          <ScoreBlock
-            fieldSide={ params.reverse ? "blue" : "red" }
-            placement="left"
-          />
+          <SlideTransition in={showScoreBoard} direction="left" duration={800} appear={false}>
+            <Box>
+              <ScoreBlock
+                fieldSide={ params.reverse ? "blue" : "red" }
+                placement="left"
+              />
+            </Box>
+          </SlideTransition>
           <TimerDisplay />
-          <ScoreBlock
-            fieldSide={ params.reverse ? "red" : "blue" }
-            placement="right"
-          />
+          <SlideTransition in={showScoreBoard} direction="right" duration={800} appear={false}>
+            <Box>
+              <ScoreBlock
+                fieldSide={ params.reverse ? "red" : "blue" }
+                placement="right"
+              />
+            </Box>
+          </SlideTransition>
         </Box>
       </Slide>
     </Box>

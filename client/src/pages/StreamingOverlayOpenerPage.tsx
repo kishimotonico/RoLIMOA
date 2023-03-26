@@ -99,10 +99,17 @@ export const StreamingOverlayOpenerPage: FC = () => {
 const StreamingInterfaceController: FC = () => {
   const dispatch = useDispatch();
   const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
+  const showScoreBoard = useSelector<RootState, boolean>((state) => state.streamingInterface.showScoreBoard);
 
   const onChangeShowMainHud = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch([
       streamingInterfaceSlice.actions.setShowMainHud(event.target.checked),
+    ], dispatch);
+  };
+
+  const onChangeShowScoreBoard = (event: React.ChangeEvent<HTMLInputElement>) => {
+    LyricalSocket.dispatch([
+      streamingInterfaceSlice.actions.setShowScoreBoard(event.target.checked),
     ], dispatch);
   };
 
@@ -113,6 +120,12 @@ const StreamingInterfaceController: FC = () => {
           <Switch checked={showMainHud} onChange={onChangeShowMainHud} />
         }
         label="メインHUDを表示する"
+      />
+      <FormControlLabel
+        control={
+          <Switch checked={showScoreBoard} onChange={onChangeShowScoreBoard} />
+        }
+        label="スコアを表示する"
       />
     </Box>
   );
