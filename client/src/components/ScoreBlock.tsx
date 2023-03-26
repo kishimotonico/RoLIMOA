@@ -1,18 +1,11 @@
 import React, { FC } from 'react';
-import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { FieldSideType } from 'slices/score';
+import { Box, SxProps, Theme, Typography, TypographyVariant } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useDisplayScore } from 'functional/useDisplayScore';
 import { RootState } from 'slices';
+import { FieldSideType } from 'slices/score';
+import { useDisplayScore } from 'functional/useDisplayScore';
+import { formatTime } from 'util/formatTime';
 import config from 'config.json';
-
-type TypographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "caption";
-
-const secToTime = (sec: number) => {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${m}:${s < 10 ? "0" : ""}${s}`;
-};
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -75,7 +68,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
               {config.rule.vgoal.name}
             </Box>
             <Box>
-              🏴 {secToTime(scoreState.vgoal)}
+              🏴 {formatTime(scoreState.vgoal, "m:ss")}
             </Box>
           </Box>
         )}

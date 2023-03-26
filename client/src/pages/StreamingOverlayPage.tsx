@@ -8,12 +8,7 @@ import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
 import { CenterFlex } from 'ui/CenterFlex';
 import config from 'config.json';
-
-const secToTime = (sec: number) => {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${m}:${s < 10 ? "0" : ""}${s}`;
-};
+import { formatTime } from 'util/formatTime';
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -72,7 +67,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
                 {config.rule.vgoal.name}
               </Box>
               <Box>
-                🏴 {secToTime(displayScore.scoreState.vgoal)}
+                🏴 {formatTime(displayScore.scoreState.vgoal, "m:ss")}
               </Box>
             </Box>
           )}

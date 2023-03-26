@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
+import { formatTime, TimeFormat } from 'util/formatTime';
 import * as Phase from 'util/PhaseStateUtil';
 
 // 表示する時間の文字列を取得する
@@ -23,7 +25,7 @@ function getDisplayString(phaseState: PhaseState, currentConfig: Required<Phase.
   }
 
   if (config.style.timerFormat) {
-    return formattedTime(displaySec, config.style.timerFormat);
+    return formatTime(displaySec, config.style.timerFormat as TimeFormat, true);
   }
   return "";
 }
@@ -45,36 +47,18 @@ function getCustomConfig(phaseState: PhaseState, currentConfig: Required<Phase.T
   };
 }
 
-// 秒数をフォーマット表示した文字列を返す
-function formattedTime(second: number, format: string) {
-  const m = Math.floor(second / 60);
-  const s = second % 60;
-  if (format === "mm:ss") {
-    return `${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
-  }
-  if (format === "m:ss") {
-    return `${m.toString().padStart(1, '0')} : ${s.toString().padStart(2, '0')}`;
-  }
-  if (format === "ss") {
-    return second.toString().padStart(2, '0');
-  }
-  if (format === "s") {
-    return second.toString();
-  }
-  // どれにも一致しないときは "s" と同じく単純に秒数化
-  return second.toString();
-}
-
 export function useDisplayTimer() {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
 
-  const config = Phase.getConfig(phaseState.current.id);
-
-  const displayTime = getDisplayString(phaseState, config);
-  const description = config.description;
-
-  return {
-    displayTime,
-    description,
-  };
+  return useMemo(() => {
+    const config = Phase.getConfig(phaseState.current.id);
+  
+    const displayTime = getDisplayString(phaseState, config);
+    const description = config.description;
+  
+    return {
+      displayTime,
+      description,
+    };
+  }, [phaseState]);
 }
