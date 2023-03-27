@@ -22,5 +22,17 @@ export const formatTime = (
     return second.toString();
   }
 
-  throw new Error("Invalid format");
+  throw new Error(`Invalid format "${format}"`);
+};
+
+// mm:ss形式の文字列から秒数を取得する。正しくないときはNaNが返る
+export const parseFormatTime = (time: string): number => {
+  const timeArray = time.split(':');
+  if (timeArray.length === 1) {
+    return parseInt(timeArray[0], 10);
+  }
+  if (timeArray.length === 2) {
+    return parseInt(timeArray[0], 10) * 60 + parseInt(timeArray[1], 10);
+  }
+  throw new Error("Invalid time format");
 };

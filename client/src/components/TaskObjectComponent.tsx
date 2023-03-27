@@ -6,6 +6,7 @@ import makeStyles from '@mui/styles/makeStyles';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '1em',
+    userSelect: 'none',
   },
   buttonContainer: {
     padding: '.5em 0 0',
