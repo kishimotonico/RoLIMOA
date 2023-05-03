@@ -2,7 +2,19 @@
 
 NHK学生ロボコンのようなロボットコンテストの大会で、青・赤チームの得点を各担当が入力し、それを会場のスクリーンやライブストリーミング（動画配信）に表示する統合的なシステムです。
 
-## 使い方
+[![](./docs/demo-video.gif)](https://www.youtube.com/watch?v=NV2unpMqg-M)
+
+## 機能 / features
+
+![RoLIMOAの想定構成図](./docs/RoLIMOAの想定構成図.drawio.png)
+
+- NHK学生ロボコン・高専ロボコンと同じ、青コートと赤コートによる2チームの対戦形式
+- 毎年変わるルールに合わせ、JSONで得点計算方法やVゴール名などを設定
+- 各デバイスで入力した得点は他のデバイスと同期
+- スクリーンや配信画面に、対戦チーム名や得点、タイマーを表示
+
+
+## 使い方 / Usage
 
 ### 設定ファイルの編集
 
@@ -13,7 +25,8 @@ client/src/config.jsonを編集して、好みの設定にします。特にル�
 サーバ側でクライアントのビルド済みファイルをホスティングしているので、実際の大会時には次のような運用を想定しています。
 
 ```bash
-cd path/to/project
+git clone https://github.com/kishimotonico/RoLIMOA.git
+cd RoLIMOA
 
 # クライアントをビルド
 cd ./client
@@ -24,7 +37,7 @@ cd ../server
 npm start
 ```
 
-http://localhost:8000 で管理画面を開けるようになります。OS側でTCP/8000のポートを開放すれば、他のデバイスからも操作できます。
+http://localhost:8000 で管理画面を開けるようになります。OS側でTCP:8000のポートを開放すれば、他のデバイスからも操作できます。
 
 ### 仕様 / Tips
 
@@ -38,6 +51,7 @@ http://localhost:8000 で管理画面を開けるようになります。OS側�
 - 「配信オーバーレイ」ページは、OBSのBrowser Sourceで使用
     - Browser SourceはOBS上で1600x900の大きさ
     - Browser Sourceでは音声を再生せず、配信には会場の音を取り込む
+
 
 ## 開発方法
 
