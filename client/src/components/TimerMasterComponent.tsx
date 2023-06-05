@@ -6,9 +6,8 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
-
 import { TimerDisplay } from './TimerDisplay';
-import * as Phase from 'util/PhaseStateUtil';
+import { TimeProgressConfigType } from 'config/types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +50,7 @@ interface TimerMasterComponentProps {
   onNextPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   onLastPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   isEnabledNextButton: boolean,
-  phaseConfig: Phase.TimeProgressConfig,
+  phaseConfig: TimeProgressConfigType,
 }
 
 export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({

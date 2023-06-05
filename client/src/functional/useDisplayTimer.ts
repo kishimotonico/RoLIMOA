@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
-import { formatTime, TimeFormat } from 'util/formatTime';
-import { TimeProgressConfigType } from 'config/type';
+import { formatTime } from 'util/formatTime';
+import { TimeProgressConfigType } from 'config/types';
 import * as Phase from 'util/PhaseStateUtil';
 
 // 表示する時間の文字列を取得する
@@ -26,7 +26,7 @@ function getDisplayString(phaseState: PhaseState, currentConfig: Required<TimePr
   }
 
   if (config.style.timerFormat) {
-    return formatTime(displaySec, config.style.timerFormat as TimeFormat, true);
+    return formatTime(displaySec, config.style.timerFormat, true);
   }
   return "";
 }

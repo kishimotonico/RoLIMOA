@@ -24,7 +24,7 @@ const timeProgressSchema = z.object({
   description: z.string(),
   isAutoTransition: z.boolean().optional(),
   style: z.object({
-    timerFormat: z.string().optional(),
+    timerFormat: z.enum(["mm:ss", "m:ss", "ss", "s"]).optional(),
     timerType: z.string().optional(),
   }).optional(),
   custom: z.array(
