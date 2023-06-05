@@ -20,7 +20,7 @@ import { GetDeviceName } from 'components/SettingModal';
 import { LoadingOverlay } from 'ui/LoadingOverlay';
 import { LyricalSocket } from 'lyricalSocket';
 import { AppMuiThemeProvider } from 'AppMuiThemeProvider';
-import config from 'config.json';
+import { config } from 'config/load';
 import "dseg/css/dseg.css";
 import { resultRecordsStateSlice } from 'slices/resultRecord';
 import { streamingInterfaceSlice } from 'slices/streamingInterface';

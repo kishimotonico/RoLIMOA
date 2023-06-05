@@ -9,9 +9,9 @@ import { Dashboard } from 'components/Dashboard';
 import { TaskObject } from 'components/TaskObjectContainer';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
 import { LyricalSocket } from 'lyricalSocket';
-import config from 'config.json';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
+import { config } from 'config/load';
 import { formatTime, parseFormatTime } from 'util/formatTime';
 
 type VGoalTimeInputProps = {

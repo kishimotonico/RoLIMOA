@@ -14,7 +14,7 @@ import { resultRecordsStateSlice } from 'slices/resultRecord';
 import { MatchState, matchStateSlice } from 'slices/match';
 import { CurrentPhaseState } from 'slices/phase';
 import { LyricalSocket } from 'lyricalSocket';
-import config from 'config.json';
+import { config } from 'config/load';
 import * as Phase from 'util/PhaseStateUtil';
 
 const useStyles = makeStyles((theme) => ({

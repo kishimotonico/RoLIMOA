@@ -1,5 +1,5 @@
 import { ScoreStateType } from "../slices/score";
-import rootConfig from "../config.json";
+import { config as rootConfig } from 'config/load';
 
 // この型定義でJSONを扱えれば便利なのだけど……
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

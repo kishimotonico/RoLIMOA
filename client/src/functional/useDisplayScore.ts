@@ -4,7 +4,7 @@ import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
 import { FieldSideType, ScoreStateType } from 'slices/score';
 import { calculateScore, ScoreRuleType } from 'util/calculateScore';
-import config from 'config.json';
+import { config } from 'config/load';
 
 const scoreRule = config.rule.score as ScoreRuleType;
 

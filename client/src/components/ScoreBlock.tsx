@@ -5,7 +5,7 @@ import { RootState } from 'slices';
 import { FieldSideType } from 'slices/score';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { formatTime } from 'util/formatTime';
-import config from 'config.json';
+import { config } from 'config/load';
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType,
