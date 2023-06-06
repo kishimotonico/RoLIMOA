@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MatchState } from './match';
-import { FieldSideType, WholeScoreState } from './score';
+import { FieldSideType, ScoreState } from './score';
 
 export type ResultRecordsType = ResultRecord[];
 
 export type ResultRecord = {
   match: MatchState,              // 対戦チーム
-  finalScore: WholeScoreState,    // 最終的な試合状況
+  finalScore: ScoreState,    // 最終的な試合状況
 
   comment?: string,               // 備考
   confirmedScore: ConfirmedScore, // 確定した点数（基本的にはfinalScoreで算出されるスコアと同じになる）

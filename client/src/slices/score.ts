@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { config } from 'config/load';
 
-export type WholeScoreState = Record<FieldSideType, ScoreStateType>;
+export type ScoreState = Record<FieldSideType, TeamScoreStateType>;
 
 export type FieldSideType = "blue" | "red";
 
-export type ScoreStateType = {
-  tasks: TaskStateType,       // タスクの進行状況
+export type TeamScoreStateType = {
+  tasks: ObjectsStateType,    // 各チームのタスクの進行状況
   enable: boolean,            // スコアの有効フラグ
   winner: boolean,            // 勝利フラグ
   vgoal?: number,             // Vゴールタイム
 };
-export type TaskStateType = { [objectId: string]: number; };
-export type RefValuesType = { [referenceId: string]: number; };
+export type ObjectsStateType = { [objectId: string]: number; };
 
 type TaskUpdateActionPayload = {
   fieldSide: FieldSideType,
@@ -20,7 +19,7 @@ type TaskUpdateActionPayload = {
   afterValue: number,
 };
 
-export const initialState: WholeScoreState = {
+export const initialState: ScoreState = {
   blue: {
     tasks: Object.fromEntries(config.rule.task_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
     enable: true,
@@ -39,7 +38,7 @@ export const scoreStateSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    setState: (_, action: PayloadAction<WholeScoreState>) => action.payload,
+    setState: (_, action: PayloadAction<ScoreState>) => action.payload,
     setTaskUpdate: (state, action: PayloadAction<TaskUpdateActionPayload>) => {
       state[action.payload.fieldSide].tasks[action.payload.taskObjectId] = action.payload.afterValue;
     },

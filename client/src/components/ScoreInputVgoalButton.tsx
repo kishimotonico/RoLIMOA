@@ -2,7 +2,7 @@ import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { RootState } from 'slices';
-import { scoreStateSlice, ScoreStateType } from 'slices/score';
+import { scoreStateSlice, TeamScoreStateType } from 'slices/score';
 import { LyricalSocket } from 'lyricalSocket';
 import * as Vgoal from 'util/VgoalHelper';
 
@@ -16,7 +16,7 @@ export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
   color,
 }) => {
   const dispatch = useDispatch();
-  const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
+  const scoreState = useSelector<RootState, TeamScoreStateType>((state) => state.score[fieldSide]);
   const elapsedSec = useSelector<RootState, number>((state) => state.phase.elapsedSecond);
 
   const onVgoalButton = useCallback(() => {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LyricalSocket } from 'lyricalSocket';
 import { RootState } from 'slices';
 import { TaskObjectComponent } from "./TaskObjectComponent";
-import { scoreStateSlice, TaskStateType } from 'slices/score';
+import { scoreStateSlice, ObjectsStateType } from 'slices/score';
 
 interface TaskObjectProps {
   id: string;
@@ -20,7 +20,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<RootState, TaskStateType>((state) => state.score[fieldSide].tasks);
+  const taskObjects = useSelector<RootState, ObjectsStateType>((state) => state.score[fieldSide].tasks);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];

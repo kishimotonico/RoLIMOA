@@ -1,5 +1,5 @@
 import { PhaseState } from "slices/phase";
-import { ScoreStateType, TaskStateType } from "slices/score";
+import { TeamScoreStateType, ObjectsStateType } from "slices/score";
 import { evaluateFormula, FormulaExpression, ReferencedStatsType } from "./formulaExpression";
 import * as Phase from "util/PhaseStateUtil";
 
@@ -31,7 +31,7 @@ function isScoreRuleFormulaExpressionType(arg: any): arg is ScoreRuleFormulaExpr
 }
 
 // `scoreRule`に基づいてスコアを算出する
-export function calculateScore(scoreRule: ScoreRuleType, scoreState: ScoreStateType, phaseState: PhaseState): ScoreResultType {
+export function calculateScore(scoreRule: ScoreRuleType, scoreState: TeamScoreStateType, phaseState: PhaseState): ScoreResultType {
   // タスクオブジェクトと係数の組み合わせによるシンプルなルール
   if (isScoreRuleSimpleType(scoreRule)) {
     const value = calculateScoreSimple(scoreRule, scoreState.tasks);
@@ -46,7 +46,7 @@ export function calculateScore(scoreRule: ScoreRuleType, scoreState: ScoreStateT
   throw new Error("ふぇぇ…点数計算でエラーが発生したよぉ");
 }
 
-function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: TaskStateType): number {
+function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: ObjectsStateType): number {
   const subTotal = scoreRule.expression.map(({coefficient, id}) => {
     const val = taskObjects[id];
     if (val === undefined) {
@@ -58,9 +58,9 @@ function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: TaskS
   return subTotal.reduce((acc, cur) => acc + cur, 0);
 }
 
-function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, scoreState: ScoreStateType, phaseState?: PhaseState): ScoreResultType {
+function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, scoreState: TeamScoreStateType, phaseState?: PhaseState): ScoreResultType {
   // 点数計算に、適切な経過時間を取得する
-  function matchElapsedSec(scoreState: ScoreStateType, phaseState?: PhaseState): number {
+  function matchElapsedSec(scoreState: TeamScoreStateType, phaseState?: PhaseState): number {
     if (! phaseState) {
       return NaN;
     }
