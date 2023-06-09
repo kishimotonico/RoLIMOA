@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { taskObjectSchema } from "./taskObject";
 
 const vgoalConditionSchema = z.union([
   z.object({
@@ -41,15 +42,7 @@ export const configSchema = z.object({
     name: z.string(),
   }),
   rule: z.object({
-    task_objects: z.array(
-      z.object({
-        id: z.string(),
-        description: z.string(),
-        initialValue: z.number().optional(),
-        min: z.number().optional(),
-        max: z.number().optional(),
-      }),
-    ),
+    task_objects: z.array(taskObjectSchema),
     score: z.union([
       z.object({
         format: z.literal("simple"),

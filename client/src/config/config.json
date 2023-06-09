@@ -5,6 +5,48 @@
   "rule": {
     "task_objects": [
       {
+        "id": "X_toggle_switch",
+        "description": "X.トグルスイッチ",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_switch",
+          "option": {
+            "off_value": 0,
+            "on_value": 1
+          }
+        }
+      },
+      {
+        "id": "Y_toggle_button",
+        "description": "Y.3状態トグル",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": ""
+              },
+              {
+                "value": 1,
+                "label": "青",
+                "style": {
+                  "color": "blue"
+                }
+              },
+              {
+                "value": 2,
+                "label": "赤",
+                "style": {
+                  "color": "red"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
         "id": "A_1_point",
         "description": "A.1点獲得",
         "initialValue": 0
