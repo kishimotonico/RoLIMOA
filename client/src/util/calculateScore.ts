@@ -1,5 +1,5 @@
 import { PhaseState } from "slices/phase";
-import { TeamScoreStateType, ObjectsStateType } from "slices/score";
+import { FieldScoreStateType, ObjectsStateType } from "slices/score";
 import { evaluateFormula, FormulaExpression, ReferencedStatsType } from "./formulaExpression";
 import * as Phase from "util/PhaseStateUtil";
 
@@ -31,7 +31,7 @@ function isScoreRuleFormulaExpressionType(arg: any): arg is ScoreRuleFormulaExpr
 }
 
 // `scoreRule`に基づいてスコアを算出する
-export function calculateScore(scoreRule: ScoreRuleType, scoreState: TeamScoreStateType, phaseState: PhaseState): ScoreResultType {
+export function calculateScore(scoreRule: ScoreRuleType, scoreState: FieldScoreStateType, phaseState: PhaseState): ScoreResultType {
   // タスクオブジェクトと係数の組み合わせによるシンプルなルール
   if (isScoreRuleSimpleType(scoreRule)) {
     const value = calculateScoreSimple(scoreRule, scoreState.tasks);
@@ -58,9 +58,9 @@ function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: Objec
   return subTotal.reduce((acc, cur) => acc + cur, 0);
 }
 
-function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, scoreState: TeamScoreStateType, phaseState?: PhaseState): ScoreResultType {
+function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, scoreState: FieldScoreStateType, phaseState?: PhaseState): ScoreResultType {
   // 点数計算に、適切な経過時間を取得する
-  function matchElapsedSec(scoreState: TeamScoreStateType, phaseState?: PhaseState): number {
+  function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {
     if (! phaseState) {
       return NaN;
     }

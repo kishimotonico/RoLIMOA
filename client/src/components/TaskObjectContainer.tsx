@@ -20,7 +20,7 @@ export const TaskObject: FC<TaskObjectProps> = ({
   min = 0,
   max = 524,
 }) => {
-  const taskObjects = useSelector<RootState, ObjectsStateType>((state) => state.score[fieldSide].tasks);
+  const taskObjects = useSelector<RootState, ObjectsStateType>((state) => state.score.fields[fieldSide].tasks);
   const dispatch = useDispatch();
 
   const currentValue = taskObjects[id];

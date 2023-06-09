@@ -38,18 +38,18 @@ const GameResultsList: React.FC = () => {
           </TableHead>
           <TableBody>
             {results.map((result) => {
-              const shouldMarkBlue = result.finalScore.blue.winner;
-              const shouldMarkRed = result.finalScore.red.winner;
+              const shouldMarkBlue = result.finalScore.fields.blue.winner;
+              const shouldMarkRed = result.finalScore.fields.red.winner;
 
               return (
                 <TableRow key={result.confirmedAt}>
                   <TableCell>{result.match.name}</TableCell>
                   <TableCell align="right">{result.match.teams.blue?.shortName}</TableCell>
                   <TableCell align="right">{result.confirmedScore.blue}</TableCell>
-                  <TableCell align="right">{result.finalScore.blue.vgoal ?? "-"}</TableCell>
+                  <TableCell align="right">{result.finalScore.fields.blue.vgoal ?? "-"}</TableCell>
                   <TableCell align="right">{result.match.teams.red?.shortName}</TableCell>
                   <TableCell align="right">{result.confirmedScore.red}</TableCell>
-                  <TableCell align="right">{result.finalScore.red.vgoal ?? "-"}</TableCell>
+                  <TableCell align="right">{result.finalScore.fields.red.vgoal ?? "-"}</TableCell>
                   <TableCell align="right">
                     {shouldMarkBlue && <WinMark>青</WinMark>}
                     {shouldMarkRed && <LossMark>赤</LossMark>}

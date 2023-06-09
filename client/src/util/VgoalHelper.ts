@@ -1,8 +1,8 @@
-import { TeamScoreStateType } from "../slices/score";
+import { FieldScoreStateType } from "../slices/score";
 import { config as rootConfig } from 'config/load';
 
 // Vゴールが可能な状況かを判断する
-export function isVgoalAvailable(scoreState: TeamScoreStateType): boolean {
+export function isVgoalAvailable(scoreState: FieldScoreStateType): boolean {
   const vgoalCondition = rootConfig.rule.vgoal.condition;
 
   // type: manual

@@ -4,7 +4,7 @@ import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid, Paper, 
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
 import { RootState } from 'slices';
-import { FieldSideType, scoreStateSlice, TeamScoreStateType } from 'slices/score';
+import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { Dashboard } from 'components/Dashboard';
 import { TaskObject } from 'components/TaskObjectContainer';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
@@ -72,7 +72,7 @@ type FlagInputProps = {
 
 const FlagInput: FC<FlagInputProps> = ({ fieldSide, color }) => {
   const dispatch = useDispatch();
-  const scoreState = useSelector<RootState, TeamScoreStateType>((state) => state.score[fieldSide]);
+  const scoreState = useSelector<RootState, FieldScoreStateType>((state) => state.score.fields[fieldSide]);
   
   const onEnableButton = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch(scoreStateSlice.actions.setScoreEnable({
@@ -162,7 +162,7 @@ type ScoreInputPageProps = {
 };
 
 export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
-  const isScoreEnable = useSelector<RootState, boolean>((state) => state.score[fieldSide].enable);
+  const isScoreEnable = useSelector<RootState, boolean>((state) => state.score.fields[fieldSide].enable);
   const dispatch = useDispatch();
 
   const onEnableButton = useCallback(() => {
