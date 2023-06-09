@@ -5,6 +5,7 @@ import { LyricalSocket } from 'lyricalSocket';
 import { TaskObjectConfigType } from 'config/types';
 import { scoreStateSlice } from 'slices/score';
 import { RootState } from 'slices';
+import { ErrorObject } from './ErrorObject';
 
 type ObjectInputControlProps = {
   fieldSide: "blue" | "red",
@@ -31,7 +32,7 @@ export const ObjectInputControl: FC<ObjectInputControlProps> = ({
 
   if (currentValue === undefined) {
     console.error(`ふぇぇ！"${id}"のタスクオブジェクトが取得できないよぉ`);
-    return null;
+    return <ErrorObject config={config} />;
   }
 
   return (
