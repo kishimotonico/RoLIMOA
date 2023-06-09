@@ -6,6 +6,7 @@ import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
 import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from 'lyricalSocket';
 import { TaskObjectConfigType } from 'config/types';
+import { ToggleSwitchControl } from './ToggleSwitchControl';
 
 type TaskObjectContainerProps = {
   fieldSide: FieldSideType,
@@ -16,7 +17,7 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   fieldSide,
   config,
 }) => {
-  const { id } = config;
+  const { id, ui } = config;
 
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.fields[fieldSide].tasks[id]);
   const dispatch = useDispatch();
@@ -36,11 +37,19 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   }
 
   return (
-    <PluseMinuseButtonControl
-      fieldSide={fieldSide}
-      config={config}
-      currentValue={currentValue}
-      stateUpdate={stateUpdate}
-    />
+    ui?.type === "toggle_switch" ? 
+      <ToggleSwitchControl
+        fieldSide={fieldSide}
+        config={config}
+        currentValue={currentValue}
+        stateUpdate={stateUpdate}
+      />
+    : 
+      <PluseMinuseButtonControl
+        fieldSide={fieldSide}
+        config={config}
+        currentValue={currentValue}
+        stateUpdate={stateUpdate}
+      />
   )
 };

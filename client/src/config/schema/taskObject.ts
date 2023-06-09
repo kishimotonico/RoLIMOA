@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-const taskObjectNormalButtonSchema = z.object({
+export const taskObjectNormalButtonSchema = z.object({
   type: z.literal("normal_button"),
   option: z.never(), // TODO: 気が向いたら通常のボタンUIにもカスタムをつける
 });
 
-const taskObjectToggleSwitchSchema = z.object({
+export const taskObjectToggleSwitchSchema = z.object({
   type: z.literal("toggle_switch"),
   option: z.object({
     off_value: z.number(),
@@ -13,7 +13,7 @@ const taskObjectToggleSwitchSchema = z.object({
   }),
 });
 
-const taskObjectToggleButtonSchema = z.object({
+export const taskObjectToggleButtonSchema = z.object({
   type: z.literal("toggle_button"),
   option: z.object({
     buttons: z.array(
