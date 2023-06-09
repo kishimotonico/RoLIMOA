@@ -190,9 +190,6 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
                 />
               ))
             }
-            <Grid item xs={12}>
-              <ScoreInputVgoalButton fieldSide={fieldSide} color={color} />
-            </Grid>
           </Grid>
         </Grid>
 
@@ -202,8 +199,11 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
               <ScoreDisplay fieldSide={fieldSide} />
             </Box>
             <Divider sx={{ my: 2 }}></Divider>
-            <Box>
+            <Box sx={{ my: 2 }}>
               <FlagInput fieldSide={fieldSide} color={color} />
+            </Box>
+            <Box>
+              <ScoreInputVgoalButton fieldSide={fieldSide} color={color} />
             </Box>
           </Paper>
         </Grid>

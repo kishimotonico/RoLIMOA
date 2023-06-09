@@ -41,7 +41,7 @@ export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
       color={isNotVgoaled ? color : "grey"}
       sx={{
         width: '100%',
-        fontSize: '180%',
+        fontSize: '100%',
         lineHeight: 2.4,
       }}
     >
