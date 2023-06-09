@@ -21,7 +21,7 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.fields[fieldSide].tasks[id]);
   const dispatch = useDispatch();
 
-  const onChange = useCallback((value: number) => {
+  const stateUpdate = useCallback((value: number) => {
     const action = scoreStateSlice.actions.setTaskUpdate({
       fieldSide,
       taskObjectId: id,
@@ -40,7 +40,7 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
       fieldSide={fieldSide}
       config={config}
       currentValue={currentValue}
-      onChange={onChange}
+      stateUpdate={stateUpdate}
     />
   )
 };

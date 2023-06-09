@@ -8,24 +8,24 @@ interface PluseMinuseButtonControlProps {
   fieldSide: FieldSideType,
   config: TaskObjectConfigType,
   currentValue: number,
-  onChange: (value: number) => void,
+  stateUpdate: (value: number) => void,
 }
 
 export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
   fieldSide,
   config,
   currentValue,
-  onChange,
+  stateUpdate,
 }) => {
   const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {
-    onChange(currentValue - 1);
-  }, [currentValue, onChange]);
+    stateUpdate(currentValue - 1);
+  }, [currentValue, stateUpdate]);
 
   const increment = useCallback(() => {
-    onChange(currentValue + 1);
-  }, [currentValue, onChange]);
+    stateUpdate(currentValue + 1);
+  }, [currentValue, stateUpdate]);
 
   // styles
   const color = fieldSide === "blue" ? "primary" : "secondary";
