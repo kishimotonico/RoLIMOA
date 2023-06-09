@@ -1,10 +1,11 @@
 import { FC, useCallback } from 'react';
 import { Button, ButtonGroup, Box, Grid, Paper, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles'
+import { FieldSideType } from 'slices/score';
 import { TaskObjectConfigType } from 'config/types';
 
 interface PluseMinuseButtonControlProps {
-  fieldSide: "blue" | "red",
+  fieldSide: FieldSideType,
   config: TaskObjectConfigType,
   currentValue: number,
   onChange: (value: number) => void,

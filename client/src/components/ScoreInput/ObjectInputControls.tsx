@@ -1,18 +1,18 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'slices';
+import { FieldSideType, scoreStateSlice } from 'slices/score';
 import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
+import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from 'lyricalSocket';
 import { TaskObjectConfigType } from 'config/types';
-import { scoreStateSlice } from 'slices/score';
-import { RootState } from 'slices';
-import { ErrorObject } from './ErrorObject';
 
-type ObjectInputControlProps = {
-  fieldSide: "blue" | "red",
+type TaskObjectContainerProps = {
+  fieldSide: FieldSideType,
   config: TaskObjectConfigType,
 };
 
-export const ObjectInputControl: FC<ObjectInputControlProps> = ({
+export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   fieldSide,
   config,
 }) => {

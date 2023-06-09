@@ -21,7 +21,7 @@ export const ErrorObject: FC<ErrorObjectProps> = ({
           ⚠️ エラー
         </Box>
         <Box sx={{ fontSize: '12px' }}>
-          ページをリロードするか、config.jsonを確認してください
+          ページを再読み込みするか、config.jsonを見直してください
         </Box>
       </Paper>
     </Grid>

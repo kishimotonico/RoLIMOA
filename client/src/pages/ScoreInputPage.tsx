@@ -7,7 +7,7 @@ import { RootState } from 'slices';
 import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { Dashboard } from 'components/Dashboard';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
-import { ObjectInputControl } from 'components/ScoreInput/ObjectInputControls';
+import { TaskObjectContainer } from 'components/ScoreInput/ObjectInputControls';
 import { LyricalSocket } from 'lyricalSocket';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
@@ -183,7 +183,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
           <Grid container spacing={2}>
             {
               config.rule.task_objects.map(config => (
-                <ObjectInputControl
+                <TaskObjectContainer
                   key={config.id}
                   fieldSide={fieldSide}
                   config={config}
