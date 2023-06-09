@@ -1,78 +1,25 @@
 {
   "contest_info": {
-    "name": "関東春ロボコン2023"
+    "name": "だみーロボコン"
   },
   "rule": {
     "task_objects": [
       {
-        "id": "A_fetch_toy",
-        "description": "A.おもちゃを外に出す",
-        "initialValue": 0,
-        "min": 0,
-        "max": 1
+        "id": "A_1_point",
+        "description": "A.1点獲得",
+        "initialValue": 0
       },
       {
-        "id": "B_sword_on_back",
-        "description": "B.剣（バックヤード）",
-        "initialValue": 0,
-        "min": 0,
-        "max": 4
+        "id": "B_10_point",
+        "description": "B.10点獲得",
+        "initialValue": 0
       },
       {
-        "id": "C_sword_on_front",
-        "description": "C.剣（売り場）",
+        "id": "C_100_point",
+        "description": "C.100点獲得",
         "initialValue": 0,
         "min": 0,
-        "max": 2
-      },
-      {
-        "id": "D_sword_on_showcase",
-        "description": "D.剣（ショーケース）",
-        "initialValue": 0,
-        "min": 0,
-        "max": 2
-      },
-      {
-        "id": "E_hat_on_back",
-        "description": "E.ハット（バックヤード）",
-        "initialValue": 0,
-        "min": 0,
-        "max": 4
-      },
-      {
-        "id": "F_hat_on_front",
-        "description": "F.ハット（売り場）",
-        "initialValue": 0,
-        "min": 0,
-        "max": 2
-      },
-      {
-        "id": "G_hat_on_showcase",
-        "description": "G.ハット（ショーケース）",
-        "initialValue": 0,
-        "min": 0,
-        "max": 2
-      },
-      {
-        "id": "H_put_toy",
-        "description": "H.おもちゃを集荷室に配置",
-        "initialValue": 0,
-        "min": 0,
-        "max": 6
-      },
-      {
-        "id": "I_soldout",
-        "description": "I.完売達成",
-        "initialValue": 0,
-        "min": 0,
-        "max": 1
-      },
-      {
-        "id": "J_soldout_first",
-        "description": "J.先に完売",
-        "initialValue": 0,
-        "min": 0,
-        "max": 1
+        "max": 3
       },
       {
         "id": "violation",
@@ -85,49 +32,21 @@
       "format": "simple",
       "expression": [
         {
-          "id": "A_fetch_toy",
-          "coefficient": 5
+          "id": "A_1_point",
+          "coefficient":1
         },
         {
-          "id": "B_sword_on_back",
-          "coefficient": 5
-        },
-        {
-          "id": "C_sword_on_front",
-          "coefficient": 15
-        },
-        {
-          "id": "D_sword_on_showcase",
-          "coefficient": 20
-        },
-        {
-          "id": "E_hat_on_back",
+          "id": "B_10_point",
           "coefficient": 10
         },
         {
-          "id": "F_hat_on_front",
-          "coefficient": 25
-        },
-        {
-          "id": "G_hat_on_showcase",
-          "coefficient": 30
-        },
-        {
-          "id": "H_put_toy",
-          "coefficient": 10
-        },
-        {
-          "id": "I_soldout",
-          "coefficient": 40
-        },
-        {
-          "id": "J_soldout_first",
-          "coefficient": 10
+          "id": "C_100_point",
+          "coefficient": 100
         }
       ]
     },
     "vgoal": {
-      "name": "完売",
+      "name": "Vゴール",
       "condition": {
         "type": "alwaysOk"
       }
@@ -141,32 +60,32 @@
       "custom": [
         {
           "elapsedTime": 0,
-          "displayText": "--   --"
+          "displayText": "!!   !!"
         }
       ]
     },
     {
-      "id": "setting1_ready",
+      "id": "setting_ready",
       "type": "ready",
-      "description": "セッティングタイム１"
+      "description": "セッティングタイム"
     },
     {
-      "id": "setting1",
+      "id": "setting",
       "type": "count",
       "time": 60,
-      "description": "セッティングタイム１",
+      "description": "セッティングタイム",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
       }
     },
     {
-      "id": "putting_ready",
+      "id": "match_ready",
       "type": "ready",
-      "description": "陳列タイム"
+      "description": "競技開始"
     },
     {
-      "id": "putting_countdown",
+      "id": "match_countdown",
       "type": "count",
       "time": 5,
       "description": "",
@@ -191,88 +110,10 @@
       ]
     },
     {
-      "id": "putting",
+      "id": "match",
       "type": "count",
       "time": 90,
-      "description": "陳列タイム",
-      "style": {
-        "timerFormat": "m:ss",
-        "timerType": "countup"
-      },
-      "custom": [
-        {
-          "elapsedTime": 0,
-          "displayText": "GO",
-          "sound": "tone_880hz_1000ms.mp3"
-        },
-        {
-          "elapsedTime": 87,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 88,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 89,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 90,
-          "sound": "tone_880hz_1000ms.mp3"  
-        }
-      ]
-    },
-    {
-      "id": "setting2_ready",
-      "type": "ready",
-      "description": "セッティングタイム２"
-    },
-    {
-      "id": "setting2",
-      "type": "count",
-      "time": 60,
-      "description": "セッティングタイム２",
-      "style": {
-        "timerFormat": "m:ss",
-        "timerType": "countup"
-      }
-    },
-    {
-      "id": "selling_ready",
-      "type": "ready",
-      "description": "販売タイム"
-    },
-    {
-      "id": "selling_countdown",
-      "type": "count",
-      "time": 5,
-      "description": "",
-      "isAutoTransition": true,
-      "style": {
-        "timerFormat": "s",
-        "timerType": "countdown"
-      },
-      "custom": [
-        {
-          "elapsedTime": 2,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 3,
-          "sound": "tone_440hz_500ms.mp3"
-        },
-        {
-          "elapsedTime": 4,
-          "sound": "tone_440hz_500ms.mp3"
-        }
-      ]
-    },
-    {
-      "id": "selling",
-      "type": "count",
-      "time": 90,
-      "description": "販売タイム",
+      "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
@@ -308,7 +149,7 @@
       "custom": [
         {
           "elapsedTime": 0,
-          "displayText": "__   __"
+          "displayText": "--   --"
         }
       ]
     }
@@ -316,27 +157,21 @@
   "teams_info": [
     {
       "id": "1",
-      "name": "ホットココアチーム",
-      "school": "ラビット大学",
-      "short": "ホットココア（ラビ大）"
+      "name": "触手もぐもぐ",
+      "school": "国際信州大",
+      "short": "触手もぐもぐ（国際信州大）"
     },
     {
       "id": "2",
-      "name": "カプチーノチーム",
-      "school": "ラビット大学",
-      "short": "カプチーノ（ラビ大）"
+      "name": "白米ぬるぬる",
+      "school": "国際信州大",
+      "short": "白米ぬるぬる（国際信州大）"
     },
     {
       "id": "3",
-      "name": "宇治抹茶チーム",
-      "school": "うさぎ大学",
-      "short": "宇治抹茶（うさぎ大）"
-    },
-    {
-      "id": "4",
-      "name": "君のためなら寝坊する",
-      "school": "うさぎ大学",
-      "short": "君のためなら寝坊（うさぎ大）"
+      "name": "常磐の森ねこねこカレッジ",
+      "school": "横浜大学",
+      "short": "常磐の森ねこねこカレッジ（横浜大）"
     }
   ],
   "client": {
