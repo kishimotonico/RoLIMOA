@@ -1,50 +1,30 @@
-import React, { FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useCallback } from 'react';
 import { Button, ButtonGroup, Box, Grid, Paper, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles'
-import { LyricalSocket } from 'lyricalSocket';
-import { RootState } from 'slices';
-import { scoreStateSlice, ObjectsStateType } from 'slices/score';
 import { TaskObjectConfigType } from 'config/types';
 
 interface PluseMinuseButtonControlProps {
-  fieldSide: "blue" | "red";
-  config: TaskObjectConfigType;
+  fieldSide: "blue" | "red",
+  config: TaskObjectConfigType,
+  currentValue: number,
+  onChange: (value: number) => void,
 }
 
 export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
   fieldSide,
   config,
+  currentValue,
+  onChange,
 }) => {
-  const taskObjects = useSelector<RootState, ObjectsStateType>((state) => state.score.fields[fieldSide].tasks);
-  const dispatch = useDispatch();
-  
-  const { id, description, min = 0, max = 524 } = config;
-  const currentValue = taskObjects[id];
-
-  if (currentValue === undefined) {
-    console.error("ふぇぇ！", taskObjects, id);
-  }
+  const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {
-    const nextValue = currentValue - 1;
-    const action = scoreStateSlice.actions.setTaskUpdate({
-      fieldSide,
-      taskObjectId: id,
-      afterValue: nextValue,
-    });
-    LyricalSocket.dispatch(action, dispatch);
-  }, [dispatch, fieldSide, id, currentValue]);
+    onChange(currentValue - 1);
+  }, [currentValue, onChange]);
 
   const increment = useCallback(() => {
-    const nextValue = currentValue + 1;
-    const action = scoreStateSlice.actions.setTaskUpdate({
-      fieldSide,
-      taskObjectId: id,
-      afterValue: nextValue,
-    });
-    LyricalSocket.dispatch(action, dispatch);
-  }, [dispatch, fieldSide, id, currentValue]);
+    onChange(currentValue + 1);
+  }, [currentValue, onChange]);
 
   // styles
   const color = fieldSide === "blue" ? "primary" : "secondary";
@@ -55,7 +35,7 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
     verticalAlign: 'baseline',
     padding: '0 .25em 0 0',
   };
-  const innnerButtonSx = {
+  const innnerButtonSx: SxProps = {
     width: '50%',
   };
 

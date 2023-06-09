@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { RootState } from 'slices';
 import { scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { LyricalSocket } from 'lyricalSocket';
-import * as Vgoal from 'util/VgoalHelper';
+import { isVgoalAvailable } from 'util/VgoalHelper';
 
 type ScoreInputVgoalButtonProps = {
   fieldSide: "blue" | "red",
@@ -37,7 +37,7 @@ export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
       variant="contained"
       size="medium" 
       onClick={isNotVgoaled ? onVgoalButton : onVgoalCancelButton}
-      disabled={isNotVgoaled ? !Vgoal.isVgoalAvailable(scoreState) : false}
+      disabled={isNotVgoaled ? !isVgoalAvailable(scoreState) : false}
       color={isNotVgoaled ? color : "grey"}
       sx={{
         width: '100%',
