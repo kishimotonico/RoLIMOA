@@ -6,8 +6,8 @@ import FlagIcon from '@mui/icons-material/Flag';
 import { RootState } from 'slices';
 import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { Dashboard } from 'components/Dashboard';
-import { TaskObject } from 'components/TaskObjectContainer';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
+import { ObjectInputControl } from 'components/ScoreInput/ObjectInputControls';
 import { LyricalSocket } from 'lyricalSocket';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
@@ -183,10 +183,10 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
           <Grid container spacing={2}>
             {
               config.rule.task_objects.map(config => (
-                <TaskObject
+                <ObjectInputControl
                   key={config.id}
                   fieldSide={fieldSide}
-                  {...config}
+                  config={config}
                 />
               ))
             }
