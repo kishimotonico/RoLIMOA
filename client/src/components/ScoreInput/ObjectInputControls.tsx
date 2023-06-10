@@ -7,6 +7,7 @@ import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from 'lyricalSocket';
 import { TaskObjectConfigType } from 'config/types';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
+import { ToggleButtonControl } from './ToggleButtonControl';
 
 type TaskObjectContainerProps = {
   fieldSide: FieldSideType,
@@ -44,8 +45,14 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
         currentValue={currentValue}
         stateUpdate={stateUpdate}
       />
-    : 
-      <PluseMinuseButtonControl
+    : ui?.type === "toggle_button" ?
+      <ToggleButtonControl
+        fieldSide={fieldSide}
+        config={config}
+        currentValue={currentValue}
+        stateUpdate={stateUpdate}
+      />
+    : <PluseMinuseButtonControl
         fieldSide={fieldSide}
         config={config}
         currentValue={currentValue}

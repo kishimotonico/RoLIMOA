@@ -13,6 +13,7 @@ export const taskObjectToggleSwitchSchema = z.object({
   }),
 });
 
+const colorSchema = z.enum(["standard", "primary", "secondary", "error", "info", "success", "warning"]);
 export const taskObjectToggleButtonSchema = z.object({
   type: z.literal("toggle_button"),
   option: z.object({
@@ -20,8 +21,12 @@ export const taskObjectToggleButtonSchema = z.object({
       z.object({
         value: z.number(),
         label: z.string(),
+        style: z.object({
+          color: colorSchema.optional(),
+        }).optional(),
       }),
     ),
+    vertical: z.boolean().optional(),
   }),
 });
 

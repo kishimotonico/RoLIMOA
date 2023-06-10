@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { configSchema } from "./schema";
-import { taskObjectToggleSwitchSchema } from "./schema/taskObject";
+import { taskObjectToggleButtonSchema, taskObjectToggleSwitchSchema } from "./schema/taskObject";
 
 export type ConfigType = z.infer<typeof configSchema>;
 
@@ -11,3 +11,4 @@ const timerFormatSchema = configSchema.shape.time_progress.element.shape.style.u
 export type TimeFormat = NonNullable<z.infer<typeof timerFormatSchema>>;
 
 export type TaskObjectToggleSwitchUiType = z.infer<typeof taskObjectToggleSwitchSchema>;
+export type TaskObjectToggleButtonUiType = z.infer<typeof taskObjectToggleButtonSchema>;

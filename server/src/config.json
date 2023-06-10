@@ -26,20 +26,20 @@
             "buttons": [
               {
                 "value": 0,
-                "label": ""
+                "label": "なし"
               },
               {
                 "value": 1,
-                "label": "青",
+                "label": "🔵青",
                 "style": {
-                  "color": "blue"
+                  "color": "primary"
                 }
               },
               {
                 "value": 2,
-                "label": "赤",
+                "label": "🔴赤",
                 "style": {
-                  "color": "red"
+                  "color": "secondary"
                 }
               }
             ]
@@ -73,6 +73,14 @@
     "score": {
       "format": "simple",
       "expression": [
+        {
+          "id": "X_toggle_switch",
+          "coefficient": 1000
+        },
+        {
+          "id": "Y_toggle_button",
+          "coefficient": 10000
+        },
         {
           "id": "A_1_point",
           "coefficient":1
