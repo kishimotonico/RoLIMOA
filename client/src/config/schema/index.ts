@@ -58,6 +58,9 @@ export const configSchema = z.object({
         format: z.literal("formulaExpression"),
         expression: z.any(), // 再帰構造を含むのでとりあえずany
       }),
+      z.object({
+        format: z.literal("implement"),
+      }),
     ]),
     vgoal: z.object({
       name: z.string(),

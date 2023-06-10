@@ -1,9 +1,11 @@
 import { PhaseState } from "slices/phase";
 import { FieldScoreStateType, FieldSideType, ObjectsStateType, ScoreState } from "slices/score";
-import { evaluateFormula, FormulaExpression, ReferenceVariables } from "./formulaExpression";
+import { score as calculateScoreImplement } from "custom/rule.score";
+import { evaluateFormula, FormulaExpression } from "./formulaExpression";
 import * as Phase from "util/PhaseStateUtil";
+import { ScoreInputType } from "./calculateScoreTypes";
 
-export type ScoreRuleType = ScoreRuleSimpleType | ScoreRuleFormulaExpressionType;
+export type ScoreRuleType = ScoreRuleSimpleType | ScoreRuleFormulaExpressionType | ScoreRuleImplementType;
 
 type ScoreRuleSimpleType = {
   format: "simple",
@@ -18,6 +20,11 @@ type ScoreRuleFormulaExpressionType = {
   expression: FormulaExpression,
 };
 
+type ScoreRuleImplementType = {
+  format: "implement",
+  expression: never,
+};
+
 type ScoreResultType = {
   value: number,
   refs?: Record<string, number>,
@@ -29,6 +36,9 @@ function isScoreRuleSimpleType(arg: any): arg is ScoreRuleSimpleType {
 function isScoreRuleFormulaExpressionType(arg: any): arg is ScoreRuleFormulaExpressionType {
   return arg.format === "formulaExpression";
 }
+function isScoreRuleImplementType(arg: any): arg is ScoreRuleImplementType {
+  return arg.format === "implement";
+}
 
 // `scoreRule`に基づいてスコアを算出する
 export function calculateScore(scoreRule: ScoreRuleType, fieldSide: FieldSideType, scoreState: ScoreState, phaseState: PhaseState): ScoreResultType {
@@ -38,27 +48,26 @@ export function calculateScore(scoreRule: ScoreRuleType, fieldSide: FieldSideTyp
     return { value };
   }
 
+  const scoreInput = createScoreInput(fieldSide, scoreState, phaseState);
+
   // 汎用的な計算表現による複雑なルール記述
   if (isScoreRuleFormulaExpressionType(scoreRule)) {
-    return calculateScoreFormulaExpression(scoreRule, fieldSide, scoreState, phaseState);
+    return calculateScoreFormulaExpression(scoreRule, scoreInput);
+  }
+
+  // TypeScriptで実装したルール記述を使って計算
+  if (isScoreRuleImplementType(scoreRule)) {
+    const result = calculateScoreImplement(scoreInput);
+    if (typeof result === "number" ) {
+      return { value: result };
+    }
+    return result;
   }
 
   throw new Error("ふぇぇ…点数計算でエラーが発生したよぉ");
 }
 
-function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: ObjectsStateType): number {
-  const subTotal = scoreRule.expression.map(({coefficient, id}) => {
-    const val = taskObjects[id];
-    if (val === undefined) {
-      console.warn(`ふぇぇ…IDが"${id}"の要素がないよぉ`);
-      return NaN; // error
-    }
-    return val * coefficient;
-  });
-  return subTotal.reduce((acc, cur) => acc + cur, 0);
-}
-
-function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, fieldSide: FieldSideType, scoreState: ScoreState, phaseState?: PhaseState): ScoreResultType {
+function createScoreInput(fieldSide: FieldSideType, scoreState: ScoreState, phaseState?: PhaseState): ScoreInputType {
   // 点数計算に、適切な経過時間を取得する
   function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {
     if (! phaseState) {
@@ -80,21 +89,38 @@ function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionTy
     return phaseState.elapsedSecond;
   }
 
-  const globalObjects = scoreState.global;
-  const taskObjects = scoreState.fields[fieldSide].tasks;
-  const elapsedTime = matchElapsedSec(scoreState.fields[fieldSide], phaseState);
-
-  const referencedStats: ReferenceVariables = {
-    globalObjects,
-    taskObjects,
+  return {
+    fieldSide,
+    globalObjects: scoreState.global,
+    taskObjects: scoreState.fields[fieldSide].tasks,
     matchStats: {
-      elapsedTime,
+      elapsedTime: matchElapsedSec(scoreState.fields[fieldSide], phaseState),
       isVgoaled: scoreState.fields[fieldSide].vgoal !== undefined ? 1 : 0,
       vgoalTime: scoreState.fields[fieldSide].vgoal ?? NaN,
     },
   };
+}
 
+function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: ObjectsStateType): number {
+  const subTotal = scoreRule.expression.map(({coefficient, id}) => {
+    const val = taskObjects[id];
+    if (val === undefined) {
+      console.warn(`ふぇぇ…IDが"${id}"の要素がないよぉ`);
+      return NaN; // error
+    }
+    return val * coefficient;
+  });
+
+  return subTotal.reduce((acc, cur) => acc + cur, 0);
+}
+
+function calculateScoreFormulaExpression(scoreRule: ScoreRuleFormulaExpressionType, scoreInput: ScoreInputType): ScoreResultType {
+  const referencedStats = {
+    ...scoreInput,
+    refRecords: {}, // refRecordsの返り値
+  };
   const value = evaluateFormula(scoreRule.expression, referencedStats);
+
   return {
     value,
     refs: referencedStats.refRecords

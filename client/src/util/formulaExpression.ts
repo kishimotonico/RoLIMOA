@@ -76,7 +76,7 @@ function isOperatorType(arg: any): arg is OperatorType {
   return arg.operator !== undefined && arg.operands !== undefined;
 }
 
-export type ReferenceVariables = {
+type ReferenceVariables = {
   globalObjects: { [id: string]: number },
   taskObjects: { [id: string]: number },
   matchStats: { [id: string]: number },

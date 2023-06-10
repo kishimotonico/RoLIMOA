@@ -1,6 +1,6 @@
 {
   "contest_info": {
-    "name": "だみーロボコン"
+    "name": "NHK学生ロボコン2023（仮）"
   },
   "rule": {
     "global_objects": [
@@ -215,6 +215,36 @@
         }
       },
       {
+        "id": "P08",
+        "description": "ポール 08",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
         "id": "P09",
         "description": "ポール 09",
         "initialValue": 0,
@@ -303,84 +333,11 @@
             ]
           }
         }
-      },
-      {
-        "id": "P12",
-        "description": "ポール 12",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
       }
     ],
-    "task_objects": [
-      {
-        "id": "A_1_point",
-        "description": "A.1点獲得",
-        "initialValue": 0
-      }
-    ],
+    "task_objects": [],
     "score": {
-      "format": "formulaExpression",
-      "expression": {
-        "operator": "sum",
-        "operands": [
-          {
-            "operator": "prod",
-            "operands": [
-              {
-                "value": {
-                  "type": "globalObject",
-                  "ref": "P01"
-                }    
-              },
-              {
-                "value": {
-                  "const": 10
-                }
-              }
-            ]
-          },
-          {
-            "operator": "prod",
-            "operands": [
-              {
-                "value": {
-                  "type": "globalObject",
-                  "ref": "P02"
-                }    
-              },
-              {
-                "value": {
-                  "const": 10
-                }
-              }
-            ]
-          }
-        ]
-      }
+      "format": "implement"
     },
     "vgoal": {
       "name": "Vゴール",
