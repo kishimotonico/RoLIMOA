@@ -16,6 +16,9 @@ const vgoalConditionSchema = z.union([
   z.object({
     type: z.literal("alwaysOk"),
   }),
+  z.object({
+    type: z.literal("implement"),
+  }),
 ]);
 
 const timeProgressSchema = z.object({

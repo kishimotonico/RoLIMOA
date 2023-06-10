@@ -1,6 +1,6 @@
 import { FieldSideType } from "slices/score";
 
-export type ScoreInputType = {
+export type CurrentMatchStateType = {
   // 自チームの青コート or 赤コート
   fieldSide: FieldSideType,
 
@@ -22,7 +22,3 @@ export type ScoreInputType = {
   },
 };
 
-export type ScoreOutputType = {
-  value: number,
-  refs?: Record<string, number>,
-} | number;

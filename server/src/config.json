@@ -342,7 +342,7 @@
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "alwaysOk"
+        "type": "implement"
       }
     }
   },

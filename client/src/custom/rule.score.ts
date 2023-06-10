@@ -1,6 +1,11 @@
-import { ScoreInputType, ScoreOutputType } from "util/calculateScoreTypes";
+import { CurrentMatchStateType } from "util/currentMatchStateType";
 
-export function score(stat: ScoreInputType): ScoreOutputType {
+type ScoreOutputType = {
+  value: number,
+  refs?: Record<string, number>,
+} | number;
+
+export function score(stat: CurrentMatchStateType): ScoreOutputType {
   // ここにスコアの計算処理をかく
   // return NaN;
 

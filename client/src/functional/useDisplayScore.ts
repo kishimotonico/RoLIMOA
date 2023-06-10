@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { PhaseState } from 'slices/phase';
-import { FieldSideType, FieldScoreStateType, ScoreState } from 'slices/score';
+import { FieldSideType, FieldScoreStateType } from 'slices/score';
 import { calculateScore, ScoreRuleType } from 'util/calculateScore';
 import { config } from 'config/load';
+import { useCurrentMatchState } from './useCurrentMatchState';
 
 const scoreRule = config.rule.score as ScoreRuleType;
 
@@ -16,27 +16,26 @@ type DisplayScoreType = {
 };
 
 export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType {
-  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const scoreState = useSelector<RootState, ScoreState>((state) => state.score);
+  const currentMatchState = useCurrentMatchState(fieldSide);
+  const scoreState = useSelector<RootState, FieldScoreStateType>(state => state.score.fields[fieldSide]);
 
   return useMemo(() => {
-    const localScore = scoreState.fields[fieldSide];
-    const { value, refs } = calculateScore(scoreRule, fieldSide, scoreState, phaseState);
-
+    const { value, refs } = calculateScore(scoreRule, currentMatchState);
+    
     // スコア無効時
-    if (! localScore.enable) {
+    if (! scoreState.enable) {
       const text = "---";
-      return { text, value, scoreState: localScore, refs };
+      return { text, value, scoreState, refs };
     }
 
     // Vゴール時
-    if (localScore.vgoal) {
+    if (scoreState.vgoal) {
       const text = config.rule.vgoal.name
-      return { text, value, scoreState: localScore, refs };
+      return { text, value, scoreState, refs };
     }
 
     // 通常時
     const text = value.toString()
-    return { text, value, scoreState: localScore, refs };
-  }, [scoreState, fieldSide, phaseState]);
+    return { text, value, scoreState, refs };
+  }, [currentMatchState, scoreState]);
 }
