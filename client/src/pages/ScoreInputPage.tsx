@@ -7,12 +7,11 @@ import { RootState } from 'slices';
 import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { Dashboard } from 'components/Dashboard';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
-import { TaskObjectContainer } from 'components/ScoreInput/ObjectInputControls';
 import { LyricalSocket } from 'lyricalSocket';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
-import { config } from 'config/load';
 import { formatTime, parseFormatTime } from 'util/formatTime';
+import { ScoreInputPanel } from 'components/ScoreInput/ScoreInputPanel';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void,
@@ -181,15 +180,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} lg={8}>
           <Grid container spacing={2}>
-            {
-              config.rule.task_objects.map(config => (
-                <TaskObjectContainer
-                  key={config.id}
-                  fieldSide={fieldSide}
-                  config={config}
-                />
-              ))
-            }
+            <ScoreInputPanel fieldSide={fieldSide} />
           </Grid>
         </Grid>
 
