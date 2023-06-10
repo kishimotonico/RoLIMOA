@@ -343,13 +343,44 @@
       }
     ],
     "score": {
-      "format": "simple",
-      "expression": [
-        {
-          "id": "A_1_point",
-          "coefficient": 1
-        }
-      ]
+      "format": "formulaExpression",
+      "expression": {
+        "operator": "sum",
+        "operands": [
+          {
+            "operator": "prod",
+            "operands": [
+              {
+                "value": {
+                  "type": "globalObject",
+                  "ref": "P01"
+                }    
+              },
+              {
+                "value": {
+                  "const": 10
+                }
+              }
+            ]
+          },
+          {
+            "operator": "prod",
+            "operands": [
+              {
+                "value": {
+                  "type": "globalObject",
+                  "ref": "P02"
+                }    
+              },
+              {
+                "value": {
+                  "const": 10
+                }
+              }
+            ]
+          }
+        ]
+      }
     },
     "vgoal": {
       "name": "Vゴール",
