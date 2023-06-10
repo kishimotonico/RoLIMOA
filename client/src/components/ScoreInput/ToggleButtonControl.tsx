@@ -1,17 +1,14 @@
 import { FC, useCallback } from 'react';
 import { ToggleButtonGroup, ToggleButton, Grid, Paper, Typography } from '@mui/material';
-import { FieldSideType } from 'slices/score';
 import { TaskObjectConfigType, TaskObjectToggleButtonUiType } from 'config/types';
 
 interface ToggleButtonControlProps {
-  fieldSide: FieldSideType,
   config: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
 }
 
 export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
-  fieldSide,
   config,
   currentValue,
   stateUpdate,

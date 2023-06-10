@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { configSchema } from "./schema";
-import { taskObjectToggleButtonSchema, taskObjectToggleSwitchSchema } from "./schema/taskObject";
+import {
+  taskObjectToggleButtonSchema,
+  taskObjectToggleSwitchSchema,
+} from "./schema/taskObject";
 
 export type ConfigType = z.infer<typeof configSchema>;
 

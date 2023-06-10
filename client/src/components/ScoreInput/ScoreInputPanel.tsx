@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TaskObjectContainer } from 'components/ScoreInput/ObjectInputControls';
+import { TaskObjectContainer } from 'components/ScoreInput/TaskObjectContainer';
 import { config } from 'config/load';
 import { FieldSideType } from 'slices/score';
 

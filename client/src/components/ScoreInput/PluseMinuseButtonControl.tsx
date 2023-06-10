@@ -1,18 +1,17 @@
 import { FC, useCallback } from 'react';
 import { Button, ButtonGroup, Box, Grid, Paper, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles'
-import { FieldSideType } from 'slices/score';
 import { TaskObjectConfigType } from 'config/types';
 
 interface PluseMinuseButtonControlProps {
-  fieldSide: FieldSideType,
+  color: "primary" | "secondary" | "inherit",
   config: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
 }
 
 export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
-  fieldSide,
+  color,
   config,
   currentValue,
   stateUpdate,
@@ -28,7 +27,6 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
   }, [currentValue, stateUpdate]);
 
   // styles
-  const color = fieldSide === "blue" ? "primary" : "secondary";
   const buttonGroupSx: SxProps = {
     width: '100%',
     display: 'inline-flex',

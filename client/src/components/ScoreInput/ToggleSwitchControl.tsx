@@ -1,10 +1,9 @@
 import { FC, useCallback } from 'react';
 import { Switch, Box, Grid, Paper, Typography } from '@mui/material';
-import { FieldSideType } from 'slices/score';
 import { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from 'config/types';
 
 interface ToggleSwitchControlProps {
-  fieldSide: FieldSideType,
+  color: "primary" | "secondary" | "default",
   config: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
@@ -12,7 +11,7 @@ interface ToggleSwitchControlProps {
 
 // しばらくは実際に使わなそうなので、試験的な実装
 export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
-  fieldSide,
+  color,
   config,
   currentValue,
   stateUpdate,
@@ -24,9 +23,6 @@ export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     stateUpdate(event.target.checked ? option.on_value : option.off_value);
   }, [option, stateUpdate]);
-
-  // styles
-  const color = fieldSide === "blue" ? "primary" : "secondary";
 
   return (
     <Grid item xs={12} sm={6}>

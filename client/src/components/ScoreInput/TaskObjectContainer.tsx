@@ -32,6 +32,8 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
     LyricalSocket.dispatch(action, dispatch);
   }, [dispatch, fieldSide, id]);
 
+  const colorTheme = fieldSide === "blue" ? "primary" : "secondary";
+
   if (currentValue === undefined) {
     console.error(`ふぇぇ！"${id}"のタスクオブジェクトが取得できないよぉ`);
     return <ErrorObject config={config} />;
@@ -40,20 +42,19 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   return (
     ui?.type === "toggle_switch" ? 
       <ToggleSwitchControl
-        fieldSide={fieldSide}
+        color={colorTheme}
         config={config}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
       />
     : ui?.type === "toggle_button" ?
       <ToggleButtonControl
-        fieldSide={fieldSide}
         config={config}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
       />
     : <PluseMinuseButtonControl
-        fieldSide={fieldSide}
+        color={colorTheme}
         config={config}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
