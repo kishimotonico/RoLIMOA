@@ -42,6 +42,7 @@ export const configSchema = z.object({
     name: z.string(),
   }),
   rule: z.object({
+    global_objects: z.array(taskObjectSchema),
     task_objects: z.array(taskObjectSchema),
     score: z.union([
       z.object({

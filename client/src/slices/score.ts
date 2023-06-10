@@ -15,12 +15,6 @@ export type FieldScoreStateType = {
 };
 export type ObjectsStateType = { [objectId: string]: number; };
 
-type TaskUpdateActionPayload = {
-  fieldSide: FieldSideType,
-  taskObjectId: string,
-  afterValue: number,
-};
-
 export const initialState: ScoreState = {
   fields: {
     blue: {
@@ -36,7 +30,18 @@ export const initialState: ScoreState = {
       vgoal: undefined,
     },
   },
-  global: {}, // WIP: ひとまず空
+  global: Object.fromEntries(config.rule.global_objects.map(taskObj => [taskObj.id, taskObj.initialValue ?? 0])),
+};
+
+type GloablUpdateActionPayload = {
+  taskObjectId: string,
+  afterValue: number,
+};
+
+type TaskUpdateActionPayload = {
+  fieldSide: FieldSideType,
+  taskObjectId: string,
+  afterValue: number,
 };
 
 export const scoreStateSlice = createSlice({
@@ -44,6 +49,9 @@ export const scoreStateSlice = createSlice({
   initialState,
   reducers: {
     setState: (_, action: PayloadAction<ScoreState>) => action.payload,
+    setGloablUpdate: (state, action: PayloadAction<GloablUpdateActionPayload>) => {
+      state.global[action.payload.taskObjectId] = action.payload.afterValue;
+    },
     setTaskUpdate: (state, action: PayloadAction<TaskUpdateActionPayload>) => {
       state.fields[action.payload.fieldSide].tasks[action.payload.taskObjectId] = action.payload.afterValue;
     },

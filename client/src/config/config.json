@@ -3,22 +3,10 @@
     "name": "だみーロボコン"
   },
   "rule": {
-    "task_objects": [
+    "global_objects": [
       {
-        "id": "X_toggle_switch",
-        "description": "X.トグルスイッチ",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_switch",
-          "option": {
-            "off_value": 0,
-            "on_value": 1
-          }
-        }
-      },
-      {
-        "id": "Y_toggle_button",
-        "description": "Y.3状態トグル",
+        "id": "P01",
+        "description": "ポール 01",
         "initialValue": 0,
         "ui": {
           "type": "toggle_button",
@@ -47,51 +35,319 @@
         }
       },
       {
+        "id": "P02",
+        "description": "ポール 02",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P03",
+        "description": "ポール 03",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P04",
+        "description": "ポール 04",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P05",
+        "description": "ポール 05",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P06",
+        "description": "ポール 06",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P07",
+        "description": "ポール 07",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P09",
+        "description": "ポール 09",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P10",
+        "description": "ポール 10",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P11",
+        "description": "ポール 11",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "P12",
+        "description": "ポール 12",
+        "initialValue": 0,
+        "ui": {
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "task_objects": [
+      {
         "id": "A_1_point",
         "description": "A.1点獲得",
         "initialValue": 0
-      },
-      {
-        "id": "B_10_point",
-        "description": "B.10点獲得",
-        "initialValue": 0
-      },
-      {
-        "id": "C_100_point",
-        "description": "C.100点獲得",
-        "initialValue": 0,
-        "min": 0,
-        "max": 3
-      },
-      {
-        "id": "violation",
-        "description": "違反回数",
-        "initialValue": 0,
-        "min": 0
       }
     ],
     "score": {
       "format": "simple",
       "expression": [
         {
-          "id": "X_toggle_switch",
-          "coefficient": 1000
-        },
-        {
-          "id": "Y_toggle_button",
-          "coefficient": 10000
-        },
-        {
           "id": "A_1_point",
-          "coefficient":1
-        },
-        {
-          "id": "B_10_point",
-          "coefficient": 10
-        },
-        {
-          "id": "C_100_point",
-          "coefficient": 100
+          "coefficient": 1
         }
       ]
     },
@@ -188,7 +444,7 @@
         },
         {
           "elapsedTime": 90,
-          "sound": "tone_880hz_1000ms.mp3"  
+          "sound": "tone_880hz_1000ms.mp3"
         }
       ]
     },
