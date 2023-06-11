@@ -179,7 +179,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
     <Dashboard title={`${kanji}チーム得点入力`}>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={8}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <ScoreInputPanel fieldSide={fieldSide} />
           </Grid>
         </Grid>

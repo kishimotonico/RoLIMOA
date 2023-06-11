@@ -1,13 +1,11 @@
-import React, { FC, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { scoreStateSlice } from 'slices/score';
-import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
 import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from 'lyricalSocket';
 import { CustomControlPanelType, TaskObjectConfigType } from 'config/types';
-import { ToggleSwitchControl } from './ToggleSwitchControl';
-import { ToggleButtonControl } from './ToggleButtonControl';
+import { BaseControl } from './BaseControl';
 
 type GlobalObjectContainerProps = {
   taskConfig: TaskObjectConfigType,
@@ -37,26 +35,11 @@ export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
   }
 
   return (
-    controlConfig?.type === "toggle_switch" ? 
-      <ToggleSwitchControl
-        color="default"
-        config={taskConfig}
-        currentValue={currentValue}
-        stateUpdate={stateUpdate}
-        controlConfig={controlConfig}
-      />
-    : controlConfig?.type === "toggle_button" ?
-      <ToggleButtonControl
-        config={taskConfig}
-        currentValue={currentValue}
-        stateUpdate={stateUpdate}
-        controlConfig={controlConfig}
-      />
-    : <PluseMinuseButtonControl
-        color="inherit"
-        config={taskConfig}
-        currentValue={currentValue}
-        stateUpdate={stateUpdate}
-      />
-  )
+    <BaseControl
+      taskConfig={taskConfig}
+      controlConfig={controlConfig}
+      currentValue={currentValue}
+      stateUpdate={stateUpdate}
+    />
+  );
 };

@@ -6,57 +6,57 @@
     "global_objects": [
       {
         "id": "P01",
-        "description": "ポール 01",
+        "description": "P01",
         "initialValue": 0
       },
       {
         "id": "P02",
-        "description": "ポール 02",
+        "description": "P02",
         "initialValue": 0
       },
       {
         "id": "P03",
-        "description": "ポール 03",
+        "description": "P03",
         "initialValue": 0
       },
       {
         "id": "P04",
-        "description": "ポール 04",
+        "description": "P04",
         "initialValue": 0
       },
       {
         "id": "P05",
-        "description": "ポール 05",
+        "description": "P05",
         "initialValue": 0
       },
       {
         "id": "P06",
-        "description": "ポール 06",
+        "description": "P06",
         "initialValue": 0
       },
       {
         "id": "P07",
-        "description": "ポール 07",
+        "description": "P07",
         "initialValue": 0
       },
       {
         "id": "P08",
-        "description": "ポール 08",
+        "description": "P08",
         "initialValue": 0
       },
       {
         "id": "P09",
-        "description": "ポール 09",
+        "description": "P09",
         "initialValue": 0
       },
       {
         "id": "P10",
-        "description": "ポール 10",
+        "description": "P10",
         "initialValue": 0
       },
       {
         "id": "P11",
-        "description": "ポール 11",
+        "description": "P11",
         "initialValue": 0
       }
     ],

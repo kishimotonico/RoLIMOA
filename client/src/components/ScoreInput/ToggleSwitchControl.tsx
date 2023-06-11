@@ -1,10 +1,10 @@
 import { FC, useCallback } from 'react';
-import { Switch, Box, Grid, Paper, Typography } from '@mui/material';
+import { Switch, Box, Paper, Typography } from '@mui/material';
 import { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from 'config/types';
 
 interface ToggleSwitchControlProps {
   color: "primary" | "secondary" | "default",
-  config: TaskObjectConfigType,
+  taskConfig: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
   controlConfig: TaskObjectToggleSwitchUiType,
@@ -13,12 +13,12 @@ interface ToggleSwitchControlProps {
 // しばらくは実際に使わなそうなので、試験的な実装
 export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
   color,
-  config,
+  taskConfig,
   currentValue,
   stateUpdate,
   controlConfig,
 }) => {
-  const { description } = config;
+  const { description } = taskConfig;
 
   const checked = currentValue === controlConfig.option.on_value;
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,16 +26,14 @@ export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
   }, [controlConfig.option, stateUpdate]);
 
   return (
-    <Grid item xs={12} sm={6}>
-      <Paper sx={{ p: '1em', userSelect: "none" }}>
-        <Typography component="h2" variant="h6" gutterBottom>
-          {description}
-        </Typography>
+    <Paper sx={{ p: '1em', userSelect: "none" }}>
+      <Typography component="h2" variant="h6" gutterBottom>
+        {description}
+      </Typography>
 
-        <Box sx={{ pt: 0.5 }}>
-          <Switch onChange={onChange} color={color} checked={checked}/>
-        </Box>
-      </Paper>
-    </Grid>
+      <Box sx={{ pt: 0.5 }}>
+        <Switch onChange={onChange} color={color} checked={checked}/>
+      </Box>
+    </Paper>
   );
 };

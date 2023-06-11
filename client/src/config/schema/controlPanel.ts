@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 const commonStyleSchema = z.object({
-  style: z.object({
-    width: z.number().optional(),
-  }).optional(),
+  width: z.number().optional(),
 });
 
 const commonSchema = {
