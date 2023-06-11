@@ -6,15 +6,17 @@ interface ToggleButtonControlProps {
   config: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
+  controlConfig: TaskObjectToggleButtonUiType,
 }
 
 export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
   config,
   currentValue,
   stateUpdate,
+  controlConfig,
 }) => {
-  const { description, ui } = config;
-  const option = ui?.option as TaskObjectToggleButtonUiType["option"]; // 仮機能なのでタイプガードなく適当に実装
+  const { description } = config;
+  const option = controlConfig.option;
 
   const onChange = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: any) => {
     stateUpdate(value);

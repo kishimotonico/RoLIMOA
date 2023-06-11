@@ -7,6 +7,7 @@ interface ToggleSwitchControlProps {
   config: TaskObjectConfigType,
   currentValue: number,
   stateUpdate: (value: number) => void,
+  controlConfig: TaskObjectToggleSwitchUiType,
 }
 
 // しばらくは実際に使わなそうなので、試験的な実装
@@ -15,14 +16,14 @@ export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
   config,
   currentValue,
   stateUpdate,
+  controlConfig,
 }) => {
-  const { description, ui } = config;
-  const option = ui?.option as TaskObjectToggleSwitchUiType["option"]; // 仮機能なのでタイプガードなく適当に実装
+  const { description } = config;
 
-  const checked = currentValue === option.on_value;
+  const checked = currentValue === controlConfig.option.on_value;
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    stateUpdate(event.target.checked ? option.on_value : option.off_value);
-  }, [option, stateUpdate]);
+    stateUpdate(event.target.checked ? controlConfig.option.on_value : controlConfig.option.off_value);
+  }, [controlConfig.option, stateUpdate]);
 
   return (
     <Grid item xs={12} sm={6}>

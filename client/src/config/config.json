@@ -7,332 +7,57 @@
       {
         "id": "P01",
         "description": "ポール 01",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P02",
         "description": "ポール 02",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P03",
         "description": "ポール 03",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P04",
         "description": "ポール 04",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P05",
         "description": "ポール 05",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P06",
         "description": "ポール 06",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P07",
         "description": "ポール 07",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P08",
         "description": "ポール 08",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P09",
         "description": "ポール 09",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P10",
         "description": "ポール 10",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       },
       {
         "id": "P11",
         "description": "ポール 11",
-        "initialValue": 0,
-        "ui": {
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ]
-          }
-        }
+        "initialValue": 0
       }
     ],
     "task_objects": [],
@@ -344,6 +69,341 @@
       "condition": {
         "type": "implement"
       }
+    },
+    "control_panel": {
+      "type": "custom",
+      "panels": [
+        {
+          "id": "@global/P01",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P02",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P03",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P04",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P05",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P06",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P07",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P08",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P09",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P10",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        },
+        {
+          "id": "@global/P11",
+          "type": "toggle_button",
+          "option": {
+            "buttons": [
+              {
+                "value": 0,
+                "label": "なし"
+              },
+              {
+                "value": 1,
+                "label": "🔵青",
+                "style": {
+                  "color": "primary"
+                }
+              },
+              {
+                "value": 2,
+                "label": "🔴赤",
+                "style": {
+                  "color": "secondary"
+                }
+              }
+            ],
+            "vertical": true
+          },
+          "style": {
+            "width": 2
+          }
+        }
+      ]
     }
   },
   "time_progress": [

@@ -5,18 +5,20 @@ import { scoreStateSlice } from 'slices/score';
 import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
 import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from 'lyricalSocket';
-import { TaskObjectConfigType } from 'config/types';
+import { CustomControlPanelType, TaskObjectConfigType } from 'config/types';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
 import { ToggleButtonControl } from './ToggleButtonControl';
 
 type GlobalObjectContainerProps = {
-  config: TaskObjectConfigType,
+  taskConfig: TaskObjectConfigType,
+  controlConfig?: CustomControlPanelType,
 };
 
 export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
-  config,
+  taskConfig,
+  controlConfig,
 }) => {
-  const { id, ui } = config;
+  const { id } = taskConfig;
 
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.global[id]);
   const dispatch = useDispatch();
@@ -31,26 +33,28 @@ export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
 
   if (currentValue === undefined) {
     console.error(`ふぇぇ！"${id}"のタスクオブジェクトが取得できないよぉ`);
-    return <ErrorObject config={config} />;
+    return <ErrorObject description={taskConfig.description} />;
   }
 
   return (
-    ui?.type === "toggle_switch" ? 
+    controlConfig?.type === "toggle_switch" ? 
       <ToggleSwitchControl
         color="default"
-        config={config}
+        config={taskConfig}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
+        controlConfig={controlConfig}
       />
-    : ui?.type === "toggle_button" ?
+    : controlConfig?.type === "toggle_button" ?
       <ToggleButtonControl
-        config={config}
+        config={taskConfig}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
+        controlConfig={controlConfig}
       />
     : <PluseMinuseButtonControl
         color="inherit"
-        config={config}
+        config={taskConfig}
         currentValue={currentValue}
         stateUpdate={stateUpdate}
       />

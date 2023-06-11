@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { taskObjectSchema } from "./taskObject";
+import { customControlPanelSchema } from "./controlPanel";
 
 const vgoalConditionSchema = z.union([
   z.object({
@@ -69,6 +70,17 @@ export const configSchema = z.object({
       name: z.string(),
       condition: vgoalConditionSchema,
     }),
+    control_panel: z.union([
+      z.object({
+        type: z.literal("default"),
+      }),
+      z.object({
+        type: z.literal("custom"),
+        panels: z.array(
+          customControlPanelSchema
+        ).optional(),
+      }),
+    ]),
   }),
   time_progress: z.array(
     timeProgressSchema
