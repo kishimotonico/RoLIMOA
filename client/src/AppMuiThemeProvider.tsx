@@ -1,11 +1,7 @@
 import { FC } from 'react';
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     grey: true

@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { AppBar, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, ListSubheader } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, ListSubheader } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -15,87 +13,19 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import { SettingButton } from './SettingModal';
 import { isDrawerOpen } from 'atoms/isDrawerOpen';
 import { useRecoilState } from 'recoil';
+import { styled } from '@mui/material';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  drawerListLink: {
-    textDecoration: "none",
-    color: theme.palette.text.primary,
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
+const DrawerListLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+}));
+
+const ContentMain = styled('main')(({ theme }) => ({
+  flexGrow: 1,
+  height: '100vh',
+  overflow: 'auto',
 }));
 
 interface DashboardProps {
@@ -107,26 +37,46 @@ export const Dashboard: FC<DashboardProps> = ({
   children,
   title,
 }) => {
-  const classes = useStyles();
   const [open, setOpen] = useRecoilState(isDrawerOpen);
   const handleDrawerOpen = () => { setOpen(true); };
   const handleDrawerClose = () => { setOpen(false); };
 
   return (
-    <div className={classes.root}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar color="default" position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
+      <AppBar color="default" position="absolute"
+        sx={[
+          {
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            transition: (theme) => theme.transitions.create(['width', 'margin'], {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
+          },
+          open ? {
+            marginLeft: drawerWidth,
+            width: `calc(100% - ${drawerWidth}px)`,
+            transition: (theme) => theme.transitions.create(['width', 'margin'], {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          } : {},
+        ]}
+      >
+        <Toolbar sx={{ paddingRight: '24px' }}>
           <IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            sx={{
+              marginRight: '36px',
+              ...(open && { display: 'none' }),
+             }}
             size="large">
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
           <SettingButton />
@@ -134,84 +84,111 @@ export const Dashboard: FC<DashboardProps> = ({
       </AppBar>
       <Drawer
         variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
+        sx={(theme) => ({
+          position: 'relative',
+          whiteSpace: 'nowrap',
+          width: drawerWidth,
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          ...(!open && {
+            overflowX: 'hidden',
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
+            width: theme.spacing(7),
+            [theme.breakpoints.up('sm')]: {
+              width: theme.spacing(9),
+            },
+            background: "red",
+          }),
+         })}
         open={open}
       >
-        <div className={classes.toolbarIcon}>
+        <Box sx={(theme) => ({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            padding: '0 8px',
+            ...theme.mixins.toolbar,
+         })}>
           <IconButton onClick={handleDrawerClose} size="large">
             <ChevronLeftIcon />
           </IconButton>
-        </div>
+        </Box>
         <Divider />
         <List>
-        <Link to="/" className={classes.drawerListLink}>
+          <DrawerListLink to="/">
             <ListItem button>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-          </Link>
-          <Link to="/referee" className={classes.drawerListLink}>
+          </DrawerListLink>
+          <DrawerListLink to="/referee">
             <ListItem button>
               <ListItemIcon>
                 <SportsScoreIcon />
               </ListItemIcon>
               <ListItemText primary="主審入力" />
             </ListItem>
-          </Link>
-          <Link to="/score/blue/" className={classes.drawerListLink}>
+          </DrawerListLink>
+          <DrawerListLink to="/score/blue/">
             <ListItem button>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary="青チーム入力" />
             </ListItem>
-          </Link>
-          <Link to="/score/red/" className={classes.drawerListLink}>
+          </DrawerListLink>
+          <DrawerListLink to="/score/red/">
             <ListItem button>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary="赤チーム入力" />
             </ListItem>
-          </Link>
+          </DrawerListLink>
         </List>
         <Divider />
-          <ListSubheader inset>ふぇぇ…</ListSubheader>
-          <Link to="/admin" className={classes.drawerListLink}>
-            <ListItem button>
-              <ListItemIcon>
-                <BuildIcon />
-              </ListItemIcon>
-              <ListItemText primary="試合管理" />
-            </ListItem>
-          </Link>
-          <Link to="/screen" className={classes.drawerListLink}>
-            <ListItem button>
-              <ListItemIcon>
-                <CastIcon />
-              </ListItemIcon>
-              <ListItemText primary="スクリーン" />
-            </ListItem>
-          </Link>
-          <Link to="/streaming-overlay-opener" className={classes.drawerListLink}>
-            <ListItem button>
-              <ListItemIcon>
-                <VideocamIcon />
-              </ListItemIcon>
-              <ListItemText primary="配信オーバーレイ" />
-            </ListItem>
-          </Link>
+        <ListSubheader inset>ふぇぇ…</ListSubheader>
+        <DrawerListLink to="/admin">
+          <ListItem button>
+            <ListItemIcon>
+              <BuildIcon />
+            </ListItemIcon>
+            <ListItemText primary="試合管理" />
+          </ListItem>
+        </DrawerListLink>
+        <DrawerListLink to="/screen">
+          <ListItem button>
+            <ListItemIcon>
+              <CastIcon />
+            </ListItemIcon>
+            <ListItemText primary="スクリーン" />
+          </ListItem>
+        </DrawerListLink>
+        <DrawerListLink to="/streaming-overlay-opener">
+          <ListItem button>
+            <ListItemIcon>
+              <VideocamIcon />
+            </ListItemIcon>
+            <ListItemText primary="配信オーバーレイ" />
+          </ListItem>
+        </DrawerListLink>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+      <ContentMain>
+        <Box sx={(theme) => theme.mixins.toolbar} />
+        <Container maxWidth="lg" sx={{
+          paddingTop: (theme) => theme.spacing(4),
+          paddingBottom: (theme) => theme.spacing(4),
+         }}>
           {children}
         </Container>
-      </main>
-    </div>
+      </ContentMain>
+    </Box>
   );
 }

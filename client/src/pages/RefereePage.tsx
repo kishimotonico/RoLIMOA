@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useState, useEffect } from 'react';
 import { Box, Button, Grid, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material';
 import { Theme } from '@mui/system';
-import makeStyles from '@mui/styles/makeStyles';
 import CachedIcon from '@mui/icons-material/Cached';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { Dashboard } from 'components/Dashboard';
@@ -16,12 +15,6 @@ import { CurrentPhaseState } from 'slices/phase';
 import { LyricalSocket } from 'lyricalSocket';
 import { config } from 'config/load';
 import * as Phase from 'util/PhaseStateUtil';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '1em',
-  },
-}));
 
 const thStyle: SxProps<Theme> = {
   whiteSpace: "nowrap",
@@ -95,7 +88,6 @@ const ScoreDetailTable: FC<ScoreDetailTableProps> = ({
 
 export const RefereePage: FC = () => {
   // TODO: 細かい処理もここに放り込んじゃったので、もうちょときれいにする
-  const classes = useStyles();  
   const dispath = useDispatch();
   const match = useSelector<RootState, MatchState>((state) => state.match);
   const score = useSelector<RootState, ScoreState>((state) => state.score);
@@ -145,7 +137,7 @@ export const RefereePage: FC = () => {
 
   return (
     <Dashboard title="主審入力">
-      <Paper className={classes.root}>
+      <Paper sx={{ padding: '1em' }}>
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
           現在の試合：{matchName}
         </Typography>
