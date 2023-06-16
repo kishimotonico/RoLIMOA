@@ -1,5 +1,5 @@
-import { AnyAction, Dispatch } from "@reduxjs/toolkit";
-import io from "socket.io-client";
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import io from 'socket.io-client';
 
 export class LyricalSocket {
   // singleton

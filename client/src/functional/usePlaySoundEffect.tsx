@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
-import * as Phase from "util/PhaseStateUtil";
+import * as Phase from 'util/PhaseStateUtil';
 
 export const usePlaySoundEffect = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);

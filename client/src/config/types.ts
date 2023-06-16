@@ -1,10 +1,10 @@
-import { z } from "zod";
-import { configSchema } from "./schema";
+import { z } from 'zod';
+import { configSchema } from './schema';
 import {
   customControlPanelSchema,
   taskObjectToggleButtonSchema,
   taskObjectToggleSwitchSchema,
-} from "./schema/controlPanel";
+} from './schema/controlPanel';
 
 export type ConfigType = z.infer<typeof configSchema>;
 

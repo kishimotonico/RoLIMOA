@@ -1,4 +1,4 @@
-import { CurrentMatchStateType } from "util/currentMatchStateType";
+import { CurrentMatchStateType } from 'util/currentMatchStateType';
 
 type ScoreOutputType = {
   value: number,

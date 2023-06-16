@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { LyricalSocket } from 'lyricalSocket';
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { connectedDevicesStateSlice } from 'slices/connectedDevices';
 import { useDispatch } from 'react-redux';
 
