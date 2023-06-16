@@ -2,11 +2,12 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
 import { PhaseState } from 'slices/phase';
-import { formatTime, TimeFormat } from 'util/formatTime';
+import { formatTime } from 'util/formatTime';
+import { TimeProgressConfigType } from 'config/types';
 import * as Phase from 'util/PhaseStateUtil';
 
 // 表示する時間の文字列を取得する
-function getDisplayString(phaseState: PhaseState, currentConfig: Required<Phase.TimeProgressConfig>): string {
+function getDisplayString(phaseState: PhaseState, currentConfig: Required<TimeProgressConfigType>): string {
   if (currentConfig.type === "default") {
     return "----";
   }
@@ -25,13 +26,13 @@ function getDisplayString(phaseState: PhaseState, currentConfig: Required<Phase.
   }
 
   if (config.style.timerFormat) {
-    return formatTime(displaySec, config.style.timerFormat as TimeFormat, true);
+    return formatTime(displaySec, config.style.timerFormat, true);
   }
   return "";
 }
 
 // 適用するフェーズ設定や、フェーズ時刻を取得する
-function getCustomConfig(phaseState: PhaseState, currentConfig: Required<Phase.TimeProgressConfig>) {
+function getCustomConfig(phaseState: PhaseState, currentConfig: Required<TimeProgressConfigType>) {
   let applyConfig = currentConfig;
   let elapsedSec = phaseState.elapsedSecond;
   // フェーズ遷移時のちらつき防止のため、本来フェーズ遷移している状況のときは次のフェーズの設定を適用

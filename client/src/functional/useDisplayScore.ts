@@ -1,33 +1,33 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { PhaseState } from 'slices/phase';
-import { FieldSideType, ScoreStateType } from 'slices/score';
+import { FieldSideType, FieldScoreStateType } from 'slices/score';
 import { calculateScore, ScoreRuleType } from 'util/calculateScore';
-import config from 'config.json';
+import { config } from 'config/load';
+import { useCurrentMatchState } from './useCurrentMatchState';
 
 const scoreRule = config.rule.score as ScoreRuleType;
 
 type DisplayScoreType = {
   text: string,
-  scoreState: ScoreStateType,
+  scoreState: FieldScoreStateType,
   value: number,
   refs?: Record<string, number>,
 };
 
 export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType {
-  const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
-  const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
+  const currentMatchState = useCurrentMatchState(fieldSide);
+  const scoreState = useSelector<RootState, FieldScoreStateType>(state => state.score.fields[fieldSide]);
 
   return useMemo(() => {
-    const { value, refs } = calculateScore(scoreRule, scoreState, phaseState);
-
+    const { value, refs } = calculateScore(scoreRule, currentMatchState);
+    
     // スコア無効時
     if (! scoreState.enable) {
       const text = "---";
       return { text, value, scoreState, refs };
     }
-  
+
     // Vゴール時
     if (scoreState.vgoal) {
       const text = config.rule.vgoal.name
@@ -37,5 +37,5 @@ export function useDisplayScore(fieldSide: FieldSideType): DisplayScoreType {
     // 通常時
     const text = value.toString()
     return { text, value, scoreState, refs };
-  }, [scoreState, phaseState]);
+  }, [currentMatchState, scoreState]);
 }

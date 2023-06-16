@@ -8,7 +8,7 @@ import { useDisplayTimer } from 'functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
 import { CenterFlex } from 'ui/CenterFlex';
 import { formatTime } from 'util/formatTime';
-import config from 'config.json';
+import { config } from 'config/load';
 import { SlideTransition } from 'ui/SlideTransition';
 
 type ScoreBlockProps = {

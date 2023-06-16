@@ -1,4 +1,4 @@
-export type TimeFormat = "mm:ss" | "m:ss" | "ss" | "s";
+import { TimeFormat } from "config/types";
 
 // 秒数をフォーマット表示した文字列を返す
 export const formatTime = (

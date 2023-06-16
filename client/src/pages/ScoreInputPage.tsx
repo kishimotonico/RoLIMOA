@@ -4,15 +4,14 @@ import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid, Paper, 
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
 import { RootState } from 'slices';
-import { FieldSideType, scoreStateSlice, ScoreStateType } from 'slices/score';
+import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { Dashboard } from 'components/Dashboard';
-import { TaskObject } from 'components/TaskObjectContainer';
 import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
 import { LyricalSocket } from 'lyricalSocket';
-import config from 'config.json';
 import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { formatTime, parseFormatTime } from 'util/formatTime';
+import { ScoreInputPanel } from 'components/ScoreInput/ScoreInputPanel';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void,
@@ -72,7 +71,7 @@ type FlagInputProps = {
 
 const FlagInput: FC<FlagInputProps> = ({ fieldSide, color }) => {
   const dispatch = useDispatch();
-  const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
+  const scoreState = useSelector<RootState, FieldScoreStateType>((state) => state.score.fields[fieldSide]);
   
   const onEnableButton = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch(scoreStateSlice.actions.setScoreEnable({
@@ -162,7 +161,7 @@ type ScoreInputPageProps = {
 };
 
 export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
-  const isScoreEnable = useSelector<RootState, boolean>((state) => state.score[fieldSide].enable);
+  const isScoreEnable = useSelector<RootState, boolean>((state) => state.score.fields[fieldSide].enable);
   const dispatch = useDispatch();
 
   const onEnableButton = useCallback(() => {
@@ -180,19 +179,8 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
     <Dashboard title={`${kanji}チーム得点入力`}>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={8}>
-          <Grid container spacing={2}>
-            {
-              config.rule.task_objects.map(config => (
-                <TaskObject
-                  key={config.id}
-                  fieldSide={fieldSide}
-                  {...config}
-                />
-              ))
-            }
-            <Grid item xs={12}>
-              <ScoreInputVgoalButton fieldSide={fieldSide} color={color} />
-            </Grid>
+          <Grid container spacing={1}>
+            <ScoreInputPanel fieldSide={fieldSide} />
           </Grid>
         </Grid>
 
@@ -202,8 +190,11 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
               <ScoreDisplay fieldSide={fieldSide} />
             </Box>
             <Divider sx={{ my: 2 }}></Divider>
-            <Box>
+            <Box sx={{ my: 2 }}>
               <FlagInput fieldSide={fieldSide} color={color} />
+            </Box>
+            <Box>
+              <ScoreInputVgoalButton fieldSide={fieldSide} color={color} />
             </Box>
           </Paper>
         </Grid>

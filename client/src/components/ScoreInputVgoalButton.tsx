@@ -2,9 +2,10 @@ import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { RootState } from 'slices';
-import { scoreStateSlice, ScoreStateType } from 'slices/score';
+import { scoreStateSlice, FieldScoreStateType } from 'slices/score';
 import { LyricalSocket } from 'lyricalSocket';
-import * as Vgoal from 'util/VgoalHelper';
+import { isVgoalAvailable } from 'util/VgoalHelper';
+import { useCurrentMatchState } from 'functional/useCurrentMatchState';
 
 type ScoreInputVgoalButtonProps = {
   fieldSide: "blue" | "red",
@@ -16,8 +17,9 @@ export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
   color,
 }) => {
   const dispatch = useDispatch();
-  const scoreState = useSelector<RootState, ScoreStateType>((state) => state.score[fieldSide]);
+  const scoreState = useSelector<RootState, FieldScoreStateType>((state) => state.score.fields[fieldSide]);
   const elapsedSec = useSelector<RootState, number>((state) => state.phase.elapsedSecond);
+  const currentMatchState = useCurrentMatchState(fieldSide);
 
   const onVgoalButton = useCallback(() => {
     const vgoalTime = elapsedSec;
@@ -37,11 +39,11 @@ export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
       variant="contained"
       size="medium" 
       onClick={isNotVgoaled ? onVgoalButton : onVgoalCancelButton}
-      disabled={isNotVgoaled ? !Vgoal.isVgoalAvailable(scoreState) : false}
+      disabled={isNotVgoaled ? !isVgoalAvailable(currentMatchState) : false}
       color={isNotVgoaled ? color : "grey"}
       sx={{
         width: '100%',
-        fontSize: '180%',
+        fontSize: '100%',
         lineHeight: 2.4,
       }}
     >

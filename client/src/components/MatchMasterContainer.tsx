@@ -7,7 +7,7 @@ import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score
 import { LyricalSocket } from 'lyricalSocket';
 import { MatchMasterComponent } from './MatchMasterComponent';
 import * as Phase from 'util/PhaseStateUtil';
-import config from 'config.json';
+import { config } from 'config/load';
 
 // 省略名からチームリストの情報を取得、なければスタブを作成
 function getTeamInfo(short: string): TeamType {

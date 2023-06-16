@@ -9,12 +9,12 @@ import { ScoreBlock } from 'components/ScoreBlock';
 import { useDisplayScore } from 'functional/useDisplayScore';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'slices';
-import { FieldSideType, WholeScoreState } from 'slices/score';
+import { FieldSideType, ScoreState } from 'slices/score';
 import { resultRecordsStateSlice } from 'slices/resultRecord';
 import { MatchState, matchStateSlice } from 'slices/match';
 import { CurrentPhaseState } from 'slices/phase';
 import { LyricalSocket } from 'lyricalSocket';
-import config from 'config.json';
+import { config } from 'config/load';
 import * as Phase from 'util/PhaseStateUtil';
 
 const useStyles = makeStyles((theme) => ({
@@ -98,7 +98,7 @@ export const RefereePage: FC = () => {
   const classes = useStyles();  
   const dispath = useDispatch();
   const match = useSelector<RootState, MatchState>((state) => state.match);
-  const score = useSelector<RootState, WholeScoreState>((state) => state.score);
+  const score = useSelector<RootState, ScoreState>((state) => state.score);
   const currentPhase = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
   
   const { value: blueScoreValue } = useDisplayScore("blue");

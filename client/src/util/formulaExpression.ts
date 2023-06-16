@@ -18,7 +18,7 @@ type ConstValueType = {
 };
 type RefValueType = {
   value: {
-    type: "taskObject" | "matchStatus" | "refRecord",
+    type: "globalObject" | "taskObject" | "matchStatus" | "refRecord",
     ref: string,
   }
 };
@@ -76,14 +76,15 @@ function isOperatorType(arg: any): arg is OperatorType {
   return arg.operator !== undefined && arg.operands !== undefined;
 }
 
-export type ReferencedStatsType = {
+type ReferenceVariables = {
+  globalObjects: { [id: string]: number },
   taskObjects: { [id: string]: number },
   matchStats: { [id: string]: number },
   refRecords?: { [id: string]: number },
 };
 
 // 演算対象となる項（オペランド: 値もしくは計算式）を評価する
-function EvaluateOperand(referencedStats: ReferencedStatsType, operand: OperandType): number {
+function EvaluateOperand(referencedStats: ReferenceVariables, operand: OperandType): number {
   let result = NaN;
 
   if (isOperatorType(operand)) {
@@ -93,6 +94,9 @@ function EvaluateOperand(referencedStats: ReferencedStatsType, operand: OperandT
     result = operand.value.const;
   }
   if (isRefValueType(operand)) {
+    if (operand.value.type === "globalObject") {
+      result = referencedStats.globalObjects[operand.value.ref];
+    }
     if (operand.value.type === "taskObject") {
       result = referencedStats.taskObjects[operand.value.ref];
     }
@@ -117,7 +121,7 @@ function EvaluateOperand(referencedStats: ReferencedStatsType, operand: OperandT
 }
 
 // 各演算子に対応する計算結果を求める
-function EvaluateOperation(referencedStats: ReferencedStatsType, op: OperatorType): number {
+function EvaluateOperation(referencedStats: ReferenceVariables, op: OperatorType): number {
   const values = (op.operands as OperandType[]).map(operand => EvaluateOperand(referencedStats, operand));
   switch (op.operator) {
     case "sum":
@@ -181,7 +185,7 @@ function EvaluateAnd(values: number[]): number {
 function EvaluateOr(values: number[]): number {
   return values.some(Boolean) ? 1 : 0;
 }
-function EvaluateMatch(referencedStats: ReferencedStatsType, caseOperators: CaseOperatorType[]): number {
+function EvaluateMatch(referencedStats: ReferenceVariables, caseOperators: CaseOperatorType[]): number {
   const matchedCase = caseOperators.find(caseOperator =>
     caseOperator.operator === "default" || EvaluateOperand(referencedStats, caseOperator.operands[0]));
   if (matchedCase?.operator === "default") {
@@ -195,12 +199,13 @@ function EvaluateMatch(referencedStats: ReferencedStatsType, caseOperators: Case
 
 
 
-const defaultReferencedStats: ReferencedStatsType = {
+const defaultReferencedStats: ReferenceVariables = {
+  globalObjects: {},
   taskObjects: {},
   matchStats: {},
 };
 
-export function evaluateFormula(formulaExpression: FormulaExpression, referencedStats: ReferencedStatsType = defaultReferencedStats) {
+export function evaluateFormula(formulaExpression: FormulaExpression, referencedStats: ReferenceVariables = defaultReferencedStats) {
   return EvaluateOperand(referencedStats, formulaExpression);
 }
 
@@ -618,7 +623,8 @@ export function _testEvaluateFormula() {
       }
     ],
   };
-  const referencedStats: ReferencedStatsType = {
+  const referencedStats: ReferenceVariables = {
+    globalObjects: {},
     taskObjects: {
       A_yellow_in: 0,
       B_yellow_on: 0,

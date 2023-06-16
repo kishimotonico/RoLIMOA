@@ -1,26 +1,5 @@
-import config from "../config.json";
-
-// config.jsonでのフェーズ型
-export type TimerStyleConfig = {
-  timerFormat?: string,
-  timerType?: string,
-};
-
-export type TimerCustomConfig = {
-  elapsedTime: number,
-  displayText?: string,
-  sound?: string,
-};
-
-export type TimeProgressConfig = {
-  id: string,
-  type: string, // "ready"|"count"
-  description: string,
-  time?: number,
-  isAutoTransition?: boolean,
-  style?: TimerStyleConfig,
-  custom?: TimerCustomConfig[],
-};
+import { config } from 'config/load';
+import { TimeProgressConfigType } from 'config/types';
 
 const defaultConfig = {
   id: "default",
@@ -33,7 +12,7 @@ const defaultConfig = {
     timerType: "countup",
   },
   custom: [],
-}
+} as Required<TimeProgressConfigType>;
 
 export function getIndex(phaseId?: string): number {
   if (phaseId === undefined || phaseId === "default") {
@@ -42,7 +21,7 @@ export function getIndex(phaseId?: string): number {
   return config.time_progress.findIndex(phase => phase.id === phaseId);
 }
 
-export function getConfig(phaseId?: string): Required<TimeProgressConfig> {
+export function getConfig(phaseId?: string): Required<TimeProgressConfigType> {
   if (phaseId === undefined || phaseId === "default") {
     return defaultConfig;
   }
@@ -52,7 +31,7 @@ export function getConfig(phaseId?: string): Required<TimeProgressConfig> {
   };
 }
 
-export function getRawConfig(phaseId: string): TimeProgressConfig {
+export function getRawConfig(phaseId: string): TimeProgressConfigType {
   if (phaseId === "default") {
     return defaultConfig;
   }
