@@ -1,6 +1,13 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, ListSubheader } from '@mui/material';
+import {
+  AppBar as MuiAppBar,
+  AppBarProps as MuiAppBarProps,
+  Drawer as MuiDrawer,
+  Box, Container, CssBaseline, Divider, IconButton, List, ListItemButton,
+  ListItemText, ListSubheader, Toolbar, Typography,
+} from '@mui/material';
+import { styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -13,7 +20,6 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import { SettingButton } from './SettingModal';
 import { isDrawerOpen } from '@/atoms/isDrawerOpen';
 import { useRecoilState } from 'recoil';
-import { styled } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -22,11 +28,53 @@ const DrawerListLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-const ContentMain = styled('main')({
-  flexGrow: 1,
-  height: '100vh',
-  overflow: 'auto',
-});
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -44,26 +92,10 @@ export const Dashboard: FC<DashboardProps> = ({
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar color="default" position="absolute"
-        sx={[
-          {
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            transition: (theme) => theme.transitions.create(['width', 'margin'], {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-          },
-          open ? {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            transition: (theme) => theme.transitions.create(['width', 'margin'], {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          } : {},
-        ]}
-      >
-        <Toolbar sx={{ paddingRight: '24px' }}>
+      <AppBar color="default" position="absolute" open={open}>
+        <Toolbar sx={{
+          paddingRight: '24px', // keep right padding when drawer closed
+        }}>
           <IconButton
             edge="start"
             color="inherit"
@@ -82,113 +114,89 @@ export const Dashboard: FC<DashboardProps> = ({
           <SettingButton />
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={(theme) => ({
-          position: 'relative',
-          whiteSpace: 'nowrap',
-          width: drawerWidth,
-          transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          ...(!open && {
-            overflowX: 'hidden',
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-            width: theme.spacing(7),
-            [theme.breakpoints.up('sm')]: {
-              width: theme.spacing(9),
-            },
-            background: "red",
-          }),
-         })}
-        open={open}
-      >
-        <Box sx={(theme) => ({
+      <Drawer variant="permanent" open={open}>
+        <Toolbar sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
             padding: '0 8px',
-            ...theme.mixins.toolbar,
-         })}>
+         }}>
           <IconButton onClick={handleDrawerClose} size="large">
             <ChevronLeftIcon />
           </IconButton>
-        </Box>
+        </Toolbar>
         <Divider />
-        <List>
+        <List component="nav">
           <DrawerListLink to="/">
-            <ListItem button>
+            <ListItemButton>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
-            </ListItem>
+            </ListItemButton>
           </DrawerListLink>
           <DrawerListLink to="/referee">
-            <ListItem button>
+            <ListItemButton>
               <ListItemIcon>
                 <SportsScoreIcon />
               </ListItemIcon>
               <ListItemText primary="主審入力" />
-            </ListItem>
+            </ListItemButton>
           </DrawerListLink>
           <DrawerListLink to="/score/blue/">
-            <ListItem button>
+            <ListItemButton>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary="青チーム入力" />
-            </ListItem>
+            </ListItemButton>
           </DrawerListLink>
           <DrawerListLink to="/score/red/">
-            <ListItem button>
+            <ListItemButton>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary="赤チーム入力" />
-            </ListItem>
+            </ListItemButton>
           </DrawerListLink>
         </List>
         <Divider />
         <ListSubheader inset>ふぇぇ…</ListSubheader>
         <DrawerListLink to="/admin">
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <BuildIcon />
             </ListItemIcon>
             <ListItemText primary="試合管理" />
-          </ListItem>
+          </ListItemButton>
         </DrawerListLink>
         <DrawerListLink to="/screen">
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <CastIcon />
             </ListItemIcon>
             <ListItemText primary="スクリーン" />
-          </ListItem>
+          </ListItemButton>
         </DrawerListLink>
         <DrawerListLink to="/streaming-overlay-opener">
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <VideocamIcon />
             </ListItemIcon>
             <ListItemText primary="配信オーバーレイ" />
-          </ListItem>
+          </ListItemButton>
         </DrawerListLink>
       </Drawer>
-      <ContentMain>
+      <Box component="main" sx={{
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+       }}>
         <Box sx={(theme) => theme.mixins.toolbar} />
-        <Container maxWidth="lg" sx={{
-          paddingTop: (theme) => theme.spacing(4),
-          paddingBottom: (theme) => theme.spacing(4),
-         }}>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
           {children}
         </Container>
-      </ContentMain>
+      </Box>
     </Box>
   );
 }
