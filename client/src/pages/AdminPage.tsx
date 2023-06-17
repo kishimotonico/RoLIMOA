@@ -1,12 +1,11 @@
-import React, { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Grid } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import { Alert } from '@mui/material';
 import { AlertProps } from '@mui/lab';
-import { Dashboard } from 'components/Dashboard';
-import { TimerMasterContainer } from 'components/TimerMasterContainer';
-import { MatchMasterContainer } from 'components/MatchMasterContainer';
-import { DeviceListContainer } from 'components/DeviceListContainer';
+import { Dashboard } from '@/components/Dashboard';
+import { TimerMasterContainer } from '@/components/TimerMasterContainer';
+import { MatchMasterContainer } from '@/components/MatchMasterContainer';
+import { DeviceListContainer } from '@/components/DeviceListContainer';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);
@@ -21,22 +20,11 @@ const ClosableAlert: FC<AlertProps> = (props) => {
   ) : <></>;
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '1em',
-  },
-  topAlert: {
-    width: '100%',
-  },
-}));
-
 export const AdminPage: FC = () => {
-  const classes = useStyles();
-
   return (
     <Dashboard title="試合管理（マスタ）">
       <Grid container spacing={3}>
-        <ClosableAlert severity="warning" className={classes.topAlert} >
+        <ClosableAlert severity="warning" sx={{ width: '100%' }} >
           このページで時刻の同期や試合の進行などを管理するので、管理者以外はこのページを開かないでください
         </ClosableAlert>
 

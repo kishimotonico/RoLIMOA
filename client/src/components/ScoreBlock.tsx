@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Box, SxProps, Theme, Typography, TypographyVariant } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { FieldSideType } from 'slices/score';
-import { useDisplayScore } from 'functional/useDisplayScore';
-import { formatTime } from 'util/formatTime';
-import { config } from 'config/load';
+import { RootState } from '@/slices';
+import { FieldSideType } from '@/slices/score';
+import { useDisplayScore } from '@/functional/useDisplayScore';
+import { formatTime } from '@/util/formatTime';
+import { config } from '@/config/load';
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType,

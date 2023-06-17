@@ -1,17 +1,17 @@
-import React, { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid, Paper, Tooltip, Switch, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
-import { RootState } from 'slices';
-import { FieldSideType, scoreStateSlice, FieldScoreStateType } from 'slices/score';
-import { Dashboard } from 'components/Dashboard';
-import { ScoreInputVgoalButton } from 'components/ScoreInputVgoalButton';
-import { LyricalSocket } from 'lyricalSocket';
-import { ScoreBlock } from 'components/ScoreBlock';
-import { useDisplayScore } from 'functional/useDisplayScore';
-import { formatTime, parseFormatTime } from 'util/formatTime';
-import { ScoreInputPanel } from 'components/ScoreInput/ScoreInputPanel';
+import { RootState } from '@/slices';
+import { FieldSideType, scoreStateSlice, FieldScoreStateType } from '@/slices/score';
+import { Dashboard } from '@/components/Dashboard';
+import { ScoreInputVgoalButton } from '@/components/ScoreInputVgoalButton';
+import { LyricalSocket } from '@/lyricalSocket';
+import { ScoreBlock } from '@/components/ScoreBlock';
+import { useDisplayScore } from '@/functional/useDisplayScore';
+import { formatTime, parseFormatTime } from '@/util/formatTime';
+import { ScoreInputPanel } from '@/components/ScoreInput/ScoreInputPanel';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void,

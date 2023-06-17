@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { config } from 'config/load';
+import { config } from '@/config/load';
 
 export type ScoreState = {
   fields: Record<FieldSideType, FieldScoreStateType>,

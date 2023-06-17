@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from 'slices/phase';
+import { RootState } from '@/slices';
+import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
 
 export const AppRootTimer: FC = () => {
   const dispatch = useDispatch();

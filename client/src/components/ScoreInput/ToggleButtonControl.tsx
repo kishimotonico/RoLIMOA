@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 import { ToggleButtonGroup, ToggleButton, Paper, Typography } from '@mui/material';
-import { TaskObjectConfigType, TaskObjectToggleButtonUiType } from 'config/types';
+import { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@/config/types';
 
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType,
@@ -18,7 +18,7 @@ export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
   const { description } = taskConfig;
   const option = controlConfig.option;
 
-  const onChange = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: any) => {
+  const onChange = useCallback((_: React.MouseEvent<HTMLElement, MouseEvent>, value: number) => {
     stateUpdate(value);
   }, [stateUpdate]);
 

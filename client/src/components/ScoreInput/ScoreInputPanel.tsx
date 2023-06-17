@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { FieldSideType } from 'slices/score';
-import { config } from 'config/load';
+import { FC } from 'react';
+import { FieldSideType } from '@/slices/score';
+import { config } from '@/config/load';
 import { ScoreInputControl } from './ScoreInputControl';
 
 

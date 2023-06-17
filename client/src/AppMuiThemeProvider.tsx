@@ -1,11 +1,7 @@
-import { FC } from 'react';
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
+import { FC, ReactNode } from 'react';
+import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     grey: true
@@ -72,7 +68,11 @@ const appTheme = createTheme(baseTheme, {
   }
 });
 
-export const AppMuiThemeProvider: FC = ({ children }) => {
+type Props = {
+  children: ReactNode,
+};
+
+export const AppMuiThemeProvider: FC<Props> = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={appTheme}>

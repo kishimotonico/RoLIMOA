@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Typography, SxProps, Grid } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { useDisplayTimer } from 'functional/useDisplayTimer';
+import { useDisplayTimer } from '@/functional/useDisplayTimer';
 
 type TypographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "caption";
 

@@ -10,9 +10,9 @@ import {
   Button,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { LyricalSocket } from 'lyricalSocket';
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { connectedDevicesStateSlice } from 'slices/connectedDevices';
+import { LyricalSocket } from '@/lyricalSocket';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
 import { useDispatch } from 'react-redux';
 
 const LOCAL_STORAGE_KEY = "deviceName";
@@ -41,7 +41,7 @@ export const SettingModal: FC<SettingModalProps> = ({
   const prevDeviceName = useRef<string | null>(null);
   const savedDeviceName = GetDeviceName();
 
-  // useEffect しない簡略化　
+  // useEffect しない簡略化
   useEffect(() => {
     if (savedDeviceName) {
       prevDeviceName.current = savedDeviceName;

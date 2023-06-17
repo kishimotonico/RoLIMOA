@@ -1,11 +1,11 @@
 
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { FieldScoreStateType, FieldSideType, ScoreState } from "slices/score";
-import { PhaseState } from "slices/phase";
-import { CurrentMatchStateType } from "util/currentMatchStateType";
-import * as Phase from "util/PhaseStateUtil";
+import { RootState } from '@/slices';
+import { FieldScoreStateType, FieldSideType, ScoreState } from '@/slices/score';
+import { PhaseState } from '@/slices/phase';
+import { CurrentMatchStateType } from '@/util/currentMatchStateType';
+import * as Phase from '@/util/PhaseStateUtil';
 
 // 点数計算に、適切な経過時間を取得する
 function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {

@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { ScoreBlock, ScoreBlockProps } from 'components/ScoreBlock';
-import { TimerDisplay } from 'components/TimerDisplay';
-import { usePlaySoundEffect } from 'functional/usePlaySoundEffect';
+import { ScoreBlock, ScoreBlockProps } from '@/components/ScoreBlock';
+import { TimerDisplay } from '@/components/TimerDisplay';
+import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
 import { Box, Grid, IconButton } from '@mui/material';
-import { CenterFlex } from 'ui/CenterFlex';
+import { CenterFlex } from '@/ui/CenterFlex';
 import CachedIcon from '@mui/icons-material/Cached';
 
 export const ScreenPage: FC = () => {

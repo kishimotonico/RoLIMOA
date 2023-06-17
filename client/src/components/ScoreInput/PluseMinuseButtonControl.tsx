@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import { Button, ButtonGroup, Box, Paper, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles'
-import { TaskObjectConfigType } from 'config/types';
+import { TaskObjectConfigType } from '@/config/types';
 
 interface PluseMinuseButtonControlProps {
   color: "primary" | "secondary" | "inherit",

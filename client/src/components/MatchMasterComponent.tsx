@@ -1,19 +1,12 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Paper, Typography, Grid, Button, TextField } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import { Autocomplete } from '@mui/material';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '1em',
-  },
-}));
 
 interface MatchMasterComponentProps {
   teamOptions: string[],
   onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  onChangeBlueTeamName: (event: React.ChangeEvent<{}>, value: string) => void,
-  onChangeRedTeamName: (event: React.ChangeEvent<{}>, value: string) => void,
+  onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void,
+  onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void,
   onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   isEnabledStartButton: boolean,
 }
@@ -26,10 +19,8 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
   onStartButton,
   isEnabledStartButton,
 }) => {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.root}>
+    <Paper sx={{ padding: '1em' }}>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         試合マスタ
       </Typography>

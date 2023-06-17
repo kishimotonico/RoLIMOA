@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { Box, Divider, FormControlLabel, Grid, IconButton, InputAdornment, Paper, Switch, TextField, Tooltip } from '@mui/material';
-import { Dashboard } from 'components/Dashboard';
+import { Dashboard } from '@/components/Dashboard';
 import { useResolvedPath } from 'react-router';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { streamingInterfaceSlice } from 'slices/streamingInterface';
-import { LyricalSocket } from 'lyricalSocket';
+import { RootState } from '@/slices';
+import { streamingInterfaceSlice } from '@/slices/streamingInterface';
+import { LyricalSocket } from '@/lyricalSocket';
 
 function useAbsoluteUrl(to: string) {
   // 現在のURLとpathnameから`to`のURLを生成

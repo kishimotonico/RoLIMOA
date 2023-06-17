@@ -1,10 +1,10 @@
-import { TimeFormat } from "config/types";
+import { TimeFormat } from '@/config/types';
 
 // 秒数をフォーマット表示した文字列を返す
 export const formatTime = (
   second: number,
   format: TimeFormat,
-  colonWithSpace: boolean = false,
+  colonWithSpace = false,
 ): string => {
   const m = Math.floor(second / 60);
   const s = second % 60;

@@ -12,15 +12,15 @@ const app = express();
 const server = http.createServer(app).listen(8000);
 const io = require("socket.io")(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:5173", // CORSなくても動くかも？
         methods: ["GET", "POST"],
     }
 }) as Server;
 
 // クライアントのホスティング
-app.use(express.static("../client/build"));
+app.use(express.static("../client/dist"));
 app.get("*", (req, res, next) => {
-    res.sendFile(path.resolve("../client/build/index.html"));
+    res.sendFile(path.resolve("../client/dist/index.html"));
 });
 
 

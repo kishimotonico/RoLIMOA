@@ -1,15 +1,15 @@
 import { FC, Ref } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { FieldSideType } from 'slices/score';
+import { RootState } from '@/slices';
+import { FieldSideType } from '@/slices/score';
 import { Box, Divider, Slide } from '@mui/material';
-import { useDisplayScore } from 'functional/useDisplayScore';
-import { useDisplayTimer } from 'functional/useDisplayTimer';
+import { useDisplayScore } from '@/functional/useDisplayScore';
+import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
-import { CenterFlex } from 'ui/CenterFlex';
-import { formatTime } from 'util/formatTime';
-import { config } from 'config/load';
-import { SlideTransition } from 'ui/SlideTransition';
+import { CenterFlex } from '@/ui/CenterFlex';
+import { formatTime } from '@/util/formatTime';
+import { config } from '@/config/load';
+import { SlideTransition } from '@/ui/SlideTransition';
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
