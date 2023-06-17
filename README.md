@@ -2,7 +2,7 @@
 
 NHK学生ロボコンのようなロボットコンテストの大会で、青・赤チームの得点を各担当が入力し、それを会場のスクリーンやライブストリーミング（動画配信）に表示する統合的なシステムです。
 
-[![](./docs/demo-video.gif)](https://www.youtube.com/watch?v=NV2unpMqg-M)
+[![demo](./docs/demo-video.gif)](https://www.youtube.com/watch?v=NV2unpMqg-M)
 
 ## 機能 / features
 
@@ -20,6 +20,8 @@ NHK学生ロボコンのようなロボットコンテストの大会で、青�
 
 client/src/config.jsonを編集して、好みの設定にします。特にルールに関する`rule.task_objects`, `rule.score`, `rule.vgoal`を編集します。server/src/config.jsonも同じ内容で保存してください。
 
+現在、config.jsonについてドキュメントなどはありません。client/src/config/schema.tsでzod schemaを定義しているので、それを参考にしてください。
+
 ### 本番環境の起動方法
 
 サーバ側でクライアントのビルド済みファイルをホスティングしているので、実際の大会時には次のような運用を想定しています。
@@ -30,10 +32,12 @@ cd RoLIMOA
 
 # クライアントをビルド
 cd ./client
-yarn build
+npm i       # 初回のみ
+npm run build
 
 # サーバを起動する
 cd ../server
+npm i       # 初回のみ
 npm start
 ```
 
@@ -47,43 +51,39 @@ http://localhost:8000 で管理画面を開けるようになります。OS側�
     - UIの最適化はしていないが、スマホでも操作できる
 - 「スクリーン」ページは、1920x1080の画面にFirefoxで全画面化で表示
     - このページではconfig.jsonで設定された効果音が再生される
-    - タイマの挙動が不安定になったときは、ページのF5でリロードで直る
+    - ブラウザで「音声の自動再生」を許可しておく必要がある
+    - タイマーの挙動が不安定になったときは、ページのF5でリロードで直る
+- 「試合管理」ページは、1つのタブでのみ開く
+    - 特に自動でのフェーズ遷移（カウントダウン→スタートなど）がある場合に注意
 - 「配信オーバーレイ」ページは、OBSのBrowser Sourceで使用
     - Browser SourceはOBS上で1600x900の大きさ
     - Browser Sourceでは音声を再生せず、配信には会場の音を取り込む
 
 
-## 開発方法
-
-### 始める
+## 開発方法 / How to develop
 
 開発時には、サーバとクライアントをそれぞれ起動して開発します。
 
-#### サーバ側
-
-次のコマンドでサーバを起動します。サーバ側のコードを変更したときは、手動で再起動します。
-
 ```bash
+# サーバ側
+cd /path/to/RoLIMOA/server
 npm start
-```
 
-#### クライアント側
-
-次のコマンドを実行してから http://localhost:3000 にアクセスします。コードを編集して保存すると、自動で再ビルドが走ります。クライアントの方はnpmでなくyarnであるに注意してください。
-
-```bash
-yarn start
+# クライアント側
+cd /path/to/RoLIMOA/client
+npm run dev
 ```
 
 ### 要素技術
 
-このプロジェクトでは次の言語やライブラリを用いているので、開発にはそれぞれの基礎知識が必要です。
+このプロジェクトでは次の言語やライブラリを使ってます
 
 - TypeScript
 - React
 - Redux (Redux Toolkit)
 - Recoil
 - WebSocket (socket.io)
+- Zod
 - Express
 
 ### TODO: 今後追加したい機能や、改善したい点など
@@ -92,14 +92,10 @@ yarn start
 
 タイマーが二重に起動して表示が安定しないことや、意図しない音声再生するときがあるので改善したい。
 
-#### config.jsonの改善
-
-config.jsonを読み書きしやすいyamlに変更したり、TypeScriptの型を使っていい感じにバリデーションしたり、サーバとクライアントでの二重管理の解消したりしたい。
-
 #### 各試合のログ保存・再生
 
 各試合でチームの点数状況などを保存したり、得点の増減など各操作を記録して再現したりする機能が欲しい。
 
 #### サーバとクライアントのコードの共通化
 
-サーバとクライアントの両方でRedux（Redux Toolkit）を用いているので`server/src/features/*.ts`と`client/src/features/*.ts`で同じコードを管理している。1つにまとめたい。
+サーバとクライアントの両方でRedux（Redux Toolkit）を用いているので`server/src/slices/*.ts`と`client/src/features/*.ts`でほぼ同じコードを管理している。1つにまとめたい。
