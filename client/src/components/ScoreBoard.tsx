@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Grid, Paper } from '@mui/material';
 import { ScoreBlock } from './ScoreBlock';
 

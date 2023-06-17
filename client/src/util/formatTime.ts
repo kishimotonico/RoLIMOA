@@ -4,7 +4,7 @@ import { TimeFormat } from '@/config/types';
 export const formatTime = (
   second: number,
   format: TimeFormat,
-  colonWithSpace: boolean = false,
+  colonWithSpace = false,
 ): string => {
   const m = Math.floor(second / 60);
   const s = second % 60;

@@ -6,6 +6,7 @@ type SlideTransitionProps = {
   direction: "left" | "right",
   appear?: boolean,
   duration?: number,
+  children: React.ReactNode,
 };
 
 export const SlideTransition: FC<SlideTransitionProps> = ({

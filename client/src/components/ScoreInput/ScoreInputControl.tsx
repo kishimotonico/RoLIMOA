@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { FieldSideType } from '@/slices/score';
 import { GlobalObjectContainer } from './GlobalObjectContainer';
@@ -52,6 +52,7 @@ export const ScoreInputControl: FC<ScoreInputControlProps> = ({
     return <></>;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { type, id } = parseTaskId(taskObjectConfig?.id ?? controlPanelConfig!.id);
   if (taskObjectConfig === undefined) {
     taskObjectConfig = findTaskObjectConfig(type, id);

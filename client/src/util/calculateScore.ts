@@ -28,14 +28,14 @@ type ScoreResultType = {
   refs?: Record<string, number>,
 };
 
-function isScoreRuleSimpleType(arg: any): arg is ScoreRuleSimpleType {
-  return arg.format === "simple";
+function isScoreRuleSimpleType(arg: unknown): arg is ScoreRuleSimpleType {
+  return (arg as ScoreRuleType).format === "simple";
 }
-function isScoreRuleFormulaExpressionType(arg: any): arg is ScoreRuleFormulaExpressionType {
-  return arg.format === "formulaExpression";
+function isScoreRuleFormulaExpressionType(arg: unknown): arg is ScoreRuleFormulaExpressionType {
+  return (arg as ScoreRuleType).format === "formulaExpression";
 }
-function isScoreRuleImplementType(arg: any): arg is ScoreRuleImplementType {
-  return arg.format === "implement";
+function isScoreRuleImplementType(arg: unknown): arg is ScoreRuleImplementType {
+  return (arg as ScoreRuleType).format === "implement";
 }
 
 // `scoreRule`に基づいてスコアを算出する

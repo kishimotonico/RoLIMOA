@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Paper, Typography, Grid, Button, ButtonGroup, Tooltip } from '@mui/material';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -80,7 +80,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
               </Tooltip>
               <Tooltip title="【未実装】一時停止/再開">
                 <span>
-                  <Button variant="contained" color="grey" onClick={() => {}} disabled={true}>
+                  <Button variant="contained" color="grey" disabled={true}>
                     <PauseIcon />
                   </Button>
                 </span>

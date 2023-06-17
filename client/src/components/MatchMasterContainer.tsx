@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';
 import { TeamType, matchStateSlice } from '@/slices/match';
@@ -25,17 +25,17 @@ export const MatchMasterContainer: FC = () => {
   const [blueTeamName, setBlueTeamName] = useState("");
   const [redTeamName, setRedTeamName] = useState("");
 
-  const onChangeMatchName = useCallback((event) => {
+  const onChangeMatchName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setMatchName(event.target.value);
   }, []);
-  const onChangeBlueTeamName = useCallback((_, name) => {
+  const onChangeBlueTeamName = useCallback((_: React.SyntheticEvent, name: string) => {
     setBlueTeamName(name);
   }, []);
-  const onChangeRedTeamName = useCallback((_, name) => {
+  const onChangeRedTeamName = useCallback((_: React.SyntheticEvent, name: string) => {
     setRedTeamName(name);
   }, []);
 
-  const onSubmitButton = useCallback((event) => {
+  const onSubmitButton = useCallback(() => {
     LyricalSocket.dispatchAll([
       // スコアの初期化
       scoreStateSlice.actions.setState(scoreInitialState),

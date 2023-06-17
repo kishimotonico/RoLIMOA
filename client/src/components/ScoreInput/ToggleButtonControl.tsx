@@ -18,7 +18,7 @@ export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
   const { description } = taskConfig;
   const option = controlConfig.option;
 
-  const onChange = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: any) => {
+  const onChange = useCallback((_: React.MouseEvent<HTMLElement, MouseEvent>, value: number) => {
     stateUpdate(value);
   }, [stateUpdate]);
 

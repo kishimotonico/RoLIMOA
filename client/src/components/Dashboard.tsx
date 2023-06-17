@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Container, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, ListSubheader } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -22,14 +22,14 @@ const DrawerListLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-const ContentMain = styled('main')(({ theme }) => ({
+const ContentMain = styled('main')({
   flexGrow: 1,
   height: '100vh',
   overflow: 'auto',
-}));
+});
 
 interface DashboardProps {
-  children: React.ReactChild;
+  children: React.ReactNode;
   title: string;
 }
 

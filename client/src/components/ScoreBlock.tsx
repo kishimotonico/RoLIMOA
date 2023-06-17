@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Box, SxProps, Theme, Typography, TypographyVariant } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';

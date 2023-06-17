@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
 import { Route, Routes, useLocation } from 'react-router';
@@ -62,7 +62,7 @@ const App: FC = () => {
       setIsConnect(false);
     });
 
-    socket.on("dispatch", (actions: any[]) => {
+    socket.on("dispatch", (actions: any[]) => { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.debug("dispatch from server", actions);
       actions.forEach((action) => {
         dispatch(action);

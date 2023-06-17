@@ -1,5 +1,5 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 export class LyricalSocket {
   // singleton
@@ -11,7 +11,7 @@ export class LyricalSocket {
     return this._instance;
   }
 
-  public readonly socket: SocketIOClient.Socket;
+  public readonly socket: Socket;
 
   private constructor() {
     this.socket = io(":8000", {
@@ -21,7 +21,7 @@ export class LyricalSocket {
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
-  public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
+  public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (!Array.isArray(actions)) {
       actions = [actions];
     }

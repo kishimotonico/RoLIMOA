@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Typography, SxProps, Grid } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';

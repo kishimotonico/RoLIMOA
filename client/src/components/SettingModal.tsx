@@ -41,7 +41,7 @@ export const SettingModal: FC<SettingModalProps> = ({
   const prevDeviceName = useRef<string | null>(null);
   const savedDeviceName = GetDeviceName();
 
-  // useEffect しない簡略化　
+  // useEffect しない簡略化
   useEffect(() => {
     if (savedDeviceName) {
       prevDeviceName.current = savedDeviceName;
