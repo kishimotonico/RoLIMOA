@@ -2,10 +2,10 @@ import React, { FC, useCallback, useState } from 'react';
 import { Grid } from '@mui/material';
 import { Alert } from '@mui/material';
 import { AlertProps } from '@mui/lab';
-import { Dashboard } from 'components/Dashboard';
-import { TimerMasterContainer } from 'components/TimerMasterContainer';
-import { MatchMasterContainer } from 'components/MatchMasterContainer';
-import { DeviceListContainer } from 'components/DeviceListContainer';
+import { Dashboard } from '@/components/Dashboard';
+import { TimerMasterContainer } from '@/components/TimerMasterContainer';
+import { MatchMasterContainer } from '@/components/MatchMasterContainer';
+import { DeviceListContainer } from '@/components/DeviceListContainer';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);

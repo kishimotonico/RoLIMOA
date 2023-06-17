@@ -1,5 +1,5 @@
-import { config } from 'config/load';
-import { TimeProgressConfigType } from 'config/types';
+import { config } from '@/config/load';
+import { TimeProgressConfigType } from '@/config/types';
 
 const defaultConfig = {
   id: "default",

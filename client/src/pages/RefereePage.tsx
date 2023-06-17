@@ -3,18 +3,18 @@ import { Box, Button, Grid, IconButton, Paper, SxProps, Table, TableBody, TableC
 import { Theme } from '@mui/system';
 import CachedIcon from '@mui/icons-material/Cached';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import { Dashboard } from 'components/Dashboard';
-import { ScoreBlock } from 'components/ScoreBlock';
-import { useDisplayScore } from 'functional/useDisplayScore';
+import { Dashboard } from '@/components/Dashboard';
+import { ScoreBlock } from '@/components/ScoreBlock';
+import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { FieldSideType, ScoreState } from 'slices/score';
-import { resultRecordsStateSlice } from 'slices/resultRecord';
-import { MatchState, matchStateSlice } from 'slices/match';
-import { CurrentPhaseState } from 'slices/phase';
-import { LyricalSocket } from 'lyricalSocket';
-import { config } from 'config/load';
-import * as Phase from 'util/PhaseStateUtil';
+import { RootState } from '@/slices';
+import { FieldSideType, ScoreState } from '@/slices/score';
+import { resultRecordsStateSlice } from '@/slices/resultRecord';
+import { MatchState, matchStateSlice } from '@/slices/match';
+import { CurrentPhaseState } from '@/slices/phase';
+import { LyricalSocket } from '@/lyricalSocket';
+import { config } from '@/config/load';
+import * as Phase from '@/util/PhaseStateUtil';
 
 const thStyle: SxProps<Theme> = {
   whiteSpace: "nowrap",

@@ -1,13 +1,13 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { TeamType, matchStateSlice } from 'slices/match';
-import { phaseStateSlice } from 'slices/phase';
-import { initialState as scoreInitialState, scoreStateSlice } from 'slices/score';
-import { LyricalSocket } from 'lyricalSocket';
+import { RootState } from '@/slices';
+import { TeamType, matchStateSlice } from '@/slices/match';
+import { phaseStateSlice } from '@/slices/phase';
+import { initialState as scoreInitialState, scoreStateSlice } from '@/slices/score';
+import { LyricalSocket } from '@/lyricalSocket';
 import { MatchMasterComponent } from './MatchMasterComponent';
-import * as Phase from 'util/PhaseStateUtil';
-import { config } from 'config/load';
+import * as Phase from '@/util/PhaseStateUtil';
+import { config } from '@/config/load';
 
 // 省略名からチームリストの情報を取得、なければスタブを作成
 function getTeamInfo(short: string): TeamType {

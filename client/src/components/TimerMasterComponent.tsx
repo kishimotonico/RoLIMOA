@@ -6,7 +6,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { TimerDisplay } from './TimerDisplay';
-import { TimeProgressConfigType } from 'config/types';
+import { TimeProgressConfigType } from '@/config/types';
 import styled from '@emotion/styled';
 
 const DetailInfoUl = styled('ul')({

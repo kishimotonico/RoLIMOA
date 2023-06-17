@@ -1,10 +1,10 @@
 import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { scoreStateSlice } from 'slices/score';
+import { RootState } from '@/slices';
+import { scoreStateSlice } from '@/slices/score';
 import { ErrorObject } from './ErrorObject';
-import { LyricalSocket } from 'lyricalSocket';
-import { CustomControlPanelType, TaskObjectConfigType } from 'config/types';
+import { LyricalSocket } from '@/lyricalSocket';
+import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { BaseControl } from './BaseControl';
 
 type GlobalObjectContainerProps = {

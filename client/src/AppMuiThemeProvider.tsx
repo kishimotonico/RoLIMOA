@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
 
@@ -68,7 +68,11 @@ const appTheme = createTheme(baseTheme, {
   }
 });
 
-export const AppMuiThemeProvider: FC = ({ children }) => {
+type Props = {
+  children: ReactNode,
+};
+
+export const AppMuiThemeProvider: FC<Props> = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={appTheme}>

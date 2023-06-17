@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { PhaseState, CurrentPhaseState, phaseStateSlice } from 'slices/phase';
-import { LyricalSocket } from 'lyricalSocket';
+import { RootState } from '@/slices';
+import { PhaseState, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import { LyricalSocket } from '@/lyricalSocket';
 import { TimerMasterComponent } from './TimerMasterComponent';
-import * as Phase from 'util/PhaseStateUtil';
+import * as Phase from '@/util/PhaseStateUtil';
 
 function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last") {
   let id = currentPhase.id;

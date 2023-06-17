@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'slices';
-import { FieldSideType, FieldScoreStateType } from 'slices/score';
-import { calculateScore, ScoreRuleType } from 'util/calculateScore';
-import { config } from 'config/load';
+import { RootState } from '@/slices';
+import { FieldSideType, FieldScoreStateType } from '@/slices/score';
+import { calculateScore, ScoreRuleType } from '@/util/calculateScore';
+import { config } from '@/config/load';
 import { useCurrentMatchState } from './useCurrentMatchState';
 
 const scoreRule = config.rule.score as ScoreRuleType;

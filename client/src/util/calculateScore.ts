@@ -1,5 +1,5 @@
-import { ObjectsStateType } from 'slices/score';
-import { score as calculateScoreImplement } from 'custom/rule.score';
+import { ObjectsStateType } from '@/slices/score';
+import { score as calculateScoreImplement } from '@/custom/rule.score';
 import { evaluateFormula, FormulaExpression } from './formulaExpression';
 import { CurrentMatchStateType } from './currentMatchStateType';
 

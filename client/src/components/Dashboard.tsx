@@ -11,7 +11,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import CastIcon from '@mui/icons-material/Cast';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { SettingButton } from './SettingModal';
-import { isDrawerOpen } from 'atoms/isDrawerOpen';
+import { isDrawerOpen } from '@/atoms/isDrawerOpen';
 import { useRecoilState } from 'recoil';
 import { styled } from '@mui/material';
 
