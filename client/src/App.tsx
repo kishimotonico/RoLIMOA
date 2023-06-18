@@ -17,12 +17,12 @@ import { AdminPage } from '@/pages/AdminPage';
 import { StreamingOverlayPage } from '@/pages/StreamingOverlayPage';
 import { StreamingOverlayOpenerPage } from '@/pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from '@/pages/ScreenPage';
-import { GetDeviceName } from '@/components/SettingModal';
 import { AppRootTimer } from '@/functional/AppRootTimer';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
 import { config } from '@/config/load';
 import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
+import { getSetting } from './util/clientStoredSetting';
 import "dseg/css/dseg.css";
 
 type WelcomeData = {
@@ -75,7 +75,7 @@ const App: FC = () => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
         sockId: LyricalSocket.instance.socket.id,
-        deviceName: GetDeviceName(),
+        deviceName: getSetting().deviceName,
         currentPath: location.pathname,
       }), dispatch);
     }

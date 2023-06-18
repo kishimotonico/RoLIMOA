@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -14,15 +14,7 @@ import { LyricalSocket } from '@/lyricalSocket';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
 import { useDispatch } from 'react-redux';
-
-const LOCAL_STORAGE_KEY = "deviceName";
-const defaultDeviceName = "anonymous@役割なし";
-export function GetDeviceName(): string {
-  return localStorage.getItem(LOCAL_STORAGE_KEY) ?? defaultDeviceName;
-}
-export function SetDeviceName(deviceName: string) {
-  localStorage.setItem(LOCAL_STORAGE_KEY, deviceName);
-}
+import { getSetting, setSetting } from '@/util/clientStoredSetting';
 
 type FormValues = {
   deviceName: string,
@@ -37,42 +29,33 @@ export const SettingModal: FC<SettingModalProps> = ({
   open,
   onClose,
 }) => {
+  const savedSetting = getSetting();
   const dispatch = useDispatch();
-  const prevDeviceName = useRef<string | null>(null);
-  const savedDeviceName = GetDeviceName();
-
-  // useEffect しない簡略化
-  useEffect(() => {
-    if (savedDeviceName) {
-      prevDeviceName.current = savedDeviceName;
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const prevDeviceName = useRef<string>(savedSetting.deviceName);
 
   const { control, handleSubmit } = useForm({
     reValidateMode: "onChange",
-    defaultValues: {
-      deviceName: savedDeviceName,
-    },
+    defaultValues: savedSetting,
   });
 
   const onSubmit: SubmitHandler<FormValues> = useCallback((form) => {
     if (! form) {
       return;
     }
+
+    setSetting(form);
+
+    // デバイス名の変更時は、Reduxのストアも反映
     if (form.deviceName !== prevDeviceName.current) {
-      // デバイス名の変更をlocalStorageに保存
-      SetDeviceName(form.deviceName);
       prevDeviceName.current = form.deviceName;
 
-      // Reduxのストアにデバイスの追加を反映
-      // TODO: App.tsxとのコードの重複を解消
-      const socket = LyricalSocket.instance.socket;
       const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: socket.id,
-        deviceName: GetDeviceName(),
+        sockId: LyricalSocket.instance.socket.id,
+        deviceName: form.deviceName,
       });
       LyricalSocket.dispatch(action, dispatch);
     }
+
     onClose();
   }, [onClose, dispatch]);
 
@@ -84,8 +67,8 @@ export const SettingModal: FC<SettingModalProps> = ({
     <Dialog aria-labelledby="setting-modal-title" open={open} onClose={closeHandler} fullWidth>
       <DialogTitle id="setting-modal-title">設定</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          適当に設定しておいてください。localStorageに保存します、たぶん。
+        <DialogContentText sx={{ mb: 3 }}>
+          適当に設定してください。設定内容は、localStorageに保存します。
         </DialogContentText>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
