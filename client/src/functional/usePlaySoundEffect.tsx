@@ -12,7 +12,6 @@ export const usePlaySoundEffect = () => {
     const elapsedSec = phaseState.elapsedSecond;
 
     const matched = phaseConfig.custom?.find(cus => cus.elapsedTime === elapsedSec);
-    console.debug(`${phaseConfig.id}: ${elapsedSec} (${matched?.sound})`);
     if (! matched?.sound) {
       return;
     }

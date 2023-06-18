@@ -8,7 +8,19 @@ export const AppRootTimer: FC = () => {
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
 
+  console.log(`AppRootTimer: ${phaseState.id} started at ${phaseState.startTime}`);
+
   useEffect(() => {
+    function timerClear(): void {
+      if (timeoutHandler.current !== undefined) {
+        console.debug(` |- timerClear: ${phaseState.id} [${timeoutHandler.current}]`);
+        clearTimeout(timeoutHandler.current);
+        timeoutHandler.current = undefined;
+      }
+    }
+    console.debug(`|- useEffect init: ${phaseState.id} [${timeoutHandler.current}]`);
+    timerClear();
+
     function timerUpdate(): void {
       const elapsedSec = calculateElapsedSecond(phaseState.startTime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
@@ -18,18 +30,19 @@ export const AppRootTimer: FC = () => {
         newElapsedSecond,
       }));
 
+      const oldTimer = timeoutHandler.current;
       timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
+      console.debug(` |- timerUpd: ${elapsedSec} (${phaseState.id})[${oldTimer ?? "none"}→${timeoutHandler.current}]`);
     }
     // マウント時に、タイマをセットアップ
     timerUpdate();
 
     // アンマウント時にタイマを停止
     return () => {
-      if (timeoutHandler.current !== undefined) {
-        clearTimeout(timeoutHandler.current);
-      }
+      console.debug(`|- useEffect close: ${phaseState.id}`);
+      timerClear();
     };
   }, [phaseState]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return null;
+  return <div>{phaseState.id} [{timeoutHandler.current as number | undefined}]</div>;
 }
