@@ -1,12 +1,14 @@
 import { FC, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
-import { Route, Routes, useLocation } from 'react-router';
 import { RootState } from '@/slices';
 import { scoreStateSlice } from '@/slices/score';
 import { phaseStateSlice } from '@/slices/phase';
 import { matchStateSlice } from '@/slices/match';
 import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
+import { resultRecordsStateSlice } from '@/slices/resultRecord';
+import { streamingInterfaceSlice } from '@/slices/streamingInterface';
 import { connectionState } from '@/atoms/connectionState';
 import { HomePage } from '@/pages/HomePage';
 import { RefereePage } from '@/pages/RefereePage';
@@ -15,15 +17,13 @@ import { AdminPage } from '@/pages/AdminPage';
 import { StreamingOverlayPage } from '@/pages/StreamingOverlayPage';
 import { StreamingOverlayOpenerPage } from '@/pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from '@/pages/ScreenPage';
-import { AppRootTimer } from '@/functional/AppRootTimer';
 import { GetDeviceName } from '@/components/SettingModal';
+import { AppRootTimer } from '@/functional/AppRootTimer';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
+import { config } from '@/config/load';
 import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
-import { config } from '@/config/load';
 import "dseg/css/dseg.css";
-import { resultRecordsStateSlice } from '@/slices/resultRecord';
-import { streamingInterfaceSlice } from '@/slices/streamingInterface';
 
 type WelcomeData = {
   time: number,
