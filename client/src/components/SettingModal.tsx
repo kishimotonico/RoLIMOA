@@ -1,4 +1,7 @@
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import {
   Dialog,
   DialogTitle,
@@ -13,11 +16,10 @@ import {
   Typography,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { LyricalSocket } from '@/lyricalSocket';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
-import { useDispatch } from 'react-redux';
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { getSetting, setSetting } from '@/util/clientStoredSetting';
+import { LyricalSocket } from '@/lyricalSocket';
 
 type FormValues = {
   deviceName: string,
@@ -36,11 +38,17 @@ export const SettingModal: FC<SettingModalProps> = ({
   const savedSetting = getSetting();
   const dispatch = useDispatch();
   const prevDeviceName = useRef<string>(savedSetting.deviceName);
+  const setTimeOffset = useSetRecoilState(unixtimeOffset);
 
   const { control, handleSubmit } = useForm({
     reValidateMode: "onChange",
     defaultValues: savedSetting,
   });
+
+  useEffect(() => {
+    console.log("savedSetting.timeOffset", savedSetting.timeOffset);
+    setTimeOffset(savedSetting.timeOffset);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit: SubmitHandler<FormValues> = useCallback((form) => {
     if (! form) {
@@ -48,6 +56,8 @@ export const SettingModal: FC<SettingModalProps> = ({
     }
 
     setSetting(form);
+
+    setTimeOffset(form.timeOffset);
 
     // デバイス名の変更時は、Reduxのストアも反映
     if (form.deviceName !== prevDeviceName.current) {
@@ -61,7 +71,7 @@ export const SettingModal: FC<SettingModalProps> = ({
     }
 
     onClose();
-  }, [onClose, dispatch]);
+  }, [onClose, dispatch, setTimeOffset]);
 
   const closeHandler = () => {
     handleSubmit(onSubmit)();
