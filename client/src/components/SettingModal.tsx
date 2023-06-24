@@ -8,6 +8,9 @@ import {
   TextField,
   DialogActions,
   Button,
+  Slider,
+  Box,
+  Typography,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { LyricalSocket } from '@/lyricalSocket';
@@ -18,6 +21,7 @@ import { getSetting, setSetting } from '@/util/clientStoredSetting';
 
 type FormValues = {
   deviceName: string,
+  timeOffset: number,
 };
 
 type SettingModalProps = {
@@ -75,12 +79,44 @@ export const SettingModal: FC<SettingModalProps> = ({
             control={control}
             name="deviceName"
             render={({ field }) => (
-              <TextField
-                {...field}
-                label="ユーザ・デバイス名"
-                helperText='担当がある場合、"篝ノ霧枝@青コート点数"みたいな名前を推奨'
-                fullWidth
-              />
+              <Box sx={{ mb: 5 }}>
+                <TextField
+                  {...field}
+                  label="ユーザ・デバイス名"
+                  placeholder="篝ノ霧枝＠青コート点数"
+                  fullWidth
+                />
+              </Box>
+            )}
+          />
+          <Controller
+            control={control}
+            name="timeOffset"
+            render={({ field }) => (
+              <>
+                <Typography id="time-offset-slider" gutterBottom>
+                  時刻オフセット: {field.value > 0 ? '+' : ''}{field.value} ms
+                </Typography>
+
+                <Box sx={{ px: 3 }}>
+                  <Slider
+                    {...field}
+                    onChange={(_, value) => field.onChange(value)}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${value} ms`}
+                    min={-2000}
+                    max={2000}
+                    step={20}
+                    marks={[
+                      { value: -2000, label: '-2 s' },
+                      { value: -1000, label: '-1 s' },
+                      { value: 0, label: '0 s' },
+                      { value: 1000, label: '+1 s' },
+                      { value: 2000, label: '+2 s' },
+                    ]}
+                  />
+                </Box>
+              </>
             )}
           />
         </form>
