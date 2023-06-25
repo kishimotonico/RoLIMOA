@@ -48,5 +48,5 @@ export const AppRootTimer: FC = () => {
     };
   }, [phaseState, offsetTime]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <div>{phaseState.id} [{timeoutHandler.current as number | undefined}]</div>;
+  return <></>;
 }

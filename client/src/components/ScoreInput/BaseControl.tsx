@@ -22,12 +22,10 @@ export const BaseControl: FC<BaseControlProps> = ({
 }) => {
   const style = controlConfig?.style;
 
-  console.log(style?.width);
-
   return (
     <Grid item xs={12} sm={style?.width ?? 6}>
       {
-        controlConfig?.type === "toggle_switch" ? 
+        controlConfig?.type === "toggle_switch" ?
           <ToggleSwitchControl
             color={color ?? "default"}
             taskConfig={taskConfig}
@@ -48,7 +46,7 @@ export const BaseControl: FC<BaseControlProps> = ({
             currentValue={currentValue}
             stateUpdate={stateUpdate}
           />
-      }      
+      }
     </Grid>
   );
 };
