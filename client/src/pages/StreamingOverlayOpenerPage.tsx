@@ -1,13 +1,15 @@
 import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
+import { useResolvedPath } from 'react-router';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Box, Divider, FormControlLabel, Grid, IconButton, InputAdornment, Paper, Switch, TextField, Tooltip } from '@mui/material';
 import { Dashboard } from '@/components/Dashboard';
-import { useResolvedPath } from 'react-router';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/slices';
 import { streamingInterfaceSlice } from '@/slices/streamingInterface';
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';
 
 function useAbsoluteUrl(to: string) {
@@ -18,11 +20,15 @@ function useAbsoluteUrl(to: string) {
   return currentUrl.replace(currentPathname, resolvedPath.pathname);
 }
 
-function addQueryToUrl(baseUrl: string, query: Record<string, string | boolean | null | undefined> = {}) {
+function addQueryToUrl(baseUrl: string, query: Record<string, string | number | boolean | null | undefined> = {}) {
   const url = new URL(baseUrl);
   Object.entries(query).forEach(([k, v]) => {
     if (typeof v === "string") {
       url.searchParams.set(k, v);
+      return;
+    }
+    if (typeof v === "number") {
+      url.searchParams.set(k, v.toString());
       return;
     }
     if (v) {
@@ -33,6 +39,7 @@ function addQueryToUrl(baseUrl: string, query: Record<string, string | boolean |
 }
 
 export const StreamingOverlayOpenerPage: FC = () => {
+  const timeOffset = useRecoilValue(unixtimeOffset);
   const baseUrl = useAbsoluteUrl("/streaming-overlay");
   const [overlayUrl, setOverlayUrl] = useState(baseUrl);
 
@@ -41,9 +48,10 @@ export const StreamingOverlayOpenerPage: FC = () => {
   useEffect(() => {
     const query = {
       reverse,
+      timeOffset: (timeOffset === 0 ? undefined : timeOffset),
     };
     setOverlayUrl(addQueryToUrl(baseUrl, query));
-  }, [baseUrl, reverse]);
+  }, [baseUrl, reverse, timeOffset]);
 
   const [openTooltip, setOpenTooltip] = useState(false);
 

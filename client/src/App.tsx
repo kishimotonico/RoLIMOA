@@ -17,8 +17,9 @@ import { AdminPage } from '@/pages/AdminPage';
 import { StreamingOverlayPage } from '@/pages/StreamingOverlayPage';
 import { StreamingOverlayOpenerPage } from '@/pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from '@/pages/ScreenPage';
-import { AppRootTimer } from '@/functional/AppRootTimer';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
+import { AppRootTimer } from '@/functional/AppRootTimer';
+import { useLoadSetting } from '@/functional/useLoadSetting';
 import { config } from '@/config/load';
 import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
@@ -34,6 +35,8 @@ const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useLoadSetting();
 
   // websocketの初回接続と受信イベント処理
   useEffect(() => {

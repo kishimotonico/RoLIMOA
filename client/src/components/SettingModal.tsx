@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState, useEffect } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
@@ -45,11 +45,6 @@ export const SettingModal: FC<SettingModalProps> = ({
     reValidateMode: "onChange",
     defaultValues: savedSetting,
   });
-
-  useEffect(() => {
-    console.log("savedSetting.timeOffset", savedSetting.timeOffset);
-    setTimeOffset(savedSetting.timeOffset);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit: SubmitHandler<FormValues> = useCallback((form) => {
     if (! form) {
@@ -160,6 +155,10 @@ export const SettingButton: FC = () => {
     <IconButton color="inherit" onClick={onClick} size="large">
       <SettingsIcon />
     </IconButton>
-    <SettingModal open={open} onClose={onClose} />
+    <SettingModal
+      open={open}
+      onClose={onClose}
+      key={Number(open)} // 表示/非表示時に再レンダリング
+    />
   </>;
 }
