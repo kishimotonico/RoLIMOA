@@ -1,12 +1,15 @@
 import { FC, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 import { RootState } from '@/slices';
 import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 
 export const AppRootTimer: FC = () => {
   const dispatch = useDispatch();
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
+  const offsetTime = useRecoilValue(unixtimeOffset);
 
   console.log(`AppRootTimer: ${phaseState.id} started at ${phaseState.startTime}`);
 
@@ -22,7 +25,8 @@ export const AppRootTimer: FC = () => {
     timerClear();
 
     function timerUpdate(): void {
-      const elapsedSec = calculateElapsedSecond(phaseState.startTime);
+      const nowUnixtime = Date.now() + offsetTime;
+      const elapsedSec = calculateElapsedSecond(phaseState.startTime, nowUnixtime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
 
       const newElapsedSecond = Math.max(0, elapsedSec);
@@ -31,7 +35,7 @@ export const AppRootTimer: FC = () => {
       }));
 
       const oldTimer = timeoutHandler.current;
-      timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - Date.now());
+      timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - nowUnixtime);
       console.debug(` |- timerUpd: ${elapsedSec} (${phaseState.id})[${oldTimer ?? "none"}→${timeoutHandler.current}]`);
     }
     // マウント時に、タイマをセットアップ
@@ -42,7 +46,7 @@ export const AppRootTimer: FC = () => {
       console.debug(`|- useEffect close: ${phaseState.id}`);
       timerClear();
     };
-  }, [phaseState]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [phaseState, offsetTime]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <div>{phaseState.id} [{timeoutHandler.current as number | undefined}]</div>;
 }

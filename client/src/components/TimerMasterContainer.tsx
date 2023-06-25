@@ -1,12 +1,14 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 import { RootState } from '@/slices';
 import { PhaseState, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';
-import { TimerMasterComponent } from './TimerMasterComponent';
 import * as Phase from '@/util/PhaseStateUtil';
+import { TimerMasterComponent } from './TimerMasterComponent';
 
-function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last") {
+function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last", offset: number) {
   let id = currentPhase.id;
   if (type === "first")
     id = Phase.getFirstPhase();
@@ -19,7 +21,7 @@ function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|
 
   LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
     id,
-    startTime: Date.now(),
+    startTime: Date.now() + offset,
   })]);
 }
 
@@ -52,30 +54,31 @@ function isManualTransition(phaseState: PhaseState): boolean {
 
 export const TimerMasterContainer: FC = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
+  const timeOffset = useRecoilValue(unixtimeOffset);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);
 
   const currentPhase = phaseState.current;
   const onFirstPhase = useCallback(() => {
-    gotoPhaseCommand(currentPhase, "first")
-  }, [currentPhase]);
+    gotoPhaseCommand(currentPhase, "first", timeOffset);
+  }, [currentPhase, timeOffset]);
   const onPrevPhase = useCallback(() => {
-    gotoPhaseCommand(currentPhase, "prev")
-  }, [currentPhase]);
+    gotoPhaseCommand(currentPhase, "prev", timeOffset);
+  }, [currentPhase, timeOffset]);
   const onNextPhase = useCallback(() => {
-    gotoPhaseCommand(currentPhase, "next")
-  }, [currentPhase]);
+    gotoPhaseCommand(currentPhase, "next", timeOffset);
+  }, [currentPhase, timeOffset]);
   const onLastPhase = useCallback(() => {
-    gotoPhaseCommand(currentPhase, "last")
-  }, [currentPhase]);
+    gotoPhaseCommand(currentPhase, "last", timeOffset);
+  }, [currentPhase, timeOffset]);
 
   useEffect(() => {
     // タイマーの更新時にフェーズ移行を確認
     if (isAutoTransition(phaseState)) {
-      gotoPhaseCommand(phaseState.current, "next");
+      gotoPhaseCommand(phaseState.current, "next", timeOffset);
     }
     // 次フェーズボタンの有効/無効を設定
     setIsEnabledNextButton(isManualTransition(phaseState));
-  }, [phaseState]);
+  }, [phaseState, timeOffset]);
 
   return (
     <TimerMasterComponent
