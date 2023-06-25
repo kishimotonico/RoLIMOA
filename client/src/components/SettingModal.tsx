@@ -20,6 +20,7 @@ import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { getSetting, setSetting } from '@/util/clientStoredSetting';
 import { LyricalSocket } from '@/lyricalSocket';
+import { NowUnixtimeDisplay } from './NowUnixtimeDisplay';
 
 type FormValues = {
   deviceName: string,
@@ -107,6 +108,10 @@ export const SettingModal: FC<SettingModalProps> = ({
                 <Typography id="time-offset-slider" gutterBottom>
                   時刻オフセット: {field.value > 0 ? '+' : ''}{field.value} ms
                 </Typography>
+
+                <Box sx={{ userSelect: "none", px: 1, py: 1 }}>
+                  <NowUnixtimeDisplay offsetTime={field.value} />
+                </Box>
 
                 <Box sx={{ px: 3 }}>
                   <Slider
