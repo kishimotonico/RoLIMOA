@@ -1,4 +1,7 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import {
   Dialog,
   DialogTitle,
@@ -8,24 +11,20 @@ import {
   TextField,
   DialogActions,
   Button,
+  Slider,
+  Box,
+  Typography,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { LyricalSocket } from '@/lyricalSocket';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
-import { useDispatch } from 'react-redux';
-
-const LOCAL_STORAGE_KEY = "deviceName";
-const defaultDeviceName = "anonymous@役割なし";
-export function GetDeviceName(): string {
-  return localStorage.getItem(LOCAL_STORAGE_KEY) ?? defaultDeviceName;
-}
-export function SetDeviceName(deviceName: string) {
-  localStorage.setItem(LOCAL_STORAGE_KEY, deviceName);
-}
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
+import { getSetting, setSetting } from '@/util/clientStoredSetting';
+import { LyricalSocket } from '@/lyricalSocket';
+import { NowUnixtimeDisplay } from './NowUnixtimeDisplay';
 
 type FormValues = {
   deviceName: string,
+  timeOffset: number,
 };
 
 type SettingModalProps = {
@@ -37,44 +36,38 @@ export const SettingModal: FC<SettingModalProps> = ({
   open,
   onClose,
 }) => {
+  const savedSetting = getSetting();
   const dispatch = useDispatch();
-  const prevDeviceName = useRef<string | null>(null);
-  const savedDeviceName = GetDeviceName();
-
-  // useEffect しない簡略化
-  useEffect(() => {
-    if (savedDeviceName) {
-      prevDeviceName.current = savedDeviceName;
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const prevDeviceName = useRef<string>(savedSetting.deviceName);
+  const setTimeOffset = useSetRecoilState(unixtimeOffset);
 
   const { control, handleSubmit } = useForm({
     reValidateMode: "onChange",
-    defaultValues: {
-      deviceName: savedDeviceName,
-    },
+    defaultValues: savedSetting,
   });
 
   const onSubmit: SubmitHandler<FormValues> = useCallback((form) => {
     if (! form) {
       return;
     }
+
+    setSetting(form);
+
+    setTimeOffset(form.timeOffset);
+
+    // デバイス名の変更時は、Reduxのストアも反映
     if (form.deviceName !== prevDeviceName.current) {
-      // デバイス名の変更をlocalStorageに保存
-      SetDeviceName(form.deviceName);
       prevDeviceName.current = form.deviceName;
 
-      // Reduxのストアにデバイスの追加を反映
-      // TODO: App.tsxとのコードの重複を解消
-      const socket = LyricalSocket.instance.socket;
       const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: socket.id,
-        deviceName: GetDeviceName(),
+        sockId: LyricalSocket.instance.socket.id,
+        deviceName: form.deviceName,
       });
       LyricalSocket.dispatch(action, dispatch);
     }
+
     onClose();
-  }, [onClose, dispatch]);
+  }, [onClose, dispatch, setTimeOffset]);
 
   const closeHandler = () => {
     handleSubmit(onSubmit)();
@@ -84,20 +77,56 @@ export const SettingModal: FC<SettingModalProps> = ({
     <Dialog aria-labelledby="setting-modal-title" open={open} onClose={closeHandler} fullWidth>
       <DialogTitle id="setting-modal-title">設定</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          適当に設定しておいてください。localStorageに保存します、たぶん。
+        <DialogContentText sx={{ mb: 3 }}>
+          適当に設定してください。設定内容は、localStorageに保存します。
         </DialogContentText>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}
             name="deviceName"
             render={({ field }) => (
-              <TextField
-                {...field}
-                label="ユーザ・デバイス名"
-                helperText='担当がある場合、"篝ノ霧枝@青コート点数"みたいな名前を推奨'
-                fullWidth
-              />
+              <Box sx={{ mb: 5 }}>
+                <TextField
+                  {...field}
+                  label="ユーザ・デバイス名"
+                  placeholder="篝ノ霧枝＠青コート点数"
+                  fullWidth
+                />
+              </Box>
+            )}
+          />
+          <Controller
+            control={control}
+            name="timeOffset"
+            render={({ field }) => (
+              <>
+                <Typography id="time-offset-slider" gutterBottom>
+                  時刻オフセット: {field.value > 0 ? '+' : ''}{field.value} ms
+                </Typography>
+
+                <Box sx={{ userSelect: "none", px: 1, py: 1 }}>
+                  <NowUnixtimeDisplay offsetTime={field.value} />
+                </Box>
+
+                <Box sx={{ px: 3 }}>
+                  <Slider
+                    {...field}
+                    onChange={(_, value) => field.onChange(value)}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${value} ms`}
+                    min={-2000}
+                    max={2000}
+                    step={20}
+                    marks={[
+                      { value: -2000, label: '-2 s' },
+                      { value: -1000, label: '-1 s' },
+                      { value: 0, label: '0 s' },
+                      { value: 1000, label: '+1 s' },
+                      { value: 2000, label: '+2 s' },
+                    ]}
+                  />
+                </Box>
+              </>
             )}
           />
         </form>
@@ -126,6 +155,10 @@ export const SettingButton: FC = () => {
     <IconButton color="inherit" onClick={onClick} size="large">
       <SettingsIcon />
     </IconButton>
-    <SettingModal open={open} onClose={onClose} />
+    <SettingModal
+      open={open}
+      onClose={onClose}
+      key={Number(open)} // 表示/非表示時に再レンダリング
+    />
   </>;
 }

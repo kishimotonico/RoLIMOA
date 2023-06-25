@@ -17,12 +17,13 @@ import { AdminPage } from '@/pages/AdminPage';
 import { StreamingOverlayPage } from '@/pages/StreamingOverlayPage';
 import { StreamingOverlayOpenerPage } from '@/pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from '@/pages/ScreenPage';
-import { GetDeviceName } from '@/components/SettingModal';
-import { AppRootTimer } from '@/functional/AppRootTimer';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
+import { AppRootTimer } from '@/functional/AppRootTimer';
+import { useLoadSetting } from '@/functional/useLoadSetting';
 import { config } from '@/config/load';
 import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
+import { getSetting } from './util/clientStoredSetting';
 import "dseg/css/dseg.css";
 
 type WelcomeData = {
@@ -34,6 +35,8 @@ const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useLoadSetting();
 
   // websocketの初回接続と受信イベント処理
   useEffect(() => {
@@ -75,7 +78,7 @@ const App: FC = () => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
         sockId: LyricalSocket.instance.socket.id,
-        deviceName: GetDeviceName(),
+        deviceName: getSetting().deviceName,
         currentPath: location.pathname,
       }), dispatch);
     }
