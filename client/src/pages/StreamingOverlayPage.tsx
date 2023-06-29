@@ -1,8 +1,8 @@
 import { FC, Ref } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';
-import { FieldSideType } from '@/slices/score';
-import { Box, Divider, Slide } from '@mui/material';
+import { FieldSideType, ObjectsStateType } from '@/slices/score';
+import { Avatar, Box, Divider, Slide } from '@mui/material';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
@@ -10,6 +10,56 @@ import { CenterFlex } from '@/ui/CenterFlex';
 import { formatTime } from '@/util/formatTime';
 import { config } from '@/config/load';
 import { SlideTransition } from '@/ui/SlideTransition';
+
+// とりあえず作りたいだけなので、強引な実装で解決
+const ScoreDisplay = () => {
+  const globalObjects = useSelector<RootState, ObjectsStateType>((state) => state.score.global);
+
+  const Pole = ({ label , stat }: { label :number, stat: number }) => (
+    <Avatar sx={{
+      bgcolor: stat === 1 ? "blue" : stat === 2 ? "red" : "white",
+      color: stat === 0 ? "black" : "white",
+      width: "50px",
+      height: "50px",
+      margin: "8px auto",
+      fontSize: "30px",
+    }}>
+      {label}
+    </Avatar>
+  );
+
+  return (
+    <Box sx={{
+      width: "350px",
+      height: "180px",
+      backgroundColor: "#c0c0c0",
+      display: "flex",
+      padding: "10px 25px",
+    }}>
+      <CenterFlex sx={{ width: "70px" }}>
+        <Pole label={1} stat={globalObjects["P01"]} />
+        <Pole label={2} stat={globalObjects["P02"]} />
+        <Pole label={3} stat={globalObjects["P03"]} />
+      </CenterFlex>
+      <CenterFlex sx={{ width: "70px" }}>
+        <Pole label={4} stat={globalObjects["P04"]} />
+        <Pole label={5} stat={globalObjects["P05"]} />
+      </CenterFlex>
+      <CenterFlex sx={{ width: "70px" }}>
+        <Pole label={6} stat={globalObjects["P06"]} />
+      </CenterFlex>
+      <CenterFlex sx={{ width: "70px" }}>
+        <Pole label={7} stat={globalObjects["P07"]} />
+        <Pole label={8} stat={globalObjects["P08"]} />
+      </CenterFlex>
+      <CenterFlex sx={{ width: "70px" }}>
+        <Pole label={9} stat={globalObjects["P09"]} />
+        <Pole label={10} stat={globalObjects["P10"]} />
+        <Pole label={11} stat={globalObjects["P11"]} />
+      </CenterFlex>
+    </Box>
+  )
+};
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -170,7 +220,7 @@ export const StreamingOverlayPage: FC = () => {
       <Slide in={showMainHud} direction="down" timeout={1000} appear={false}>
         <Box sx={{
           width: '100%',
-          height: '320px',
+          height: '500px',
           display: 'flex',
         }}>
           <SlideTransition in={showScoreBoard} direction="left" duration={800} appear={false}>
@@ -181,7 +231,10 @@ export const StreamingOverlayPage: FC = () => {
               />
             </Box>
           </SlideTransition>
-          <TimerDisplay />
+          <Box>
+            <TimerDisplay />
+            <ScoreDisplay />
+          </Box>
           <SlideTransition in={showScoreBoard} direction="right" duration={800} appear={false}>
             <Box>
               <ScoreBlock
