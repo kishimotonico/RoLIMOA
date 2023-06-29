@@ -84,17 +84,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -114,17 +108,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -144,17 +132,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -174,17 +156,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -204,17 +180,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -234,17 +204,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -264,17 +228,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -294,17 +252,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -324,17 +276,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -354,17 +300,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
@@ -384,17 +324,11 @@
               },
               {
                 "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
+                "label": "🔵青"
               },
               {
                 "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
+                "label": "🔴赤"
               }
             ],
             "vertical": true
