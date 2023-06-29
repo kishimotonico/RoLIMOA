@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Provider } from 'react-redux';
@@ -12,7 +12,10 @@ const store = configureStore({
   // devTools: process.env.NODE_ENV !== 'production',     // 今は prod でも開発ツールを有効に
 });
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <RecoilRoot>
@@ -21,6 +24,5 @@ ReactDOM.render(
         </Provider>
       </RecoilRoot>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
