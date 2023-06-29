@@ -1,30 +1,32 @@
-import { FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { RootState } from '@/slices';
 import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 
-export const AppRootTimer: FC = () => {
+export const useAppRootTimer = () => {
   const dispatch = useDispatch();
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
+  const phaseStateRef = useRef<CurrentPhaseState|undefined>(undefined); // タイマーの二重起動防止
   const offsetTime = useRecoilValue(unixtimeOffset);
 
   console.log(`AppRootTimer: ${phaseState.id} started at ${phaseState.startTime}`);
 
   useEffect(() => {
-    function timerClear(): void {
-      if (timeoutHandler.current !== undefined) {
-        console.debug(` |- timerClear: ${phaseState.id} [${timeoutHandler.current}]`);
-        clearTimeout(timeoutHandler.current);
-        timeoutHandler.current = undefined;
-      }
-    }
+    phaseStateRef.current = phaseState;
     console.debug(`|- useEffect init: ${phaseState.id} [${timeoutHandler.current}]`);
-    timerClear();
+
+    // マウント時に、タイマをセットアップ
+    timerUpdate();
 
     function timerUpdate(): void {
+      if (phaseStateRef.current?.id !== phaseState.id || phaseStateRef.current?.startTime !== phaseState.startTime) {
+        console.error("ふぇぇ！タイマーが不安定になったから修正したよぉ", phaseStateRef.current, phaseState);
+        return;
+      }
+
       const nowUnixtime = Date.now() + offsetTime;
       const elapsedSec = calculateElapsedSecond(phaseState.startTime, nowUnixtime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
@@ -38,8 +40,14 @@ export const AppRootTimer: FC = () => {
       timeoutHandler.current = setTimeout(timerUpdate, nextTickTime - nowUnixtime);
       console.debug(` |- timerUpd: ${elapsedSec} (${phaseState.id})[${oldTimer ?? "none"}→${timeoutHandler.current}]`);
     }
-    // マウント時に、タイマをセットアップ
-    timerUpdate();
+
+    function timerClear(): void {
+      if (timeoutHandler.current !== undefined) {
+        console.debug(` |- timerClear: ${phaseState.id} [${timeoutHandler.current}]`);
+        clearTimeout(timeoutHandler.current);
+        timeoutHandler.current = undefined;
+      }
+    }
 
     // アンマウント時にタイマを停止
     return () => {
@@ -47,6 +55,4 @@ export const AppRootTimer: FC = () => {
       timerClear();
     };
   }, [phaseState, offsetTime]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return <></>;
 }
