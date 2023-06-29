@@ -1,11 +1,11 @@
-import { FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { RootState } from '@/slices';
 import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 
-export const AppRootTimer: FC = () => {
+export const useAppRootTimer = () => {
   const dispatch = useDispatch();
   const timeoutHandler = useRef<NodeJS.Timeout|undefined>(undefined);
   const phaseState = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
@@ -47,6 +47,4 @@ export const AppRootTimer: FC = () => {
       timerClear();
     };
   }, [phaseState, offsetTime]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return <></>;
 }

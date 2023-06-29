@@ -18,7 +18,7 @@ import { StreamingOverlayPage } from '@/pages/StreamingOverlayPage';
 import { StreamingOverlayOpenerPage } from '@/pages/StreamingOverlayOpenerPage';
 import { ScreenPage } from '@/pages/ScreenPage';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
-import { AppRootTimer } from '@/functional/AppRootTimer';
+import { useAppRootTimer } from '@/functional/useAppRootTimer';
 import { useLoadSetting } from '@/functional/useLoadSetting';
 import { config } from '@/config/load';
 import { LyricalSocket } from './lyricalSocket';
@@ -37,6 +37,8 @@ const App: FC = () => {
   const dispatch = useDispatch();
 
   useLoadSetting();
+  
+  useAppRootTimer();
 
   // websocketの初回接続と受信イベント処理
   useEffect(() => {
@@ -97,7 +99,6 @@ const App: FC = () => {
         <Route path="/screen" element={<ScreenPage />} />
       </Routes>
       <LoadingOverlay loading={!config.client.standalone_mode && !isConnect}/>
-      <AppRootTimer />
     </AppMuiThemeProvider>
   </>;
 }
