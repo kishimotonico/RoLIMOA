@@ -113,7 +113,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
           flexDirection: placement === "left" ? 'row' : 'row-reverse',
         }}>
           {displayScore.scoreState.vgoal && (
-            <Box sx={{ fontSize: "40px" }}>
+            <Box sx={{ fontSize: "28px" }}>
               <Box>
                 {config.rule.vgoal.name}
               </Box>
@@ -122,7 +122,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
               </Box>
             </Box>
           )}
-          <Box sx={{ padding: "0 .5em", lineHeight: `${scoreBlockHeight}px`, }}>
+          <Box sx={{ padding: "0 .1em", lineHeight: `${scoreBlockHeight}px`, }}>
             {displayScore.value}
           </Box>
         </CenterFlex>
