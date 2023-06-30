@@ -400,7 +400,7 @@
     {
       "id": "match",
       "type": "count",
-      "time": 90,
+      "time": 180,
       "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
@@ -417,15 +417,15 @@
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 88,
+          "elapsedTime": 178,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 89,
+          "elapsedTime": 179,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 90,
+          "elapsedTime": 180,
           "sound": "tone_880hz_1000ms.mp3"
         }
       ]
