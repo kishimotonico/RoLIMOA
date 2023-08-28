@@ -3,407 +3,57 @@
     "name": "NHK学生ロボコン2023（仮）"
   },
   "rule": {
-    "global_objects": [
+    "global_objects": [],
+    "task_objects": [
       {
-        "id": "P01",
-        "description": "P01",
+        "id": "A_1_point",
+        "description": "A.1点獲得",
         "initialValue": 0
       },
       {
-        "id": "P02",
-        "description": "P02",
+        "id": "B_10_point",
+        "description": "B.10点獲得",
         "initialValue": 0
       },
       {
-        "id": "P03",
-        "description": "P03",
-        "initialValue": 0
+        "id": "C_100_point",
+        "description": "C.100点獲得",
+        "initialValue": 0,
+        "min": 0,
+        "max": 3
       },
       {
-        "id": "P04",
-        "description": "P04",
-        "initialValue": 0
-      },
-      {
-        "id": "P05",
-        "description": "P05",
-        "initialValue": 0
-      },
-      {
-        "id": "P06",
-        "description": "P06",
-        "initialValue": 0
-      },
-      {
-        "id": "P07",
-        "description": "P07",
-        "initialValue": 0
-      },
-      {
-        "id": "P08",
-        "description": "P08",
-        "initialValue": 0
-      },
-      {
-        "id": "P09",
-        "description": "P09",
-        "initialValue": 0
-      },
-      {
-        "id": "P10",
-        "description": "P10",
-        "initialValue": 0
-      },
-      {
-        "id": "P11",
-        "description": "P11",
-        "initialValue": 0
+        "id": "violation",
+        "description": "違反回数",
+        "initialValue": 0,
+        "min": 0
       }
     ],
-    "task_objects": [],
     "score": {
-      "format": "implement"
+      "format": "simple",
+      "expression": [
+        {
+          "id": "A_1_point",
+          "coefficient":1
+        },
+        {
+          "id": "B_10_point",
+          "coefficient": 10
+        },
+        {
+          "id": "C_100_point",
+          "coefficient": 100
+        }
+      ]
     },
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "implement"
+        "type": "alwaysOk"
       }
     },
     "control_panel": {
-      "type": "custom",
-      "panels": [
-        {
-          "id": "@global/P01",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P02",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P03",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P04",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P05",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P06",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P07",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P08",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P09",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P10",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        },
-        {
-          "id": "@global/P11",
-          "type": "toggle_button",
-          "option": {
-            "buttons": [
-              {
-                "value": 0,
-                "label": "なし"
-              },
-              {
-                "value": 1,
-                "label": "🔵青",
-                "style": {
-                  "color": "primary"
-                }
-              },
-              {
-                "value": 2,
-                "label": "🔴赤",
-                "style": {
-                  "color": "secondary"
-                }
-              }
-            ],
-            "vertical": true
-          },
-          "style": {
-            "width": 2
-          }
-        }
-      ]
+      "type": "default"
     }
   },
   "time_progress": [
@@ -466,7 +116,7 @@
     {
       "id": "match",
       "type": "count",
-      "time": 90,
+      "time": 30,
       "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
@@ -479,19 +129,19 @@
           "sound": "tone_880hz_1000ms.mp3"
         },
         {
-          "elapsedTime": 87,
+          "elapsedTime": 27,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 88,
+          "elapsedTime": 28,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 89,
+          "elapsedTime": 29,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 90,
+          "elapsedTime": 30,
           "sound": "tone_880hz_1000ms.mp3"
         }
       ]
