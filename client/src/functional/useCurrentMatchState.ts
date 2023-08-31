@@ -33,14 +33,17 @@ export function useCurrentMatchState(fieldSide: FieldSideType): CurrentMatchStat
   const scoreState = useSelector<RootState, ScoreState>((state) => state.score);
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
 
+  const opponentField = fieldSide === "red" ? "blue" : "red";
+
   return useMemo(() => ({
     fieldSide,
     globalObjects: scoreState.global,
     taskObjects: scoreState.fields[fieldSide].tasks,
+    opponentTaskObjects: scoreState.fields[opponentField].tasks,
     matchStats: {
       elapsedTime: matchElapsedSec(scoreState.fields[fieldSide], phaseState),
       isVgoaled: scoreState.fields[fieldSide].vgoal !== undefined ? 1 : 0,
       vgoalTime: scoreState.fields[fieldSide].vgoal ?? NaN,
     },
-  }), [fieldSide, scoreState, phaseState]);
+  }), [fieldSide, scoreState, phaseState, opponentField]);
 }
