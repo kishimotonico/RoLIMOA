@@ -1,55 +1,54 @@
 {
   "contest_info": {
-    "name": "NHK学生ロボコン2023（仮）"
+    "name": "とうロボ2023"
   },
   "rule": {
     "global_objects": [],
     "task_objects": [
       {
-        "id": "A_1_point",
-        "description": "A.1点獲得",
+        "id": "own_side_A",
+        "description": "自陣A",
         "initialValue": 0
       },
       {
-        "id": "B_10_point",
-        "description": "B.10点獲得",
+        "id": "own_side_B",
+        "description": "自陣B",
         "initialValue": 0
       },
       {
-        "id": "C_100_point",
-        "description": "C.100点獲得",
+        "id": "shared_spot_1_A",
+        "description": "共有ⅠA",
+        "initialValue": 0
+      },
+      {
+        "id": "shared_spot_1_B",
+        "description": "共有ⅠB",
+        "initialValue": 0
+      },
+      {
+        "id": "shared_spot_2_2ten",
+        "description": "共有Ⅱ(×2)",
         "initialValue": 0,
-        "min": 0,
-        "max": 3
+        "max": 5
+      },
+      {
+        "id": "shared_spot_2_3ten",
+        "description": "共有Ⅱ(×3)",
+        "initialValue": 0
       },
       {
         "id": "violation",
         "description": "違反回数",
-        "initialValue": 0,
-        "min": 0
+        "initialValue": 0
       }
     ],
     "score": {
-      "format": "simple",
-      "expression": [
-        {
-          "id": "A_1_point",
-          "coefficient":1
-        },
-        {
-          "id": "B_10_point",
-          "coefficient": 10
-        },
-        {
-          "id": "C_100_point",
-          "coefficient": 100
-        }
-      ]
+      "format": "implement"
     },
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "alwaysOk"
+        "type": "implement"
       }
     },
     "control_panel": {
@@ -116,7 +115,7 @@
     {
       "id": "match",
       "type": "count",
-      "time": 30,
+      "time": 150,
       "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
@@ -129,19 +128,19 @@
           "sound": "tone_880hz_1000ms.mp3"
         },
         {
-          "elapsedTime": 27,
+          "elapsedTime": 147,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 28,
+          "elapsedTime": 148,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 29,
+          "elapsedTime": 149,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 30,
+          "elapsedTime": 150,
           "sound": "tone_880hz_1000ms.mp3"
         }
       ]
@@ -160,22 +159,112 @@
   ],
   "teams_info": [
     {
+      "id": "0",
+      "name": "Tiファイター",
+      "school": "豊田工業大学",
+      "short": "Tiファイター（豊田工大）"
+    },
+    {
       "id": "1",
-      "name": "触手もぐもぐ",
-      "school": "国際信州大",
-      "short": "触手もぐもぐ（国際信州大）"
+      "name": "トヨタ建設",
+      "school": "豊田工業大学",
+      "short": "トヨタ建設（豊田工大）"
     },
     {
       "id": "2",
-      "name": "白米ぬるぬる",
-      "school": "国際信州大",
-      "short": "白米ぬるぬる（国際信州大）"
+      "name": "Robohan",
+      "school": "大阪大学",
+      "short": "Robohan（大阪大）"
     },
     {
       "id": "3",
-      "name": "常磐の森ねこねこカレッジ",
-      "school": "横浜大学",
-      "short": "常磐の森ねこねこカレッジ（横浜大）"
+      "name": "ロボコン工房",
+      "school": "名古屋工業大学",
+      "short": "ロボコン工房（名工大）"
+    },
+    {
+      "id": "4",
+      "name": "AUT",
+      "school": "愛知工科大学",
+      "short": "AUT（愛知工科大）"
+    },
+    {
+      "id": "5",
+      "name": "こめこぱん",
+      "school": "京都工芸繊維大学",
+      "short": "こめこぱん（京都工繊）"
+    },
+    {
+      "id": "6",
+      "name": "MaquinistaA",
+      "school": "東京工業大学",
+      "short": "MaquinistaA（東工大）"
+    },
+    {
+      "id": "7",
+      "name": "MaquinistaB",
+      "school": "東京工業大学",
+      "short": "MaquinistaB（東工大）"
+    },
+    {
+      "id": "8",
+      "name": "推しの機体",
+      "school": "金沢工業大学",
+      "short": "推しの機体（金工）"
+    },
+    {
+      "id": "9",
+      "name": "G-Robo",
+      "school": "岐阜大学",
+      "short": "G-Robo（岐阜大）"
+    },
+    {
+      "id": "10",
+      "name": "KOUKA CRAFT",
+      "school": "東京工科大学",
+      "short": "KOUKA CRAFT（東京工科）"
+    },
+    {
+      "id": "11",
+      "name": "積もうよ！ロボコンの街",
+      "school": "東京工科大学",
+      "short": "積もうよ！ロボコンの街（東京工科）"
+    },
+    {
+      "id": "12",
+      "name": "アーキタイプR",
+      "school": "東京工科大学",
+      "short": "アーキタイプR（東京工科）"
+    },
+    {
+      "id": "13",
+      "name": "スパイ×ロボコンズ",
+      "school": "豊橋技術科学大学",
+      "short": "スパイ×ロボコンズ（豊橋）"
+    },
+    {
+      "id": "14",
+      "name": "トヨハシ×ファミリー",
+      "school": "豊橋技術科学大学",
+      "short": "トヨハシ×ファミリー（豊橋）"
+    },
+    {
+      "id": "15",
+      "name": "科学技術研究部",
+      "school": "新潟大学",
+      "short": "科学技術研究部（新潟大）"
+    },
+    {
+      "id": "16",
+      "name": "RoboPro長岡A",
+      "school": "長岡技術科学大学",
+      "short": "RoboPro長岡A（長岡）"
+    },
+    {
+      "id": "17",
+      "name": "RoboPro長岡B",
+      "school": "長岡技術科学大学",
+      "short": "RoboPro長岡B（長岡）"
     }
   ],
   "client": {

@@ -18,5 +18,18 @@ export function score(stat: CurrentMatchStateType): ScoreOutputType {
   // return stat.taskObjects["A_1_point"] + stat.taskObjects["B_10_point"] * 10;
   // ```
 
-  return NaN;
+  //
+  // とうロボ2023ルール
+  // https://tourobo.net/2023/downloads/tourobo2023_rule_0827.pdf
+  //
+  // 自陣スポット: 建材1段につき1点を獲得できる。ただし、4段目以上は得点とならない。
+  const ownSpotA = Math.min(3, stat.taskObjects["own_side_A"]) * 1;
+  const ownSpotB = Math.min(3, stat.taskObjects["own_side_B"]) * 1;
+  // 共有スポットⅠ: 建材1段につき2点を獲得できる。自チームが置いた箱の段数で得点を計測する。
+  const sharedSpot1A = stat.taskObjects["shared_spot_1_A"] * 1;
+  const sharedSpot1B = stat.taskObjects["shared_spot_1_B"] * 1;
+  // 共有スポットⅡ: 建材1段につき2点を獲得できる。自チームが置いた箱の段数で得点を計測する。
+  const sharedSpot2 = stat.taskObjects["shared_spot_2_2ten"] * 2 + stat.taskObjects["shared_spot_2_3ten"] * 3;
+  
+  return ownSpotA + ownSpotB + sharedSpot1A + sharedSpot1B + sharedSpot2;
 }
