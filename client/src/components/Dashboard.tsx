@@ -17,6 +17,7 @@ import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import BuildIcon from '@mui/icons-material/Build';
 import CastIcon from '@mui/icons-material/Cast';
 import VideocamIcon from '@mui/icons-material/Videocam';
+import { StandaloneIndicator } from './StandaloneIndicator';
 import { SettingButton } from './SettingModal';
 import { isDrawerOpen } from '@/atoms/isDrawerOpen';
 import { useRecoilState } from 'recoil';
@@ -111,6 +112,7 @@ export const Dashboard: FC<DashboardProps> = ({
           <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
+          <StandaloneIndicator />
           <SettingButton />
         </Toolbar>
       </AppBar>
