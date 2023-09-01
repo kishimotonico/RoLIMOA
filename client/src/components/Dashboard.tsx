@@ -148,7 +148,7 @@ export const Dashboard: FC<DashboardProps> = ({
           <DrawerListLink to="/score/blue/">
             <ListItemButton>
               <ListItemIcon>
-                <AssignmentIcon />
+                <AssignmentIcon sx={{ color: (theme) => theme.palette.primary.main }} />
               </ListItemIcon>
               <ListItemText primary="青チーム入力" />
             </ListItemButton>
@@ -156,7 +156,7 @@ export const Dashboard: FC<DashboardProps> = ({
           <DrawerListLink to="/score/red/">
             <ListItemButton>
               <ListItemIcon>
-                <AssignmentIcon />
+              <AssignmentIcon sx={{ color: (theme) => theme.palette.secondary.main }} />
               </ListItemIcon>
               <ListItemText primary="赤チーム入力" />
             </ListItemButton>
