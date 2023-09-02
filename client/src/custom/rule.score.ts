@@ -26,8 +26,8 @@ export function score(stat: CurrentMatchStateType): ScoreOutputType {
   const ownSpotA = Math.min(3, stat.taskObjects["own_side_A"]) * 1;
   const ownSpotB = Math.min(3, stat.taskObjects["own_side_B"]) * 1;
   // 共有スポットⅠ: 建材1段につき2点を獲得できる。自チームが置いた箱の段数で得点を計測する。
-  const sharedSpot1A = stat.taskObjects["shared_spot_1_A"] * 1;
-  const sharedSpot1B = stat.taskObjects["shared_spot_1_B"] * 1;
+  const sharedSpot1A = stat.taskObjects["shared_spot_1_A"] * 2;
+  const sharedSpot1B = stat.taskObjects["shared_spot_1_B"] * 2;
   // 共有スポットⅡ: 建材1段につき2点を獲得できる。自チームが置いた箱の段数で得点を計測する。
   const sharedSpot2 = stat.taskObjects["shared_spot_2_2ten"] * 2 + stat.taskObjects["shared_spot_2_3ten"] * 3;
   
