@@ -18,5 +18,27 @@ export function score(stat: CurrentMatchStateType): ScoreOutputType {
   // return stat.taskObjects["A_1_point"] + stat.taskObjects["B_10_point"] * 10;
   // ```
 
-  return NaN;
+  const calcKaisuu = (location: string) => {
+    const a = stat.taskObjects[`${location}_A`];
+    const b = stat.taskObjects[`${location}_B`];
+    const c = stat.taskObjects[`${location}_C`];
+
+    return 4 * a + 2 * b + c;
+  };
+
+  const utsunomiya = stat.taskObjects["Utsunomiya"] > 0 ? 1 : 0; // 宇都宮は 0 or 1
+  const chiba = calcKaisuu("Chiba");
+  const saitama = calcKaisuu("Saitama");
+  const yokohama = calcKaisuu("Yokohama");
+  const shibuya = calcKaisuu("Shibuya");
+
+  const refs = {
+    "千葉": chiba,
+    "さいたま": saitama,
+    "横浜": yokohama,
+    "渋谷": shibuya,
+  };
+  const value = 10 * utsunomiya + 10 * chiba + 11 * saitama + 14 * yokohama + 15 * shibuya;
+
+  return { value, refs };
 }

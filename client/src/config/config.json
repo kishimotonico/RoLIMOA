@@ -1,50 +1,85 @@
 {
   "contest_info": {
-    "name": "NHK学生ロボコン2023（仮）"
+    "name": "関東夏ロボコン2023"
   },
   "rule": {
     "global_objects": [],
     "task_objects": [
       {
-        "id": "A_1_point",
-        "description": "A.1点獲得",
-        "initialValue": 0
-      },
-      {
-        "id": "B_10_point",
-        "description": "B.10点獲得",
-        "initialValue": 0
-      },
-      {
-        "id": "C_100_point",
-        "description": "C.100点獲得",
+        "id": "Utsunomiya",
+        "description": "宇都宮",
         "initialValue": 0,
         "min": 0,
-        "max": 3
+        "max": 1
+      },
+      {
+        "id": "Chiba_A",
+        "description": "千葉A",
+        "initialValue": 0
+      },
+      {
+        "id": "Chiba_B",
+        "description": "千葉B",
+        "initialValue": 0
+      },
+      {
+        "id": "Chiba_C",
+        "description": "千葉C",
+        "initialValue": 0
+      },
+      {
+        "id": "Saitama_A",
+        "description": "さいたまA",
+        "initialValue": 0
+      },
+      {
+        "id": "Saitama_B",
+        "description": "さいたまB",
+        "initialValue": 0
+      },
+      {
+        "id": "Saitama_C",
+        "description": "さいたまC",
+        "initialValue": 0
+      },
+      {
+        "id": "Yokohama_A",
+        "description": "横浜A",
+        "initialValue": 0
+      },
+      {
+        "id": "Yokohama_B",
+        "description": "横浜B",
+        "initialValue": 0
+      },
+      {
+        "id": "Yokohama_C",
+        "description": "横浜C",
+        "initialValue": 0
+      },
+      {
+        "id": "Shibuya_A",
+        "description": "渋谷A",
+        "initialValue": 0
+      },
+      {
+        "id": "Shibuya_B",
+        "description": "渋谷B",
+        "initialValue": 0
+      },
+      {
+        "id": "Shibuya_C",
+        "description": "渋谷C",
+        "initialValue": 0
       },
       {
         "id": "violation",
         "description": "違反回数",
-        "initialValue": 0,
-        "min": 0
+        "initialValue": 0
       }
     ],
     "score": {
-      "format": "simple",
-      "expression": [
-        {
-          "id": "A_1_point",
-          "coefficient":1
-        },
-        {
-          "id": "B_10_point",
-          "coefficient": 10
-        },
-        {
-          "id": "C_100_point",
-          "coefficient": 100
-        }
-      ]
+      "format": "implement"
     },
     "vgoal": {
       "name": "Vゴール",
@@ -81,7 +116,17 @@
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
-      }
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 60,
+          "sound": "tone_440hz_500ms.mp3"
+        }
+      ]
     },
     {
       "id": "match_ready",
@@ -116,7 +161,7 @@
     {
       "id": "match",
       "type": "count",
-      "time": 30,
+      "time": 180,
       "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
@@ -129,19 +174,19 @@
           "sound": "tone_880hz_1000ms.mp3"
         },
         {
-          "elapsedTime": 27,
+          "elapsedTime": 177,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 28,
+          "elapsedTime": 178,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 29,
+          "elapsedTime": 179,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 30,
+          "elapsedTime": 180,
           "sound": "tone_880hz_1000ms.mp3"
         }
       ]
