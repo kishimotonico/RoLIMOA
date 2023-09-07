@@ -18,6 +18,9 @@ const vgoalConditionSchema = z.union([
     type: z.literal("alwaysOk"),
   }),
   z.object({
+    type: z.literal("disabled"),
+  }),
+  z.object({
     type: z.literal("implement"),
   }),
 ]);

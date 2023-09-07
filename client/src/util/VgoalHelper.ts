@@ -18,6 +18,11 @@ export function isVgoalAvailable(currentMatchState: CurrentMatchStateType): bool
     return true;
   }
 
+  // type: disabled
+  if (vgoalCondition.type === "disabled") {
+    return false;
+  }
+
   // type: implement
   if (vgoalCondition.type === "implement") {
     return condition(currentMatchState) ?? true;

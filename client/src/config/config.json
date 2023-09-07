@@ -84,7 +84,7 @@
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "alwaysOk"
+        "type": "disabled"
       }
     },
     "control_panel": {

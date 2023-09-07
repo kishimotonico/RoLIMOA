@@ -12,6 +12,7 @@ import { ScoreBlock } from '@/components/ScoreBlock';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { formatTime, parseFormatTime } from '@/util/formatTime';
 import { ScoreInputPanel } from '@/components/ScoreInput/ScoreInputPanel';
+import { config } from '@/config/load';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void,
@@ -112,13 +113,16 @@ const FlagInput: FC<FlagInputProps> = ({ fieldSide, color }) => {
           label="勝利フラグ"
         />
       </FormGroup>
-      <FormGroup sx={{ mt: 1 }}>
-        <VGoalTimeInput
-          onInputValidVgoalTime={onVgoalTimeChange}
-          vgoalTime={scoreState.vgoal}
-          key={scoreState.vgoal} // Vゴールタイム変更時に再レンダリング
-        />
-      </FormGroup>
+      {
+        config.rule.vgoal.condition.type !== "disabled" &&
+        <FormGroup sx={{ mt: 1 }}>
+          <VGoalTimeInput
+            onInputValidVgoalTime={onVgoalTimeChange}
+            vgoalTime={scoreState.vgoal}
+            key={scoreState.vgoal} // Vゴールタイム変更時に再レンダリング
+          />
+        </FormGroup>
+      }
     </>
   );
 };
@@ -142,7 +146,7 @@ const ScoreDisplay: FC<ScoreDisplayProps> = ({ fieldSide }) => {
             <Table size="small">
               <TableBody>
                 {refValues.map(([k, v]) => (
-                  <TableRow key={k}>
+                  <TableRow key={k} sx={{ '&:last-child td': { borderBottom: 0 } }}>
                     <TableCell>{k}</TableCell>
                     <TableCell>{v}</TableCell>
                   </TableRow>
