@@ -23,6 +23,11 @@ export function score(stat: CurrentMatchStateType): ScoreOutputType {
     const b = stat.taskObjects[`${location}_B`];
     const c = stat.taskObjects[`${location}_C`];
 
+    if (a + b + c === 1) {
+      // 「レンガ」1 個で構成される「マンション」は、向きによらず階数は 1 となります。
+      return 1;
+    }
+
     return 4 * a + 2 * b + c;
   };
 
