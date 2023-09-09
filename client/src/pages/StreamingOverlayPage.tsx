@@ -21,7 +21,7 @@ const TowerDisplay = (props: {
     px: '5px',
   }}>
     <Box sx={{ 
-      height: '100px',
+      height: '105px',
       fontSize: '20px',
       display: 'flex',
       flexDirection: 'column',
@@ -106,7 +106,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
         transform: placement === "left" ? '' : 'scaleX(-1)',
       }}>
         <Box sx={{
-          height: `${nameBlockHeight}px`,
+          height: `${nameBlockHeight - 5}px`, // ちょっと調整
           lineHeight: `${nameBlockHeight}px`,
           backgroundColor: color,
           fontSize: `${teamNameFontSize}px`,
@@ -136,7 +136,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
                 </Box>
               </Box>
             )}
-            <CenterFlex sx={{ fontSize: '80px', lineHeight: `${scoreBlockHeight}px` }}>
+            <CenterFlex sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}>
               {displayScore.value}
             </CenterFlex>
           </Box>
