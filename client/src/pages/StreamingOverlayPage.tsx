@@ -23,21 +23,14 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
   const teamName = useSelector<RootState, string | undefined>((state) => state.match.teams[fieldSide]?.shortName);
   const displayScore = useDisplayScore(fieldSide);
 
-  const color = fieldSide as string; // "blue" | "red"をそのまま文字列として使う
+  const color = fieldSide == "blue" ? "rgba(0, 0, 240, 0.8)" : "rgba(240, 0, 0, 0.8)";
 
   const containerHeight = 260;
-  const outlineBorderWidth = 8;
+  const outlineBorderWidth = 0;
   const innerBorderWidth = 6;
-  const nameBlockHeight = 80;
+  const nameBlockHeight = 60;
   const scoreBlockHeight = 16 + containerHeight - nameBlockHeight - outlineBorderWidth * 2 - innerBorderWidth; // 文字を下に下げるため微調整
-
-  let teamNameFontSize = 40;
-  if (teamName && teamName?.length > 12) {
-    teamNameFontSize = 36;
-  }
-  if (teamName && teamName?.length > 14) {
-    teamNameFontSize = 30;
-  }
+  const teamNameFontSize = 30;
 
   return (
     <Box>
@@ -45,37 +38,58 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
         width: '600px',
         height: `${containerHeight}px`,
         textAlign: 'center',
-        border: `${outlineBorderWidth}px solid ${color}`,
+        border: `${outlineBorderWidth}px solid`,
+        borderColor: color,
         boxSizing: 'border-box',
         backgroundColor: 'rgba(240, 240, 240, 0.8)',
+        clipPath: 'polygon(0 0, 0 100%, 30% 100%, 50% 190px, 100% 190px, 100% 0)',
+        transform: placement === "left" ? '' : 'scaleX(-1)',
       }}>
-        <CenterFlex sx={{
+        <Box sx={{
           height: `${nameBlockHeight}px`,
           lineHeight: `${nameBlockHeight}px`,
-          borderBottom: `${innerBorderWidth}px solid ${color}`,
+          backgroundColor: color,
           fontSize: `${teamNameFontSize}px`,
+          color: "rgba(255, 255, 255, 0.9)",
+          transform: placement === "left" ? '' : 'scaleX(-1)',
         }}>
           {teamName ?? " "}
-        </CenterFlex>
-        <CenterFlex sx={{
+        </Box>
+        <Box sx={{
           height: `${scoreBlockHeight}px`,
           fontSize: '100px',
           flexDirection: placement === "left" ? 'row' : 'row-reverse',
+          display: 'flex',
+          transform: placement === "left" ? '' : 'scaleX(-1)',
         }}>
-          {displayScore.scoreState.vgoal && (
-            <Box sx={{ fontSize: "40px" }}>
-              <Box>
-                {config.rule.vgoal.name}
+          {/* 点数表示 */}
+          <Box sx={{
+            width: '280px',
+           }}>
+            {displayScore.scoreState.vgoal && (
+              <Box sx={{ fontSize: "40px" }}>
+                <Box>
+                  {config.rule.vgoal.name}
+                </Box>
+                <Box>
+                  🏴 {formatTime(displayScore.scoreState.vgoal, "m:ss")}
+                </Box>
               </Box>
-              <Box>
-                🏴 {formatTime(displayScore.scoreState.vgoal, "m:ss")}
-              </Box>
-            </Box>
-          )}
-          <Box sx={{ padding: "0 .5em", lineHeight: `${scoreBlockHeight}px`, }}>
-            {displayScore.value}
+            )}
+            <CenterFlex sx={{ fontSize: '80px', lineHeight: `${scoreBlockHeight}px` }}>
+              {displayScore.value}
+            </CenterFlex>
           </Box>
-        </CenterFlex>
+          {/* 詳細表示 */}
+          <Box sx={{ 
+            width: '320px',
+            height: '130px',
+            backgroundColor: 'yellow',
+            fontSize: '16px',
+          }}>
+            ここに得点をいい感じに詳細表示する
+          </Box>
+        </Box>
       </Box>
       <Box sx={{
         display: "flex",
@@ -105,7 +119,7 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
   return <>
     <Box ref={ref} sx={{
       width: '400px',
-      height: '260px',
+      height: '190px',
       textAlign: 'center',
       backgroundColor: 'rgba(10, 10, 10, 0.9)',
       boxSizing: 'border-box',
@@ -113,9 +127,9 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
       zIndex: 10,
     }}>
       <Box sx={{
-        height: '70px',
-        lineHeight: '70px',
-        fontSize: '24px',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '20px',
         display: 'flex',
         justifyContent: 'center',
       }}>
@@ -124,9 +138,9 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
       <Box sx={{
         fontFamily: "DSEG14-Classic",
         fontWeight: 500,
-        height: '120px',
-        lineHeight: '120px',
-        fontSize: '72px',
+        height: '90px',
+        lineHeight: '90px',
+        fontSize: '60px',
       }}>
         {displayTime}
       </Box>
@@ -135,9 +149,9 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
         borderColor: 'rgba(240, 240, 240, 0.5)',
       }}/>
       <Box sx={{
-        height: '69px',
-        lineHeight: '69px',
-        fontSize: '24px',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '20px',
       }}>
         {matchName ?? ""}
       </Box>
