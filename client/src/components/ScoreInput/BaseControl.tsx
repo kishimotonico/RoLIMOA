@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
 import { ToggleButtonControl } from './ToggleButtonControl';
+import { MultiButtonControl } from './MultiButtonControl';
 import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
 
 interface BaseControlProps {
@@ -35,6 +36,14 @@ export const BaseControl: FC<BaseControlProps> = ({
           />
         : controlConfig?.type === "toggle_button" ?
           <ToggleButtonControl
+            taskConfig={taskConfig}
+            currentValue={currentValue}
+            stateUpdate={stateUpdate}
+            controlConfig={controlConfig}
+          />
+        : controlConfig?.type === "multi_button" ?
+          <MultiButtonControl
+            color={color ?? "inherit"}
             taskConfig={taskConfig}
             currentValue={currentValue}
             stateUpdate={stateUpdate}

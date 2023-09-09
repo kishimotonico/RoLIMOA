@@ -70,7 +70,183 @@
       }
     },
     "control_panel": {
-      "type": "default"
+      "type": "custom",
+      "panels": [
+        {
+          "id": "Utsunomiya",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Chiba",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Saitama",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Yokohama",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Shibuya",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "violation",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "time_progress": [
