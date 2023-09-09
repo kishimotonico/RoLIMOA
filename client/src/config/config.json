@@ -13,63 +13,23 @@
         "max": 1
       },
       {
-        "id": "Chiba_A",
-        "description": "千葉A",
+        "id": "Chiba",
+        "description": "千葉",
         "initialValue": 0
       },
       {
-        "id": "Chiba_B",
-        "description": "千葉B",
+        "id": "Saitama",
+        "description": "さいたま",
         "initialValue": 0
       },
       {
-        "id": "Chiba_C",
-        "description": "千葉C",
+        "id": "Yokohama",
+        "description": "横浜",
         "initialValue": 0
       },
       {
-        "id": "Saitama_A",
-        "description": "さいたまA",
-        "initialValue": 0
-      },
-      {
-        "id": "Saitama_B",
-        "description": "さいたまB",
-        "initialValue": 0
-      },
-      {
-        "id": "Saitama_C",
-        "description": "さいたまC",
-        "initialValue": 0
-      },
-      {
-        "id": "Yokohama_A",
-        "description": "横浜A",
-        "initialValue": 0
-      },
-      {
-        "id": "Yokohama_B",
-        "description": "横浜B",
-        "initialValue": 0
-      },
-      {
-        "id": "Yokohama_C",
-        "description": "横浜C",
-        "initialValue": 0
-      },
-      {
-        "id": "Shibuya_A",
-        "description": "渋谷A",
-        "initialValue": 0
-      },
-      {
-        "id": "Shibuya_B",
-        "description": "渋谷B",
-        "initialValue": 0
-      },
-      {
-        "id": "Shibuya_C",
-        "description": "渋谷C",
+        "id": "Shibuya",
+        "description": "渋谷",
         "initialValue": 0
       },
       {
@@ -79,7 +39,29 @@
       }
     ],
     "score": {
-      "format": "implement"
+      "format": "simple",
+      "expression": [
+        {
+          "id": "Utsunomiya",
+          "coefficient": 10
+        },
+        {
+          "id": "Chiba",
+          "coefficient": 10
+        },
+        {
+          "id": "Saitama",
+          "coefficient": 11
+        },
+        {
+          "id": "Yokohama",
+          "coefficient": 14
+        },
+        {
+          "id": "Shibuya",
+          "coefficient": 15
+        }
+      ]
     },
     "vgoal": {
       "name": "Vゴール",
