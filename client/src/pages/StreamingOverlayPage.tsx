@@ -10,6 +10,59 @@ import { CenterFlex } from '@/ui/CenterFlex';
 import { formatTime } from '@/util/formatTime';
 import { config } from '@/config/load';
 import { SlideTransition } from '@/ui/SlideTransition';
+import { useCurrentMatchState } from '@/functional/useCurrentMatchState';
+
+const TowerDisplay = (props: {
+  color: string,
+  value: number,
+  location: string
+}) => (
+  <Box sx={{
+    px: '5px',
+  }}>
+    <Box sx={{ 
+      height: '100px',
+      fontSize: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      position: 'relative',
+      }}>
+      {
+        Array(props.value).fill(0).map((_, i) => (
+          <Box key={i} sx={{
+            backgroundColor: `${props.color}`,
+            opacity: 0.8,
+            width: '30px',
+            height: '8px',
+            mt: '2px',
+            }} />
+        ))
+      }
+      <Box sx={{ 
+        position: 'absolute',
+        bottom: '0',
+        height: '25px',
+        lineHeight: '25px',
+        fontSize: '20px',
+        fontWeight: 'bold',
+        color: 'rgba(0, 0, 0, 0.95)',
+        textShadow: '1px 1px 0 #FFF, -1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px -1px 0 #FFF, 0px 1px 0 #FFF,  0-1px 0 #FFF, -1px 0 0 #FFF, 1px 0 0 #FFF;',
+      }}>
+          {props.value}
+        </Box>
+    </Box>
+    <Box sx={{ 
+      pt: '5px',
+      fontSize: '16px',
+      height: '25px',
+      lineHeight: '25px',
+      }}>
+      {props.location}
+    </Box>
+  </Box>
+);
 
 type ScoreBlockProps = {
   fieldSide: FieldSideType,
@@ -22,6 +75,13 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
 }) => {
   const teamName = useSelector<RootState, string | undefined>((state) => state.match.teams[fieldSide]?.shortName);
   const displayScore = useDisplayScore(fieldSide);
+  const { taskObjects } = useCurrentMatchState(fieldSide);
+  const displayTasks = {
+    "千葉": taskObjects["Chiba"],
+    "さいたま": taskObjects["Saitama"],
+    "横浜": taskObjects["Yokohama"],
+    "渋谷": taskObjects["Shibuya"],
+  };
 
   const color = fieldSide == "blue" ? "rgba(0, 0, 240, 0.8)" : "rgba(240, 0, 0, 0.8)";
 
@@ -84,10 +144,24 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
           <Box sx={{ 
             width: '320px',
             height: '130px',
-            backgroundColor: 'yellow',
-            fontSize: '16px',
+            padding: placement === "left" ? '0 0 0 20px' : '0 20px 0 0',
+            display: 'flex',
+            flexDirection: 'row',
           }}>
-            ここに得点をいい感じに詳細表示する
+            {
+              Object.entries(displayTasks).map(([name, value]) => (
+                <Box key={name} sx={{ 
+                  width: '75px',
+                }}>
+                  <TowerDisplay
+                    key={value}
+                    color={color}
+                    location={name}
+                    value={value}
+                  />
+                </Box>
+              ))
+            }
           </Box>
         </Box>
       </Box>
@@ -98,7 +172,7 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
       }}>
         {displayScore.scoreState.winner && 
           <CenterFlex sx={{
-            width: '240px',
+            width: '180px',
             height: '60px',
             backgroundColor: `${color}`,
             fontSize: "42px",
@@ -121,7 +195,7 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
       width: '400px',
       height: '190px',
       textAlign: 'center',
-      backgroundColor: 'rgba(10, 10, 10, 0.9)',
+      backgroundColor: 'rgba(10, 10, 10, 0.95)',
       boxSizing: 'border-box',
       color: 'rgba(240, 240, 240, 0.95)',
       zIndex: 10,
