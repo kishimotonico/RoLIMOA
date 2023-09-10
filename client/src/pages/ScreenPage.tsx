@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
 import { Box, IconButton } from '@mui/material';
 import { CenterFlex } from '@/ui/CenterFlex';
 import CachedIcon from '@mui/icons-material/Cached';
@@ -7,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
+import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
 
 const BLOCK_WIDTH = "60px";
 const BLOCK_HEIGHT = "20px";
@@ -32,6 +32,7 @@ const TowerContainer = (props: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
+      alignItems: 'flex-end',
     }}>
       {
         Object.entries(displayTasks).map(([name, value]) => (
