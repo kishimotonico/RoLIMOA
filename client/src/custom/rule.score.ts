@@ -5,7 +5,8 @@ type ScoreOutputType = {
   refs?: Record<string, number>,
 } | number;
 
-export function score(stat: CurrentMatchStateType): ScoreOutputType {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function score(_stat: CurrentMatchStateType): ScoreOutputType {
   // ここにスコアの計算処理をかく
   //
   // config.json の rule.score に `"format": "implement"` を指定した場合のみ、
