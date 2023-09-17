@@ -1,59 +1,252 @@
 {
   "contest_info": {
-    "name": "NHK学生ロボコン2023（仮）"
+    "name": "関東夏ロボコン2023"
   },
   "rule": {
     "global_objects": [],
     "task_objects": [
       {
-        "id": "A_1_point",
-        "description": "A.1点獲得",
-        "initialValue": 0
-      },
-      {
-        "id": "B_10_point",
-        "description": "B.10点獲得",
-        "initialValue": 0
-      },
-      {
-        "id": "C_100_point",
-        "description": "C.100点獲得",
+        "id": "Utsunomiya",
+        "description": "宇都宮",
         "initialValue": 0,
         "min": 0,
-        "max": 3
+        "max": 1
+      },
+      {
+        "id": "Chiba",
+        "description": "千葉",
+        "initialValue": 0
+      },
+      {
+        "id": "Saitama",
+        "description": "さいたま",
+        "initialValue": 0
+      },
+      {
+        "id": "Yokohama",
+        "description": "横浜",
+        "initialValue": 0
+      },
+      {
+        "id": "Shibuya",
+        "description": "渋谷",
+        "initialValue": 0
       },
       {
         "id": "violation",
         "description": "違反回数",
-        "initialValue": 0,
-        "min": 0
+        "initialValue": 0
       }
     ],
     "score": {
       "format": "simple",
       "expression": [
         {
-          "id": "A_1_point",
-          "coefficient":1
-        },
-        {
-          "id": "B_10_point",
+          "id": "Utsunomiya",
           "coefficient": 10
         },
         {
-          "id": "C_100_point",
-          "coefficient": 100
+          "id": "Chiba",
+          "coefficient": 10
+        },
+        {
+          "id": "Saitama",
+          "coefficient": 11
+        },
+        {
+          "id": "Yokohama",
+          "coefficient": 14
+        },
+        {
+          "id": "Shibuya",
+          "coefficient": 15
         }
       ]
     },
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "alwaysOk"
+        "type": "disabled"
       }
     },
     "control_panel": {
-      "type": "default"
+      "type": "custom",
+      "panels": [
+        {
+          "id": "Utsunomiya",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Chiba",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Saitama",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Yokohama",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Shibuya",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "=0",
+                "label": "0",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              },
+              {
+                "command": "+2",
+                "label": "+2"
+              },
+              {
+                "command": "+4",
+                "label": "+4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "violation",
+          "type": "multi_button",
+          "option": {
+            "buttons": [
+              {
+                "command": "-1",
+                "label": "-1",
+                "style": {
+                  "variant": "outlined"
+                }
+              },
+              {
+                "command": "+1",
+                "label": "+1"
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "time_progress": [
@@ -81,7 +274,17 @@
       "style": {
         "timerFormat": "m:ss",
         "timerType": "countup"
-      }
+      },
+      "custom": [
+        {
+          "elapsedTime": 0,
+          "sound": "tone_440hz_500ms.mp3"
+        },
+        {
+          "elapsedTime": 60,
+          "sound": "tone_440hz_500ms.mp3"
+        }
+      ]
     },
     {
       "id": "match_ready",
@@ -116,7 +319,7 @@
     {
       "id": "match",
       "type": "count",
-      "time": 30,
+      "time": 180,
       "description": "競技中",
       "style": {
         "timerFormat": "m:ss",
@@ -129,19 +332,19 @@
           "sound": "tone_880hz_1000ms.mp3"
         },
         {
-          "elapsedTime": 27,
+          "elapsedTime": 177,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 28,
+          "elapsedTime": 178,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 29,
+          "elapsedTime": 179,
           "sound": "tone_440hz_500ms.mp3"
         },
         {
-          "elapsedTime": 30,
+          "elapsedTime": 180,
           "sound": "tone_880hz_1000ms.mp3"
         }
       ]

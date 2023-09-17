@@ -37,7 +37,26 @@ export const taskObjectToggleButtonSchema = z.object({
   style: commonStyleSchema.optional(),
 });
 
+export const taskObjectMultiButtonSchema = z.object({
+  ...commonSchema,
+  type: z.literal("multi_button"),
+  option: z.object({
+    buttons: z.array(
+      z.object({
+        command: z.string().regex(/^[-+=]\d+$/),
+        label: z.string(),
+        style: z.object({
+          color: colorSchema.optional(),
+          variant: z.enum(["text", "outlined", "contained"]).optional(),
+        }).optional(),
+      }),
+    ),
+    vertical: z.boolean().optional(),
+  }),
+});
+
 export const customControlPanelSchema = z.union([
   taskObjectToggleButtonSchema,
   taskObjectToggleSwitchSchema,
+  taskObjectMultiButtonSchema,
 ]);

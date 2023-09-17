@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { configSchema } from './schema';
 import {
   customControlPanelSchema,
+  taskObjectMultiButtonSchema,
   taskObjectToggleButtonSchema,
   taskObjectToggleSwitchSchema,
 } from './schema/controlPanel';
@@ -17,3 +18,4 @@ export type TimeFormat = NonNullable<z.infer<typeof timerFormatSchema>>;
 export type CustomControlPanelType = z.infer<typeof customControlPanelSchema>;
 export type TaskObjectToggleSwitchUiType = z.infer<typeof taskObjectToggleSwitchSchema>;
 export type TaskObjectToggleButtonUiType = z.infer<typeof taskObjectToggleButtonSchema>;
+export type taskObjectMultiButtonUiType = z.infer<typeof taskObjectMultiButtonSchema>;
