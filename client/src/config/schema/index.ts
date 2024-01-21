@@ -83,6 +83,9 @@ export const configSchema = z.object({
           customControlPanelSchema
         ).optional(),
       }),
+      z.object({
+        type: z.literal("implement"),
+      }),
     ]),
   }),
   time_progress: z.array(

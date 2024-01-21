@@ -151,7 +151,7 @@
       }
     },
     "control_panel": {
-      "type": "default"
+      "type": "implement"
     }
   },
   "time_progress": [

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { FieldSideType } from '@/slices/score';
 import { config } from '@/config/load';
 import { ScoreInputControl } from './ScoreInputControl';
+import { CustomScoreInput } from './custom/CustomScoreInput';
 
 
 type ScoreInputPanelProps = {
@@ -11,8 +12,13 @@ type ScoreInputPanelProps = {
 export const ScoreInputPanel: FC<ScoreInputPanelProps> = ({
   fieldSide,
 }) => {
+  // 実装: TypeScriptで直接実装したUIを表示（仮）
+  if (config.rule.control_panel?.type === "implement") {
+    return <CustomScoreInput fieldSide={fieldSide} />;
+  }
+
+  // カスタム: config.jsonで指定したUIを表示
   if (config.rule.control_panel?.type === "custom") {
-    // カスタム: config.jsonで指定したUIを表示
     return <>
       {
         config.rule.control_panel.panels?.map(panel => (
