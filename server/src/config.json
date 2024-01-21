@@ -1,36 +1,109 @@
 {
   "contest_info": {
-    "name": "関東夏ロボコン2023"
+    "name": "関東春ロボコン2024"
   },
   "rule": {
-    "global_objects": [],
+    "global_objects": [
+      {
+        "id": "shop_1",
+        "description": "売店1",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_2",
+        "description": "売店2",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_3",
+        "description": "売店3",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_4",
+        "description": "売店4",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_5",
+        "description": "売店5",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_6",
+        "description": "売店6",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_7",
+        "description": "売店7",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      },
+      {
+        "id": "shop_8",
+        "description": "売店8",
+        "initialValue": 0,
+        "min": 0,
+        "max": 2
+      }
+    ],
     "task_objects": [
       {
-        "id": "Utsunomiya",
-        "description": "宇都宮",
+        "id": "rule_A",
+        "description": "A.土台に接触",
         "initialValue": 0,
         "min": 0,
         "max": 1
       },
       {
-        "id": "Chiba",
-        "description": "千葉",
-        "initialValue": 0
+        "id": "rule_B",
+        "description": "B.ひな人形接地",
+        "initialValue": 0,
+        "max": 5
       },
       {
-        "id": "Saitama",
-        "description": "さいたま",
-        "initialValue": 0
+        "id": "rule_C",
+        "description": "C.大台座が接地",
+        "initialValue": 0,
+        "max": 1
       },
       {
-        "id": "Yokohama",
-        "description": "横浜",
-        "initialValue": 0
+        "id": "rule_D",
+        "description": "D.小台座が接地",
+        "initialValue": 0,
+        "max": 1
       },
       {
-        "id": "Shibuya",
-        "description": "渋谷",
-        "initialValue": 0
+        "id": "rule_E",
+        "description": "E.台座完成",
+        "initialValue": 0,
+        "max": 1
+      },
+      {
+        "id": "rule_F",
+        "description": "F.内裏雛を配置",
+        "initialValue": 0,
+        "max": 2
+      },
+      {
+        "id": "rule_G",
+        "description": "G.三人官女を配置",
+        "initialValue": 0,
+        "max": 3
       },
       {
         "id": "violation",
@@ -42,211 +115,43 @@
       "format": "simple",
       "expression": [
         {
-          "id": "Utsunomiya",
+          "id": "rule_A",
+          "coefficient": 5
+        },
+        {
+          "id": "rule_B",
+          "coefficient": 5
+        },
+        {
+          "id": "rule_C",
           "coefficient": 10
         },
         {
-          "id": "Chiba",
+          "id": "rule_D",
           "coefficient": 10
         },
         {
-          "id": "Saitama",
-          "coefficient": 11
+          "id": "rule_E",
+          "coefficient": 50
         },
         {
-          "id": "Yokohama",
-          "coefficient": 14
+          "id": "rule_F",
+          "coefficient": 20
         },
         {
-          "id": "Shibuya",
-          "coefficient": 15
+          "id": "rule_G",
+          "coefficient": 20
         }
       ]
     },
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "disabled"
+        "type": "alwaysOk"
       }
     },
     "control_panel": {
-      "type": "custom",
-      "panels": [
-        {
-          "id": "Utsunomiya",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Chiba",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Saitama",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Yokohama",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Shibuya",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "violation",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "default"
     }
   },
   "time_progress": [
