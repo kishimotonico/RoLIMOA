@@ -106,9 +106,10 @@
         "max": 3
       },
       {
-        "id": "violation",
-        "description": "違反回数",
-        "initialValue": 0
+        "id": "rule_H",
+        "description": "H.雛壇完成",
+        "initialValue": 0,
+        "max": 1
       }
     ],
     "score": {
@@ -141,13 +142,25 @@
         {
           "id": "rule_G",
           "coefficient": 20
+        },
+        {
+          "id": "rule_H",
+          "coefficient": 50
         }
       ]
     },
     "vgoal": {
-      "name": "Vゴール",
+      "name": "ひなまつり",
       "condition": {
-        "type": "alwaysOk"
+        "type": "manual",
+        "required": {
+          "tasks": [
+            {
+              "id": "rule_H",
+              "count": 1
+            }
+          ]
+        }
       }
     },
     "control_panel": {
