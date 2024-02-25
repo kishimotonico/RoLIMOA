@@ -23,16 +23,15 @@ export const CustomToggleButton: FC<CustomToggleButtonProps> = ({
       exclusive 
       orientation='horizontal'
     >
-      <ToggleButton value={1} selected={1 === value} color='primary'>
-        🔵
+      <ToggleButton value={2} selected={2 === value} color='secondary'>
+        🔴
       </ToggleButton>
       <ToggleButton value={0} selected={0 === value} color='standard'>
         &nbsp;{label}&nbsp;
       </ToggleButton>
-      <ToggleButton value={2} selected={2 === value} color='secondary'>
-        🔴
+      <ToggleButton value={1} selected={1 === value} color='primary'>
+        🔵
       </ToggleButton>
-
     </ToggleButtonGroup>
   );
 };
