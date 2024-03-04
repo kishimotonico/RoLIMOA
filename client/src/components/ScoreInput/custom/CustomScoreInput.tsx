@@ -77,7 +77,7 @@ export const CustomScoreInput: FC<CustomScoreInputProps> = ({
         <CustomSwitchButton label='E. 台座完成' value={taskObj['rule_E']} onChange={taskUpdate('rule_E')} color={color} />
         <CustomPluseMinuseButton label='F. 内裏雛を配置' value={taskObj['rule_F']} onChange={taskUpdate('rule_F')} color={color} max={2} />
         <CustomPluseMinuseButton label='G. 三人官女を配置' value={taskObj['rule_G']} onChange={taskUpdate('rule_G')} color={color} max={3} />
-        <CustomSwitchButton label='H. 雛壇完成' value={taskObj['rule_H']} onChange={taskUpdate('rule_H')} color={color} />
+        <CustomSwitchButton label='H. 雛壇完成' value={taskObj['rule_H']} onChange={taskUpdate('rule_H')} color={color} isAuto />
       </Stack>
     </Grid>
   </>;
