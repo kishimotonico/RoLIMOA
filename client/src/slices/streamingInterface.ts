@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type StreamingInterface = {
   showMainHud: boolean,
   showScoreBoard: boolean,
+  showSubHud: boolean,
 };
 
 const initialState: StreamingInterface = {
   showMainHud: true,
   showScoreBoard: true,
+  showSubHud: true,
 };
 
 export const streamingInterfaceSlice = createSlice({
@@ -20,6 +22,9 @@ export const streamingInterfaceSlice = createSlice({
     },
     setShowScoreBoard: (cur, action: PayloadAction<boolean>) => {
       cur.showScoreBoard = action.payload;
+    },
+    setShowSubHud: (cur, action: PayloadAction<boolean>) => {
+      cur.showSubHud = action.payload;
     },
   },
 });

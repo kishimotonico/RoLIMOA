@@ -108,6 +108,7 @@ const StreamingInterfaceController: FC = () => {
   const dispatch = useDispatch();
   const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
   const showScoreBoard = useSelector<RootState, boolean>((state) => state.streamingInterface.showScoreBoard);
+  const showSubHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showSubHud);
 
   const onChangeShowMainHud = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch([
@@ -118,6 +119,12 @@ const StreamingInterfaceController: FC = () => {
   const onChangeShowScoreBoard = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch([
       streamingInterfaceSlice.actions.setShowScoreBoard(event.target.checked),
+    ], dispatch);
+  };
+
+  const onChangeShowSubHud = (event: React.ChangeEvent<HTMLInputElement>) => {
+    LyricalSocket.dispatch([
+      streamingInterfaceSlice.actions.setShowSubHud(event.target.checked),
     ], dispatch);
   };
 
@@ -134,6 +141,12 @@ const StreamingInterfaceController: FC = () => {
           <Switch checked={showScoreBoard} onChange={onChangeShowScoreBoard} />
         }
         label="スコアを表示する"
+      />
+      <FormControlLabel
+        control={
+          <Switch checked={showSubHud} onChange={onChangeShowSubHud} />
+        }
+        label="サブHUDを表示する"
       />
     </Box>
   );

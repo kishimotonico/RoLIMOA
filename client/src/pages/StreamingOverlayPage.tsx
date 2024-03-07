@@ -1,8 +1,8 @@
 import { FC, Ref } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';
-import { FieldSideType } from '@/slices/score';
-import { Box, Divider, Slide } from '@mui/material';
+import { FieldSideType, ObjectsStateType } from '@/slices/score';
+import { Avatar, Box, Divider, Slide, Stack } from '@mui/material';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
@@ -145,6 +145,49 @@ const TimerDisplay: FC<{ ref?: Ref<null> }> = ({ ref }) => {
   </>;
 };
 
+const SubHudDisplay = () => {
+  const globalObjects = useSelector<RootState, ObjectsStateType>((state) => state.score.global);
+
+  const ShopArea = (props: { label :number, stat: number }) => (
+    <Avatar sx={{
+      bgcolor: props.stat === 1 ? "rgba(0, 0, 240, 0.9)"
+             : props.stat === 2 ? "rgba(240, 0, 0, 0.9)" : "rgba(240, 240, 240, 0.9)",
+      color: props.stat === 0 ? "black" : "white",
+      width: "36px",
+      height: "36px",
+      margin: "8px auto",
+      fontSize: "16px",
+    }}>
+      {props.label}
+    </Avatar>
+  );
+
+  return (
+    <Box sx={{ 
+      width: '90px',
+      bgcolor: 'rgba(240, 240, 240, 0.7)',
+      borderStyle: 'solid 1px rgba(240, 240, 240, 0.5)',
+      borderRadius: '8px',
+      p: 2,
+      mt: 4,
+     }}>
+      <CenterFlex sx={{ fontSize: '18px', my: 1 }}>
+        売店ゾーン
+      </CenterFlex>
+      <Stack>
+        <ShopArea label={1} stat={globalObjects['shop_1']} />
+        <ShopArea label={2} stat={globalObjects['shop_2']} />
+        <ShopArea label={3} stat={globalObjects['shop_3']} />
+        <ShopArea label={4} stat={globalObjects['shop_4']} />
+        <ShopArea label={5} stat={globalObjects['shop_5']} />
+        <ShopArea label={6} stat={globalObjects['shop_6']} />
+        <ShopArea label={7} stat={globalObjects['shop_7']} />
+        <ShopArea label={8} stat={globalObjects['shop_8']} />
+      </Stack>
+    </Box>
+  );
+};
+
 export type StreamingOverlayPageParams = {
   reverse: boolean,
 };
@@ -157,7 +200,8 @@ export const StreamingOverlayPage: FC = () => {
 
   const showMainHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showMainHud);
   const showScoreBoard = useSelector<RootState, boolean>((state) => state.streamingInterface.showScoreBoard);
-  
+  const showSubHud = useSelector<RootState, boolean>((state) => state.streamingInterface.showSubHud);
+
   return (
     <Box sx={{
       position: 'absolute',
@@ -192,6 +236,18 @@ export const StreamingOverlayPage: FC = () => {
           </SlideTransition>
         </Box>
       </Slide>
+      <Box sx={{
+        width: '100%',
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'flex-end',
+      }}>
+        <Slide in={showSubHud} direction="left" timeout={800} appear={false}>
+          <Box sx={{ width: '160px' }}>
+            <SubHudDisplay />
+          </Box>
+        </Slide>
+      </Box>
     </Box>
   );
 }
