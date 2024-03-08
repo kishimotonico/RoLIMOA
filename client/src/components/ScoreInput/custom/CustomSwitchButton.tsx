@@ -1,11 +1,15 @@
 import { FC, useCallback } from 'react';
-import { Switch, Paper, Typography, FormControlLabel, Badge, BadgeProps, styled } from '@mui/material';
+import { Switch, Paper, Typography, Badge, BadgeProps, styled, Grid } from '@mui/material';
 
-const AutoLabel = styled(Badge)<BadgeProps>(() => ({
+const AutoLabel = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
     right: -24,
     top: 16,
     padding: '0 6px',
+    [theme.breakpoints.only('xs')]: {
+      right: 12,
+      top: 0,
+    },
   },
 }));
 
@@ -30,22 +34,21 @@ export const CustomSwitchButton: FC<CustomSwitchButtonProps> = ({
   }, [stateUpdate]);
 
   return (
-    <Paper sx={{ p: '1em', userSelect: "none" }}>
-      <FormControlLabel 
-        label={
-          <AutoLabel color={color} badgeContent="AUTO" invisible={!isAuto} >
-            <Typography variant="h6">
-              {label}
-            </Typography>
-          </AutoLabel>
-        }
-        control={
-            <Switch onChange={onChange} color={color} checked={checked}/>
-        }
-        sx={{ 
-          width: '100%',
-         }}
-      />
+    <Paper sx={{ p: '1em 0.7em', userSelect: "none" }}>
+      <label style={{ cursor: 'pointer' }}>
+        <Grid container alignItems='center' gap='1em'>
+          <Grid item sx={{ mt: '1px' }}>
+            <Switch onChange={onChange} color={color} checked={checked} />
+          </Grid>
+          <Grid item zeroMinWidth>
+            <AutoLabel color={color} badgeContent="AUTO" invisible={!isAuto} sx={{ width: '100%' }}>
+              <Typography variant="h6" noWrap>
+                {label}
+              </Typography>
+            </AutoLabel>
+          </Grid>
+        </Grid>
+      </label>
     </Paper>
   );
 };
