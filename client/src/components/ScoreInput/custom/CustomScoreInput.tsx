@@ -58,14 +58,15 @@ export const CustomScoreInput: FC<CustomScoreInputProps> = ({
     })];
 
     // XXX: 条件を満たしたとき「H.雛壇完成」を自動で達成する雑な実装
-    if (id === 'rule_F' || id === 'rule_G') {
+    if (id === 'rule_E' || id === 'rule_F' || id === 'rule_G') {
+      const rule_E = id === 'rule_E' ? value : taskObj['rule_E'];
       const rule_F = id === 'rule_F' ? value : taskObj['rule_F'];
       const rule_G = id === 'rule_G' ? value : taskObj['rule_G'];
 
       actions.push(scoreStateSlice.actions.setTaskUpdate({
         fieldSide,
         taskObjectId: 'rule_H',
-        afterValue: (rule_F == 2 && rule_G == 3) ? 1 : 0,
+        afterValue: (rule_E === 1 && rule_F === 2 && rule_G === 3) ? 1 : 0,
       }));
     }
 
