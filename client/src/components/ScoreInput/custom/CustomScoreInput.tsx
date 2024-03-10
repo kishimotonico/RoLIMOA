@@ -22,7 +22,7 @@ const ShopAreaControl = (props: { sx?: SxProps, spacing?: number | string  }) =>
   });
 
   return (
-    <Paper sx={{ p: 2.6, userSelect: "none", ...props.sx }}>
+    <Paper sx={{ p: 2.4, userSelect: "none", ...props.sx }}>
       <Stack spacing={props.spacing ?? 2} sx={{ alignItems: 'center' }}>
         <Typography variant='h6'>売店エリア</Typography>
         <CustomToggleButton label='1' value={globalObj['shop_1']} onChange={globalUpdate('shop_1')} />
@@ -76,54 +76,52 @@ export const CustomScoreInput: FC<CustomScoreInputProps> = ({
   const color = fieldSide === 'blue' ? 'primary' : 'secondary';
 
   return <>
-    <Grid item md={3} sm={4} xs={12}>
-      <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-        <ShopAreaControl />
+    <Grid item xs={12} sx={{ display: { xs: 'flex', sm: 'none' } }}>
+      <Button onClick={() => setIsOpenShopAreaModal(true)} variant='outlined' color={color} fullWidth>
+        売店エリア <OpenInBrowserIcon />
+      </Button>
+      <Modal open={isOpenShopAreaModal} onClose={() => setIsOpenShopAreaModal(false)}>
+        <Box sx={{
+          width: '60%',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          position: 'absolute',
+        }}>
+        <ShopAreaControl sx={{ p: 2 }} spacing={1} />
       </Box>
-      <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-        <Button sx={{ width: '100%' }} onClick={() => setIsOpenShopAreaModal(true)} variant='outlined' color={color}>
-          売店エリア <OpenInBrowserIcon />
-        </Button>
-        <Modal open={isOpenShopAreaModal} onClose={() => setIsOpenShopAreaModal(false)}>
-          <Box sx={{
-            width: '60%',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            position: 'absolute',
-          }}>
-          <ShopAreaControl sx={{ p: 2 }} spacing={1} />
-        </Box>
-        </Modal>
-      </Box>
+      </Modal>
     </Grid>
     <Grid item md={9} sm={8} xs={12}>
       <Grid container spacing={1}>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomSwitchButton label='A. 台座に接触' value={taskObj['rule_A']} onChange={taskUpdate('rule_A')} color={color} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomPluseMinuseButton label='B. 雛人形が接地' value={taskObj['rule_B']} onChange={taskUpdate('rule_B')} color={color} max={5}/>
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomSwitchButton label='C. 大台座が接地' value={taskObj['rule_C']} onChange={taskUpdate('rule_C')} color={color} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomSwitchButton label='D. 小台座が接地' value={taskObj['rule_D']} onChange={taskUpdate('rule_D')} color={color} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomSwitchButton label='E. 台座完成' value={taskObj['rule_E']} onChange={taskUpdate('rule_E')} color={color} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomPluseMinuseButton label='F. 内裏雛を配置' value={taskObj['rule_F']} onChange={taskUpdate('rule_F')} color={color} max={2} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomPluseMinuseButton label='G. 三人官女を配置' value={taskObj['rule_G']} onChange={taskUpdate('rule_G')} color={color} max={3} />
         </Grid>
-        <Grid item md={12} sm={12} xs={6}>
+        <Grid item xs={12}>
           <CustomSwitchButton label='H. 雛壇完成' value={taskObj['rule_H']} onChange={taskUpdate('rule_H')} color={color} isAuto />
         </Grid>
       </Grid>
+    </Grid>
+    <Grid item md={3} sm={4} xs={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
+      <ShopAreaControl />
     </Grid>
   </>;
 };

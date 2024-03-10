@@ -19,9 +19,12 @@ export const CustomPluseMinuseButton: FC<CustomPluseMinuseButtonProps> = ({
   max = 9999,
 }) => {
   return (
-    <Paper sx={{ p: '1em 0.7em', userSelect: 'none' }}>
-      <Grid container alignItems='center' gap='1em'>
-        <Grid item>
+    <Paper sx={{ p: { xs: '0.6em', md: '1em 0.7em'}, userSelect: 'none' }}>
+      <Grid container alignItems='center' justifyContent='space-between'>
+        <Grid item xs={6} zeroMinWidth>
+          <Typography variant='h6' noWrap>{label}</Typography>
+        </Grid>      
+        <Grid item xs='auto'>
           <ButtonGroup
             size='small'
           >
@@ -51,9 +54,6 @@ export const CustomPluseMinuseButton: FC<CustomPluseMinuseButtonProps> = ({
               ＋
             </Button>
           </ButtonGroup>
-        </Grid>
-        <Grid item zeroMinWidth>
-          <Typography variant='h6' noWrap>{label}</Typography>
         </Grid>
       </Grid>
     </Paper>
