@@ -5,7 +5,7 @@ import {
   AppBarProps as MuiAppBarProps,
   Drawer as MuiDrawer,
   Box, Container, CssBaseline, Divider, IconButton, List, ListItemButton,
-  ListItemText, ListSubheader, Toolbar, Typography,
+  ListItemText, ListSubheader, Toolbar, Typography, useMediaQuery, Theme,
 } from '@mui/material';
 import { styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -86,9 +86,12 @@ export const Dashboard: FC<DashboardProps> = ({
   children,
   title,
 }) => {
-  const [open, setOpen] = useRecoilState(isDrawerOpen);
+  const [_open, setOpen] = useRecoilState(isDrawerOpen);
   const handleDrawerOpen = () => { setOpen(true); };
   const handleDrawerClose = () => { setOpen(false); };
+
+  const spMode = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
+  const open = _open ?? !spMode;
 
   return (
     <Box sx={{ display: 'flex' }}>
