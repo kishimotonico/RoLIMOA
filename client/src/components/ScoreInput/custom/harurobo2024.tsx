@@ -88,13 +88,14 @@ export const ScoreDetailDisplay = (props: {
     }[props.fieldSide];
     const 内裏雛の数 = props.taskObjects["rule_F"];
     const 三人官女の数 = props.taskObjects["rule_G"];
-  
+
     return <Box sx={{ 
       width: '300px',
       height: '120px',
       position: 'relative',
+      textAlign: 'center',
     }}>
-  
+
       <HinaBaseLayer
         label="小台座"
         isPlaced={Boolean(props.taskObjects["rule_D"])}
