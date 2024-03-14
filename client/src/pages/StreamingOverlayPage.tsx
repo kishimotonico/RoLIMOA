@@ -105,13 +105,18 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
       </Box>
       <Box sx={{
         display: "flex",
-        width: "100%",
         justifyContent: placement === "left" ? "flex-start" : "flex-end",
+        position: "relative",
+        width: '420px',
+        top: "-70px",
+        left: placement === "left" ? "180px" : "0",
+        clipPath: placement === "left" ? 'polygon(0 100%, 71% 100%, 100% 0, 29% 0)'
+                                      : 'polygon(0 0, 29% 100%, 100% 100%, 71% 0)',
       }}>
         {displayScore.scoreState.winner && 
           <CenterFlex sx={{
-            width: '180px',
-            height: '60px',
+            height: "70px",
+            width: '420px',
             backgroundColor: `${color}`,
             fontSize: "42px",
             color: "rgba(255, 255, 255, 0.95)",
