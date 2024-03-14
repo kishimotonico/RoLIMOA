@@ -69,6 +69,16 @@ export const CustomScoreInput: FC<CustomScoreInputProps> = ({
         afterValue: (rule_E === 1 && rule_F === 2 && rule_G === 3) ? 1 : 0,
       }));
     }
+    // XXX: FかGを+1したとき、Bを-1する雑な実装
+    const isIncrementF = id === 'rule_F' && value === taskObj['rule_F'] + 1;
+    const isIncrementG = id === 'rule_G' && value === taskObj['rule_G'] + 1;
+    if (taskObj['rule_B'] > 0 && (isIncrementF || isIncrementG)) {
+      actions.push(scoreStateSlice.actions.setTaskUpdate({
+        fieldSide,
+        taskObjectId: 'rule_B',
+        afterValue: taskObj['rule_B'] - 1,
+      }));
+    }
 
     LyricalSocket.dispatch(actions, dispatch);
   });
