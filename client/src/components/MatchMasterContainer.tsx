@@ -1,19 +1,22 @@
-import { FC, useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
-import { RootState } from '@/slices';
-import { TeamType, matchStateSlice } from '@/slices/match';
-import { phaseStateSlice } from '@/slices/phase';
-import { initialState as scoreInitialState, scoreStateSlice } from '@/slices/score';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
-import * as Phase from '@/util/PhaseStateUtil';
-import { config } from '@/config/load';
-import { MatchMasterComponent } from './MatchMasterComponent';
+import { FC, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRecoilValue } from "recoil";
+import { RootState } from "@/slices";
+import { TeamType, matchStateSlice, MatchState } from "@/slices/match";
+import { phaseStateSlice } from "@/slices/phase";
+import {
+  initialState as scoreInitialState,
+  scoreStateSlice,
+} from "@/slices/score";
+import { unixtimeOffset } from "@/atoms/unixtimeOffset";
+import { LyricalSocket } from "@/lyricalSocket";
+import * as Phase from "@/util/PhaseStateUtil";
+import { config } from "@/config/load";
+import { MatchMasterComponent } from "./MatchMasterComponent";
 
 // 省略名からチームリストの情報を取得、なければスタブを作成
 function getTeamInfo(short: string): TeamType {
-  const team = config.teams_info.find(team => team.short === short);
+  const team = config.teams_info.find((team) => team.short === short);
   return {
     shortName: short,
     ...team,
@@ -21,22 +24,34 @@ function getTeamInfo(short: string): TeamType {
 }
 
 export const MatchMasterContainer: FC = () => {
-  const teamList = config.teams_info.map(info => info.short);
-  const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
+  const teamList = config.teams_info.map((info) => info.short);
+  const currentPhaseId = useSelector<RootState, string>(
+    (state) => state.phase.current.id
+  );
+  const match = useSelector<RootState, MatchState>((state) => state.match);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [matchName, setMatchName] = useState("");
   const [blueTeamName, setBlueTeamName] = useState("");
   const [redTeamName, setRedTeamName] = useState("");
 
-  const onChangeMatchName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setMatchName(event.target.value);
-  }, []);
-  const onChangeBlueTeamName = useCallback((_: React.SyntheticEvent, name: string) => {
-    setBlueTeamName(name);
-  }, []);
-  const onChangeRedTeamName = useCallback((_: React.SyntheticEvent, name: string) => {
-    setRedTeamName(name);
-  }, []);
+  const onChangeMatchName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setMatchName(event.target.value);
+    },
+    []
+  );
+  const onChangeBlueTeamName = useCallback(
+    (_: React.SyntheticEvent, name: string) => {
+      setBlueTeamName(name);
+    },
+    []
+  );
+  const onChangeRedTeamName = useCallback(
+    (_: React.SyntheticEvent, name: string) => {
+      setRedTeamName(name);
+    },
+    []
+  );
 
   const onSubmitButton = useCallback(() => {
     LyricalSocket.dispatchAll([
@@ -66,7 +81,10 @@ export const MatchMasterContainer: FC = () => {
       onChangeBlueTeamName={onChangeBlueTeamName}
       onChangeRedTeamName={onChangeRedTeamName}
       onStartButton={onSubmitButton}
-      isEnabledStartButton={Phase.isLast(currentPhaseId)}
+      isEnabledStartButton={
+        Phase.isLast(currentPhaseId) &&
+        (match.isConfirmed || Object.keys(match.teams).length === 0)
+      }
     />
   );
-}
+};
