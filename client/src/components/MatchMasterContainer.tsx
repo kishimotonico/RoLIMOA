@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRecoilValue } from "recoil";
 import { RootState } from "@/slices";
-import { TeamType, matchStateSlice, MatchState } from "@/slices/match";
+import { TeamType, matchStateSlice } from "@/slices/match";
 import { phaseStateSlice } from "@/slices/phase";
 import {
   initialState as scoreInitialState,
@@ -28,7 +28,6 @@ export const MatchMasterContainer: FC = () => {
   const currentPhaseId = useSelector<RootState, string>(
     (state) => state.phase.current.id
   );
-  const match = useSelector<RootState, MatchState>((state) => state.match);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [matchName, setMatchName] = useState("");
   const [blueTeamName, setBlueTeamName] = useState("");
