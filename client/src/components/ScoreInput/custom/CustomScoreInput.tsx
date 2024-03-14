@@ -88,8 +88,8 @@ export const CustomScoreInput: FC<CustomScoreInputProps> = ({
           transform: 'translate(-50%, -50%)',
           position: 'absolute',
         }}>
-        <ShopAreaControl sx={{ p: 2 }} spacing={1} />
-      </Box>
+          <ShopAreaControl sx={{ p: 2 }} spacing={1} />
+        </Box>
       </Modal>
     </Grid>
     <Grid item md={9} sm={8} xs={12}>
