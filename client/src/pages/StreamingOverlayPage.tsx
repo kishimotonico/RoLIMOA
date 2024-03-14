@@ -67,23 +67,26 @@ const ScoreBlock: FC<ScoreBlockProps> = ({
           transform: placement === "left" ? '' : 'scaleX(-1)',
         }}>
           {/* 点数表示 */}
-          <Box sx={{
+          <CenterFlex sx={{
             width: '280px',
            }}>
-            {displayScore.scoreState.vgoal && (
-              <Box sx={{ fontSize: "40px" }}>
+            {displayScore.scoreState.vgoal ? (
+              <Box sx={{ fontSize: "48px", pb: 3 }}>
                 <Box>
                   {config.rule.vgoal.name}
                 </Box>
-                <Box>
-                  🏴 {formatTime(displayScore.scoreState.vgoal, "m:ss")}
-                </Box>
+                <CenterFlex sx={{ fontSize: "32px", flexDirection: "row", color: "rgba(30, 30, 30, 0.9)" }}>
+                  {displayScore.value}
+                  &nbsp;/&nbsp;
+                  <TimerIcon sx={{ mr: 1 }} />{formatTime(displayScore.scoreState.vgoal, "m:ss")}
+                </CenterFlex>
               </Box>
+            ) : (
+              <CenterFlex sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}>
+                {displayScore.value}
+              </CenterFlex>
             )}
-            <CenterFlex sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}>
-              {displayScore.value}
-            </CenterFlex>
-          </Box>
+          </CenterFlex>
           {/* 詳細表示 */}
           <Box sx={{ 
             width: '300px',
