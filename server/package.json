@@ -16,6 +16,7 @@
     "@types/socket.io": "^2.1.12",
     "date-fns": "^2.29.3",
     "express": "^4.17.1",
+    "googleapis": "^134.0.0",
     "socket.io": "^3.0.4",
     "typescript": "^4.1.3"
   },

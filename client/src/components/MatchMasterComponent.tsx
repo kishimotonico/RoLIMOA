@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import { Paper, Typography, Grid, Button, TextField } from '@mui/material';
-import { Autocomplete } from '@mui/material';
+import { FC } from "react";
+import { Paper, Typography, Grid, Button, TextField } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 
 interface MatchMasterComponentProps {
-  teamOptions: string[],
-  onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void,
-  onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void,
-  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-  isEnabledStartButton: boolean,
+  teamOptions: string[];
+  onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void;
+  onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void;
+  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  isEnabledStartButton: boolean;
 }
 
 export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
@@ -20,7 +20,7 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
   isEnabledStartButton,
 }) => {
   return (
-    <Paper sx={{ padding: '1em' }}>
+    <Paper sx={{ padding: "1em" }}>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         試合マスタ
       </Typography>
@@ -37,21 +37,6 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
             freeSolo
             disableClearable
             options={teamOptions}
-            onInputChange={onChangeBlueTeamName}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="青チーム名"
-                margin="normal"
-                variant="outlined"
-                InputProps={{ ...params.InputProps, type: 'search' }}
-              />
-            )}
-          />
-          <Autocomplete
-            freeSolo
-            disableClearable
-            options={teamOptions}
             onInputChange={onChangeRedTeamName}
             renderInput={(params) => (
               <TextField
@@ -59,7 +44,22 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
                 label="赤チーム名"
                 margin="normal"
                 variant="outlined"
-                InputProps={{ ...params.InputProps, type: 'search' }}
+                InputProps={{ ...params.InputProps, type: "search" }}
+              />
+            )}
+          />
+          <Autocomplete
+            freeSolo
+            disableClearable
+            options={teamOptions}
+            onInputChange={onChangeBlueTeamName}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="青チーム名"
+                margin="normal"
+                variant="outlined"
+                InputProps={{ ...params.InputProps, type: "search" }}
               />
             )}
           />
@@ -75,4 +75,4 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
       </Grid>
     </Paper>
   );
-}
+};
