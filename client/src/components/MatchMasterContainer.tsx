@@ -81,9 +81,7 @@ export const MatchMasterContainer: FC = () => {
       onChangeBlueTeamName={onChangeBlueTeamName}
       onChangeRedTeamName={onChangeRedTeamName}
       onStartButton={onSubmitButton}
-      isEnabledStartButton={
-        Phase.isLast(currentPhaseId) && (match.isConfirmed || match.name == "")
-      }
+      isEnabledStartButton={Phase.isLast(currentPhaseId)}
     />
   );
 };
