@@ -378,9 +378,9 @@
     },
     {
       "id": "17",
-      "name": "Roman",
+      "name": "@Roman",
       "school": "東京工業高等専門学校",
-      "short": "Roman（東京高専）"
+      "short": "@Roman（東京高専）"
     },
     {
       "id": "18",
@@ -404,7 +404,7 @@
       "id": "21",
       "name": "Maquinista-X",
       "school": "東京工業大学",
-      "short": "Maquinista-X（東工大）"      
+      "short": "Maquinista-X（東工大）"
     },
     {
       "id": "22",
