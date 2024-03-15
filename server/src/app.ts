@@ -86,6 +86,7 @@ io.on("connection", (socket: Socket) => {
       store.dispatch(action); // サーバサイドのストアに反映
 
       if (action.type === "resultRecords/addResult") {
+        // console.log("action.payload", action.payload);
         submitMatchResult(client, action.payload);
       }
     });
@@ -97,6 +98,10 @@ io.on("connection", (socket: Socket) => {
 
     actions.forEach((action) => {
       store.dispatch(action); // サーバサイドのストアに反映
+
+      if (action.type === "resultRecords/addResult") {
+        submitMatchResult(client, action.payload);
+      }
     });
     io.emit("dispatch", actions); // 送信元を含む全てに転送
   });
@@ -111,6 +116,16 @@ io.on("connection", (socket: Socket) => {
       encoding: "utf-8",
     });
     console.log(`succeeded save file: ${filePath}`);
+  });
+
+  // スプレッドシートに試合結果を転記する
+  socket.on("submit_to_spreadsheet", async () => {
+    const state = store.getState();
+    const lastResultRecord = state.resultRecords[-1];
+    console.log("lastResultRecord", lastResultRecord);
+    if (lastResultRecord) {
+      submitMatchResult(client, lastResultRecord);
+    }
   });
 });
 

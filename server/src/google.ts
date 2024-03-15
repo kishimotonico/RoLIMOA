@@ -75,7 +75,7 @@ export function submitMatchResult(auth, payload: any) {
       console.error("The API returned an error.");
       throw err;
     } else {
-      //   console.log(JSON.stringify(res, null, 2));
+      console.log(JSON.stringify(res, null, 2));
     }
   });
 }
