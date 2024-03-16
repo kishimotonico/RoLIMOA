@@ -180,6 +180,21 @@
       ]
     },
     {
+      "id": "displayMatchName",
+      "type": "matchName",
+      "description": ""
+    },
+    {
+      "id": "displayTeamRedName",
+      "type": "matchTeamRedName",
+      "description": ""
+    },
+    {
+      "id": "displayTeamBlueName",
+      "type": "matchTeamBlueName",
+      "description": ""
+    },
+    {
       "id": "setting_ready",
       "type": "ready",
       "description": "セッティングタイム"

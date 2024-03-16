@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { taskObjectSchema } from './taskObject';
-import { customControlPanelSchema } from './controlPanel';
+import { z } from "zod";
+import { taskObjectSchema } from "./taskObject";
+import { customControlPanelSchema } from "./controlPanel";
 
 const vgoalConditionSchema = z.union([
   z.object({
@@ -10,7 +10,7 @@ const vgoalConditionSchema = z.union([
         z.object({
           id: z.string(),
           count: z.number(),
-        }),
+        })
       ),
     }),
   }),
@@ -27,21 +27,32 @@ const vgoalConditionSchema = z.union([
 
 const timeProgressSchema = z.object({
   id: z.string(),
-  type: z.enum(["default", "ready", "count"]),
+  type: z.enum([
+    "default",
+    "ready",
+    "matchName",
+    "matchTeamRedName",
+    "matchTeamBlueName",
+    "count",
+  ]),
   time: z.number().optional(),
   description: z.string(),
   isAutoTransition: z.boolean().optional(),
-  style: z.object({
-    timerFormat: z.enum(["mm:ss", "m:ss", "ss", "s"]).optional(),
-    timerType: z.string().optional(),
-  }).optional(),
-  custom: z.array(
-    z.object({
-      elapsedTime: z.number(),
-      displayText: z.string().optional(),
-      sound: z.string().optional(),
-    }),
-  ).optional(),
+  style: z
+    .object({
+      timerFormat: z.enum(["mm:ss", "m:ss", "ss", "s"]).optional(),
+      timerType: z.string().optional(),
+    })
+    .optional(),
+  custom: z
+    .array(
+      z.object({
+        elapsedTime: z.number(),
+        displayText: z.string().optional(),
+        sound: z.string().optional(),
+      })
+    )
+    .optional(),
 });
 
 export const configSchema = z.object({
@@ -58,7 +69,7 @@ export const configSchema = z.object({
           z.object({
             id: z.string(),
             coefficient: z.number(),
-          }),
+          })
         ),
       }),
       z.object({
@@ -79,25 +90,21 @@ export const configSchema = z.object({
       }),
       z.object({
         type: z.literal("custom"),
-        panels: z.array(
-          customControlPanelSchema
-        ).optional(),
+        panels: z.array(customControlPanelSchema).optional(),
       }),
       z.object({
         type: z.literal("implement"),
       }),
     ]),
   }),
-  time_progress: z.array(
-    timeProgressSchema
-  ),
+  time_progress: z.array(timeProgressSchema),
   teams_info: z.array(
     z.object({
       id: z.string(),
       name: z.string(),
       school: z.string(),
       short: z.string(),
-    }),
+    })
   ),
   client: z.object({
     standalone_mode: z.boolean(),

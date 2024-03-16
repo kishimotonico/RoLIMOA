@@ -1,28 +1,30 @@
-import { FC, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
-import { RootState } from '@/slices';
-import { PhaseState, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
-import * as Phase from '@/util/PhaseStateUtil';
-import { TimerMasterComponent } from './TimerMasterComponent';
+import { FC, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRecoilValue } from "recoil";
+import { RootState } from "@/slices";
+import { PhaseState, CurrentPhaseState, phaseStateSlice } from "@/slices/phase";
+import { unixtimeOffset } from "@/atoms/unixtimeOffset";
+import { LyricalSocket } from "@/lyricalSocket";
+import * as Phase from "@/util/PhaseStateUtil";
+import { TimerMasterComponent } from "./TimerMasterComponent";
 
-function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last", offset: number) {
+function gotoPhaseCommand(
+  currentPhase: CurrentPhaseState,
+  type: "first" | "prev" | "next" | "last",
+  offset: number
+) {
   let id = currentPhase.id;
-  if (type === "first")
-    id = Phase.getFirstPhase();
-  if (type === "prev")
-    id = Phase.getPrevPhase(currentPhase.id);
-  if (type === "next")
-    id = Phase.getNextPhase(currentPhase.id);
-  if (type === "last")
-    id = Phase.getLastPhase();
+  if (type === "first") id = Phase.getFirstPhase();
+  if (type === "prev") id = Phase.getPrevPhase(currentPhase.id);
+  if (type === "next") id = Phase.getNextPhase(currentPhase.id);
+  if (type === "last") id = Phase.getLastPhase();
 
-  LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
-    id,
-    startTime: Date.now() + offset,
-  })]);
+  LyricalSocket.dispatchAll([
+    phaseStateSlice.actions.setState({
+      id,
+      startTime: Date.now() + offset,
+    }),
+  ]);
 }
 
 // フェーズの自動遷移を行うかを判断
@@ -44,6 +46,13 @@ function isManualTransition(phaseState: PhaseState): boolean {
     return false;
   }
   if (config.type === "ready") {
+    return true;
+  }
+  if (
+    config.type === "matchName" ||
+    config.type === "matchTeamRedName" ||
+    config.type === "matchTeamBlueName"
+  ) {
     return true;
   }
   if (config.isAutoTransition || config.time > phaseState.elapsedSecond) {
@@ -92,4 +101,4 @@ export const TimerMasterContainer: FC = () => {
       phaseConfig={Phase.getRawConfig(phaseState.current.id)}
     />
   );
-}
+};
