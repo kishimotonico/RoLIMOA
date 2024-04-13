@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Paper, Typography, Grid, Button, ButtonGroup, Tooltip } from '@mui/material';
 import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
@@ -8,6 +9,7 @@ import FastForwardIcon from '@mui/icons-material/FastForward';
 import { TimerDisplay } from './TimerDisplay';
 import { TimeProgressConfigType } from '@/config/types';
 import styled from '@emotion/styled';
+import { CurrentPhaseState } from '@/slices/phase';
 
 const DetailInfoUl = styled('ul')({
   paddingInlineStart: '22px',
@@ -22,23 +24,29 @@ const DetailInfoHead = styled('span')({
 interface TimerMasterComponentProps {
   isFirstPhase: boolean,
   isLastPhase: boolean,
+  isPaused: boolean,
   onFirstPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   onPrevPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+  onPauseButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   onNextPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   onLastPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
   isEnabledNextButton: boolean,
   phaseConfig: TimeProgressConfigType,
+  currentPhaseState: CurrentPhaseState,
 }
 
 export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
   isFirstPhase,
   isLastPhase,
+  isPaused,
   onFirstPhase,
   onPrevPhase,
+  onPauseButton,
   onNextPhase,
   onLastPhase,
   isEnabledNextButton,
-  phaseConfig
+  phaseConfig,
+  currentPhaseState,
 }) => {
   return (
     <Paper sx={{ padding: '1em' }}>
@@ -78,10 +86,12 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
                   </Button>
                 </span>
               </Tooltip>
-              <Tooltip title="【未実装】一時停止/再開">
+              <Tooltip title={isPaused ? "再開" : "一時停止"}>
                 <span>
-                  <Button variant="contained" color="grey" disabled={true}>
-                    <PauseIcon />
+                  <Button variant="contained" color="grey" onClick={onPauseButton} disabled={phaseConfig.type !== "count"}>
+                    {
+                      isPaused ? <PlayArrowIcon /> : <PauseIcon />
+                    }
                   </Button>
                 </span>
               </Tooltip>
@@ -120,10 +130,6 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
             <li>
               <DetailInfoHead>type:</DetailInfoHead>
               <span>{phaseConfig.type}</span>
-            </li>
-            <li>
-              <DetailInfoHead>time:</DetailInfoHead>
-              <span>{phaseConfig.time}</span>
             </li>
             <li>
               <DetailInfoHead>autoTransition:</DetailInfoHead>
