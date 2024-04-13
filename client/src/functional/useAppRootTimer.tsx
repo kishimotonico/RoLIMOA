@@ -27,6 +27,12 @@ export const useAppRootTimer = () => {
         return;
       }
 
+      // 今の実装だとOffsetが初期状態で反映されないので、うまいことやる
+      if (phaseState.pausedTime) {
+        console.debug(` |- timerUpd: ${phaseState.id} paused!`);
+        return;
+      }
+
       const nowUnixtime = Date.now() + offsetTime;
       const elapsedSec = calculateElapsedSecond(phaseState.startTime, nowUnixtime);
       const nextTickTime = (elapsedSec + 1) * 1000 + phaseState.startTime;
