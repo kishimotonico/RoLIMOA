@@ -61,7 +61,8 @@ if [ -n "$BUILD" ]; then
             --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
             --name=${cname} \
             --device=/dev:/dev \
-            -w="/root/RoLIMOA" \
+            -v ${mtdir}:/userdir \
+            -w="/userdir" \
             ${iname} \
             ${VAR}
     fi
