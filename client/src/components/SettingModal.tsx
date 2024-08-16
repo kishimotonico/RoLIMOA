@@ -60,7 +60,7 @@ export const SettingModal: FC<SettingModalProps> = ({
       prevDeviceName.current = form.deviceName;
 
       const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: LyricalSocket.instance.socket.id,
+        sockId: LyricalSocket.instance.socket.id ?? '',
         deviceName: form.deviceName,
       });
       LyricalSocket.dispatch(action, dispatch);

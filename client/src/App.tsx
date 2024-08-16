@@ -79,7 +79,7 @@ const App: FC = () => {
   useEffect(() => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: LyricalSocket.instance.socket.id,
+        sockId: LyricalSocket.instance.socket.id ?? '',
         deviceName: getSetting().deviceName,
         currentPath: location.pathname,
       }), dispatch);
