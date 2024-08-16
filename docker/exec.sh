@@ -4,7 +4,6 @@ VERBOSE=""
 CONTAINER_NAME="rolimoa"
 EXEC_OPTION=
 
-
 while [[ $# -gt 0 ]]; do
     case $1 in
         -N|--name)

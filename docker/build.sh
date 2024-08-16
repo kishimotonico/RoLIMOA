@@ -4,6 +4,7 @@ set -x
 GIT_USERNAME=`git config user.name`
 GIT_USEREMAIL=`git config user.email`
 GIT_SSHKEY=~/.ssh/id_rsa
+BUILD_MODE=release
 
 SUDO_STRING=`groups|grep docker`
 SUDO=""
@@ -42,6 +43,17 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if [ -n "$BUILD" ]; then
+    if [ "$BUILD" = "DEBUG" ]; then
+        BUILD_MODE=debug
+    elif [ "$BUILD" = "RELEASE" ]; then
+        BUILD_MODE=release
+    else
+        echo "Unknown BUILD mode: $BUILD"
+        exit 1
+    fi
+fi
+
 #　dockerを実行
 EXEC_DIR="$(pwd)"
 EXEC_DIR="${EXEC_DIR%/*}"
@@ -50,4 +62,10 @@ cd $EXEC_DIR
 DOCKER_BUILDKIT=1 $SUDO docker build \
     -f docker/Dockerfile \
     -t rolimoa:ubuntu22.04 .
-    
+
+# BUILD_MODE=releseの場合Dockerfile.releaseもbuild
+if [ "$BUILD_MODE" = "release" ]; then
+    DOCKER_BUILDKIT=1 $SUDO docker build \
+        -f docker/Dockerfile.release \
+        -t rolimoa-release:ubuntu22.04 .
+fi

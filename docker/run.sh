@@ -1,6 +1,14 @@
 #!/bin/bash
 
-iname=${DOCKER_IMAGE:-"rolimoa:ubuntu22.04"} ##
+defult_iname="rolimoa-release:ubuntu22.04"
+
+if [ -n "$BUILD" ]; then
+    if [ "$BUILD" = "DEBUG" ]; then
+        defult_iname="rolimoa:ubuntu22.04"
+    fi
+fi
+
+iname=${DOCKER_IMAGE:-${defult_iname}} ##
 cname=${DOCKER_CONTAINER:-"rolimoa"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
@@ -37,21 +45,44 @@ xhost +si:localuser:root
 
 rmimage=$(docker rm ${cname})
 
-docker run \
-    --privileged     \
-    ${OPT}           \
-    ${GPU_OPT}       \
-    ${NET_OPT}       \
-    ${USER_SETTING}  \
-    ${DOCKER_ENVIRONMENT_VAR} \
-    --env="DISPLAY"  \
-    --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --name=${cname} \
-    --device=/dev:/dev \
-    -w="/root/RoLIMOA" \
-    ${iname} \
-    bash -c "cd /root/RoLIMOA/server && npm i && npm start"
+
+if [ -n "$BUILD" ]; then
+    if [ "$BUILD" = "DEBUG" ]; then
+        VAR=${@:-"bash"}
+        docker run \
+            --privileged     \
+            ${OPT}           \
+            ${GPU_OPT}       \
+            ${NET_OPT}       \
+            ${USER_SETTING}  \
+            ${DOCKER_ENVIRONMENT_VAR} \
+            --env="DISPLAY"  \
+            --env="QT_X11_NO_MITSHM=1" \
+            --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+            --name=${cname} \
+            --device=/dev:/dev \
+            -w="/root/RoLIMOA" \
+            ${iname} \
+            ${VAR}
+    fi
+    else
+        docker run \
+            --privileged     \
+            ${OPT}           \
+            ${GPU_OPT}       \
+            ${NET_OPT}       \
+            ${USER_SETTING}  \
+            ${DOCKER_ENVIRONMENT_VAR} \
+            --env="DISPLAY"  \
+            --env="QT_X11_NO_MITSHM=1" \
+            --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+            --name=${cname} \
+            --device=/dev:/dev \
+            -w="/root/RoLIMOA" \
+            ${iname} \
+            bash -c "cd /root/RoLIMOA/server && npm i && npm start"
+fi
+
 
 
 ##xhost -local:root

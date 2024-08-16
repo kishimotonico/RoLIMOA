@@ -22,11 +22,3 @@ RUN aptitude update -q
 RUN apt-get update -qq && apt install -y nodejs npm
 RUN npm install n -g && n stable
 RUN apt purge -y nodejs npm && apt autoremove -y
-
-# Copy files
-COPY . /root/RoLIMOA
-WORKDIR /root/RoLIMOA
-
-# Install client
-WORKDIR /root/RoLIMOA/client
-RUN npm i && npm run build
