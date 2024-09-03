@@ -1,23 +1,22 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { io, Socket } from 'socket.io-client';
 
 export class LyricalSocket {
   // singleton
   private static _instance: LyricalSocket;
-  public static get instance():LyricalSocket {
+  public static get instance(): LyricalSocket {
     if (!this._instance) {
       this._instance = new LyricalSocket();
     }
     return this._instance;
   }
 
-  public readonly socket: Socket;
+  public readonly socket: WebSocket;
 
   private constructor() {
-    this.socket = io(":8000", {
-      transports:['websocket'],
-    });
-    console.log(`is connected: ${this.socket.connected}`);
+    this.socket = new WebSocket("ws://127.0.0.1:8000");
+    this.socket.onopen = () => {
+      console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
+    };
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
@@ -31,11 +30,25 @@ export class LyricalSocket {
         reduxDispatch(action);
       });
     }
-    this._instance.socket.emit("dispatch", actions);
+
+    if (!this.instance.socket || this.instance.socket.readyState !== WebSocket.OPEN) {
+      console.error('WebSocket is not connected');
+      return;
+    }
+    this.instance.socket.send(JSON.stringify({
+      type: 'dispatch',
+      actions: actions,
+    }));
   }
 
-  // サーバを経由して、自分を含めた全クライアントにactionをdispatchする
   public static dispatchAll(actions: AnyAction[]) {
-    this._instance.socket.emit("dispatch_all", actions);
+    if (!this.instance.socket || this.instance.socket.readyState !== WebSocket.OPEN) {
+      console.error('WebSocket is not connected');
+      return;
+    }
+    this.instance.socket.send(JSON.stringify({
+      type: 'dispatch_all',
+      actions: actions,
+    }));
   }
 }

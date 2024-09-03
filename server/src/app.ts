@@ -7,22 +7,7 @@ import { connectedDevicesStateSlice } from "./features/connectedDevices";
 import { format } from "date-fns";
 import path from "path";
 import fs from "fs";
-
-const app = express();
-const server = http.createServer(app).listen(8000);
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "http://localhost:5173", // CORSなくても動くかも？
-        methods: ["GET", "POST"],
-    }
-}) as Server;
-
-// クライアントのホスティング
-app.use(express.static("../client/dist"));
-app.get("*", (req, res, next) => {
-    res.sendFile(path.resolve("../client/dist/index.html"));
-});
-
+import WebSocket, { WebSocketServer } from 'ws';
 
 let initialState = undefined;
 const latestSaveFile = fs.readdirSync("./save").filter((file) => file.endsWith('.json')).sort().reverse()[0];
@@ -35,53 +20,51 @@ if (latestSaveFile) {
 
 const store = createStore(rootReducer, initialState);
 
-io.on("connection", (socket: Socket) => {
-    console.log(`connected: ${socket.id}`);
+const wss = new WebSocketServer({
+    port: 8000,
+    host: '0.0.0.0',
+});
+
+wss.on('connection', (ws) => {
+    console.log('connected');
+
     // 初回接続したクライアントに、現在の試合状況を送信する
-    io.to(socket.id).emit("welcome", {
+    ws.send(JSON.stringify({
+        type: 'welcome',
         time: Date.now(),
         state: store.getState(),
-    });
+    }));
 
     // 切断
-    socket.on("disconnect", (reason) => {
-        console.log(`disconnect: ${socket.id} (${reason})`);
+    ws.on('close', (code, reason) => {
+        console.log(`disconnect: (${code}) ${reason}`);
 
         const action = connectedDevicesStateSlice.actions.removeDevice({
-            sockId: socket.id
+            sockId: "dummy",
         });
         store.dispatch(action);
-        io.emit("dispatch", [action]);
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify([action]));
+            }
+        });
     });
 
     // クライアントから送られたdispatchの処理
-    socket.on("dispatch", (actions: any[]) => {
-        console.debug(`on dispatch (${socket.id})`, actions);
+    ws.on('message', (message) => {
+        const body = JSON.parse(message.toString());
+        const type = body?.type;
+        const actions = body?.actions;
+        console.log(`on message: `, body);
 
         actions.forEach((action) => {
-            store.dispatch(action);                 // サーバサイドのストアに反映
+            store.dispatch(action);
         });
-        socket.broadcast.emit("dispatch", actions);  // 送信元以外にactionを転送
-    });
-    socket.on("dispatch_all", (actions: any[]) => {
-        console.debug(`on dispatch_all (${socket.id})`, actions);
-
-        actions.forEach((action) => {
-            store.dispatch(action);                 // サーバサイドのストアに反映
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(message.toString());
+            }
         });
-        io.emit("dispatch", actions);                // 送信元を含む全てに転送
-    });
-
-    // クライアントから保存指示が送られたとき
-    socket.on("save_store", async () => {
-        const storeStaet = store.getState();
-
-        const datetime = format(new Date(), "yyyyMMddHHmmss");
-        const filePath = `./save/store_${datetime}.json`;
-        fs.writeFileSync(filePath, JSON.stringify(storeStaet), {
-            encoding: "utf-8",
-        });
-        console.log(`succeeded save file: ${filePath}`);
     });
 });
 
