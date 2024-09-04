@@ -32,6 +32,18 @@ export class LyricalSocket {
     return this.instance.sessionId;
   }
 
+  public static sendOperation(operationType: string, option: object = {}): void {
+    if (!this.isActive()) {
+      console.error('WebSocket is not connected');
+      return;
+    }
+
+    this.instance.socket.send(JSON.stringify({
+      type: operationType,
+      ...option,
+    }));
+  }
+
   // サーバを経由して、別のクライアントにactionをdispatchする
   public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (!Array.isArray(actions)) {
@@ -44,24 +56,10 @@ export class LyricalSocket {
       });
     }
 
-    if (!this.isActive()) {
-      console.error('WebSocket is not connected');
-      return;
-    }
-    this.instance.socket.send(JSON.stringify({
-      type: 'dispatch',
-      actions: actions,
-    }));
+    this.sendOperation('dispatch', { actions });
   }
 
   public static dispatchAll(actions: AnyAction[]) {
-    if (!this.isActive()) {
-      console.error('WebSocket is not connected');
-      return;
-    }
-    this.instance.socket.send(JSON.stringify({
-      type: 'dispatch_all',
-      actions: actions,
-    }));
+    this.sendOperation('dispatch_all', { actions });
   }
 }

@@ -39,17 +39,30 @@ app.ws('/ws', (ws, req) => {
     ws.on('message', (message) => {
         const body = JSON.parse(message.toString());
         const type = body?.type;
-        const actions = body?.actions;
         console.log(`on message: `, body);
 
-        actions.forEach((action) => {
-            store.dispatch(action);
-        });
-        wss.clients.forEach(client => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(message.toString());
-            }
-        });
+        if (type === "dispatch" || type === "dispatch_all") {
+            const actions = body?.actions;
+
+            actions.forEach((action) => {
+                store.dispatch(action);
+            });
+            wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(message.toString());
+                }
+            });
+        }
+        if (type === "save_store") {
+            const storeStaet = store.getState();
+
+            const datetime = format(new Date(), "yyyyMMddHHmmss");
+            const filePath = `./save/store_${datetime}.json`;
+            fs.writeFileSync(filePath, JSON.stringify(storeStaet), {
+                encoding: "utf-8",
+            });
+            console.log(`succeeded save file: ${filePath}`);
+        }
     });
 
     // 切断

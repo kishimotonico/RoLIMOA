@@ -46,7 +46,6 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
   onLastPhase,
   isEnabledNextButton,
   phaseConfig,
-  currentPhaseState,
 }) => {
   return (
     <Paper sx={{ padding: '1em' }}>
