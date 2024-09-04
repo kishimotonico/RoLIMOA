@@ -14,7 +14,7 @@ export class LyricalSocket {
   private sessionId = '';
 
   private constructor() {
-    this.socket = new WebSocket(`ws://${window.location.hostname}:8000`);
+    this.socket = new WebSocket(`ws://${window.location.hostname}:8000/ws`);
     this.socket.onopen = () => {
       console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
     };
