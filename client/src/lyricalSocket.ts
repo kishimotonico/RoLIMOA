@@ -11,12 +11,25 @@ export class LyricalSocket {
   }
 
   public readonly socket: WebSocket;
+  private sessionId = '';
 
   private constructor() {
-    this.socket = new WebSocket("ws://127.0.0.1:8000");
+    this.socket = new WebSocket(`ws://${window.location.hostname}:8000`);
     this.socket.onopen = () => {
       console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
     };
+  }
+
+  public static isActive(): boolean {
+    return this.instance.socket && this.instance.socket.readyState === WebSocket.OPEN;
+  }
+
+  public static setSessionId(sessionId?: string): void {
+    this.instance.sessionId = sessionId ?? '';
+  }
+
+  public static getSessionId(): string {
+    return this.instance.sessionId;
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
@@ -31,7 +44,7 @@ export class LyricalSocket {
       });
     }
 
-    if (!this.instance.socket || this.instance.socket.readyState !== WebSocket.OPEN) {
+    if (!this.isActive()) {
       console.error('WebSocket is not connected');
       return;
     }
@@ -42,7 +55,7 @@ export class LyricalSocket {
   }
 
   public static dispatchAll(actions: AnyAction[]) {
-    if (!this.instance.socket || this.instance.socket.readyState !== WebSocket.OPEN) {
+    if (!this.isActive()) {
       console.error('WebSocket is not connected');
       return;
     }

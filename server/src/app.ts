@@ -6,6 +6,7 @@ import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
 import { format } from "date-fns";
 import path from "path";
+import crypt from "crypto";
 import fs from "fs";
 import WebSocket, { WebSocketServer } from 'ws';
 
@@ -26,21 +27,23 @@ const wss = new WebSocketServer({
 });
 
 wss.on('connection', (ws) => {
-    console.log('connected');
+    const sessionId = crypt.randomUUID();
+    console.log(`connected (sid: ${sessionId})`);
 
     // 初回接続したクライアントに、現在の試合状況を送信する
     ws.send(JSON.stringify({
         type: 'welcome',
         time: Date.now(),
         state: store.getState(),
+        sid: sessionId,
     }));
 
     // 切断
     ws.on('close', (code, reason) => {
-        console.log(`disconnect: (${code}) ${reason}`);
+        console.log(`disconnect (sid: ${sessionId}): ${code} ${reason}`);
 
         const action = connectedDevicesStateSlice.actions.removeDevice({
-            sockId: "dummy",
+            sockId: sessionId,
         });
         store.dispatch(action);
         wss.clients.forEach(client => {

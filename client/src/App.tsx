@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from 'react-router';
 import { AnyAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
-import { RootState } from '@/slices';
 import { scoreStateSlice } from '@/slices/score';
 import { phaseStateSlice } from '@/slices/phase';
 import { matchStateSlice } from '@/slices/match';
@@ -26,11 +25,6 @@ import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
 import { getSetting } from './util/clientStoredSetting';
 import "dseg/css/dseg.css";
-
-type WelcomeData = {
-  time: number,
-  state: RootState,
-};
 
 const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
@@ -66,6 +60,7 @@ const App: FC = () => {
         dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
         dispatch(streamingInterfaceSlice.actions.setState(data.state.streamingInterface));
         setIsConnect(true);
+        LyricalSocket.setSessionId(data.sid);
 
         const delayTime = Date.now() - data.time;
         console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
@@ -78,13 +73,13 @@ const App: FC = () => {
       }
     };
 
-    socket.onclose = () => {
+    socket.onclose = (ev) => {
+      console.error("WebSocket接続が閉じられました", ev);
       setIsConnect(false);
-      console.log("WebSocket接続が閉じられました");
     };
 
-    socket.onerror = (error) => {
-      console.error("WebSocketエラーが発生しました", error);
+    socket.onerror = (ev) => {
+      console.error("WebSocketエラーが発生しました", ev);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -92,7 +87,7 @@ const App: FC = () => {
   useEffect(() => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: "dummy",
+        sockId: LyricalSocket.getSessionId(),
         deviceName: getSetting().deviceName,
         currentPath: location.pathname,
       }), dispatch);
