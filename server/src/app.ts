@@ -1,4 +1,6 @@
 import express from "express";
+import expressWs from 'express-ws';
+import WebSocket from 'ws';
 import { createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
@@ -6,8 +8,6 @@ import { format } from "date-fns";
 import path from "path";
 import crypt from "crypto";
 import fs from "fs";
-import WebSocket, { WebSocketServer } from 'ws';
-import expressWs from 'express-ws';
 
 const { app, getWss } = expressWs(express());
 
