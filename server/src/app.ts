@@ -4,23 +4,13 @@ import WebSocket from 'ws';
 import { createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
-import { format } from "date-fns";
 import path from "path";
 import crypt from "crypto";
-import fs from "fs";
+import { loadFromFile, saveToFile } from "./backup";
 
 const { app, getWss } = expressWs(express());
 
-const latestSaveFile = fs.readdirSync("./save").filter((file) => file.endsWith('.json')).sort().reverse()[0];
-let initialState = undefined;
-if (latestSaveFile) {
-    console.log(`${latestSaveFile}が見つかったため、ストアを復元します`);
-    initialState = JSON.parse(fs.readFileSync(`./save/${latestSaveFile}`, "utf-8"));
-    // 復元しない項目を無理やり初期化
-    initialState.connectedDevices = [];
-}
-const store = createStore(rootReducer, initialState);
-
+const store = createStore(rootReducer, loadFromFile("./save"));
 
 app.ws('/ws', (ws, req) => {
     const wss = getWss();
@@ -36,7 +26,7 @@ app.ws('/ws', (ws, req) => {
     }));
 
     // クライアントから送られたdispatchの処理
-    ws.on('message', (message) => {
+    ws.on('message', async (message) => {
         const body = JSON.parse(message.toString());
         const type = body?.type;
         console.log(`on message: `, body);
@@ -54,14 +44,7 @@ app.ws('/ws', (ws, req) => {
             });
         }
         if (type === "save_store") {
-            const storeStaet = store.getState();
-
-            const datetime = format(new Date(), "yyyyMMddHHmmss");
-            const filePath = `./save/store_${datetime}.json`;
-            fs.writeFileSync(filePath, JSON.stringify(storeStaet), {
-                encoding: "utf-8",
-            });
-            console.log(`succeeded save file: ${filePath}`);
+            await saveToFile("./save", store);
         }
     });
 
