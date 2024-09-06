@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router';
+import { AnyAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
-import { RootState } from '@/slices';
 import { scoreStateSlice } from '@/slices/score';
 import { phaseStateSlice } from '@/slices/phase';
 import { matchStateSlice } from '@/slices/match';
@@ -26,18 +26,13 @@ import { AppMuiThemeProvider } from './AppMuiThemeProvider';
 import { getSetting } from './util/clientStoredSetting';
 import "dseg/css/dseg.css";
 
-type WelcomeData = {
-  time: number,
-  state: RootState,
-};
-
 const App: FC = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
   const location = useLocation();
   const dispatch = useDispatch();
 
   useLoadSetting();
-  
+
   useAppRootTimer();
 
   // websocketの初回接続と受信イベント処理
@@ -49,37 +44,50 @@ const App: FC = () => {
 
     const socket = LyricalSocket.instance.socket;
 
-    socket.on("welcome", (data: WelcomeData) => {
-      console.debug(`welcome: ${socket.id}`, data);
-      dispatch(scoreStateSlice.actions.setState(data.state.score));
-      dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
-      dispatch(matchStateSlice.actions.setState(data.state.match));
-      dispatch(resultRecordsStateSlice.actions.setState(data.state.resultRecords));
-      dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
-      dispatch(streamingInterfaceSlice.actions.setState(data.state.streamingInterface));
-      setIsConnect(true);
+    socket.onopen = () => {
+      console.log("WebSocket接続が確立されました");
+    };
 
-      const delayTime = Date.now() - data.time;
-      console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
-    });
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
 
-    socket.io.on("reconnect_attempt", () => {
+      if (data.type === "welcome") {
+        console.debug(`welcome`, data);
+        dispatch(scoreStateSlice.actions.setState(data.state.score));
+        dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
+        dispatch(matchStateSlice.actions.setState(data.state.match));
+        dispatch(resultRecordsStateSlice.actions.setState(data.state.resultRecords));
+        dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
+        dispatch(streamingInterfaceSlice.actions.setState(data.state.streamingInterface));
+        setIsConnect(true);
+        LyricalSocket.setSessionId(data.sid);
+
+        const delayTime = Date.now() - data.time;
+        console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
+      }
+      if (data.type === "dispatch" || data.type === "dispatch_all") {
+        console.debug(`dispatch from server`, data);
+        data.actions.forEach((action: AnyAction) => {
+          dispatch(action);
+        });
+      }
+    };
+
+    socket.onclose = (ev) => {
+      console.error("WebSocket接続が閉じられました", ev);
       setIsConnect(false);
-    });
+    };
 
-    socket.on("dispatch", (actions: any[]) => { // eslint-disable-line @typescript-eslint/no-explicit-any
-      console.debug("dispatch from server", actions);
-      actions.forEach((action) => {
-        dispatch(action);
-      });
-    });
+    socket.onerror = (ev) => {
+      console.error("WebSocketエラーが発生しました", ev);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ページ遷移時に、表示ページのパスを更新する
   useEffect(() => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: LyricalSocket.instance.socket.id,
+        sockId: LyricalSocket.getSessionId(),
         deviceName: getSetting().deviceName,
         currentPath: location.pathname,
       }), dispatch);
