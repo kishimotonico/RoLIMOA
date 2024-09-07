@@ -37,6 +37,9 @@ class RoLIMOAExtension:
         self.ws.run_forever(reconnect=5)
 
     def dispatch(self, type: str, payload: dict):
+        """
+        サーバーに更新(Reduxのaction)を送信する関数
+        """
         self.ws.send(json.dumps({
             "type": "dispatch",
             "actions": [
@@ -47,8 +50,14 @@ class RoLIMOAExtension:
             ]
         }, ensure_ascii=False))
 
-    def add_on_dispatch(self, type: str, callback: Callable[[dict], None]):
-        self._on_dispatchs.append(self.EventListener(type, callback))
+    def on_dispatch(self, action_type: str):
+        """
+        サーバーから更新を受信したときのコールバック関数のデコレータ
+        """
+        def decorator(callback: Callable[[dict], None]):
+            self._on_dispatchs.append(self.EventListener(action_type, callback))
+
+        return decorator
 
     def on_message(self, ws, message):
         if self._vervose:
@@ -97,17 +106,17 @@ class RoLIMOAExtension:
 if __name__ == "__main__":
     ext = RoLIMOAExtension("ws://localhost:8000/ws")
 
+    @ext.on_dispatch("task/setTaskUpdate")
     def on_task_update(payload: dict):
         fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
         print(f"{fieldSide}チームの{taskObject}が{afterValue}に更新されました")
 
+    @ext.on_dispatch("task/setGlobalUpdate")
     def on_global_update(payload: dict):
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
         print(f"{taskObject}が{afterValue}に更新されました")
 
-    ext.add_on_dispatch("task/setTaskUpdate", on_task_update)
-    ext.add_on_dispatch("task/setGloablUpdate", on_global_update)
     ext.connect()
