@@ -64,6 +64,32 @@ app.ws('/ws', (ws, req) => {
     });
 });
 
+/**
+ * ストアの状態をHTTPで簡単に取得するAPI
+ * 
+ * - `/api/state`
+ *     - ストアの全状態を取得(数十KBのJSON)
+ * - `/api/state?q=score.fields.blue.tasks.TASK_ID`
+ *     - 青コートのタスク"TASK_ID"の値を取得(整数値)
+ * - `/api/state?q=connectedDevices`
+ *     - 接続中のデバイス一覧を取得(JSON)
+ */
+app.get("/api/state", (req, res) => {
+    const query = req.query["q"]?.toString();
+    const state = store.getState();
+    let result = state;
+    if (query) {
+        query.split(".").forEach((key) => {
+            if (result[key] === undefined) {
+                res.status(404).send("Not Found");
+                return;
+            }
+            result = result[key];
+        });
+    }
+    res.json(result);
+});
+
 // クライアントのホスティング
 app.use(express.static("../client/dist"));
 app.get("*", (req, res, next) => {
