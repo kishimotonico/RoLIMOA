@@ -24,7 +24,7 @@ class RoLIMOAExtension:
         self._vervose = verbose
         self._ws = None
         self._session_id = ""
-        self._on_dispatchs: List[self.EventListener] = []
+        self._on_dispatchs: List[RoLIMOAExtension.EventListener] = []
 
     def connect(self):
         self.ws = websocket.WebSocketApp(
@@ -104,6 +104,10 @@ class RoLIMOAExtension:
 
 
 if __name__ == "__main__":
+    """
+    RoLIMOA Extensionのかんたんなサンプルコード
+    """
+
     ext = RoLIMOAExtension("ws://localhost:8000/ws")
 
     @ext.on_dispatch("task/setTaskUpdate")
@@ -111,12 +115,14 @@ if __name__ == "__main__":
         fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
+
         print(f"{fieldSide}チームの{taskObject}が{afterValue}に更新されました")
 
     @ext.on_dispatch("task/setGlobalUpdate")
     def on_global_update(payload: dict):
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
+
         print(f"{taskObject}が{afterValue}に更新されました")
 
     ext.connect()
