@@ -1,36 +1,44 @@
 {
   "contest_info": {
-    "name": "関東夏ロボコン2023"
+    "name": "関東夏ロボコン2024"
   },
   "rule": {
     "global_objects": [],
     "task_objects": [
       {
-        "id": "Utsunomiya",
-        "description": "宇都宮",
+        "id": "A",
+        "description": "A. フライパン接触",
         "initialValue": 0,
         "min": 0,
         "max": 1
       },
       {
-        "id": "Chiba",
-        "description": "千葉",
-        "initialValue": 0
+        "id": "heating",
+        "description": "加熱中",
+        "initialValue": 0,
+        "min": 0,
+        "max": 1
       },
       {
-        "id": "Saitama",
-        "description": "さいたま",
-        "initialValue": 0
+        "id": "B",
+        "description": "B. 料理が存在",
+        "initialValue": 0,
+        "min": 0,
+        "max": 3
       },
       {
-        "id": "Yokohama",
-        "description": "横浜",
-        "initialValue": 0
+        "id": "C",
+        "description": "C. 料理が配膳",
+        "initialValue": 0,
+        "min": 0,
+        "max": 3
       },
       {
-        "id": "Shibuya",
-        "description": "渋谷",
-        "initialValue": 0
+        "id": "D",
+        "description": "D. 準備完了",
+        "initialValue": 0,
+        "min": 0,
+        "max": 1
       },
       {
         "id": "violation",
@@ -42,44 +50,48 @@
       "format": "simple",
       "expression": [
         {
-          "id": "Utsunomiya",
+          "id": "A",
+          "coefficient": 5
+        },
+        {
+          "id": "B",
           "coefficient": 10
         },
         {
-          "id": "Chiba",
-          "coefficient": 10
+          "id": "C",
+          "coefficient": 30
         },
         {
-          "id": "Saitama",
-          "coefficient": 11
-        },
-        {
-          "id": "Yokohama",
-          "coefficient": 14
-        },
-        {
-          "id": "Shibuya",
-          "coefficient": 15
+          "id": "D",
+          "coefficient": 50
         }
       ]
     },
     "vgoal": {
       "name": "Vゴール",
       "condition": {
-        "type": "disabled"
+        "type": "alwaysOk"
       }
     },
     "control_panel": {
       "type": "custom",
       "panels": [
         {
-          "id": "Utsunomiya",
+          "id": "A",
+          "type": "toggle_switch",
+          "option": {
+            "off_value": 0,
+            "on_value": 1
+          }
+        },
+        {
+          "id": "B",
           "type": "multi_button",
           "option": {
             "buttons": [
               {
-                "command": "=0",
-                "label": "0",
+                "command": "-1",
+                "label": "-1",
                 "style": {
                   "variant": "outlined"
                 }
@@ -92,17 +104,18 @@
           }
         },
         {
-          "id": "Chiba",
+          "id": "heating",
+          "type": "toggle_switch",
+          "option": {
+            "off_value": 0,
+            "on_value": 1
+          }
+        },
+        {
+          "id": "C",
           "type": "multi_button",
           "option": {
             "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
               {
                 "command": "-1",
                 "label": "-1",
@@ -113,118 +126,16 @@
               {
                 "command": "+1",
                 "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
               }
             ]
           }
         },
         {
-          "id": "Saitama",
-          "type": "multi_button",
+          "id": "D",
+          "type": "toggle_switch",
           "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Yokohama",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Shibuya",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
+            "off_value": 0,
+            "on_value": 1
           }
         },
         {
