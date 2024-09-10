@@ -89,7 +89,8 @@
           "type": "toggle_switch",
           "option": {
             "off_value": 0,
-            "on_value": 1
+            "on_value": 1,
+            "on_label": "🔥"
           }
         },
         {
@@ -135,7 +136,9 @@
           "type": "toggle_switch",
           "option": {
             "off_value": 0,
-            "on_value": 1
+            "on_value": 1,
+            "off_label": "未完了",
+            "on_label": "完了"
           }
         },
         {

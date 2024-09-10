@@ -15,6 +15,8 @@ export const taskObjectToggleSwitchSchema = z.object({
   option: z.object({
     off_value: z.number(),
     on_value: z.number(),
+    off_label: z.string().optional(),
+    on_label: z.string().optional(),
   }),
 });
 

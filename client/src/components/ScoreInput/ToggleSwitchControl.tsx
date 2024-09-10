@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Switch, Box, Paper, Typography } from '@mui/material';
+import { Switch, Box, Paper, Typography, FormGroup, FormControlLabel } from '@mui/material';
 import { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from '@/config/types';
 
 interface ToggleSwitchControlProps {
@@ -32,7 +32,16 @@ export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
       </Typography>
 
       <Box sx={{ pt: 0.5 }}>
-        <Switch onChange={onChange} color={color} checked={checked}/>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch onChange={onChange} color={color} checked={checked}/>
+            }
+            label={
+              checked ? controlConfig.option?.on_label ?? "" : controlConfig.option?.off_label ?? ""
+            }
+          />
+        </FormGroup>
       </Box>
     </Paper>
   );
