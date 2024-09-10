@@ -10,7 +10,7 @@ export const DeviceListContainer: FC = () => {
   const connectedDevices = useSelector<RootState, ConnectedDevice[]>((state) => state.connectedDevices);
 
   const onSaveClick = () => {
-    LyricalSocket.instance.socket.emit("save_store");
+    LyricalSocket.sendOperation("save_store");
   };
 
   return (

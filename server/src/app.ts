@@ -1,21 +1,94 @@
 import express from "express";
-import http from "http";
-import { Socket, Server } from "socket.io";
+import expressWs from 'express-ws';
+import WebSocket from 'ws';
 import { createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
-import { format } from "date-fns";
 import path from "path";
-import fs from "fs";
+import crypt from "crypto";
+import { loadFromFile, saveToFile } from "./backup";
 
-const app = express();
-const server = http.createServer(app).listen(8000);
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "http://localhost:5173", // CORSなくても動くかも？
-        methods: ["GET", "POST"],
+const { app, getWss } = expressWs(express());
+
+const store = createStore(rootReducer, loadFromFile("./save"));
+
+app.ws('/ws', (ws, req) => {
+    const wss = getWss();
+    const sessionId = crypt.randomUUID();
+    console.log(`connected (sid: ${sessionId})`);
+
+    // 初回接続したクライアントに、現在の試合状況を送信する
+    ws.send(JSON.stringify({
+        type: 'welcome',
+        sid: sessionId,
+        time: Date.now(),
+        state: store.getState(),
+    }));
+
+    // クライアントから送られたdispatchの処理
+    ws.on('message', async (message) => {
+        const body = JSON.parse(message.toString());
+        const type = body?.type;
+        console.log(`on message: `, body);
+
+        if (type === "dispatch" || type === "dispatch_all") {
+            const actions = body?.actions;
+
+            actions.forEach((action) => {
+                store.dispatch(action);
+            });
+            wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(message.toString());
+                }
+            });
+        }
+        if (type === "save_store") {
+            await saveToFile("./save", store);
+        }
+    });
+
+    // 切断
+    ws.on('close', (code, reason) => {
+        console.log(`disconnect (sid: ${sessionId}): ${code} ${reason}`);
+
+        const action = connectedDevicesStateSlice.actions.removeDevice({
+            sockId: sessionId,
+        });
+        store.dispatch(action);
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify([action]));
+            }
+        });
+    });
+});
+
+/**
+ * ストアの状態をHTTPで簡単に取得するAPI
+ * 
+ * - `/api/state`
+ *     - ストアの全状態を取得(数十KBのJSON)
+ * - `/api/state?q=score.fields.blue.tasks.TASK_ID`
+ *     - 青コートのタスク"TASK_ID"の値を取得(整数値)
+ * - `/api/state?q=connectedDevices`
+ *     - 接続中のデバイス一覧を取得(JSON)
+ */
+app.get("/api/state", (req, res) => {
+    const query = req.query["q"]?.toString();
+    const state = store.getState();
+    let result = state;
+    if (query) {
+        query.split(".").forEach((key) => {
+            if (result[key] === undefined) {
+                res.status(404).send("Not Found");
+                return;
+            }
+            result = result[key];
+        });
     }
-}) as Server;
+    res.json(result);
+});
 
 // クライアントのホスティング
 app.use(express.static("../client/dist"));
@@ -23,66 +96,5 @@ app.get("*", (req, res, next) => {
     res.sendFile(path.resolve("../client/dist/index.html"));
 });
 
-
-let initialState = undefined;
-const latestSaveFile = fs.readdirSync("./save").filter((file) => file.endsWith('.json')).sort().reverse()[0];
-if (latestSaveFile) {
-    console.log(`${latestSaveFile}が見つかったため、ストアを復元します`);
-    initialState = JSON.parse(fs.readFileSync(`./save/${latestSaveFile}`, "utf-8"));
-    // 復元しない項目を無理やり初期化
-    initialState.connectedDevices = []; 
-}
-
-const store = createStore(rootReducer, initialState);
-
-io.on("connection", (socket: Socket) => {
-    console.log(`connected: ${socket.id}`);
-    // 初回接続したクライアントに、現在の試合状況を送信する
-    io.to(socket.id).emit("welcome", {
-        time: Date.now(),
-        state: store.getState(),
-    });
-
-    // 切断
-    socket.on("disconnect", (reason) => {
-        console.log(`disconnect: ${socket.id} (${reason})`);
-
-        const action = connectedDevicesStateSlice.actions.removeDevice({
-            sockId: socket.id
-        });
-        store.dispatch(action);
-        io.emit("dispatch", [action]);
-    });
-
-    // クライアントから送られたdispatchの処理
-    socket.on("dispatch", (actions: any[]) => {
-        console.debug(`on dispatch (${socket.id})`, actions);
-
-        actions.forEach((action) => {
-            store.dispatch(action);                 // サーバサイドのストアに反映
-        });
-        socket.broadcast.emit("dispatch", actions);  // 送信元以外にactionを転送
-    });
-    socket.on("dispatch_all", (actions: any[]) => {
-        console.debug(`on dispatch_all (${socket.id})`, actions);
-
-        actions.forEach((action) => {
-            store.dispatch(action);                 // サーバサイドのストアに反映
-        });
-        io.emit("dispatch", actions);                // 送信元を含む全てに転送
-    });
-
-    // クライアントから保存指示が送られたとき
-    socket.on("save_store", async () => {
-        const storeStaet = store.getState();
-
-        const datetime = format(new Date(), "yyyyMMddHHmmss");
-        const filePath = `./save/store_${datetime}.json`;
-        fs.writeFileSync(filePath, JSON.stringify(storeStaet), {
-            encoding: "utf-8",
-        });
-        console.log(`succeeded save file: ${filePath}`);
-    });
-});
-
+app.listen(8000);
 console.log("server start");

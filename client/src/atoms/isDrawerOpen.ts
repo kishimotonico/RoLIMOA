@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const isDrawerOpen = atom<boolean>({
+export const isDrawerOpen = atom<undefined|boolean>({
   key: "isDrawerOpen",
-  default: true,
+  default: undefined,
 });

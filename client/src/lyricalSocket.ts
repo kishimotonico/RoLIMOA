@@ -1,23 +1,48 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { io, Socket } from 'socket.io-client';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 export class LyricalSocket {
   // singleton
   private static _instance: LyricalSocket;
-  public static get instance():LyricalSocket {
+  public static get instance(): LyricalSocket {
     if (!this._instance) {
       this._instance = new LyricalSocket();
     }
     return this._instance;
   }
 
-  public readonly socket: Socket;
+  public readonly socket: ReconnectingWebSocket;
+  private sessionId = '';
 
   private constructor() {
-    this.socket = io(":8000", {
-      transports:['websocket'],
-    });
-    console.log(`is connected: ${this.socket.connected}`);
+    this.socket = new ReconnectingWebSocket(`ws://${window.location.hostname}:8000/ws`);
+    this.socket.onopen = () => {
+      console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
+    };
+  }
+
+  public static isActive(): boolean {
+    return this.instance.socket && this.instance.socket.readyState === WebSocket.OPEN;
+  }
+
+  public static setSessionId(sessionId?: string): void {
+    this.instance.sessionId = sessionId ?? '';
+  }
+
+  public static getSessionId(): string {
+    return this.instance.sessionId;
+  }
+
+  public static sendOperation(operationType: string, option: object = {}): void {
+    if (!this.isActive()) {
+      console.error('WebSocket is not connected');
+      return;
+    }
+
+    this.instance.socket.send(JSON.stringify({
+      type: operationType,
+      ...option,
+    }));
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
@@ -31,11 +56,11 @@ export class LyricalSocket {
         reduxDispatch(action);
       });
     }
-    this._instance.socket.emit("dispatch", actions);
+
+    this.sendOperation('dispatch', { actions });
   }
 
-  // サーバを経由して、自分を含めた全クライアントにactionをdispatchする
   public static dispatchAll(actions: AnyAction[]) {
-    this._instance.socket.emit("dispatch_all", actions);
+    this.sendOperation('dispatch_all', { actions });
   }
 }
