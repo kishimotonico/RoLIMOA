@@ -98,6 +98,33 @@ npm run dev
 - Zod
 - Express
 
+### DOCKER
+Docker上で開発が可能です。  
+開発用の環境と実行用の環境があります。  
+
+実行環境の構築
+```bash
+cd /path/to/RoLIMOA/docker
+./build.sh
+```
+
+システムをDockerで実行  (GPU非搭載の場合は NO_GPU=1 を引数とする)
+```bash
+cd /path/to/RoLIMOA/docker
+./run.sh
+```
+
+開発環境の構築
+```bash
+cd /path/to/RoLIMOA/docker
+BUILD="DEBUG" ./build.sh
+```
+開発環境をDockerで実行  (GPU非搭載の場合は NO_GPU=1 を引数とする)
+```bash
+cd /path/to/RoLIMOA/docker
+BUILD="DEBUG" ./run.sh
+```
+
 ### TODO: 今後追加したい機能や、改善したい点など
 
 #### タイマー、時刻表示の改善
