@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Paper, Typography, Grid, Button, TextField } from '@mui/material';
+import { Paper, Typography, Grid, Button, TextField, Alert, Box } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 
 interface MatchMasterComponentProps {
@@ -8,6 +8,7 @@ interface MatchMasterComponentProps {
   onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void,
   onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void,
   onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+  warningMessage?: string,
   isEnabledStartButton: boolean,
 }
 
@@ -17,6 +18,7 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
   onChangeBlueTeamName,
   onChangeRedTeamName,
   onStartButton,
+  warningMessage,
   isEnabledStartButton,
 }) => {
   return (
@@ -63,14 +65,22 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
               />
             )}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onStartButton}
-            disabled={!isEnabledStartButton}
-          >
-            試合開始
-          </Button>
+          <Box sx={{
+            display: 'flex',
+            gap: '10px',
+          }}>
+            <Button
+              variant="contained"
+              color={warningMessage ? "inherit" : "primary"}
+              onClick={onStartButton}
+              disabled={!isEnabledStartButton}
+            >
+              試合開始
+            </Button>
+            {
+              warningMessage && <Alert severity="warning">{warningMessage}</Alert>
+            }
+          </Box>
         </Grid>
       </Grid>
     </Paper>
