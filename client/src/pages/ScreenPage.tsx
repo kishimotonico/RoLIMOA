@@ -46,7 +46,7 @@ const ScoreBoard = (props: {
         color: 'rgb(240, 240, 240)',
         height: '60px',
         lineHeight: '65px',
-        fontSize: '0.7em',
+        fontSize: '0.6em',
         px: '0.5em',
         textAlign: 'center',
       }}>

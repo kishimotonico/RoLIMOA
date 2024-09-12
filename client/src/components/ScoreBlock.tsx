@@ -62,7 +62,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         <Box sx={{ paddingRight: ".5em", }}>
           {value}
         </Box>
-        {scoreState.vgoal && (
+        {!!scoreState.vgoal && (
           <Box sx={{ fontSize: "40%" }}>
             <Box>
               {config.rule.vgoal.name}
