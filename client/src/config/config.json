@@ -191,11 +191,11 @@
       "custom": [
         {
           "elapsedTime": 0,
-          "sound": "tone_440hz_500ms.mp3"
+          "sound": "tone_880hz_1000ms.mp3"
         },
         {
           "elapsedTime": 60,
-          "sound": "tone_440hz_500ms.mp3"
+          "sound": "tone_880hz_1000ms.mp3"
         }
       ]
     },
