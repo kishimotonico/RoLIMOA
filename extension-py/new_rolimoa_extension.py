@@ -26,16 +26,17 @@ class RoLIMOAExtension:
         self.verbose = verbose
         self.reconnect_interval = reconnect_interval
         self.session_id = ""
-        self.on_dispatchs: List[RoLIMOAExtension.EventListener] = []
+        self.on_dispatch_callbacks: List[RoLIMOAExtension.EventListener] = []
+        self.callback_tasks = set()
 
     async def connect(self):
         while True:
             try:
-                with httpx_ws.connect_ws(self.url) as ws:
+                async with httpx_ws.aconnect_ws(self.url) as ws:
                     self.ws = ws
                     if self.on_open_callback:
                         self.on_open_callback(ws)
-                    self.listen(ws)
+                    await self.listen(ws)
             except Exception as e:
                 if self.on_error_callback:
                     self.on_error_callback(None, e)
@@ -43,12 +44,12 @@ class RoLIMOAExtension:
                     raise e
                 await asyncio.sleep(self.reconnect_interval) # 再接続までの待機時間
 
-    def listen(self, ws: httpx_ws.WebSocketSession):
+    async def listen(self, ws: httpx_ws.AsyncWebSocketSession):
         while True:
-            message = ws.receive_text()
-            self.on_message(ws, message)
+            message = await ws.receive_text()
+            await self.on_message(ws, message)
 
-    def on_message(self, ws, message):
+    async def on_message(self, ws, message):
         if self.verbose:
             print(f"on_message: {message}")
 
@@ -66,9 +67,11 @@ class RoLIMOAExtension:
             for action in actions:
                 type = action["type"]
                 payload = action["payload"]
-                for listener in self.on_dispatchs:
+                for listener in self.on_dispatch_callbacks:
                     if listener.type == type:
-                        listener.callback(payload)
+                        task = asyncio.create_task(listener.callback(payload))
+                        task.add_done_callback(self.callback_tasks.discard)
+                        self.callback_tasks.add(task)
 
     def dispatch(self, type: str, payload: dict):
         """
@@ -93,7 +96,7 @@ class RoLIMOAExtension:
         サーバーから更新を受信したときのコールバック関数のデコレータ
         """
         def decorator(callback: Callable[[dict], None]):
-            self.on_dispatchs.append(self.EventListener(action_type, callback))
+            self.on_dispatch_callbacks.append(self.EventListener(action_type, callback))
             return callback
 
         return decorator
@@ -124,19 +127,26 @@ async def main():
     ext = RoLIMOAExtension("ws://localhost:8000/ws", verbose=True)
 
     @ext.on_dispatch("task/setTaskUpdate")
-    def on_task_update(payload: dict):
+    async def on_task_update(payload: dict):
         fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
 
         print(f"{fieldSide}チームの{taskObject}が{afterValue}に更新されました")
 
-    @ext.on_dispatch("task/setGlobalUpdate")
-    def on_global_update(payload: dict):
+        await asyncio.sleep(5.24)
+        print(f"5.24秒たった！ {taskObject}({fieldSide})->{afterValue}")
+
+    @ext.on_dispatch("task/setTaskUpdate")
+    async def on_task_update_2(payload: dict):
+        fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
 
-        print(f"{taskObject}が{afterValue}に更新されました")
+        print(f"{fieldSide}チームの{taskObject}が{afterValue}に更新されました")
+
+        await asyncio.sleep(2)
+        print(f"2秒たった！ {taskObject}({fieldSide})->{afterValue}")
 
     await ext.connect()
 
