@@ -2,7 +2,7 @@ from typing import NamedTuple, Any, Awaitable, Callable, List, Union, Optional, 
 import asyncio
 import httpx_ws
 import json
-from logging import getLogger, StreamHandler
+from logging import getLogger, StreamHandler, DEBUG
 
 class RoLIMOAExtension:
     class EventListener(NamedTuple):
@@ -11,20 +11,23 @@ class RoLIMOAExtension:
 
     def __init__(
             self,
-            url,
-            device_name="extension/example",
-            on_open=None,
-            on_close=None,
-            on_error=None,
-            logger=None,
-            reconnect_interval=5
+            url: str,
+            device_name: str = "extension/example",
+            on_open: Optional[Callable[[httpx_ws.AsyncWebSocketSession], Awaitable[None]]] = None,
+            on_close: Optional[Callable[[], None]] = None,
+            on_error: Optional[Callable[[Exception], None]] = None,
+            logger: Optional[Any] = None,
+            reconnect_interval: int = 5,
+            max_reconnect_attempts: int = 10
         ):
         self.url = url
         self.device_name = device_name
         self.on_open_callback = on_open
+        self.on_close_callback = on_close
         self.on_error_callback = on_error
         self.logger = logger or getLogger(self.__class__.__name__)
         self.reconnect_interval = reconnect_interval
+        self.max_reconnect_attempts = max_reconnect_attempts
         self.session_id = ""
         self.on_dispatch_callbacks: List[RoLIMOAExtension.EventListener] = []
         self.callback_tasks = set()
@@ -42,25 +45,29 @@ class RoLIMOAExtension:
             func(*args)
 
     async def connect(self):
-        while True:
+        attempts = 0
+        while attempts < self.max_reconnect_attempts:
             try:
                 async with httpx_ws.aconnect_ws(self.url) as ws:
-                    self.ws = ws
                     self.logger.info("Connected to RoLIMOA server")
                     self._callback_invoke(self.on_open_callback, [ws])
                     await self.listen(ws)
             except Exception as e:
+                self.logger.error(f"Connection error: {e}")
                 self._callback_invoke(self.on_error_callback, [e])
                 if not isinstance(e, httpx_ws.WebSocketNetworkError):
                     raise e
-                await asyncio.sleep(self.reconnect_interval) # 再接続までの待機時間
+                attempts += 1
+                await asyncio.sleep(self.reconnect_interval * (2 ** attempts))  # 再接続までの待機時間（指数関数的バックオフ）
+
+        self.logger.error("Max reconnect attempts reached. Giving up.")
 
     async def listen(self, ws: httpx_ws.AsyncWebSocketSession):
         while True:
             message = await ws.receive_text()
             await self.on_message(ws, message)
 
-    async def on_message(self, ws, message):
+    async def on_message(self, ws: httpx_ws.AsyncWebSocketSession, message: str):
         self.logger.debug(f"on_message: {message}")
 
         body = json.loads(message)
@@ -103,7 +110,7 @@ class RoLIMOAExtension:
         """
         サーバーから更新を受信したときのコールバック関数のデコレータ
         """
-        def decorator(callback: Callable[[dict], None]):
+        def decorator(callback: Callable[[dict], Awaitable[None]]):
             self.on_dispatch_callbacks.append(self.EventListener(action_type, callback))
             return callback
 
@@ -111,7 +118,14 @@ class RoLIMOAExtension:
 
 
 async def main():
-    ext = RoLIMOAExtension("ws://localhost:8000/ws")
+    # ロガーの設定
+    logger = getLogger("RoLIMOAExtension")
+    handler = StreamHandler()
+    handler.setLevel(DEBUG)
+    logger.setLevel(DEBUG)
+    logger.addHandler(handler)
+
+    ext = RoLIMOAExtension("ws://localhost:8000/ws", logger=logger)
 
     @ext.on_dispatch("task/setTaskUpdate")
     async def on_task_update_1(payload: dict):
