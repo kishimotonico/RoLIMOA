@@ -1,74 +1,81 @@
-from typing import NamedTuple, Callable, List
-import websocket
+from typing import NamedTuple, Any, Awaitable, Callable, List, Union, Optional, Coroutine
+import asyncio
+import httpx_ws
 import json
+from logging import getLogger, StreamHandler, DEBUG
 
 class RoLIMOAExtension:
     class EventListener(NamedTuple):
         type: str
-        callback: Callable[[dict], None]
+        callback: Callable[[dict], Awaitable[None]]
 
     def __init__(
             self,
-            url,
-            device_name = "extension/example",
-            on_open = None,
-            on_close = None,
-            on_error = None,
-            verbose = False,
+            url: str,
+            device_name: str = "extension/example",
+            on_open: Optional[Callable[[httpx_ws.AsyncWebSocketSession], Awaitable[None]]] = None,
+            on_close: Optional[Callable[[], None]] = None,
+            on_error: Optional[Callable[[Exception], None]] = None,
+            logger: Optional[Any] = None,
+            reconnect_interval: int = 5,
+            max_reconnect_attempts: int = 10
         ):
-        self._uri = url
-        self._device_name = device_name
-        self._on_open = on_open
-        self._on_close = on_close
-        self._on_error = on_error
-        self._vervose = verbose
-        self._ws = None
-        self._session_id = ""
-        self._on_dispatchs: List[RoLIMOAExtension.EventListener] = []
+        self.url = url
+        self.device_name = device_name
+        self.on_open_callback = on_open
+        self.on_close_callback = on_close
+        self.on_error_callback = on_error
+        self.logger = logger or getLogger(self.__class__.__name__)
+        self.reconnect_interval = reconnect_interval
+        self.max_reconnect_attempts = max_reconnect_attempts
+        self.session_id = ""
+        self.on_dispatch_callbacks: List[RoLIMOAExtension.EventListener] = []
+        self.callback_tasks = set()
 
-    def connect(self):
-        self.ws = websocket.WebSocketApp(
-            self._uri,
-            on_open=self.on_open,
-            on_message=self.on_message,
-            on_close=self.on_close,
-            on_error=self.on_error,
-        )
-        self.ws.run_forever(reconnect=5)
+    def _callback_invoke(self, func: Union[None, Callable[[Any], Awaitable[Any]], Callable[[Any], Any]], args: list):
+        if func is None:
+            return
+        elif asyncio.iscoroutinefunction(func):
+            # 非同期なタスクを作成
+            task = asyncio.create_task(func(*args))
+            task.add_done_callback(self.callback_tasks.discard)
+            self.callback_tasks.add(task)
+        else:
+            # 単純に関数を同期的に呼び出し
+            func(*args)
 
-    def dispatch(self, type: str, payload: dict):
-        """
-        サーバーに更新(Reduxのaction)を送信する関数
-        """
-        self.ws.send(json.dumps({
-            "type": "dispatch",
-            "actions": [
-                {
-                    "type": type,
-                    "payload": payload
-                }
-            ]
-        }, ensure_ascii=False))
+    async def connect(self):
+        attempts = 0
+        while attempts < self.max_reconnect_attempts:
+            try:
+                async with httpx_ws.aconnect_ws(self.url) as ws:
+                    self.logger.info("Connected to RoLIMOA server")
+                    self._callback_invoke(self.on_open_callback, [ws])
+                    await self.listen(ws)
+            except Exception as e:
+                self.logger.error(f"Connection error: {e}")
+                self._callback_invoke(self.on_error_callback, [e])
+                if not isinstance(e, httpx_ws.WebSocketNetworkError):
+                    raise e
+                attempts += 1
+                await asyncio.sleep(self.reconnect_interval * (2 ** attempts))  # 再接続までの待機時間（指数関数的バックオフ）
 
-    def on_dispatch(self, action_type: str):
-        """
-        サーバーから更新を受信したときのコールバック関数のデコレータ
-        """
-        def decorator(callback: Callable[[dict], None]):
-            self._on_dispatchs.append(self.EventListener(action_type, callback))
+        self.logger.error("Max reconnect attempts reached. Giving up.")
 
-        return decorator
+    async def listen(self, ws: httpx_ws.AsyncWebSocketSession):
+        while True:
+            message = await ws.receive_text()
+            await self.on_message(ws, message)
 
-    def on_message(self, ws, message):
-        if self._vervose:
-            print(f"on_message: {message}")
+    async def on_message(self, ws: httpx_ws.AsyncWebSocketSession, message: str):
+        self.logger.debug(f"on_message: {message}")
 
         body = json.loads(message)
         if body["type"] == "welcome":
-            self._session_id = body["sid"]
+            self.session_id = body["sid"]
             self.dispatch("connectedDevices/addDeviceOrUpdate", {
-                "sockId": self._session_id,
-                "deviceName": self._device_name,
+                "sockId": self.session_id,
+                "deviceName": self.device_name,
                 "currentPath": "(CLI)"
             })
 
@@ -77,52 +84,72 @@ class RoLIMOAExtension:
             for action in actions:
                 type = action["type"]
                 payload = action["payload"]
-                for listener in self._on_dispatchs:
+                for listener in self.on_dispatch_callbacks:
                     if listener.type == type:
-                        listener.callback(payload)
+                        self._callback_invoke(listener.callback, [payload])
 
-    def on_open(self, ws):
-        if self._vervose:
-            print("Connected!")
+    def dispatch(self, type: str, payload: dict):
+        """
+        サーバーに更新(Reduxのaction)を送信する関数
+        """
+        asyncio.create_task(self._send_dispatch(type, payload))
 
-        if self._on_open is not None:
-            self._on_open(ws)
+    async def _send_dispatch(self, type: str, payload: dict):
+        async with httpx_ws.aconnect_ws(self.url) as ws:
+            await ws.send_text(json.dumps({
+                "type": "dispatch",
+                "actions": [
+                    {
+                        "type": type,
+                        "payload": payload
+                    }
+                ]
+            }, ensure_ascii=False))
 
-    def on_close(self, ws, close_status_code, close_msg):
-        if self._vervose:
-            print(f"Disconnected! {close_status_code} {close_msg}")
+    def on_dispatch(self, action_type: str):
+        """
+        サーバーから更新を受信したときのコールバック関数のデコレータ
+        """
+        def decorator(callback: Callable[[dict], Awaitable[None]]):
+            self.on_dispatch_callbacks.append(self.EventListener(action_type, callback))
+            return callback
 
-        if self._on_close is not None:
-            self._on_close(ws, close_status_code, close_msg)
-
-    def on_error(self, ws, error):
-        if self._vervose:
-            print(f"Error! {error}")
-
-        if self._on_error is not None:
-            self._on_error(ws, error)
+        return decorator
 
 
-if __name__ == "__main__":
-    """
-    RoLIMOA Extensionのかんたんなサンプルコード
-    """
+async def main():
+    # ロガーの設定
+    logger = getLogger("RoLIMOAExtension")
+    handler = StreamHandler()
+    handler.setLevel(DEBUG)
+    logger.setLevel(DEBUG)
+    logger.addHandler(handler)
 
-    ext = RoLIMOAExtension("ws://localhost:8000/ws")
+    ext = RoLIMOAExtension("ws://localhost:8000/ws", logger=logger)
 
     @ext.on_dispatch("task/setTaskUpdate")
-    def on_task_update(payload: dict):
+    async def on_task_update_1(payload: dict):
         fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
 
-        print(f"{fieldSide}チームの{taskObject}が{afterValue}に更新されました")
+        print(f"{fieldSide}の{taskObject}が{afterValue}に更新されました")
 
-    @ext.on_dispatch("task/setGlobalUpdate")
-    def on_global_update(payload: dict):
+        await asyncio.sleep(5.24)
+        print(f"5.24秒たった！ {taskObject}({fieldSide})->{afterValue}")
+
+    @ext.on_dispatch("task/setTaskUpdate")
+    async def on_task_update_2(payload: dict):
+        fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
 
-        print(f"{taskObject}が{afterValue}に更新されました")
+        print(f"{fieldSide}の{taskObject}が{afterValue}に更新されました")
 
-    ext.connect()
+        await asyncio.sleep(3)
+        print(f"3秒たった！ {taskObject}({fieldSide})->{afterValue}")
+
+    await ext.connect()
+
+if __name__ == "__main__":
+    asyncio.run(main())
