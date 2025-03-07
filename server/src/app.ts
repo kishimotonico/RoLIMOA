@@ -58,7 +58,10 @@ app.ws('/ws', (ws, req) => {
         store.dispatch(action);
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify([action]));
+                client.send(JSON.stringify({
+                    type: "dispatch",
+                    actions: [action],
+                }));
             }
         });
     });
