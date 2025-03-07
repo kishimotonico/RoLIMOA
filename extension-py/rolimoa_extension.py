@@ -31,6 +31,7 @@ class RoLIMOAExtension:
         self.session_id = ""
         self.on_dispatch_callbacks: List[RoLIMOAExtension.EventListener] = []
         self.callback_tasks = set()
+        self._ws: Optional[httpx_ws.AsyncWebSocketSession] = None
 
     def _callback_invoke(self, func: Union[None, Callable[[Any], Awaitable[Any]], Callable[[Any], Any]], args: list):
         if func is None:
@@ -50,8 +51,13 @@ class RoLIMOAExtension:
             try:
                 async with httpx_ws.aconnect_ws(self.url) as ws:
                     self.logger.info("Connected to RoLIMOA server")
+                    self._ws = ws
                     self._callback_invoke(self.on_open_callback, [ws])
-                    await self.listen(ws)
+
+                    while True:
+                        message = await ws.receive_text()
+                        await self._on_message(message)
+
             except Exception as e:
                 self.logger.error(f"Connection error: {e}")
                 self._callback_invoke(self.on_error_callback, [e])
@@ -62,12 +68,7 @@ class RoLIMOAExtension:
 
         self.logger.error("Max reconnect attempts reached. Giving up.")
 
-    async def listen(self, ws: httpx_ws.AsyncWebSocketSession):
-        while True:
-            message = await ws.receive_text()
-            await self.on_message(ws, message)
-
-    async def on_message(self, ws: httpx_ws.AsyncWebSocketSession, message: str):
+    async def _on_message(self, message: str):
         self.logger.debug(f"on_message: {message}")
 
         body = json.loads(message)
@@ -92,19 +93,21 @@ class RoLIMOAExtension:
         """
         サーバーに更新(Reduxのaction)を送信する関数
         """
-        asyncio.create_task(self._send_dispatch(type, payload))
+        self._callback_invoke(self._send_dispatch,[type, payload])
 
     async def _send_dispatch(self, type: str, payload: dict):
-        async with httpx_ws.aconnect_ws(self.url) as ws:
-            await ws.send_text(json.dumps({
-                "type": "dispatch",
-                "actions": [
-                    {
-                        "type": type,
-                        "payload": payload
-                    }
-                ]
-            }, ensure_ascii=False))
+        if self._ws is None:
+            raise Exception("WebSocket connection is not established")
+
+        await self._ws.send_text(json.dumps({
+            "type": "dispatch",
+            "actions": [
+                {
+                    "type": type,
+                    "payload": payload
+                }
+            ]
+        }, ensure_ascii=False))
 
     def on_dispatch(self, action_type: str):
         """
