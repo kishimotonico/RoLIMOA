@@ -1,2 +1,1 @@
-def hello() -> str:
-    return "Hello from extension-py!"
+from .rolimoa_extension import RoLIMOAExtension
