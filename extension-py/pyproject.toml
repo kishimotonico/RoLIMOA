@@ -7,7 +7,9 @@ authors = [
     { name = "kishimotonico", email = "kishimotonico@gmail.com" }
 ]
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "httpx-ws>=0.7.1",
+]
 
 [build-system]
 requires = ["hatchling"]
