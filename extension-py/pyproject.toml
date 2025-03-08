@@ -1,5 +1,5 @@
 [project]
-name = "rolimoa-extension-py"
+name = "rolimoa-extension"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
