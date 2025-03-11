@@ -121,36 +121,16 @@ class RoLIMOAExtension:
 
 
 async def main():
-    # ロガーの設定
-    logger = getLogger("RoLIMOAExtension")
-    handler = StreamHandler()
-    handler.setLevel(DEBUG)
-    logger.setLevel(DEBUG)
-    logger.addHandler(handler)
-
-    ext = RoLIMOAExtension("ws://localhost:8000/ws", logger=logger)
+    ext = RoLIMOAExtension("ws://localhost:8000/ws")
 
     @ext.on_dispatch("task/setTaskUpdate")
-    async def on_task_update_1(payload: dict):
+    async def on_task_update(payload: dict):
         fieldSide = payload["fieldSide"]
         taskObject = payload["taskObjectId"]
         afterValue = payload["afterValue"]
 
+        # タスクオブジェクトが変更されたときの処理
         print(f"{fieldSide}の{taskObject}が{afterValue}に更新されました")
-
-        await asyncio.sleep(5.24)
-        print(f"5.24秒たった！ {taskObject}({fieldSide})->{afterValue}")
-
-    @ext.on_dispatch("task/setTaskUpdate")
-    async def on_task_update_2(payload: dict):
-        fieldSide = payload["fieldSide"]
-        taskObject = payload["taskObjectId"]
-        afterValue = payload["afterValue"]
-
-        print(f"{fieldSide}の{taskObject}が{afterValue}に更新されました")
-
-        await asyncio.sleep(3)
-        print(f"3秒たった！ {taskObject}({fieldSide})->{afterValue}")
 
     await ext.connect()
 

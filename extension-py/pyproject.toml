@@ -1,0 +1,16 @@
+[project]
+name = "rolimoa-extension"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "kishimotonico", email = "kishimotonico@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "httpx-ws>=0.7.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

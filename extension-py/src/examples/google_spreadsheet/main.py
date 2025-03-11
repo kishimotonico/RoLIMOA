@@ -5,7 +5,7 @@ from pathlib import Path
 import env
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from rolimoa_extension import RoLIMOAExtension
+from rolimoa_extension.rolimoa_extension import RoLIMOAExtension
 
 def optional(obj: dict, key: str, default=""):
     # Pythonにはoptional chainingがないので代わりに
