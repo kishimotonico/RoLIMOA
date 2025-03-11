@@ -98,31 +98,28 @@ npm run dev
 - Zod
 - Express
 
-### DOCKER
-Docker上で開発が可能です。  
-開発用の環境と実行用の環境があります。  
+### 🐋 Docker (WIP)
 
-実行環境の構築
+Dockerでも起動や開発ができます。
+
+本番環境のコンテナを使うには、次の方法でビルド＆起動をしてからブラウザで http://localhost:8000 にアクセスします。
+
 ```bash
-cd /path/to/RoLIMOA/docker
-./build.sh
+cd /path/to/RoLIMOA
+
+# ビルド
+docker build -t rolimoa .
+
+# 起動
+docker run -p 8000:8000 rolimoa
 ```
 
-システムをDockerで実行  (GPU非搭載の場合は NO_GPU=1 を引数とする)
-```bash
-cd /path/to/RoLIMOA/docker
-./run.sh
-```
+開発環境にはサーバーとクライアントのコンテナを使うので、次のようにしてDocker composeで起動します。
 
-開発環境の構築
 ```bash
-cd /path/to/RoLIMOA/docker
-BUILD="DEBUG" ./build.sh
-```
-開発環境をDockerで実行  (GPU非搭載の場合は NO_GPU=1 を引数とする)
-```bash
-cd /path/to/RoLIMOA/docker
-BUILD="DEBUG" ./run.sh
+cd /path/to/RoLIMOA
+
+docker compose up -d
 ```
 
 ### TODO: 今後追加したい機能や、改善したい点など
