@@ -11,18 +11,12 @@ Node.jsの**サーバー本体のソースコードを変更することなく**
 
 ## 使い方
 
-基本的な使い方はrolimoa_extension.pyの `if __name__ == "__main__":` 以降のコード例を参考にしてください。
+[uv](https://docs.astral.sh/uv/guides/install-python/) をインストールしてください。サンプルコードの ./src/examples/basic/main.py は次のように起動できます。
 
-## サンプルコード
-
-使用例にある一部の使い方は ./example 以下に実装例があります。
-詳細は、各サンプルのREADME.mdを参照ください。
-
-サンプルでは "ImportError: attempted relative import with no known parent package" の都合で、インポートが次のようになっています。
-
-```Python
-from pathlib import Path
-import sys
-sys.path.append(str(Path(__file__).parent.parent.parent))
-from rolimoa_extension import RoLIMOAExtension
 ```
+git clone https://github.com/kishimotonico/RoLIMOA.git
+cd RoLIMOA/extension-py
+
+uv run ./src/examples/basic/main.py
+```
+
