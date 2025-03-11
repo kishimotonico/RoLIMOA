@@ -3,11 +3,12 @@ name: rolimoa-dev
 services:
   client:
     build: .
+    command: npm -C ./client run dev -- --host
     ports:
       - "5173:5173"
     volumes:
       - type: bind
-        source: ../client
+        source: ./client
         target: /rolimoa/client
       - type: volume
         source: client_node_modules
@@ -17,11 +18,12 @@ services:
 
   server:
     build: .
+    command: npm -C ./server run dev
     ports:
       - "8000:8000"
     volumes:
       - type: bind
-        source: ../server
+        source: ./server
         target: /rolimoa/server
       - type: volume
         source: server_node_modules
