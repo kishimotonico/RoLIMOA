@@ -90,6 +90,15 @@ export const TimerMasterContainer: FC = () => {
       })]);
     }
   }, [currentPhase, timeOffset]);
+  const onTimeChange = useCallback((ms: number) => () => {
+    const startTime = currentPhase.startTime - ms;
+    LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
+      id: currentPhase.id,
+      startTime,
+      pausedTime: currentPhase.pausedTime,
+    })]);
+  }, [currentPhase]);
+  const pausedElapsedSecond = currentPhase.pausedTime ? (currentPhase.pausedTime - currentPhase.startTime) / 1000 : undefined;
 
   useEffect(() => {
     // タイマーの更新時にフェーズ移行を確認
@@ -105,11 +114,13 @@ export const TimerMasterContainer: FC = () => {
       isFirstPhase={Phase.getIndex(phaseState.current.id) === 0}
       isLastPhase={Phase.isLast(phaseState.current.id)}
       isPaused={phaseState.current.pausedTime !== undefined}
+      pausedElapsedSecond={pausedElapsedSecond}
       onFirstPhase={onFirstPhase}
       onPrevPhase={onPrevPhase}
       onNextPhase={onNextPhase}
       onLastPhase={onLastPhase}
       onPauseButton={onPauseButton}
+      onTimeChange={onTimeChange}
       isEnabledNextButton={isEnabledNextButton}
       phaseConfig={Phase.getRawConfig(phaseState.current.id)}
       currentPhaseState={phaseState.current}
