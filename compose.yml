@@ -1,0 +1,44 @@
+name: rolimoa-dev
+
+services:
+  client:
+    build:
+      context: .
+      target: dev
+    command: npm -C ./client run dev -- --host
+    ports:
+      - "5173:5173"
+    volumes:
+      - type: bind
+        source: ./client
+        target: /rolimoa/client
+      - type: volume
+        source: client_node_modules
+        target: /rolimoa/client/node_modules
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: .
+      target: dev
+    command: npm -C ./server run dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./server
+        target: /rolimoa/server
+      - type: volume
+        source: server_node_modules
+        target: /rolimoa/server/node_modules
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  client_node_modules:
+  server_node_modules:
