@@ -1,20 +1,16 @@
 import { FC } from 'react';
-import { Paper, Typography, Grid, Button, ButtonGroup, Tooltip, Box } from '@mui/material';
+import { Paper, Typography, Grid, Button, ButtonGroup } from '@mui/material';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
-import Forward10Icon from '@mui/icons-material/Forward10';
-import Replay10Icon from '@mui/icons-material/Replay10';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { TimerDisplay } from './TimerDisplay';
 import { TimeProgressConfigType } from '@/config/types';
 import styled from '@emotion/styled';
 import { CurrentPhaseState } from '@/slices/phase';
-import { Label } from '@mui/icons-material';
+import { ConditionalTooltip } from '@/ui/ConditionalTooltip';
 
 const DetailInfoUl = styled('ul')({
   paddingInlineStart: '22px',
@@ -68,95 +64,74 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
               displayTimeVariant="h2"
             />
           </Grid>
-          <Grid item xs={12} sx={{ 
+          <Grid item xs={12} sx={{
             display: 'flex',
             justifyContent: 'center',
-           }}>
-            <ButtonGroup size="small" sx={{ 
+          }}>
+            <ButtonGroup size="small" variant="contained" color="inherit" sx={{
               opacity: .2,
               transition: '0.3s',
               '&:hover': {
                 opacity: '0.75',
               },
-             }}>
-              <Tooltip title="最初のフェーズに">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onFirstPhase} disabled={isFirstPhase}>
-                    <SkipPreviousIcon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title="前のフェーズに">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onPrevPhase} disabled={isFirstPhase}>
-                    <FastRewindIcon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title={isPaused ? "再開" : "一時停止"}>
-                <span>
-                  <Button variant="contained" color="grey" onClick={onPauseButton} disabled={phaseConfig.type !== "count"}>
-                    {
-                      isPaused ? <PlayArrowIcon /> : <PauseIcon />
-                    }
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title="次のフェーズに">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onNextPhase} disabled={isLastPhase}>
-                    <FastForwardIcon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title="最初のフェーズに">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onLastPhase} disabled={isLastPhase}>
-                    <SkipNextIcon />
-                  </Button>
-                </span>
-              </Tooltip>
+            }}>
+              <ConditionalTooltip condition={!isFirstPhase} title="最初のフェーズに">
+                <Button onClick={onFirstPhase} disabled={isFirstPhase}>
+                  <SkipPreviousIcon />
+                </Button>
+              </ConditionalTooltip>
+              <ConditionalTooltip condition={!isFirstPhase} title="前のフェーズに">
+                <Button onClick={onPrevPhase} disabled={isFirstPhase}>
+                  <FastRewindIcon />
+                </Button>
+              </ConditionalTooltip>
+              <ConditionalTooltip condition={phaseConfig.type === "count"} title={isPaused ? "再開" : "一時停止"}>
+                <Button onClick={onPauseButton} disabled={phaseConfig.type !== "count"}>
+                  {
+                    isPaused ? <PlayArrowIcon /> : <PauseIcon />
+                  }
+                </Button>
+              </ConditionalTooltip>
+              <ConditionalTooltip condition={!isLastPhase} title="次のフェーズに">
+                <Button onClick={onNextPhase} disabled={isLastPhase}>
+                  <FastForwardIcon />
+                </Button>
+              </ConditionalTooltip>
+              <ConditionalTooltip condition={!isLastPhase} title="最初のフェーズに">
+                <Button onClick={onLastPhase} disabled={isLastPhase}>
+                  <SkipNextIcon />
+                </Button>
+              </ConditionalTooltip>
             </ButtonGroup>
           </Grid>
-          {isPaused && <Grid item xs={12} sx={{ 
+          {isPaused && <Grid item xs={12} sx={{
             display: 'flex',
             justifyContent: 'center',
-           }}>
-            <ButtonGroup size="small" sx={{ 
+          }}>
+            <ButtonGroup size="small" variant="text" color="inherit" sx={{
               opacity: 0.8,
               transition: '0.3s',
-             }}>
-              <Tooltip title="-10s">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onTimeChange(-10 * 1000)} disabled={isFirstPhase}>
-                    <Replay10Icon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title="-1s">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onTimeChange(-1 * 1000)} disabled={isFirstPhase}>
-                    <RemoveIcon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <LabelInButtonGroup>
-                {pausedElapsedSecond ? `${pausedElapsedSecond} s` : "ー"} 
-              </LabelInButtonGroup>
-              <Tooltip title="+1s">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onTimeChange(+1 * 1000)} disabled={isLastPhase}>
-                    <AddIcon />
-                  </Button>
-                </span>
-              </Tooltip>
-              <Tooltip title="+10s">
-                <span>
-                  <Button variant="contained" color="grey" onClick={onTimeChange(+10 * 1000)} disabled={isLastPhase}>
-                    <Forward10Icon />
-                  </Button>
-                </span>
-              </Tooltip>
+              border: '1px solid rgba(0, 0, 0, 0.23)',
+            }}>
+              <Button onClick={onTimeChange(-10 * 1000)} disabled={isFirstPhase}>
+                -10
+              </Button>
+              <Button onClick={onTimeChange(-1 * 1000)} disabled={isFirstPhase}>
+                -1
+              </Button>
+              <Button sx={{
+                width: "6rem",
+                fontSize: '1rem',
+                textTransform: 'none',
+              }}>
+                {pausedElapsedSecond ? `${pausedElapsedSecond} s` : "ー"}
+              </Button>
+              <Button onClick={onTimeChange(+1 * 1000)} disabled={isLastPhase}>
+                +1
+              </Button>
+              <Button onClick={onTimeChange(+10 * 1000)} disabled={isLastPhase}>
+                +10
+              </Button>
             </ButtonGroup>
           </Grid>}
         </Grid>
@@ -187,21 +162,5 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
         </Grid>
       </Grid>
     </Paper>
-  );
-}
-
-const LabelInButtonGroup = (props: { children: React.ReactNode }) => {
-  return (
-    <Box sx={{ 
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingLeft: 1,
-      paddingRight: 1,
-      cursor: 'default',
-      boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
-     }}>
-      {props.children}
-    </Box>
   );
 }
