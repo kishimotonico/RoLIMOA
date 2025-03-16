@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from 'react';
-import { Grid } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import { Alert } from '@mui/material';
 import { AlertProps } from '@mui/lab';
 import { Dashboard } from '@/components/Dashboard';
@@ -14,30 +14,33 @@ const ClosableAlert: FC<AlertProps> = (props) => {
   }, []);
 
   return open ? (
-    <Grid item xs={12}>
+    <Grid2 size={12}>
       <Alert {...props} onClose={onClose} />
-    </Grid>
+    </Grid2>
   ) : <></>;
 }
 
 export const AdminPage: FC = () => {
   return (
     <Dashboard title="試合管理（マスタ）">
-      <Grid container spacing={3}>
+      <Grid2 container spacing={3}>
         <ClosableAlert severity="warning" sx={{ width: '100%' }} >
           このページで時刻の同期や試合の進行などを管理するので、管理者以外はこのページを開かないでください
         </ClosableAlert>
 
-        <Grid item xs={12} lg={7}>
+        <Grid2
+          size={{ xs: 12, lg: 7 }}>
           <TimerMasterContainer />
-        </Grid>
-        <Grid item xs={12} lg={7}>
+        </Grid2>
+        <Grid2
+          size={{ xs: 12, lg: 7 }}>
           <MatchMasterContainer />
-        </Grid>
-        <Grid item xs={12} lg={7}>
+        </Grid2>
+        <Grid2
+          size={{ xs: 12, lg: 7 }}>
           <DeviceListContainer />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Dashboard>
   );
 }

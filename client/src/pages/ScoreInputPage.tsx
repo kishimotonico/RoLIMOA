@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid, Paper, Tooltip, Switch, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@mui/material';
+import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid2, Paper, Tooltip, Switch, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
 import { RootState } from '@/slices';
@@ -136,12 +136,12 @@ const ScoreDisplay: FC<ScoreDisplayProps> = ({ fieldSide }) => {
   const refValues = Object.entries(refs ?? {});
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
+    <Grid2 container spacing={3}>
+      <Grid2 size={12}>
         <ScoreBlock fieldSide={fieldSide} />
-      </Grid>
+      </Grid2>
       {refValues.length > 0 &&
-        <Grid item xs={12}>
+        <Grid2 size={12}>
           <TableContainer>
             <Table size="small">
               <TableBody>
@@ -154,9 +154,9 @@ const ScoreDisplay: FC<ScoreDisplayProps> = ({ fieldSide }) => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Grid>
+        </Grid2>
       }
-    </Grid>
+    </Grid2>
   );
 };
 
@@ -181,14 +181,22 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
 
   return (
     <Dashboard title={`${kanji}チーム得点入力`}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} lg={8}>
-          <Grid container spacing={1}>
+      <Grid2 container spacing={2}>
+        <Grid2
+          size={{
+            xs: 12,
+            lg: 8
+          }}>
+          <Grid2 container spacing={1}>
             <ScoreInputPanel fieldSide={fieldSide} />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
 
-        <Grid item xs={12} lg={4}>
+        <Grid2
+          size={{
+            xs: 12,
+            lg: 4
+          }}>
           <Paper sx={{ p: 2 }}>
             <Box sx={{ mb: 2 }}>
               <ScoreDisplay fieldSide={fieldSide} />
@@ -201,7 +209,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
               <ScoreInputVgoalButton fieldSide={fieldSide} color={color} />
             </Box>
           </Paper>
-        </Grid>
+        </Grid2>
 
         <Backdrop open={!isScoreEnable}>
           <Fab color="default" variant="extended" onClick={onEnableButton}>
@@ -209,7 +217,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
             スコアを有効化
           </Fab>
         </Backdrop>
-      </Grid>
+      </Grid2>
     </Dashboard>
   );
 }

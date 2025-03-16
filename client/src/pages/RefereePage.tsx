@@ -1,5 +1,5 @@
 import { FC, useCallback, useState, useEffect } from 'react';
-import { Box, Button, Grid, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid2, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material';
 import { Theme } from '@mui/system';
 import CachedIcon from '@mui/icons-material/Cached';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
@@ -141,28 +141,34 @@ export const RefereePage: FC = () => {
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
           現在の試合：{matchName}
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={8}>
-            <Grid container spacing={6}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={{ xs: 12, lg: 8 }}>
+            <Grid2 container spacing={6}>
               {/* スコア */}
-              <Grid item xs={12} container justifyContent="space-between" alignItems="center" direction={isReverse ? "row-reverse" : "row"}>
-                <Grid item xs={5}>
+              <Grid2
+                size={12}
+                container
+                justifyContent="space-between"
+                alignItems="center"
+                direction={isReverse ? "row-reverse" : "row"}
+              >
+                <Grid2 size={5}>
                   <ScoreBlock fieldSide="blue" teamNameVariant="subtitle1" />
                   <ScoreDetailTable fieldSide="blue" />
-                </Grid>
-                <Grid item xs={1} textAlign="center">
+                </Grid2>
+                <Grid2 size={1} textAlign="center">
                   <IconButton aria-label="delete" color="default" onClick={onReverseClick} size="large">
                     <CachedIcon />
                   </IconButton>
-                </Grid>
-                <Grid item xs={5}>
+                </Grid2>
+                <Grid2 size={5}>
                   <ScoreBlock fieldSide="red" teamNameVariant="subtitle1" />
                   <ScoreDetailTable fieldSide="red" />
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={4}>
+                </Grid2>
+              </Grid2>
+            </Grid2>
+          </Grid2>
+          <Grid2 size={{ xs: 12, lg: 4 }}>
             <Box sx={{
               width: "100%",
               height: "100%",
@@ -213,8 +219,8 @@ export const RefereePage: FC = () => {
                 </Button>
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Paper>
     </Dashboard>
   );

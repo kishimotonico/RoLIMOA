@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Paper, Typography, Grid, Button, ButtonGroup, Box } from '@mui/material';
+import { Paper, Typography, Grid2, Button, ButtonGroup, Box } from '@mui/material'; // Grid2に変更
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -48,20 +48,20 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         時刻マスタ
       </Typography>
-      <Grid container spacing={1}>
-        <Grid item container xs={8} spacing={1}>
-          <Grid item xs={12}>
+      <Grid2 container spacing={1}>
+        <Grid2 container size={{ xs: 8 }} spacing={1}>
+          <Grid2 size={12}>
             <TimerDisplay
               descriptionVariant="h6"
               displayTimeVariant="h2"
             />
-          </Grid>
-          <Grid item xs={12} sx={{
+          </Grid2>
+          <Grid2 size={12} sx={{
             display: 'flex',
             justifyContent: 'center',
           }}>
-          </Grid>
-          <Grid item xs={12} sx={{
+          </Grid2>
+          <Grid2 size={12} sx={{
             display: 'flex',
             justifyContent: 'center',
           }}>
@@ -95,9 +95,9 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
                 +10
               </Button>
             </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Grid item xs={4}>
+          </Grid2>
+        </Grid2>
+        <Grid2 size={{ xs: 4 }}>
           <Box mb={3}>
             <Typography variant="body2" color="textSecondary">
               id: {currentPhaseState.id} ({phaseConfig.type})
@@ -157,8 +157,8 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
           >
             次のフェーズへ <SkipNextIcon />
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Paper>
   );
 }

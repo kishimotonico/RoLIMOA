@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { blue, red } from '@mui/material/colors';
 import { Dashboard } from '@/components/Dashboard';
 import { useSelector } from 'react-redux';
@@ -68,13 +68,13 @@ const GameResultsList: React.FC = () => {
 export const HomePage: FC = () => {
   return (
     <Dashboard title="Dashboard">
-      <Grid container>
-        <Grid item xs={12}>
+      <Grid2 container>
+        <Grid2 size={12}>
           <Paper sx={{ padding: "1em" }}>
             <GameResultsList />
           </Paper>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Dashboard>
   );
 }
