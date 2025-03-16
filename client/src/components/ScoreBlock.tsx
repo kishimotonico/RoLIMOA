@@ -47,7 +47,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         backgroundColor: (theme: Theme) => theme.palette[fieldColor][mainOrLight],
         ...teamNameSx,
       }}>
-        {teamName ?? " "}
+        {teamName || "　"}
       </Typography>
       {/* スコア表示 */}
       <Typography component="div" variant={scoreVariant} sx={{
@@ -59,11 +59,11 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         alignItems: "center",
         ...scoreSx,
       }}>
-        <Box sx={{ paddingRight: ".5em", }}>
+        <Box>
           {value}
         </Box>
         {scoreState.vgoal && (
-          <Box sx={{ fontSize: "40%" }}>
+          <Box sx={{ fontSize: "40%", paddingLeft: ".5em" }}>
             <Box>
               {config.rule.vgoal.name}
             </Box>

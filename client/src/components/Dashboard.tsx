@@ -5,7 +5,7 @@ import {
   AppBarProps as MuiAppBarProps,
   Drawer as MuiDrawer,
   Box, Container, CssBaseline, Divider, IconButton, List, ListItemButton,
-  ListItemText, ListSubheader, Toolbar, Typography, useMediaQuery, Theme,
+  ListItemText, Toolbar, Typography, useMediaQuery, Theme,
 } from '@mui/material';
 import { styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -166,31 +166,32 @@ export const Dashboard: FC<DashboardProps> = ({
           </DrawerListLink>
         </List>
         <Divider />
-        <ListSubheader inset>ふぇぇ…</ListSubheader>
-        <DrawerListLink to="/admin">
-          <ListItemButton>
-            <ListItemIcon>
-              <BuildIcon />
-            </ListItemIcon>
-            <ListItemText primary="試合管理" />
-          </ListItemButton>
-        </DrawerListLink>
-        <DrawerListLink to="/screen">
-          <ListItemButton>
-            <ListItemIcon>
-              <CastIcon />
-            </ListItemIcon>
-            <ListItemText primary="スクリーン" />
-          </ListItemButton>
-        </DrawerListLink>
-        <DrawerListLink to="/streaming-overlay-opener">
-          <ListItemButton>
-            <ListItemIcon>
-              <VideocamIcon />
-            </ListItemIcon>
-            <ListItemText primary="配信オーバーレイ" />
-          </ListItemButton>
-        </DrawerListLink>
+        <List component="nav">
+          <DrawerListLink to="/admin">
+            <ListItemButton>
+              <ListItemIcon>
+                <BuildIcon />
+              </ListItemIcon>
+              <ListItemText primary="試合管理" />
+            </ListItemButton>
+          </DrawerListLink>
+          <DrawerListLink to="/screen">
+            <ListItemButton>
+              <ListItemIcon>
+                <CastIcon />
+              </ListItemIcon>
+              <ListItemText primary="スクリーン" />
+            </ListItemButton>
+          </DrawerListLink>
+          <DrawerListLink to="/streaming-overlay-opener">
+            <ListItemButton>
+              <ListItemIcon>
+                <VideocamIcon />
+              </ListItemIcon>
+              <ListItemText primary="配信オーバーレイ" />
+            </ListItemButton>
+          </DrawerListLink>
+        </List>
       </Drawer>
       <Box component="main" sx={{
         flexGrow: 1,
