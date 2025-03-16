@@ -36,3 +36,12 @@ export const parseFormatTime = (time: string): number => {
   }
   throw new Error("Invalid time format");
 };
+
+// Unix時刻をミリ秒まで含めた `23:59:01.234` 形式の日時にする
+export const unixToTimeWithMillis = (unixtime: number): string => {
+  const date = new Date(unixtime);
+  const hhmmss = date.toLocaleTimeString('sv-SE');
+  const ms = (date.getMilliseconds() % 1000).toString().padStart(3, '0');
+
+  return `${hhmmss}.${ms}`;
+}
