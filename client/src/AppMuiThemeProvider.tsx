@@ -1,6 +1,7 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
+import '@fontsource/noto-sans-jp';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
@@ -8,7 +9,15 @@ declare module '@mui/material/Button' {
   }
 }
 
+const fontFamily = [
+  'Noto Sans JP',
+  'sans-serif',
+].join(',');
+
 const baseTheme = createTheme({
+  typography: {
+    fontFamily,
+  },
   palette: {
     primary: blue,
     secondary: pink,
@@ -72,7 +81,7 @@ type Props = {
   children: ReactNode,
 };
 
-export const AppMuiThemeProvider: FC<Props> = ({ children }) => {
+export const AppMuiThemeProvider = ({ children }: Props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={appTheme}>

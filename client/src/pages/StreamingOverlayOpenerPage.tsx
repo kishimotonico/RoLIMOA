@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { useResolvedPath } from 'react-router';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Box, Divider, FormControlLabel, Grid, IconButton, InputAdornment, Paper, Switch, TextField, Tooltip } from '@mui/material';
+import { Box, Divider, FormControlLabel, Grid2, IconButton, InputAdornment, Paper, Switch, TextField, Tooltip } from '@mui/material';
 import { Dashboard } from '@/components/Dashboard';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -57,8 +57,8 @@ export const StreamingOverlayOpenerPage: FC = () => {
 
   return (
     <Dashboard title="配信オーバーレイ">
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={2}>
+        <Grid2 size={12}>
           <Paper sx={{ padding: "1em" }}>
             <Box>
               <TextField
@@ -98,8 +98,8 @@ export const StreamingOverlayOpenerPage: FC = () => {
               <StreamingInterfaceController />
             </Box>
           </Paper>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Dashboard>
   );
 }

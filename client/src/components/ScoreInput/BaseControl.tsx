@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
 import { ToggleButtonControl } from './ToggleButtonControl';
@@ -24,7 +24,7 @@ export const BaseControl: FC<BaseControlProps> = ({
   const style = controlConfig?.style;
 
   return (
-    <Grid item xs={12} sm={style?.width ?? 6}>
+    <Grid2 size={{ xs: 12, sm: style?.width ?? 6 }}>
       {
         controlConfig?.type === "toggle_switch" ?
           <ToggleSwitchControl
@@ -56,6 +56,6 @@ export const BaseControl: FC<BaseControlProps> = ({
             stateUpdate={stateUpdate}
           />
       }
-    </Grid>
+    </Grid2>
   );
 };
