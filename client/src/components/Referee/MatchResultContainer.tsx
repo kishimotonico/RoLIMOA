@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { Box, Button, Grid2, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material';
 import { Theme } from '@mui/system';
 import CachedIcon from '@mui/icons-material/Cached';
@@ -93,20 +93,11 @@ const ResultConfirm = () => {
   const isLastPhase = Phase.isLast(currentPhase.id);
 
   const [comment, setComment] = useState<string>("");
-  const onCommentChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
-  }, []);
+  const onCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => setComment(e.target.value);
 
-  const [isConfirmable, setIsConfirmable] = useState(isLastPhase && !match.isConfirmed && currentPhase.id !== "default");
-  useEffect(() => {
-    // TODO: useStateとuseEffectでやってるの頭悪い気がするので、もっとスマートにしたい
-    setIsConfirmable(isLastPhase && !match.isConfirmed && currentPhase.id !== "default");
-    console.debug("RefeePage@useEffect");
-  }, [isLastPhase, match.isConfirmed, currentPhase.id]);
+  const isConfirmable = isLastPhase && !match.isConfirmed && currentPhase.id !== "default";
 
   const onConfirmButtonClick = useCallback(() => {
-    setIsConfirmable(false);
-
     const confirmedAt = Number(new Date());
     const confirmedBy = "not implemented";
 
@@ -157,6 +148,7 @@ const ResultConfirm = () => {
         onChange={onCommentChange}
         value={comment}
         sx={{ marginBottom: "1rem" }}
+        disabled={match.isConfirmed}
       />
       <Button
         variant="contained"
@@ -164,7 +156,6 @@ const ResultConfirm = () => {
         fullWidth
         onClick={onConfirmButtonClick}
         disabled={!isConfirmable}
-        // disabled={match.isConfirmed || !isLastPhase || currentPhase.id === "default"}
       >
         {isLastPhase ? "試合結果を確定" : "競技が進行中です"} <AssignmentTurnedInIcon />
       </Button>
@@ -177,7 +168,7 @@ export const MatchResultContainer = () => {
   const match = useSelector<RootState, MatchState>((state) => state.match);
 
   const [isReverse, setIsReverse] = useState(false);
-  const onReverseClick = useCallback(() => { setIsReverse(!isReverse) }, [isReverse]);
+  const onReverseClick = () => setIsReverse((toggle) => !toggle);
 
   return (
     <Paper sx={{ p: 2 }}>
@@ -199,7 +190,7 @@ export const MatchResultContainer = () => {
                 <ScoreBlock fieldSide="blue" teamNameVariant="subtitle1" />
                 <ScoreDetailTable fieldSide="blue" />
               </Grid2>
-              <Grid2 size={1} textAlign="center">
+              <Grid2 size={2} textAlign="center">
                 <IconButton aria-label="delete" color="default" onClick={onReverseClick} size="large">
                   <CachedIcon />
                 </IconButton>
