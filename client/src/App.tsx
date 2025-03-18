@@ -6,8 +6,9 @@ import { useRecoilState } from 'recoil';
 import { scoreStateSlice } from '@/slices/score';
 import { phaseStateSlice } from '@/slices/phase';
 import { matchStateSlice } from '@/slices/match';
-import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
+import { operationLogsStateSlice } from './slices/operationLogs';
 import { resultRecordsStateSlice } from '@/slices/resultRecord';
+import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
 import { streamingInterfaceSlice } from '@/slices/streamingInterface';
 import { connectionState } from '@/atoms/connectionState';
 import { HomePage } from '@/pages/HomePage';
@@ -56,6 +57,7 @@ const App: FC = () => {
         dispatch(scoreStateSlice.actions.setState(data.state.score));
         dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
         dispatch(matchStateSlice.actions.setState(data.state.match));
+        dispatch(operationLogsStateSlice.actions.setState(data.state.operationLogs));
         dispatch(resultRecordsStateSlice.actions.setState(data.state.resultRecords));
         dispatch(connectedDevicesStateSlice.actions.setState(data.state.connectedDevices));
         dispatch(streamingInterfaceSlice.actions.setState(data.state.streamingInterface));

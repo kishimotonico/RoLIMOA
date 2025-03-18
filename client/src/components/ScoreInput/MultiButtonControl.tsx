@@ -7,7 +7,7 @@ interface MultiButtonControlProps {
   color: "primary" | "secondary" | "inherit",
   taskConfig: TaskObjectConfigType,
   currentValue: number,
-  stateUpdate: (value: number) => void,
+  stateUpdate: (value: number, cmd: string) => void,
   controlConfig: taskObjectMultiButtonUiType,
 }
 
@@ -38,19 +38,19 @@ export const MultiButtonControl: FC<MultiButtonControlProps> = ({
 
     if (cmd === "=") {
       return {
-        onClick: () => stateUpdate(val),
+        onClick: () => stateUpdate(val, command),
         disabled: currentValue === val,
       };
     }
     if (cmd === "+") {
       return {
-        onClick: () => stateUpdate(currentValue + val),
+        onClick: () => stateUpdate(currentValue + val, command),
         disabled: currentValue + val > max,
       };
     }
     if (cmd === "-") {
       return {
-        onClick: () => stateUpdate(currentValue - val),
+        onClick: () => stateUpdate(currentValue - val, command),
         disabled: currentValue - val < min,
       };
     }

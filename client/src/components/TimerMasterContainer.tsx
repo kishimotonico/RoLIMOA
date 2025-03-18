@@ -3,12 +3,18 @@ import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { RootState } from '@/slices';
 import { PhaseState, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import { operationLogsStateSlice } from '@/slices/operationLogs';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';
 import * as Phase from '@/util/PhaseStateUtil';
 import { TimerMasterComponent } from './TimerMasterComponent';
 
-function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|"next"|"last", offset: number) {
+function gotoPhaseCommand(
+  currentPhase: CurrentPhaseState,
+  type: "first"|"prev"|"next"|"last",
+  offset: number,
+  isAutoTransition: boolean = false,
+) {
   let id = currentPhase.id;
   if (type === "first")
     id = Phase.getFirstPhase();
@@ -19,10 +25,19 @@ function gotoPhaseCommand(currentPhase: CurrentPhaseState, type: "first"|"prev"|
   if (type === "last")
     id = Phase.getLastPhase();
 
-  LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
-    id,
-    startTime: Date.now() + offset,
-  })]);
+  LyricalSocket.dispatchAll([
+    phaseStateSlice.actions.setState({
+      id,
+      startTime: Date.now() + offset,
+    }),
+    operationLogsStateSlice.actions.addLog({
+      op: {
+        type: "PhaseChange",
+        phase: id,
+        isAuto: isAutoTransition ? true : undefined,
+      },
+    }),
+  ]);
 }
 
 // フェーズの自動遷移を行うかを判断
@@ -81,15 +96,18 @@ export const TimerMasterContainer: FC = () => {
         phaseStateSlice.actions.setState({
           id: currentPhase.id,
           startTime: now - (currentPhase.pausedTime - currentPhase.startTime),
-        })
+        }),
       ]);
     } else {
       // 一時停止
-      LyricalSocket.dispatchAll([phaseStateSlice.actions.setPause({
-        pausedTime: now,
-      })]);
+      LyricalSocket.dispatchAll([
+        phaseStateSlice.actions.setPause({
+          pausedTime: now,
+        }),
+      ]);
     }
   }, [currentPhase, timeOffset]);
+
   const onTimeChange = useCallback((ms: number) => () => {
     const startTime = currentPhase.startTime - ms;
     LyricalSocket.dispatchAll([phaseStateSlice.actions.setState({
@@ -98,12 +116,13 @@ export const TimerMasterContainer: FC = () => {
       pausedTime: currentPhase.pausedTime,
     })]);
   }, [currentPhase]);
+
   const pausedElapsedSecond = currentPhase.pausedTime ? (currentPhase.pausedTime - currentPhase.startTime) / 1000 : undefined;
 
   useEffect(() => {
     // タイマーの更新時にフェーズ移行を確認
     if (isAutoTransition(phaseState)) {
-      gotoPhaseCommand(phaseState.current, "next", timeOffset);
+      gotoPhaseCommand(phaseState.current, "next", timeOffset, true);
     }
     // 次フェーズボタンの有効/無効を設定
     setIsEnabledNextButton(isManualTransition(phaseState));
@@ -126,4 +145,4 @@ export const TimerMasterContainer: FC = () => {
       currentPhaseState={phaseState.current}
     />
   );
-}
+};

@@ -10,7 +10,7 @@ interface BaseControlProps {
   taskConfig: TaskObjectConfigType,
   controlConfig?: CustomControlPanelType,
   currentValue: number,
-  stateUpdate: (value: number) => void,
+  stateUpdate: (value: number, cmd: string) => void,
   color?: "primary" | "secondary",
 }
 

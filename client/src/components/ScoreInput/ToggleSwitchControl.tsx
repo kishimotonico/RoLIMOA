@@ -6,7 +6,7 @@ interface ToggleSwitchControlProps {
   color: "primary" | "secondary" | "default",
   taskConfig: TaskObjectConfigType,
   currentValue: number,
-  stateUpdate: (value: number) => void,
+  stateUpdate: (value: number, cmd: string) => void,
   controlConfig: TaskObjectToggleSwitchUiType,
 }
 
@@ -22,7 +22,11 @@ export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
 
   const checked = currentValue === controlConfig.option.on_value;
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    stateUpdate(event.target.checked ? controlConfig.option.on_value : controlConfig.option.off_value);
+    if (event.target.checked) {
+      stateUpdate(controlConfig.option.on_value, "on");
+    } else {
+      stateUpdate(controlConfig.option.off_value, "off");
+    }
   }, [controlConfig.option, stateUpdate]);
 
   return (

@@ -1,7 +1,7 @@
 import express from "express";
 import expressWs from 'express-ws';
 import WebSocket from 'ws';
-import { createStore } from "redux";
+import { AnyAction, createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
 import path from "path";
@@ -32,14 +32,28 @@ app.ws('/ws', (ws, req) => {
         console.log(`on message: `, body);
 
         if (type === "dispatch" || type === "dispatch_all") {
-            const actions = body?.actions;
+            const clientActions = body?.actions;
+            const actions = clientActions.map((action: AnyAction) => {
+                if (action.type === "operationLogs/addLog") {
+                    return {
+                        ...action,
+                        payload: {
+                            ...action.payload,
+                            at: Date.now(),
+                            by: sessionId,
+                        },
+                    };
+                }
+                return action;
+            });
 
             actions.forEach((action) => {
                 store.dispatch(action);
             });
+
             wss.clients.forEach(client => {
                 if (client.readyState === WebSocket.OPEN) {
-                    client.send(message.toString());
+                    client.send(JSON.stringify({ type, actions }));
                 }
             });
         }
