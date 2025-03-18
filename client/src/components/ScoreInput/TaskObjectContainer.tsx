@@ -6,6 +6,7 @@ import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from '@/lyricalSocket';
 import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { BaseControl } from './BaseControl';
+import { operationLogsStateSlice } from '@/slices/operationLogs';
 
 type TaskObjectContainerProps = {
   fieldSide: FieldSideType,
@@ -23,13 +24,24 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.fields[fieldSide].tasks[id]);
   const dispatch = useDispatch();
 
-  const stateUpdate = useCallback((value: number) => {
-    const action = scoreStateSlice.actions.setTaskUpdate({
-      fieldSide,
-      taskObjectId: id,
-      afterValue: value,
-    });
-    LyricalSocket.dispatch(action, dispatch);
+  const stateUpdate = useCallback((value: number, command: string = "") => {
+    const actions = [
+      scoreStateSlice.actions.setTaskUpdate({
+        fieldSide,
+        taskObjectId: id,
+        afterValue: value,
+      }),
+      operationLogsStateSlice.actions.addLog({
+        op: {
+          type: "ScoreUpdate",
+          field: fieldSide,
+          obj: id,
+          value,
+          cmd: command,
+        },
+      }),
+    ];
+    LyricalSocket.dispatch(actions, dispatch);
   }, [dispatch, fieldSide, id]);
 
   const color = fieldSide === "blue" ? "primary" : "secondary";

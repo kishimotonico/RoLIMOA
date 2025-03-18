@@ -5,7 +5,7 @@ import { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@/config/typ
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType,
   currentValue: number,
-  stateUpdate: (value: number) => void,
+  stateUpdate: (value: number, cmd: string) => void,
   controlConfig: TaskObjectToggleButtonUiType,
 }
 
@@ -19,7 +19,7 @@ export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
   const option = controlConfig.option;
 
   const onChange = useCallback((_: React.MouseEvent<HTMLElement, MouseEvent>, value: number) => {
-    stateUpdate(value);
+    stateUpdate(value, `=${value}`);
   }, [stateUpdate]);
 
   return (

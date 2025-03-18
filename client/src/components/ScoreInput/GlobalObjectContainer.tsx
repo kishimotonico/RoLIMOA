@@ -6,6 +6,7 @@ import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from '@/lyricalSocket';
 import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { BaseControl } from './BaseControl';
+import { operationLogsStateSlice } from '@/slices/operationLogs';
 
 type GlobalObjectContainerProps = {
   taskConfig: TaskObjectConfigType,
@@ -21,12 +22,23 @@ export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.global[id]);
   const dispatch = useDispatch();
 
-  const stateUpdate = useCallback((value: number) => {
-    const action = scoreStateSlice.actions.setGloablUpdate({
-      taskObjectId: id,
-      afterValue: value,
-    });
-    LyricalSocket.dispatch(action, dispatch);
+  const stateUpdate = useCallback((value: number, command: string = "") => {
+    const actions = [
+      scoreStateSlice.actions.setGloablUpdate({
+        taskObjectId: id,
+        afterValue: value,
+      }),
+      operationLogsStateSlice.actions.addLog({
+        op: {
+          type: "ScoreUpdate",
+          field: "global",
+          obj: id,
+          value,
+          cmd: command,
+        },
+      }),
+    ];
+    LyricalSocket.dispatch(actions, dispatch);
   }, [dispatch, id]);
 
   if (currentValue === undefined) {

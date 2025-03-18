@@ -7,7 +7,7 @@ interface PluseMinuseButtonControlProps {
   color: "primary" | "secondary" | "inherit",
   config: TaskObjectConfigType,
   currentValue: number,
-  stateUpdate: (value: number) => void,
+  stateUpdate: (value: number, cmd: string) => void,
 }
 
 export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
@@ -19,11 +19,11 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
   const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {
-    stateUpdate(currentValue - 1);
+    stateUpdate(currentValue - 1, "-1");
   }, [currentValue, stateUpdate]);
 
   const increment = useCallback(() => {
-    stateUpdate(currentValue + 1);
+    stateUpdate(currentValue + 1, "+1");
   }, [currentValue, stateUpdate]);
 
   // styles
