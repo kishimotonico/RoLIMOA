@@ -2,10 +2,9 @@ from google.oauth2.service_account import Credentials
 import gspread # `pip install google gspread`
 from datetime import datetime
 from pathlib import Path
+import asyncio
 import env
-import sys
-sys.path.append(str(Path(__file__).parent.parent.parent))
-from rolimoa_extension.rolimoa_extension import RoLIMOAExtension
+from rolimoa_extension import RoLIMOAExtension
 
 def optional(obj: dict, key: str, default=""):
     # Pythonにはoptional chainingがないので代わりに
@@ -54,7 +53,6 @@ def write_match_result(payload: dict):
     """
     print(f"スプレッドシートに試合結果を書き込みます")
     print(f"- 試合名: {payload['match']['name']}")
-    print(f"- 赤vs青: {payload['match']['teams']['red']['name']} vs {payload['match']['teams']['blue']['name']}")
     print(f"- 点数: {payload['confirmedScore']['red']} vs {payload['confirmedScore']['blue']}")
     print(f"- コメント: {payload['comment']}")
     print(f"")
@@ -102,4 +100,4 @@ def write_match_result(payload: dict):
     except Exception as e:
         print(f"試合結果の書き込みに失敗しました: {e}")
 
-roliex.connect()
+asyncio.run(roliex.connect())
