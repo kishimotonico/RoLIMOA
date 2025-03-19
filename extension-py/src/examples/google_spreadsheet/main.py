@@ -3,6 +3,7 @@ import gspread # `pip install google gspread`
 from datetime import datetime
 from pathlib import Path
 import asyncio
+import argparse
 import env
 from rolimoa_extension import RoLIMOAExtension
 
@@ -14,17 +15,27 @@ def optional(obj: dict, key: str, default=""):
 
     return obj.get(key, default)
 
-RoLIMOA_SERVER = "ws://localhost:8000/ws"
-
 # サービスアカウントを作成して、credential.jsonを作成します
 #
 # - https://gspread.readthedocs.io/en/latest/oauth2.html
 # - https://zenn.dev/yamagishihrd/articles/2022-09_01-google-spreadsheet-with-python
 CREDENTIAL_FILEPATH = Path(__file__).parent / 'credential.json'
 
-# env.py.exampleを参照
-SPREADSHEET_URL = env.SPREADSHEET_URL
-SPREADSHEET_SHEET_NAME = env.SPREADSHEET_SHEET_NAME
+# argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--ws-url", type=str, default="ws://localhost:8000/ws", help="RoLIMOAサーバーのWebSocket URL")
+parser.add_argument("--spreadsheet-url", type=str, default=env.SPREADSHEET_URL, help="操作対象のスプレッドシートのURL")
+parser.add_argument("--sheet-name", type=str, default=env.SPREADSHEET_SHEET_NAME, help="操作対象のスプレッドシートのシート名")
+
+args = parser.parse_args()
+
+RoLIMOA_SERVER = args.ws_url
+SPREADSHEET_URL = args.spreadsheet_url
+SPREADSHEET_SHEET_NAME = args.sheet_name
+
+print(f"RoLIMOAサーバーに接続します")
+print(f"- URL: {RoLIMOA_SERVER}")
+print(f"")
 
 credentials = Credentials.from_service_account_file(
     CREDENTIAL_FILEPATH,

@@ -29,6 +29,21 @@ $ uv sync --extra google_spreadsheet
 $ uv run ./src/examples/google_spreadsheet/main.py
 ```
 
+なお、接続先のRoLIMOAのサーバーのURLや、操作対象のスプレッドシートについて引数で指定も可能です。
+
+```bash
+$ uv run src/examples/google_spreadsheet/main.py -h
+usage: main.py [-h] [--ws-url WS_URL] [--spreadsheet-url SPREADSHEET_URL] [--sheet-name SHEET_NAME]
+
+options:
+  -h, --help            show this help message and exit
+  --ws-url WS_URL       RoLIMOAサーバーのWebSocket URL
+  --spreadsheet-url SPREADSHEET_URL
+                        操作対象のスプレッドシートのURL
+  --sheet-name SHEET_NAME
+                        操作対象のスプレッドシートのシート名
+```
+
 ## スプレッドシートの内容
 
 このサンプルでは、A列, B列, C列, … がそれぞれ次の内容を想定しています。
