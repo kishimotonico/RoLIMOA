@@ -19,5 +19,16 @@ export function score(_stat: CurrentMatchStateType): ScoreOutputType {
   // return _stat.taskObjects["A_1_point"] + _stat.taskObjects["B_10_point"] * 10;
   // ```
 
-  return NaN;
+  const A = _stat.taskObjects["A"];
+  const beehive_kuma = _stat.taskObjects["beehive_kuma"];
+  const honney_kuma = _stat.taskObjects["honney_kuma"];
+  const beehive_barrel = _stat.taskObjects["beehive_barrel"];
+  const honney_barrel = _stat.taskObjects["honney_barrel"];
+
+  const B = beehive_kuma + honney_kuma;
+  const C = beehive_kuma > 0 && honney_kuma > 0 ? 1 : 0;
+  const D = beehive_barrel + honney_barrel;
+  const E = beehive_barrel > 0 && honney_barrel > 0 ? 1 : 0;
+
+  return A * 1 + B * 40 + C * 60 + D * 100 + E * 200;
 }

@@ -1,252 +1,54 @@
 {
   "contest_info": {
-    "name": "関東夏ロボコン2023"
+    "name": "関東春ロボコン2025"
   },
   "rule": {
     "global_objects": [],
     "task_objects": [
       {
-        "id": "Utsunomiya",
-        "description": "宇都宮",
+        "id": "A",
+        "description": "A.ハニーエリア侵入",
         "initialValue": 0,
         "min": 0,
         "max": 1
       },
       {
-        "id": "Chiba",
-        "description": "千葉",
-        "initialValue": 0
-      },
-      {
-        "id": "Saitama",
-        "description": "さいたま",
-        "initialValue": 0
-      },
-      {
-        "id": "Yokohama",
-        "description": "横浜",
-        "initialValue": 0
-      },
-      {
-        "id": "Shibuya",
-        "description": "渋谷",
-        "initialValue": 0
-      },
-      {
         "id": "violation",
         "description": "違反回数",
+        "initialValue": 0
+      },
+      {
+        "id": "beehive_kuma",
+        "description": "ハチの巣 in クマの巣",
+        "initialValue": 0
+      },
+      {
+        "id": "honney_kuma",
+        "description": "ハチミツ in クマの巣",
+        "initialValue": 0
+      },
+      {
+        "id": "beehive_barrel",
+        "description": "ハチの巣 in タル",
+        "initialValue": 0
+      },
+      {
+        "id": "honney_barrel",
+        "description": "ハチミツ in タル",
         "initialValue": 0
       }
     ],
     "score": {
-      "format": "simple",
-      "expression": [
-        {
-          "id": "Utsunomiya",
-          "coefficient": 10
-        },
-        {
-          "id": "Chiba",
-          "coefficient": 10
-        },
-        {
-          "id": "Saitama",
-          "coefficient": 11
-        },
-        {
-          "id": "Yokohama",
-          "coefficient": 14
-        },
-        {
-          "id": "Shibuya",
-          "coefficient": 15
-        }
-      ]
+      "format": "implement"
     },
     "vgoal": {
-      "name": "Vゴール",
+      "name": "蜂蜜狂宴",
       "condition": {
-        "type": "disabled"
+        "type": "alwaysOk"
       }
     },
     "control_panel": {
-      "type": "custom",
-      "panels": [
-        {
-          "id": "Utsunomiya",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Chiba",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Saitama",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Yokohama",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "Shibuya",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "=0",
-                "label": "0",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              },
-              {
-                "command": "+2",
-                "label": "+2"
-              },
-              {
-                "command": "+4",
-                "label": "+4"
-              }
-            ]
-          }
-        },
-        {
-          "id": "violation",
-          "type": "multi_button",
-          "option": {
-            "buttons": [
-              {
-                "command": "-1",
-                "label": "-1",
-                "style": {
-                  "variant": "outlined"
-                }
-              },
-              {
-                "command": "+1",
-                "label": "+1"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "default"
     }
   },
   "time_progress": [
