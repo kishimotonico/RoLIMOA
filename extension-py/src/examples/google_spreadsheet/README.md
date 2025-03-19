@@ -14,21 +14,34 @@ $ cp env.py.sample env.py
 $ vi env.py
 ```
 
-GoogleのAPIを設定し、認証に使用するJSONをcredential.jsonに保存します。このサンプルではサービスアカウントを使った方法で実装しています。
+GoogleのAPIを設定し、認証に使用するJSONをcredential.jsonに保存します。
+このサンプルコードではサービスアカウントを使った方法で実装しています。
 
 ```bash
 $ cp /path/to/google-api-credential.json ./credential.json
 ```
 
-venvとpipで次の環境を用意して、main.pyを実行します。個別のサンプルに必要なライブラリはrequirements.txtに含めていないので、Google APIに関するパッケージを個別に追加します。
+[uv](https://github.com/astral-sh/uv) で依存関係をインストールして、起動します
 
 ```bash
-$ cd /path/to/RoLIMOA/extension-py
-$ python -m venv venv
-$ ./venv/Scripts/activate
-(venv) $ pip install -r requirements.txt
-(venv) $ pip install google gspread
-(venv) $ python example/google_spreadsheet/main.py
+$ uv sync --extra google_spreadsheet
+
+$ uv run ./src/examples/google_spreadsheet/main.py
+```
+
+なお、接続先のRoLIMOAのサーバーのURLや、操作対象のスプレッドシートについて引数で指定も可能です。
+
+```bash
+$ uv run src/examples/google_spreadsheet/main.py -h
+usage: main.py [-h] [--ws-url WS_URL] [--spreadsheet-url SPREADSHEET_URL] [--sheet-name SHEET_NAME]
+
+options:
+  -h, --help            show this help message and exit
+  --ws-url WS_URL       RoLIMOAサーバーのWebSocket URL
+  --spreadsheet-url SPREADSHEET_URL
+                        操作対象のスプレッドシートのURL
+  --sheet-name SHEET_NAME
+                        操作対象のスプレッドシートのシート名
 ```
 
 ## スプレッドシートの内容
