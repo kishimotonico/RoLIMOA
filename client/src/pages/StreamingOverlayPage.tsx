@@ -1,8 +1,8 @@
 import { FC, Ref, SVGProps } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/slices';
-import { FieldSideType, ObjectsStateType } from '@/slices/score';
-import { Avatar, Box, Divider, Slide, Stack, SxProps } from '@mui/material';
+import { FieldSideType } from '@/slices/score';
+import { Box, Divider, Slide, SxProps } from '@mui/material';
 import { Theme } from '@emotion/react';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
