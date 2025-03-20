@@ -57,6 +57,13 @@ app.ws('/ws', (ws, req) => {
                 }
             });
         }
+        if (type === "play_sound") {
+            wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(message); // とりあえず、そのまま全クライアントに転送
+                }
+            });
+        }
         if (type === "save_store") {
             await saveToFile("./save", store);
         }

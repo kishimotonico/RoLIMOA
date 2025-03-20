@@ -128,6 +128,37 @@ export const TimerMasterContainer: FC = () => {
     setIsEnabledNextButton(isManualTransition(phaseState));
   }, [phaseState, timeOffset]);
 
+  // 効果音の外部アプリ再生用 
+  // usePlaySoundEffect.tsx の代替
+  //  
+  // TODO: あとで改善
+  useEffect(() => {
+    const phaseConfig = Phase.getConfig(phaseState.current.id);
+    const elapsedSec = phaseState.elapsedSecond;
+
+    const matched = phaseConfig.custom?.find(cus => cus.elapsedTime === elapsedSec);
+    if (! matched?.sound) {
+      return;
+    }
+
+    if (matched.sound === "tone_440hz_500ms.mp3") {
+      LyricalSocket.sendOperation('play_sound', {
+        sound: {
+          id: 1,
+          name: "tone_440hz_500ms.mp3",
+        }
+      });
+    }
+    if (matched.sound === "tone_880hz_1000ms.mp3") {
+      LyricalSocket.sendOperation('play_sound', {
+        sound: {
+          id: 2,
+          name: "tone_880hz_1000ms.mp3",
+        }
+      });
+    }
+  }, [phaseState]);
+
   return (
     <TimerMasterComponent
       isFirstPhase={Phase.getIndex(phaseState.current.id) === 0}
