@@ -11,7 +11,7 @@ const commonSchema = {
 
 export const taskObjectToggleSwitchSchema = z.object({
   ...commonSchema,
-  type: z.literal("toggle_switch"),
+  type: z.literal('toggle_switch'),
   option: z.object({
     off_value: z.number(),
     on_value: z.number(),
@@ -20,18 +20,28 @@ export const taskObjectToggleSwitchSchema = z.object({
   }),
 });
 
-const colorSchema = z.enum(["standard", "primary", "secondary", "error", "info", "success", "warning"]);
+const colorSchema = z.enum([
+  'standard',
+  'primary',
+  'secondary',
+  'error',
+  'info',
+  'success',
+  'warning',
+]);
 export const taskObjectToggleButtonSchema = z.object({
   ...commonSchema,
-  type: z.literal("toggle_button"),
+  type: z.literal('toggle_button'),
   option: z.object({
     buttons: z.array(
       z.object({
         value: z.number(),
         label: z.string(),
-        style: z.object({
-          color: colorSchema.optional(),
-        }).optional(),
+        style: z
+          .object({
+            color: colorSchema.optional(),
+          })
+          .optional(),
       }),
     ),
     vertical: z.boolean().optional(),
@@ -41,16 +51,18 @@ export const taskObjectToggleButtonSchema = z.object({
 
 export const taskObjectMultiButtonSchema = z.object({
   ...commonSchema,
-  type: z.literal("multi_button"),
+  type: z.literal('multi_button'),
   option: z.object({
     buttons: z.array(
       z.object({
         command: z.string().regex(/^[-+=]\d+$/),
         label: z.string(),
-        style: z.object({
-          color: colorSchema.optional(),
-          variant: z.enum(["text", "outlined", "contained"]).optional(),
-        }).optional(),
+        style: z
+          .object({
+            color: colorSchema.optional(),
+            variant: z.enum(['text', 'outlined', 'contained']).optional(),
+          })
+          .optional(),
       }),
     ),
     vertical: z.boolean().optional(),

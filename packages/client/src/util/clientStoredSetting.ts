@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const LOCAL_STORAGE_KEY = "RoLIMOA-setting";
+const LOCAL_STORAGE_KEY = 'RoLIMOA-setting';
 
 const settingSchema = z.object({
   deviceName: z.string(),
@@ -10,19 +10,21 @@ const settingSchema = z.object({
 type SettingType = z.infer<typeof settingSchema>;
 
 const defaultValues: Required<SettingType> = {
-  deviceName: "ななし＠役割なし",
+  deviceName: 'ななし＠役割なし',
   timeOffset: 0,
 };
 
 export function getSetting(): SettingType {
   const rawSetting = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (! rawSetting) {
+  if (!rawSetting) {
     return defaultValues;
   }
 
   const parseResult = settingSchema.partial().safeParse(JSON.parse(rawSetting));
-  if (! parseResult.success) {
-    console.warn("ふぇぇ…LocalStorageの設定が壊れているので、デフォルト値を使います");
+  if (!parseResult.success) {
+    console.warn(
+      'ふぇぇ…LocalStorageの設定が壊れているので、デフォルト値を使います',
+    );
     return defaultValues;
   }
 

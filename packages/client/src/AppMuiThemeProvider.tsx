@@ -1,18 +1,20 @@
 import type { ReactNode } from 'react';
-import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createTheme,
+  alpha,
+} from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
 import '@fontsource/noto-sans-jp';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
-    grey: true
+    grey: true;
   }
 }
 
-const fontFamily = [
-  'Noto Sans JP',
-  'sans-serif',
-].join(',');
+const fontFamily = ['Noto Sans JP', 'sans-serif'].join(',');
 
 const baseTheme = createTheme({
   typography: {
@@ -32,61 +34,61 @@ const appTheme = createTheme(baseTheme, {
     MuiButton: {
       variants: [
         {
-          props: { variant: "contained", color: "grey" },
+          props: { variant: 'contained', color: 'grey' },
           style: {
-            color: baseTheme.palette.getContrastText(baseTheme.palette.grey[300])
-          }
+            color: baseTheme.palette.getContrastText(
+              baseTheme.palette.grey[300],
+            ),
+          },
         },
         {
-          props: { variant: "outlined", color: "grey" },
+          props: { variant: 'outlined', color: 'grey' },
           style: {
             color: baseTheme.palette.text.primary,
             borderColor:
-              baseTheme.palette.mode === "light"
-                ? "rgba(0, 0, 0, 0.23)"
-                : "rgba(255, 255, 255, 0.23)",
-            "&.Mui-disabled": {
-              border: `1px solid ${baseTheme.palette.action.disabledBackground}`
+              baseTheme.palette.mode === 'light'
+                ? 'rgba(0, 0, 0, 0.23)'
+                : 'rgba(255, 255, 255, 0.23)',
+            '&.Mui-disabled': {
+              border: `1px solid ${baseTheme.palette.action.disabledBackground}`,
             },
-            "&:hover": {
+            '&:hover': {
               borderColor:
-                baseTheme.palette.mode === "light"
-                  ? "rgba(0, 0, 0, 0.23)"
-                  : "rgba(255, 255, 255, 0.23)",
+                baseTheme.palette.mode === 'light'
+                  ? 'rgba(0, 0, 0, 0.23)'
+                  : 'rgba(255, 255, 255, 0.23)',
               backgroundColor: alpha(
                 baseTheme.palette.text.primary,
-                baseTheme.palette.action.hoverOpacity
-              )
-            }
-          }
+                baseTheme.palette.action.hoverOpacity,
+              ),
+            },
+          },
         },
         {
-          props: { color: "grey", variant: "text" },
+          props: { color: 'grey', variant: 'text' },
           style: {
             color: baseTheme.palette.text.primary,
-            "&:hover": {
+            '&:hover': {
               backgroundColor: alpha(
                 baseTheme.palette.text.primary,
-                baseTheme.palette.action.hoverOpacity
-              )
-            }
-          }
-        }
-      ]
-    }
-  }
+                baseTheme.palette.action.hoverOpacity,
+              ),
+            },
+          },
+        },
+      ],
+    },
+  },
 });
 
 type Props = {
-  children: ReactNode,
+  children: ReactNode;
 };
 
 export const AppMuiThemeProvider = ({ children }: Props) => {
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={appTheme}>
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={appTheme}>{children}</ThemeProvider>
     </StyledEngineProvider>
   );
 };

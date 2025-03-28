@@ -3,7 +3,6 @@ import { Dashboard } from '@/components/Dashboard';
 import { MatchResultContainer } from '@/components/Referee/MatchResultContainer';
 import { OperationLogTable } from '@/components/Referee/OperationLogTable';
 
-
 export const RefereePage = () => {
   return (
     <Dashboard title="主審入力">

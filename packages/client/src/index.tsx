@@ -25,5 +25,5 @@ root.render(
         </Provider>
       </RecoilRoot>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
 export const connectionState = atom<boolean>({
-  key: "connectionState",
+  key: 'connectionState',
   default: false,
 });

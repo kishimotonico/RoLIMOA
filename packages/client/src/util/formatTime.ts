@@ -8,17 +8,17 @@ export const formatTime = (
 ): string => {
   const m = Math.floor(second / 60);
   const s = second % 60;
-  const colon = colonWithSpace ? " : " : ":";
-  if (format === "mm:ss") {
+  const colon = colonWithSpace ? ' : ' : ':';
+  if (format === 'mm:ss') {
     return `${m.toString().padStart(2, '0')}${colon}${s.toString().padStart(2, '0')}`;
   }
-  if (format === "m:ss") {
+  if (format === 'm:ss') {
     return `${m.toString().padStart(1, '0')}${colon}${s.toString().padStart(2, '0')}`;
   }
-  if (format === "ss") {
+  if (format === 'ss') {
     return second.toString().padStart(2, '0');
   }
-  if (format === "s") {
+  if (format === 's') {
     return second.toString();
   }
 
@@ -32,9 +32,11 @@ export const parseFormatTime = (time: string): number => {
     return Number.parseInt(timeArray[0], 10);
   }
   if (timeArray.length === 2) {
-    return Number.parseInt(timeArray[0], 10) * 60 + Number.parseInt(timeArray[1], 10);
+    return (
+      Number.parseInt(timeArray[0], 10) * 60 + Number.parseInt(timeArray[1], 10)
+    );
   }
-  throw new Error("Invalid time format");
+  throw new Error('Invalid time format');
 };
 
 // Unix時刻をミリ秒まで含めた `23:59:01.234` 形式の日時にする
@@ -44,4 +46,4 @@ export const unixToTimeWithMillis = (unixtime: number): string => {
   const ms = (date.getMilliseconds() % 1000).toString().padStart(3, '0');
 
   return `${hhmmss}.${ms}`;
-}
+};

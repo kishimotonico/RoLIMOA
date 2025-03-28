@@ -15,14 +15,19 @@ export class LyricalSocket {
   private sessionId = '';
 
   private constructor() {
-    this.socket = new ReconnectingWebSocket(`ws://${window.location.hostname}:8000/ws`);
+    this.socket = new ReconnectingWebSocket(
+      `ws://${window.location.hostname}:8000/ws`,
+    );
     this.socket.onopen = () => {
       console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
     };
   }
 
   public static isActive(): boolean {
-    return LyricalSocket.instance.socket && LyricalSocket.instance.socket.readyState === WebSocket.OPEN;
+    return (
+      LyricalSocket.instance.socket &&
+      LyricalSocket.instance.socket.readyState === WebSocket.OPEN
+    );
   }
 
   public static setSessionId(sessionId?: string): void {
@@ -33,21 +38,29 @@ export class LyricalSocket {
     return LyricalSocket.instance.sessionId;
   }
 
-  public static sendOperation(operationType: string, option: object = {}): void {
+  public static sendOperation(
+    operationType: string,
+    option: object = {},
+  ): void {
     if (!LyricalSocket.isActive()) {
       console.error('WebSocket is not connected');
       return;
     }
 
-    LyricalSocket.instance.socket.send(JSON.stringify({
-      type: operationType,
-      ...option,
-    }));
+    LyricalSocket.instance.socket.send(
+      JSON.stringify({
+        type: operationType,
+        ...option,
+      }),
+    );
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
+  public static dispatch(
+    actions: AnyAction[] | AnyAction,
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    reduxDispatch: Dispatch<any> | undefined = undefined,
+  ) {
     if (!Array.isArray(actions)) {
       // biome-ignore lint/style/noParameterAssign: <explanation>
       actions = [actions];

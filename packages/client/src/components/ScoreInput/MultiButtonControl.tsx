@@ -1,14 +1,17 @@
 import { type FC, useCallback } from 'react';
 import { Button, ButtonGroup, Box, Paper, Typography } from '@mui/material';
-import type { SxProps } from '@mui/material/styles'
-import type { TaskObjectConfigType, taskObjectMultiButtonUiType } from '@/config/types';
+import type { SxProps } from '@mui/material/styles';
+import type {
+  TaskObjectConfigType,
+  taskObjectMultiButtonUiType,
+} from '@/config/types';
 
 interface MultiButtonControlProps {
-  color: "primary" | "secondary" | "inherit",
-  taskConfig: TaskObjectConfigType,
-  currentValue: number,
-  stateUpdate: (value: number, cmd: string) => void,
-  controlConfig: taskObjectMultiButtonUiType,
+  color: 'primary' | 'secondary' | 'inherit';
+  taskConfig: TaskObjectConfigType;
+  currentValue: number;
+  stateUpdate: (value: number, cmd: string) => void;
+  controlConfig: taskObjectMultiButtonUiType;
 }
 
 export const MultiButtonControl: FC<MultiButtonControlProps> = ({
@@ -32,60 +35,65 @@ export const MultiButtonControl: FC<MultiButtonControlProps> = ({
     width: '50%',
   };
 
-  const buttonProps = useCallback((command: string) => {
-    const cmd = command[0];
-    const val = Number(command.slice(1));
+  const buttonProps = useCallback(
+    (command: string) => {
+      const cmd = command[0];
+      const val = Number(command.slice(1));
 
-    if (cmd === "=") {
+      if (cmd === '=') {
+        return {
+          onClick: () => stateUpdate(val, command),
+          disabled: currentValue === val,
+        };
+      }
+      if (cmd === '+') {
+        return {
+          onClick: () => stateUpdate(currentValue + val, command),
+          disabled: currentValue + val > max,
+        };
+      }
+      if (cmd === '-') {
+        return {
+          onClick: () => stateUpdate(currentValue - val, command),
+          disabled: currentValue - val < min,
+        };
+      }
       return {
-        onClick: () => stateUpdate(val, command),
-        disabled: currentValue === val,
+        onClick: () => {
+          console.error(`unexpected command: "${command}"`);
+        },
+        disabled: false,
       };
-    }
-    if (cmd === "+") {
-      return {
-        onClick: () => stateUpdate(currentValue + val, command),
-        disabled: currentValue + val > max,
-      };
-    }
-    if (cmd === "-") {
-      return {
-        onClick: () => stateUpdate(currentValue - val, command),
-        disabled: currentValue - val < min,
-      };
-    }
-    return {
-      onClick: () => { console.error(`unexpected command: "${command}"`) },
-      disabled: false,
-    };
-  }, [currentValue, stateUpdate, min, max]);
+    },
+    [currentValue, stateUpdate, min, max],
+  );
 
   return (
-    <Paper sx={{ p: '1em', userSelect: "none" }}>
+    <Paper sx={{ p: '1em', userSelect: 'none' }}>
       <Typography component="h2" variant="h6" gutterBottom>
         {description}
       </Typography>
-      <Typography component="p" variant="h5" >
+      <Typography component="p" variant="h5">
         {currentValue}
       </Typography>
 
       <Box sx={{ pt: 0.5 }}>
         <ButtonGroup sx={buttonGroupSx} color={color}>
-          {
-            controlConfig.option.buttons.map((button) => {
-              const { disabled, onClick } = buttonProps(button.command);
+          {controlConfig.option.buttons.map((button) => {
+            const { disabled, onClick } = buttonProps(button.command);
 
-              return <Button
+            return (
+              <Button
                 key={button.command}
                 sx={innnerButtonSx}
-                variant={button.style?.variant ?? "contained"}
+                variant={button.style?.variant ?? 'contained'}
                 onClick={onClick}
                 disabled={disabled}
               >
                 {button.label}
               </Button>
-            })
-          }
+            );
+          })}
         </ButtonGroup>
       </Box>
     </Paper>

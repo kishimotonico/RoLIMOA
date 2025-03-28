@@ -1,9 +1,11 @@
 import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
 
-type ScoreOutputType = {
-  value: number,
-  refs?: Record<string, number>,
-} | number;
+type ScoreOutputType =
+  | {
+      value: number;
+      refs?: Record<string, number>;
+    }
+  | number;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function score(_stat: CurrentMatchStateType): ScoreOutputType {

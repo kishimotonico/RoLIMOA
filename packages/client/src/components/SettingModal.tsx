@@ -23,58 +23,63 @@ import { LyricalSocket } from '@/lyricalSocket';
 import { NowUnixtimeDisplay } from './NowUnixtimeDisplay';
 
 type FormValues = {
-  deviceName: string,
-  timeOffset: number,
+  deviceName: string;
+  timeOffset: number;
 };
 
 type SettingModalProps = {
-  open: boolean,
-  onClose: () => void,
+  open: boolean;
+  onClose: () => void;
 };
 
-export const SettingModal: FC<SettingModalProps> = ({
-  open,
-  onClose,
-}) => {
+export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
   const savedSetting = getSetting();
   const dispatch = useDispatch();
   const prevDeviceName = useRef<string>(savedSetting.deviceName);
   const setTimeOffset = useSetRecoilState(unixtimeOffset);
 
   const { control, handleSubmit } = useForm({
-    reValidateMode: "onChange",
+    reValidateMode: 'onChange',
     defaultValues: savedSetting,
   });
 
-  const onSubmit: SubmitHandler<FormValues> = useCallback((form) => {
-    if (! form) {
-      return;
-    }
+  const onSubmit: SubmitHandler<FormValues> = useCallback(
+    (form) => {
+      if (!form) {
+        return;
+      }
 
-    setSetting(form);
+      setSetting(form);
 
-    setTimeOffset(form.timeOffset);
+      setTimeOffset(form.timeOffset);
 
-    // デバイス名の変更時は、Reduxのストアも反映
-    if (form.deviceName !== prevDeviceName.current) {
-      prevDeviceName.current = form.deviceName;
+      // デバイス名の変更時は、Reduxのストアも反映
+      if (form.deviceName !== prevDeviceName.current) {
+        prevDeviceName.current = form.deviceName;
 
-      const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
-        sockId: LyricalSocket.getSessionId(),
-        deviceName: form.deviceName,
-      });
-      LyricalSocket.dispatch(action, dispatch);
-    }
+        const action = connectedDevicesStateSlice.actions.addDeviceOrUpdate({
+          sockId: LyricalSocket.getSessionId(),
+          deviceName: form.deviceName,
+        });
+        LyricalSocket.dispatch(action, dispatch);
+      }
 
-    onClose();
-  }, [onClose, dispatch, setTimeOffset]);
+      onClose();
+    },
+    [onClose, dispatch, setTimeOffset],
+  );
 
   const closeHandler = () => {
     handleSubmit(onSubmit)();
   };
 
   return (
-    <Dialog aria-labelledby="setting-modal-title" open={open} onClose={closeHandler} fullWidth>
+    <Dialog
+      aria-labelledby="setting-modal-title"
+      open={open}
+      onClose={closeHandler}
+      fullWidth
+    >
       <DialogTitle id="setting-modal-title">設定</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ mb: 3 }}>
@@ -101,10 +106,11 @@ export const SettingModal: FC<SettingModalProps> = ({
             render={({ field }) => (
               <>
                 <Typography id="time-offset-slider" gutterBottom>
-                  時刻オフセット: {field.value > 0 ? '+' : ''}{field.value} ms
+                  時刻オフセット: {field.value > 0 ? '+' : ''}
+                  {field.value} ms
                 </Typography>
 
-                <Box sx={{ userSelect: "none", px: 1, py: 1 }}>
+                <Box sx={{ userSelect: 'none', px: 1, py: 1 }}>
                   <NowUnixtimeDisplay offsetTime={field.value} />
                 </Box>
 
@@ -113,7 +119,9 @@ export const SettingModal: FC<SettingModalProps> = ({
                     {...field}
                     onChange={(_, value) => field.onChange(value)}
                     valueLabelDisplay="auto"
-                    valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${value} ms`}
+                    valueLabelFormat={(value) =>
+                      `${value > 0 ? '+' : ''}${value} ms`
+                    }
                     min={-2000}
                     max={2000}
                     step={20}
@@ -132,9 +140,7 @@ export const SettingModal: FC<SettingModalProps> = ({
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeHandler}>
-          OK
-        </Button>
+        <Button onClick={closeHandler}>OK</Button>
       </DialogActions>
     </Dialog>
   );
@@ -151,14 +157,16 @@ export const SettingButton: FC = () => {
     setOpen(false);
   };
 
-  return <>
-    <IconButton color="inherit" onClick={onClick} size="large">
-      <SettingsIcon />
-    </IconButton>
-    <SettingModal
-      open={open}
-      onClose={onClose}
-      key={Number(open)} // 表示/非表示時に再レンダリング
-    />
-  </>;
-}
+  return (
+    <>
+      <IconButton color="inherit" onClick={onClick} size="large">
+        <SettingsIcon />
+      </IconButton>
+      <SettingModal
+        open={open}
+        onClose={onClose}
+        key={Number(open)} // 表示/非表示時に再レンダリング
+      />
+    </>
+  );
+};

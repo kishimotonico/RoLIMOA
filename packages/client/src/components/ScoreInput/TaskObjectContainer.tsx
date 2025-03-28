@@ -4,14 +4,17 @@ import type { RootState } from '@/slices';
 import { type FieldSideType, scoreStateSlice } from '@/slices/score';
 import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from '@/lyricalSocket';
-import type { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
+import type {
+  CustomControlPanelType,
+  TaskObjectConfigType,
+} from '@/config/types';
 import { BaseControl } from './BaseControl';
 import { operationLogsStateSlice } from '@/slices/operationLogs';
 
 type TaskObjectContainerProps = {
-  fieldSide: FieldSideType,
-  taskConfig: TaskObjectConfigType,
-  controlConfig?: CustomControlPanelType,
+  fieldSide: FieldSideType;
+  taskConfig: TaskObjectConfigType;
+  controlConfig?: CustomControlPanelType;
 };
 
 export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
@@ -21,30 +24,35 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
 }) => {
   const { id } = taskConfig;
 
-  const currentValue = useSelector<RootState, number|undefined>((state) => state.score.fields[fieldSide].tasks[id]);
+  const currentValue = useSelector<RootState, number | undefined>(
+    (state) => state.score.fields[fieldSide].tasks[id],
+  );
   const dispatch = useDispatch();
 
-  const stateUpdate = useCallback((value: number, command = "") => {
-    const actions = [
-      scoreStateSlice.actions.setTaskUpdate({
-        fieldSide,
-        taskObjectId: id,
-        afterValue: value,
-      }),
-      operationLogsStateSlice.actions.addLog({
-        op: {
-          type: "ScoreUpdate",
-          field: fieldSide,
-          obj: id,
-          value,
-          cmd: command,
-        },
-      }),
-    ];
-    LyricalSocket.dispatch(actions, dispatch);
-  }, [dispatch, fieldSide, id]);
+  const stateUpdate = useCallback(
+    (value: number, command = '') => {
+      const actions = [
+        scoreStateSlice.actions.setTaskUpdate({
+          fieldSide,
+          taskObjectId: id,
+          afterValue: value,
+        }),
+        operationLogsStateSlice.actions.addLog({
+          op: {
+            type: 'ScoreUpdate',
+            field: fieldSide,
+            obj: id,
+            value,
+            cmd: command,
+          },
+        }),
+      ];
+      LyricalSocket.dispatch(actions, dispatch);
+    },
+    [dispatch, fieldSide, id],
+  );
 
-  const color = fieldSide === "blue" ? "primary" : "secondary";
+  const color = fieldSide === 'blue' ? 'primary' : 'secondary';
 
   if (currentValue === undefined) {
     console.error(`ふぇぇ！"${id}"のタスクオブジェクトが取得できないよぉ`);

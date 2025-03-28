@@ -2,27 +2,26 @@ import type { FieldSideType } from '@/slices/score';
 
 export type CurrentMatchStateType = {
   // 自チームの青コート or 赤コート
-  fieldSide: FieldSideType,
+  fieldSide: FieldSideType;
 
   // グローバルオブジェクト
-  globalObjects: { [id: string]: number },
+  globalObjects: { [id: string]: number };
 
   // 自チームのタスクオブジェクト
-  taskObjects: { [id: string]: number },
+  taskObjects: { [id: string]: number };
 
   // 相手チームのタスクオブジェクト
   // TODO: ひとまずの実装。もっと良い構造がある気がするので改善したい
-  opponentTaskObjects: { [id: string]: number },
+  opponentTaskObjects: { [id: string]: number };
 
   matchStats: {
     // 試合の経過時間
-    elapsedTime: number,
+    elapsedTime: number;
 
     // Vゴールフラグ（0: Vゴールしていない, 1: Vゴールした）
-    isVgoaled: number,
+    isVgoaled: number;
 
     // Vゴールタイム
-    vgoalTime?: number,
-  },
+    vgoalTime?: number;
+  };
 };
-

@@ -6,14 +6,15 @@ interface LoadingOverlayProp {
   loading: boolean;
 }
 
-export const LoadingOverlay: FC<LoadingOverlayProp> = ({
-  loading = true,
-}) => {
+export const LoadingOverlay: FC<LoadingOverlayProp> = ({ loading = true }) => {
   return (
-    <Backdrop open={loading} sx={{
-      zIndex: (theme) => theme.zIndex.drawer + 1,
-      color: '#fff',
-    }}>
+    <Backdrop
+      open={loading}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        color: '#fff',
+      }}
+    >
       <CircularProgress color="inherit" />
     </Backdrop>
   );
