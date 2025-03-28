@@ -7,7 +7,6 @@ type ScoreOutputType =
     }
   | number;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function score(_stat: CurrentMatchStateType): ScoreOutputType {
   // ここにスコアの計算処理をかく
   //

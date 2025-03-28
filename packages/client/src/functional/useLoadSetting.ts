@@ -8,7 +8,6 @@ export const useLoadSetting = () => {
   const savedSetting = getSetting();
   const setTimeOffset = useSetRecoilState(unixtimeOffset);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [queryParam, _] = useSearchParams();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>

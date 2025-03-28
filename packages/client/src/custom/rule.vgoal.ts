@@ -1,6 +1,5 @@
 import type { CurrentMatchStateType as VgoalConditionInputType } from '@/util/currentMatchStateType';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function condition(_stat: VgoalConditionInputType): boolean | undefined {
   // ここにVゴール可能の条件をかく
   //
