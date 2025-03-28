@@ -29,16 +29,13 @@ client/src/config.jsonを編集して、好みの設定にします。特にル�
 ```bash
 git clone https://github.com/kishimotonico/RoLIMOA.git
 cd RoLIMOA
+npm i
 
 # クライアントをビルド
-cd ./client
-npm i       # 初回のみ
-npm run build
+npm run build --workspace=packages/client
 
 # サーバを起動する
-cd ../server
-npm i       # 初回のみ
-npm start
+npm run start --workspace=packages/server
 ```
 
 http://localhost:8000 で管理画面を開けるようになります。OSやファイアウォールを設定すれば、他のデバイスからも操作できます。
