@@ -1,0 +1,46 @@
+{
+  "name": "@rolimoa/client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "biome lint .",
+    "format": "biome format ."
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/noto-sans-jp": "^5.2.5",
+    "@mui/icons-material": "^6.4.7",
+    "@mui/lab": "^6.0.0-beta.30",
+    "@mui/material": "^6.4.7",
+    "@reduxjs/toolkit": "^1.9.5",
+    "dseg": "^0.46.0",
+    "immer": "^10.1.1",
+    "material-react-table": "^3.2.1",
+    "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.54.2",
+    "react-redux": "^8.1.0",
+    "react-router": "^6.13.0",
+    "react-router-dom": "^6.13.0",
+    "recoil": "^0.7.7",
+    "reconnecting-websocket": "^4.4.0",
+    "redux-devtools-extension": "^2.13.9",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.0.37",
+    "@types/react-copy-to-clipboard": "^5.0.7",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.2"
+  }
+}
