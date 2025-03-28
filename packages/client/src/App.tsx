@@ -1,6 +1,5 @@
 import { type FC, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router';
-import type { AnyAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { useRecoilState } from 'recoil';
 import { scoreStateSlice } from '@/slices/score';
