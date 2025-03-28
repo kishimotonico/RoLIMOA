@@ -18,9 +18,9 @@ NHK学生ロボコンのようなロボットコンテストの大会で、青�
 
 ### 設定ファイルの編集
 
-client/src/config.jsonを編集して、好みの設定にします。特にルールに関する`rule.task_objects`, `rule.score`, `rule.vgoal`を編集します。server/src/config.jsonも同じ内容で保存してください。
+packages/client/src/config.jsonを編集して、好みの設定にします。特にルールに関する`rule.task_objects`, `rule.score`, `rule.vgoal`を編集します。server/src/config.jsonも同じ内容で保存してください。
 
-現在、config.jsonについてドキュメントなどはありません。client/src/config/schema.tsでzod schemaを定義しているので、それを参考にしてください。
+現在、config.jsonについてドキュメントなどはありません。packages/client/src/config/schema.tsでzod schemaを定義しているので、それを参考にしてください。
 
 ### 本番環境の起動方法
 
@@ -35,7 +35,7 @@ npm i
 npm run build --workspace=packages/client
 
 # サーバを起動する
-npm run start --workspace=packages/server
+npm start --workspace=packages/server
 ```
 
 http://localhost:8000 で管理画面を開けるようになります。OSやファイアウォールを設定すれば、他のデバイスからも操作できます。
@@ -75,12 +75,12 @@ http://localhost:8000 で管理画面を開けるようになります。OSや�
 
 ```bash
 # サーバ側
-cd /path/to/RoLIMOA/server
-npm start
+cd /path/to/RoLIMOA
+npm start --workspace=packages/server
 
 # クライアント側
-cd /path/to/RoLIMOA/client
-npm run dev
+cd /path/to/RoLIMOA
+npm run dev --workspace=packages/client
 ```
 
 ### 要素技術
@@ -131,4 +131,4 @@ docker compose up -d
 
 #### サーバとクライアントのコードの共通化
 
-サーバとクライアントの両方でRedux（Redux Toolkit）を用いているので`server/src/slices/*.ts`と`client/src/features/*.ts`でほぼ同じコードを管理している。1つにまとめたい。
+サーバとクライアントの両方でRedux（Redux Toolkit）を用いているので`packages/server/src/slices/*.ts`と`packages/client/src/features/*.ts`でほぼ同じコードを管理している。1つにまとめたい。
