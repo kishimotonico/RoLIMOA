@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "biome lint .",
+    "format": "biome format ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -33,6 +34,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/node": "^22.13.10",
     "@types/react": "^18.0.37",
     "@types/react-copy-to-clipboard": "^5.0.7",

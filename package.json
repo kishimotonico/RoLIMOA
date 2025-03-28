@@ -3,11 +3,6 @@
   "private": true,
   "workspaces": ["packages/client", "packages/server"],
   "scripts": {
-    "lint": "biome lint .",
-    "format": "biome format .",
     "preinstall": "npx only-allow npm"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4"
   }
 }
