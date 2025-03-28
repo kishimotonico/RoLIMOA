@@ -37,6 +37,7 @@ const App: FC = () => {
   useAppRootTimer();
 
   // websocketの初回接続と受信イベント処理
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (config.client.standalone_mode) {
       console.log("スタンドアロンモードなので、Websocketを使わないよ");
@@ -53,7 +54,7 @@ const App: FC = () => {
       const data = JSON.parse(event.data);
 
       if (data.type === "welcome") {
-        console.debug(`welcome`, data);
+        console.debug('welcome', data);
         dispatch(scoreStateSlice.actions.setState(data.state.score));
         dispatch(phaseStateSlice.actions.setState(data.state.phase.current));
         dispatch(matchStateSlice.actions.setState(data.state.match));
@@ -68,10 +69,10 @@ const App: FC = () => {
         console.log(`ふぇぇ…サーバとの時刻遅れは${delayTime}msだよぉ`);
       }
       if (data.type === "dispatch" || data.type === "dispatch_all") {
-        console.debug(`dispatch from server`, data);
-        data.actions.forEach((action: AnyAction) => {
+        console.debug('dispatch from server', data);
+        for (const action of data.actions) {
           dispatch(action);
-        });
+        }
       }
     };
 
@@ -83,9 +84,10 @@ const App: FC = () => {
     socket.onerror = (ev) => {
       console.error("WebSocketエラーが発生しました", ev);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // ページ遷移時に、表示ページのパスを更新する
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (isConnect) {
       LyricalSocket.dispatch(connectedDevicesStateSlice.actions.addDeviceOrUpdate({
@@ -94,7 +96,7 @@ const App: FC = () => {
         currentPath: location.pathname,
       }), dispatch);
     }
-  }, [isConnect, location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isConnect, location]);
 
   return <>
     <AppMuiThemeProvider>

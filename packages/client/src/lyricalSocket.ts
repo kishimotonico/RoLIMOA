@@ -5,10 +5,10 @@ export class LyricalSocket {
   // singleton
   private static _instance: LyricalSocket;
   public static get instance(): LyricalSocket {
-    if (!this._instance) {
-      this._instance = new LyricalSocket();
+    if (!LyricalSocket._instance) {
+      LyricalSocket._instance = new LyricalSocket();
     }
-    return this._instance;
+    return LyricalSocket._instance;
   }
 
   public readonly socket: ReconnectingWebSocket;
@@ -22,45 +22,47 @@ export class LyricalSocket {
   }
 
   public static isActive(): boolean {
-    return this.instance.socket && this.instance.socket.readyState === WebSocket.OPEN;
+    return LyricalSocket.instance.socket && LyricalSocket.instance.socket.readyState === WebSocket.OPEN;
   }
 
   public static setSessionId(sessionId?: string): void {
-    this.instance.sessionId = sessionId ?? '';
+    LyricalSocket.instance.sessionId = sessionId ?? '';
   }
 
   public static getSessionId(): string {
-    return this.instance.sessionId;
+    return LyricalSocket.instance.sessionId;
   }
 
   public static sendOperation(operationType: string, option: object = {}): void {
-    if (!this.isActive()) {
+    if (!LyricalSocket.isActive()) {
       console.error('WebSocket is not connected');
       return;
     }
 
-    this.instance.socket.send(JSON.stringify({
+    LyricalSocket.instance.socket.send(JSON.stringify({
       type: operationType,
       ...option,
     }));
   }
 
   // サーバを経由して、別のクライアントにactionをdispatchする
-  public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) { // eslint-disable-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    public static dispatch(actions: AnyAction[] | AnyAction, reduxDispatch: Dispatch<any> | undefined = undefined) {
     if (!Array.isArray(actions)) {
+      // biome-ignore lint/style/noParameterAssign: <explanation>
       actions = [actions];
     }
 
     if (reduxDispatch) {
-      actions.forEach(action => {
+      for (const action of actions) {
         reduxDispatch(action);
-      });
+      }
     }
 
-    this.sendOperation('dispatch', { actions });
+    LyricalSocket.sendOperation('dispatch', { actions });
   }
 
   public static dispatchAll(actions: AnyAction[]) {
-    this.sendOperation('dispatch_all', { actions });
+    LyricalSocket.sendOperation('dispatch_all', { actions });
   }
 }

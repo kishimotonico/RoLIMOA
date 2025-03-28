@@ -14,6 +14,7 @@ export const useAppRootTimer = () => {
 
   console.log(`AppRootTimer: ${phaseState.id} started at ${phaseState.startTime}`);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     phaseStateRef.current = phaseState;
     console.debug(`|- useEffect init: ${phaseState.id} [${timeoutHandler.current}]`);
@@ -60,5 +61,5 @@ export const useAppRootTimer = () => {
       console.debug(`|- useEffect close: ${phaseState.id}`);
       timerClear();
     };
-  }, [phaseState, offsetTime]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [phaseState, offsetTime]);
 }

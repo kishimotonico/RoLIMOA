@@ -201,7 +201,7 @@ export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
             <Box sx={{ mb: 2 }}>
               <ScoreDisplay fieldSide={fieldSide} />
             </Box>
-            <Divider sx={{ my: 2 }}></Divider>
+            <Divider sx={{ my: 2 }} />
             <Box sx={{ my: 2 }}>
               <FlagInput fieldSide={fieldSide} color={color} />
             </Box>

@@ -11,6 +11,7 @@ export const useLoadSetting = ()  => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [queryParam, _] = useSearchParams();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     let setting = savedSetting;
 
@@ -24,5 +25,5 @@ export const useLoadSetting = ()  => {
 
     console.debug("useLoadSetting", savedSetting, setting);
     setSetting(setting);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 }

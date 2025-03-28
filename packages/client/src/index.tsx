@@ -13,7 +13,8 @@ const store = configureStore({
 });
 
 const container = document.getElementById('root');
-const root = createRoot(container!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
+const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>

@@ -66,13 +66,16 @@ type CaseOperatorType = {
   operands: OperandType[],
 };
 
-function isConstValueType(arg: any): arg is ConstValueType {  // eslint-disable-line @typescript-eslint/no-explicit-any     
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function isConstValueType(arg: any): arg is ConstValueType { 
   return arg.value?.const !== undefined;
 }
-function isRefValueType(arg: any): arg is RefValueType {      // eslint-disable-line @typescript-eslint/no-explicit-any 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function isRefValueType(arg: any): arg is RefValueType {
   return arg.value?.ref !== undefined && arg.value?.ref !== undefined;
 }
-function isOperatorType(arg: any): arg is OperatorType {      // eslint-disable-line @typescript-eslint/no-explicit-any 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function isOperatorType(arg: any): arg is OperatorType {
   return arg.operator !== undefined && arg.operands !== undefined;
 }
 

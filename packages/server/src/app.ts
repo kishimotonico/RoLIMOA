@@ -4,8 +4,8 @@ import WebSocket from 'ws';
 import { type AnyAction, createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
-import path from "path";
-import crypt from "crypto";
+import path from "node:path";
+import crypt from "node:crypto";
 import { loadFromFile, saveToFile } from "./backup";
 
 const { app, getWss } = expressWs(express());
@@ -29,7 +29,7 @@ app.ws('/ws', (ws, req) => {
     ws.on('message', async (message) => {
         const body = JSON.parse(message.toString());
         const type = body?.type;
-        console.log(`on message: `, body);
+        console.log('on message: ', body);
 
         if (type === "dispatch" || type === "dispatch_all") {
             const clientActions = body?.actions;
@@ -47,15 +47,15 @@ app.ws('/ws', (ws, req) => {
                 return action;
             });
 
-            actions.forEach((action) => {
+            for (const action of actions) {
                 store.dispatch(action);
-            });
+            }
 
-            wss.clients.forEach(client => {
+            for (const client of wss.clients) {
                 if (client.readyState === WebSocket.OPEN) {
                     client.send(JSON.stringify({ type, actions }));
                 }
-            });
+            }
         }
         if (type === "save_store") {
             await saveToFile("./save", store);
@@ -70,14 +70,14 @@ app.ws('/ws', (ws, req) => {
             sockId: sessionId,
         });
         store.dispatch(action);
-        wss.clients.forEach(client => {
+        for (const client of wss.clients) {
             if (client.readyState === WebSocket.OPEN) {
                 client.send(JSON.stringify({
                     type: "dispatch",
                     actions: [action],
                 }));
             }
-        });
+        }
     });
 });
 
@@ -92,17 +92,17 @@ app.ws('/ws', (ws, req) => {
  *     - 接続中のデバイス一覧を取得(JSON)
  */
 app.get("/api/state", (req, res) => {
-    const query = req.query["q"]?.toString();
+    const query = req.query.q?.toString();
     const state = store.getState();
     let result = state;
     if (query) {
-        query.split(".").forEach((key) => {
+        for (const key of query.split(".")) {
             if (result[key] === undefined) {
                 res.status(404).send("Not Found");
-                return;
+                break;
             }
             result = result[key];
-        });
+        }
     }
     res.json(result);
 });

@@ -22,19 +22,19 @@ function useAbsoluteUrl(to: string) {
 
 function addQueryToUrl(baseUrl: string, query: Record<string, string | number | boolean | null | undefined> = {}) {
   const url = new URL(baseUrl);
-  Object.entries(query).forEach(([k, v]) => {
+  for (const [k, v] of Object.entries(query)) {
     if (typeof v === "string") {
       url.searchParams.set(k, v);
-      return;
+      break;
     }
     if (typeof v === "number") {
       url.searchParams.set(k, v.toString());
-      return;
+      break;
     }
     if (v) {
       url.searchParams.set(k, "");
     }
-  });
+  }
   return url.href;
 }
 

@@ -52,7 +52,7 @@ export const ScoreInputControl: FC<ScoreInputControlProps> = ({
     return <></>;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // biome-ignore lint/style/noNonNullAssertion: <explanation>
   const { type, id } = parseTaskId(taskObjectConfig?.id ?? controlPanelConfig!.id);
   if (taskObjectConfig === undefined) {
     taskObjectConfig = findTaskObjectConfig(type, id);
