@@ -17,7 +17,7 @@ export const useLoadSetting = ()  => {
     // URLのクエリから設定
     const timeOffset = queryParam.get("timeOffset");
     if (timeOffset) {
-      setting = { ...setting, timeOffset: parseInt(timeOffset) };
+      setting = { ...setting, timeOffset: Number.parseInt(timeOffset) };
     }
 
     setTimeOffset(setting.timeOffset);

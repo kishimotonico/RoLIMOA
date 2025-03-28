@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar as MuiAppBar,
-  AppBarProps as MuiAppBarProps,
+  type AppBarProps as MuiAppBarProps,
   Drawer as MuiDrawer,
   Box, Container, CssBaseline, Divider, IconButton, List, ListItemButton,
-  ListItemText, Toolbar, Typography, useMediaQuery, Theme,
+  ListItemText, Toolbar, Typography, useMediaQuery, type Theme,
 } from '@mui/material';
 import { styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';

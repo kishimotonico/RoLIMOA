@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Grid2, Paper } from '@mui/material';
 import { ScoreBlock } from './ScoreBlock';
 

@@ -1,10 +1,10 @@
-import { FC, useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/slices';
+import type { RootState } from '@/slices';
 import { scoreStateSlice } from '@/slices/score';
 import { ErrorObject } from './ErrorObject';
 import { LyricalSocket } from '@/lyricalSocket';
-import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { BaseControl } from './BaseControl';
 import { operationLogsStateSlice } from '@/slices/operationLogs';
 
@@ -22,7 +22,7 @@ export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
   const currentValue = useSelector<RootState, number|undefined>((state) => state.score.global[id]);
   const dispatch = useDispatch();
 
-  const stateUpdate = useCallback((value: number, command: string = "") => {
+  const stateUpdate = useCallback((value: number, command = "") => {
     const actions = [
       scoreStateSlice.actions.setGloablUpdate({
         taskObjectId: id,

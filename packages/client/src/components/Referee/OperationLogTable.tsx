@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Box } from '@mui/material';
-import { MaterialReactTable, useMaterialReactTable, MRT_ColumnDef } from 'material-react-table';
+import { MaterialReactTable, useMaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { OperationLog } from '@/slices/operationLogs';
+import type { RootState } from '@/slices';
+import type { OperationLog } from '@/slices/operationLogs';
 import { unixToTimeWithMillis } from '@/util/formatTime';
 
 type LogRow = {

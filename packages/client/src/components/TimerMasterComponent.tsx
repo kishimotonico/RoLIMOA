@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Paper, Typography, Grid2, Button, ButtonGroup, Box } from '@mui/material'; // Grid2に変更
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -7,8 +7,8 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { TimerDisplay } from './TimerDisplay';
-import { TimeProgressConfigType } from '@/config/types';
-import { CurrentPhaseState } from '@/slices/phase';
+import type { TimeProgressConfigType } from '@/config/types';
+import type { CurrentPhaseState } from '@/slices/phase';
 import { ConditionalTooltip } from '@/ui/ConditionalTooltip';
 import { unixToTimeWithMillis } from '@/util/formatTime';
 

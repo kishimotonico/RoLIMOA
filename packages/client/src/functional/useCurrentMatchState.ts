@@ -1,16 +1,16 @@
 
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { FieldScoreStateType, FieldSideType, ScoreState } from '@/slices/score';
-import { PhaseState } from '@/slices/phase';
-import { CurrentMatchStateType } from '@/util/currentMatchStateType';
+import type { RootState } from '@/slices';
+import type { FieldScoreStateType, FieldSideType, ScoreState } from '@/slices/score';
+import type { PhaseState } from '@/slices/phase';
+import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
 import * as Phase from '@/util/PhaseStateUtil';
 
 // 点数計算に、適切な経過時間を取得する
 function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {
   if (! phaseState) {
-    return NaN;
+    return Number.NaN;
   }
   // Vゴール時にはVゴールタイムを経過時間にする
   if (scoreState.vgoal) {
@@ -43,7 +43,7 @@ export function useCurrentMatchState(fieldSide: FieldSideType): CurrentMatchStat
     matchStats: {
       elapsedTime: matchElapsedSec(scoreState.fields[fieldSide], phaseState),
       isVgoaled: scoreState.fields[fieldSide].vgoal !== undefined ? 1 : 0,
-      vgoalTime: scoreState.fields[fieldSide].vgoal ?? NaN,
+      vgoalTime: scoreState.fields[fieldSide].vgoal ?? Number.NaN,
     },
   }), [fieldSide, scoreState, phaseState, opponentField]);
 }

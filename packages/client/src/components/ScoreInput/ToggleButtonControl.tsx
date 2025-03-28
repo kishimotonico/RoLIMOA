@@ -1,6 +1,6 @@
-import { FC, useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { ToggleButtonGroup, ToggleButton, Paper, Typography } from '@mui/material';
-import { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@/config/types';
+import type { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@/config/types';
 
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType,

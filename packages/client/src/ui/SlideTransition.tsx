@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { type FC, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 
 type SlideTransitionProps = {

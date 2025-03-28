@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect } from 'react';
+import { type FC, useState, useRef, useEffect } from 'react';
 import { Box, Typography, Avatar, Fade } from '@mui/material';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 

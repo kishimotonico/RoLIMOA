@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { ScoreBlock, ScoreBlockProps } from '@/components/ScoreBlock';
+import { type FC, useState } from 'react';
+import { ScoreBlock, type ScoreBlockProps } from '@/components/ScoreBlock';
 import { TimerDisplay } from '@/components/TimerDisplay';
 import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
 import { Box, Grid2, IconButton } from '@mui/material';

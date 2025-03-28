@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MatchState } from './match';
-import { FieldSideType, ScoreState } from './score';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { MatchState } from './match';
+import type { FieldSideType, ScoreState } from './score';
 
 export type ResultRecordsType = ResultRecord[];
 

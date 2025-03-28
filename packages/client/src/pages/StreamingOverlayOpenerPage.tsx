@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { useResolvedPath } from 'react-router';
@@ -7,7 +7,7 @@ import { Box, Divider, FormControlLabel, Grid2, IconButton, InputAdornment, Pape
 import { Dashboard } from '@/components/Dashboard';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { RootState } from '@/slices';
+import type { RootState } from '@/slices';
 import { streamingInterfaceSlice } from '@/slices/streamingInterface';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';

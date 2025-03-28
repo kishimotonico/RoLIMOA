@@ -1,7 +1,7 @@
-import { FC, useCallback, useState } from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { Grid2 } from '@mui/material';
 import { Alert } from '@mui/material';
-import { AlertProps } from '@mui/lab';
+import type { AlertProps } from '@mui/lab';
 import { Dashboard } from '@/components/Dashboard';
 import { TimerMasterContainer } from '@/components/TimerMasterContainer';
 import { MatchMasterContainer } from '@/components/MatchMasterContainer';

@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import { Box, SxProps, Theme, Typography, TypographyVariant } from '@mui/material';
+import type { FC } from 'react';
+import { Box, type SxProps, type Theme, Typography, type TypographyVariant } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { FieldSideType } from '@/slices/score';
+import type { RootState } from '@/slices';
+import type { FieldSideType } from '@/slices/score';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { formatTime } from '@/util/formatTime';
 import { config } from '@/config/load';

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { PhaseState } from '@/slices/phase';
+import type { RootState } from '@/slices';
+import type { PhaseState } from '@/slices/phase';
 import { formatTime } from '@/util/formatTime';
-import { TimeProgressConfigType } from '@/config/types';
+import type { TimeProgressConfigType } from '@/config/types';
 import * as Phase from '@/util/PhaseStateUtil';
 
 // 表示する時間の文字列を取得する

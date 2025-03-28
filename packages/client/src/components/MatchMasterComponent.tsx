@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Paper, Typography, Grid2, Button, TextField } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 

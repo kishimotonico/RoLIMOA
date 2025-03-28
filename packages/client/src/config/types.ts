@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 import { configSchema } from './schema';
-import {
+import type {
   customControlPanelSchema,
   taskObjectMultiButtonSchema,
   taskObjectToggleButtonSchema,

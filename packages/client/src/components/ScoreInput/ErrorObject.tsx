@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Box, Grid2, Paper, Typography } from '@mui/material';
 
 interface ErrorObjectProps {

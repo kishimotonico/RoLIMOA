@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 // `startTime`から経過した現在の秒数を取得する
 export function calculateElapsedSecond(startTime: number, nowUnixtime: number | undefined = undefined): number {

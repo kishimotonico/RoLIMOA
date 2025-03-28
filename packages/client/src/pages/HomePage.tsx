@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Box, Grid2, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { blue, red } from '@mui/material/colors';
 import { Dashboard } from '@/components/Dashboard';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { ResultRecordsType } from '@/slices/resultRecord';
+import type { RootState } from '@/slices';
+import type { ResultRecordsType } from '@/slices/resultRecord';
 import styled from '@emotion/styled';
 
 const GameResultsList: React.FC = () => {

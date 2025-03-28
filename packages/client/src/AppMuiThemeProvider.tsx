@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ThemeProvider, StyledEngineProvider, createTheme, alpha } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
 import '@fontsource/noto-sans-jp';

@@ -1,4 +1,4 @@
-import { Tooltip, TooltipProps } from '@mui/material';
+import { Tooltip, type TooltipProps } from '@mui/material';
 
 type ConditionalTooltipProp = TooltipProps & {
   condition?: boolean,

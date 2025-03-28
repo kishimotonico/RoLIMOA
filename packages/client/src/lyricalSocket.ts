@@ -1,4 +1,4 @@
-import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import type { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 export class LyricalSocket {

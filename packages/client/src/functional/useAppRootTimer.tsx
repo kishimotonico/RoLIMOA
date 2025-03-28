@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import { RootState } from '@/slices';
-import { calculateElapsedSecond, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import type { RootState } from '@/slices';
+import { calculateElapsedSecond, type CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 
 export const useAppRootTimer = () => {

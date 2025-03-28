@@ -1,4 +1,4 @@
-import { TimeFormat } from '@/config/types';
+import type { TimeFormat } from '@/config/types';
 
 // 秒数をフォーマット表示した文字列を返す
 export const formatTime = (
@@ -29,10 +29,10 @@ export const formatTime = (
 export const parseFormatTime = (time: string): number => {
   const timeArray = time.split(':');
   if (timeArray.length === 1) {
-    return parseInt(timeArray[0], 10);
+    return Number.parseInt(timeArray[0], 10);
   }
   if (timeArray.length === 2) {
-    return parseInt(timeArray[0], 10) * 60 + parseInt(timeArray[1], 10);
+    return Number.parseInt(timeArray[0], 10) * 60 + Number.parseInt(timeArray[1], 10);
   }
   throw new Error("Invalid time format");
 };

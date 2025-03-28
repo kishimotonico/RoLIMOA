@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FieldSideType } from './score';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { FieldSideType } from './score';
 
 export type MatchState = {
   name: string,         // 試合名

@@ -1,5 +1,5 @@
-import { createStore } from "redux";
-import { RootState } from "./features";
+import type { createStore } from "redux";
+import type { RootState } from "./features";
 import { format } from "date-fns";
 import fs from "fs";
 import path from "path";

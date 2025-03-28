@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { FieldSideType, FieldScoreStateType } from '@/slices/score';
-import { calculateScore, ScoreRuleType } from '@/util/calculateScore';
+import type { RootState } from '@/slices';
+import type { FieldSideType, FieldScoreStateType } from '@/slices/score';
+import { calculateScore, type ScoreRuleType } from '@/util/calculateScore';
 import { config } from '@/config/load';
 import { useCurrentMatchState } from './useCurrentMatchState';
 

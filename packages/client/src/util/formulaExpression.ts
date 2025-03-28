@@ -85,7 +85,7 @@ type ReferenceVariables = {
 
 // 演算対象となる項（オペランド: 値もしくは計算式）を評価する
 function EvaluateOperand(referencedStats: ReferenceVariables, operand: OperandType): number {
-  let result = NaN;
+  let result = Number.NaN;
 
   if (isOperatorType(operand)) {
     result = EvaluateOperation(referencedStats, operand);
@@ -104,7 +104,7 @@ function EvaluateOperand(referencedStats: ReferenceVariables, operand: OperandTy
       result = referencedStats.matchStats[operand.value.ref];
     }
     if (operand.value.type === "refRecord") {
-      result = referencedStats.refRecords?.[operand.value.ref] ?? NaN;
+      result = referencedStats.refRecords?.[operand.value.ref] ?? Number.NaN;
     }
   }
 
@@ -151,7 +151,7 @@ function EvaluateOperation(referencedStats: ReferenceVariables, op: OperatorType
     case "match":
       return EvaluateMatch(referencedStats, op.operands);
   }
-  return NaN;
+  return Number.NaN;
 }
 function EvaluateSum(values: number[]): number {
   return values.reduce((acc, cur) => acc + cur);
@@ -194,7 +194,7 @@ function EvaluateMatch(referencedStats: ReferenceVariables, caseOperators: CaseO
   if (matchedCase?.operator === "case") {
     return EvaluateOperand(referencedStats, matchedCase.operands[1]);
   }
-  return NaN;
+  return Number.NaN;
 }
 
 

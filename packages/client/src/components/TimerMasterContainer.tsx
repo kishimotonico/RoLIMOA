@@ -1,8 +1,8 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import { RootState } from '@/slices';
-import { PhaseState, CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
+import type { RootState } from '@/slices';
+import { type PhaseState, type CurrentPhaseState, phaseStateSlice } from '@/slices/phase';
 import { operationLogsStateSlice } from '@/slices/operationLogs';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';
@@ -13,7 +13,7 @@ function gotoPhaseCommand(
   currentPhase: CurrentPhaseState,
   type: "first"|"prev"|"next"|"last",
   offset: number,
-  isAutoTransition: boolean = false,
+  isAutoTransition = false,
 ) {
   let id = currentPhase.id;
   if (type === "first")

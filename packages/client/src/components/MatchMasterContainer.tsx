@@ -1,8 +1,8 @@
-import { FC, useCallback, useState } from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import { RootState } from '@/slices';
-import { TeamType, matchStateSlice } from '@/slices/match';
+import type { RootState } from '@/slices';
+import { type TeamType, matchStateSlice } from '@/slices/match';
 import { phaseStateSlice } from '@/slices/phase';
 import { initialState as scoreInitialState, scoreStateSlice } from '@/slices/score';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';

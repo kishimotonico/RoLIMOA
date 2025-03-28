@@ -1,10 +1,10 @@
-import { FC, useCallback, useState } from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Backdrop, Box, Divider, Fab, FormControlLabel, FormGroup, Grid2, Paper, Tooltip, Switch, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
-import { RootState } from '@/slices';
-import { FieldSideType, scoreStateSlice, FieldScoreStateType } from '@/slices/score';
+import type { RootState } from '@/slices';
+import { type FieldSideType, scoreStateSlice, type FieldScoreStateType } from '@/slices/score';
 import { Dashboard } from '@/components/Dashboard';
 import { ScoreInputVgoalButton } from '@/components/ScoreInputVgoalButton';
 import { LyricalSocket } from '@/lyricalSocket';

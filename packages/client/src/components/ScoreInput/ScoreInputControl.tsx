@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
-import { FieldSideType } from '@/slices/score';
+import type { FC } from 'react';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
+import type { FieldSideType } from '@/slices/score';
 import { GlobalObjectContainer } from './GlobalObjectContainer';
 import { TaskObjectContainer } from './TaskObjectContainer';
 import { config } from '@/config/load';

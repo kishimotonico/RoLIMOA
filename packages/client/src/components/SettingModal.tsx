@@ -1,7 +1,7 @@
-import { FC, useCallback, useRef, useState } from 'react';
+import { type FC, useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import {
   Dialog,
   DialogTitle,

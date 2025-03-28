@@ -1,5 +1,5 @@
 import { config as rootConfig } from '@/config/load';
-import { CurrentMatchStateType } from './currentMatchStateType';
+import type { CurrentMatchStateType } from './currentMatchStateType';
 import { condition } from '@/custom/rule.vgoal';
 
 // Vゴールが可能な状況かを判断する

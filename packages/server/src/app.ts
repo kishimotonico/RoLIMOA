@@ -1,7 +1,7 @@
 import express from "express";
 import expressWs from 'express-ws';
 import WebSocket from 'ws';
-import { AnyAction, createStore } from "redux";
+import { type AnyAction, createStore } from "redux";
 import { rootReducer } from "./features";
 import { connectedDevicesStateSlice } from "./features/connectedDevices";
 import path from "path";

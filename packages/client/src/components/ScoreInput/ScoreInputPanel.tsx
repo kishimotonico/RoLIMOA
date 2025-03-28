@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { FieldSideType } from '@/slices/score';
+import type { FC } from 'react';
+import type { FieldSideType } from '@/slices/score';
 import { config } from '@/config/load';
 import { ScoreInputControl } from './ScoreInputControl';
 

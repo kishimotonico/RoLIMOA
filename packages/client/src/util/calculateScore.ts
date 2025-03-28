@@ -1,7 +1,7 @@
-import { ObjectsStateType } from '@/slices/score';
+import type { ObjectsStateType } from '@/slices/score';
 import { score as calculateScoreImplement } from '@/custom/rule.score';
-import { evaluateFormula, FormulaExpression } from './formulaExpression';
-import { CurrentMatchStateType } from './currentMatchStateType';
+import { evaluateFormula, type FormulaExpression } from './formulaExpression';
+import type { CurrentMatchStateType } from './currentMatchStateType';
 
 export type ScoreRuleType = ScoreRuleSimpleType | ScoreRuleFormulaExpressionType | ScoreRuleImplementType;
 
@@ -68,7 +68,7 @@ function calculateScoreSimple(scoreRule: ScoreRuleSimpleType, taskObjects: Objec
     const val = taskObjects[id];
     if (val === undefined) {
       console.warn(`ふぇぇ…IDが"${id}"の要素がないよぉ`);
-      return NaN; // error
+      return Number.NaN; // error
     }
     return val * coefficient;
   });

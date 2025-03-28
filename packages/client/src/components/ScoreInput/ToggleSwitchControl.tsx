@@ -1,6 +1,6 @@
-import { FC, useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { Switch, Box, Paper, Typography, FormGroup, FormControlLabel } from '@mui/material';
-import { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from '@/config/types';
+import type { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from '@/config/types';
 
 interface ToggleSwitchControlProps {
   color: "primary" | "secondary" | "default",

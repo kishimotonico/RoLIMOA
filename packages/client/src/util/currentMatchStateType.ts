@@ -1,4 +1,4 @@
-import { FieldSideType } from '@/slices/score';
+import type { FieldSideType } from '@/slices/score';
 
 export type CurrentMatchStateType = {
   // 自チームの青コート or 赤コート

@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Grid2 } from '@mui/material';
-import { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@/config/types';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
 import { ToggleButtonControl } from './ToggleButtonControl';
 import { MultiButtonControl } from './MultiButtonControl';
