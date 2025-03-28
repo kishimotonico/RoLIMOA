@@ -5,16 +5,16 @@ services:
     build:
       context: .
       target: dev
-    command: npm -C ./client run dev -- --host
+    command: npm run dev --workspace=packages/client -- --host
     ports:
       - "5173:5173"
     volumes:
       - type: bind
-        source: ./client
-        target: /rolimoa/client
+        source: ./packages/client
+        target: /rolimoa/packages/client
       - type: volume
         source: client_node_modules
-        target: /rolimoa/client/node_modules
+        target: /rolimoa/packages/client/node_modules
     networks:
       - app-network
 
@@ -22,16 +22,16 @@ services:
     build:
       context: .
       target: dev
-    command: npm -C ./server run dev
+    command: npm run dev --workspace=packages/server
     ports:
       - "8000:8000"
     volumes:
       - type: bind
-        source: ./server
-        target: /rolimoa/server
+        source: ./packages/server
+        target: /rolimoa/packages/server
       - type: volume
         source: server_node_modules
-        target: /rolimoa/server/node_modules
+        target: /rolimoa/packages/server/node_modules
     networks:
       - app-network
 
