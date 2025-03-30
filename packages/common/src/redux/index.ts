@@ -22,5 +22,4 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export * from '@reduxjs/toolkit';
 export * from './slices/index.js';

@@ -11,6 +11,7 @@
     "format": "biome format ."
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
     "@rolimoa/common": "^0.0.0",
     "date-fns": "^4.1.0",
     "express": "^4.21.2",

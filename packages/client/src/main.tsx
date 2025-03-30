@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { configureStore, rootReducer } from '@rolimoa/common/redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { RecoilRoot } from 'recoil';
+import { rootReducer } from '@rolimoa/common/redux';
 
 const store = configureStore({
   reducer: rootReducer,
