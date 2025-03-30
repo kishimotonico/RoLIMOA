@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 import { configSchema } from './schema';
-import {
+import type {
   customControlPanelSchema,
   taskObjectMultiButtonSchema,
   taskObjectToggleButtonSchema,
@@ -9,13 +9,21 @@ import {
 
 export type ConfigType = z.infer<typeof configSchema>;
 
-export type TaskObjectConfigType = ConfigType["rule"]["task_objects"][number];
-export type TimeProgressConfigType = ConfigType["time_progress"][number];
+export type TaskObjectConfigType = ConfigType['rule']['task_objects'][number];
+export type TimeProgressConfigType = ConfigType['time_progress'][number];
 
-const timerFormatSchema = configSchema.shape.time_progress.element.shape.style.unwrap().shape.timerFormat;
+const timerFormatSchema =
+  configSchema.shape.time_progress.element.shape.style.unwrap().shape
+    .timerFormat;
 export type TimeFormat = NonNullable<z.infer<typeof timerFormatSchema>>;
 
 export type CustomControlPanelType = z.infer<typeof customControlPanelSchema>;
-export type TaskObjectToggleSwitchUiType = z.infer<typeof taskObjectToggleSwitchSchema>;
-export type TaskObjectToggleButtonUiType = z.infer<typeof taskObjectToggleButtonSchema>;
-export type taskObjectMultiButtonUiType = z.infer<typeof taskObjectMultiButtonSchema>;
+export type TaskObjectToggleSwitchUiType = z.infer<
+  typeof taskObjectToggleSwitchSchema
+>;
+export type TaskObjectToggleButtonUiType = z.infer<
+  typeof taskObjectToggleButtonSchema
+>;
+export type taskObjectMultiButtonUiType = z.infer<
+  typeof taskObjectMultiButtonSchema
+>;

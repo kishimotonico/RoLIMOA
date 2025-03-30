@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect } from 'react';
+import { type FC, useState, useRef, useEffect } from 'react';
 import { Box, Typography, Avatar, Fade } from '@mui/material';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
@@ -9,20 +9,18 @@ function padZero(value: number): string {
 }
 
 type FormattedTime = {
-  date: string,
-  h: number,
-  m: number,
-  s: number,
-  ms: number,
+  date: string;
+  h: number;
+  m: number;
+  s: number;
+  ms: number;
 };
 
 type Props = {
-  offsetTime?: number,
+  offsetTime?: number;
 };
 
-export const NowUnixtimeDisplay: FC<Props> = ({
-  offsetTime = 0,
-}) => {
+export const NowUnixtimeDisplay: FC<Props> = ({ offsetTime = 0 }) => {
   const [nowTime, setNowTime] = useState<FormattedTime>({
     date: '',
     h: 0,
@@ -61,7 +59,7 @@ export const NowUnixtimeDisplay: FC<Props> = ({
   }, [offsetTime]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
       <Box sx={{ mr: 3 }}>
         <Typography component="span" sx={{ color: 'grey', px: 0.5 }}>
           {nowTime.date}
@@ -70,14 +68,18 @@ export const NowUnixtimeDisplay: FC<Props> = ({
         <Typography component="span" sx={{ color: 'grey' }}>
           {padZero(nowTime.h)}:{padZero(nowTime.m)}
         </Typography>
-        
-        <Typography component="span" sx={{ pr: 0.5 }}>:</Typography>
+
+        <Typography component="span" sx={{ pr: 0.5 }}>
+          :
+        </Typography>
 
         <Typography component="span" sx={{ fontSize: '36px' }}>
           {padZero(nowTime.s)}
         </Typography>
 
-        <Typography component="span" sx={{ px: 0.5, fontSize: '36px' }}>.</Typography>
+        <Typography component="span" sx={{ px: 0.5, fontSize: '36px' }}>
+          .
+        </Typography>
 
         <Typography component="span" sx={{ fontSize: '36px' }}>
           {`000${nowTime.ms}`.slice(-3, -1)}0 {/* 0埋めと切り上げ */}
@@ -93,4 +95,4 @@ export const NowUnixtimeDisplay: FC<Props> = ({
       </Box>
     </Box>
   );
-}
+};

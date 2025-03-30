@@ -1,11 +1,21 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar as MuiAppBar,
-  AppBarProps as MuiAppBarProps,
+  type AppBarProps as MuiAppBarProps,
   Drawer as MuiDrawer,
-  Box, Container, CssBaseline, Divider, IconButton, List, ListItemButton,
-  ListItemText, Toolbar, Typography, useMediaQuery, Theme,
+  Box,
+  Container,
+  CssBaseline,
+  Divider,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  type Theme,
 } from '@mui/material';
 import { styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -51,44 +61,45 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: 'border-box',
+    ...(!open && {
+      overflowX: 'hidden',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
 interface DashboardProps {
   children: React.ReactNode;
   title: string;
 }
 
-export const Dashboard: FC<DashboardProps> = ({
-  children,
-  title,
-}) => {
+export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
   const [_open, setOpen] = useRecoilState(isDrawerOpen);
-  const handleDrawerOpen = () => { setOpen(true); };
-  const handleDrawerClose = () => { setOpen(false); };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const spMode = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
   const open = _open ?? !spMode;
@@ -97,9 +108,11 @@ export const Dashboard: FC<DashboardProps> = ({
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar color="default" position="absolute" open={open}>
-        <Toolbar sx={{
-          paddingRight: '24px', // keep right padding when drawer closed
-        }}>
+        <Toolbar
+          sx={{
+            paddingRight: '24px', // keep right padding when drawer closed
+          }}
+        >
           <IconButton
             edge="start"
             color="inherit"
@@ -108,11 +121,18 @@ export const Dashboard: FC<DashboardProps> = ({
             sx={{
               marginRight: '36px',
               ...(open && { display: 'none' }),
-             }}
-            size="large">
+            }}
+            size="large"
+          >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
             {title}
           </Typography>
           <StandaloneIndicator />
@@ -120,12 +140,14 @@ export const Dashboard: FC<DashboardProps> = ({
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <Toolbar sx={{
+        <Toolbar
+          sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
             padding: '0 8px',
-         }}>
+          }}
+        >
           <IconButton onClick={handleDrawerClose} size="large">
             <ChevronLeftIcon />
           </IconButton>
@@ -151,7 +173,9 @@ export const Dashboard: FC<DashboardProps> = ({
           <DrawerListLink to="/score/blue/">
             <ListItemButton>
               <ListItemIcon>
-                <AssignmentIcon sx={{ color: (theme) => theme.palette.primary.main }} />
+                <AssignmentIcon
+                  sx={{ color: (theme) => theme.palette.primary.main }}
+                />
               </ListItemIcon>
               <ListItemText primary="青チーム入力" />
             </ListItemButton>
@@ -159,7 +183,9 @@ export const Dashboard: FC<DashboardProps> = ({
           <DrawerListLink to="/score/red/">
             <ListItemButton>
               <ListItemIcon>
-              <AssignmentIcon sx={{ color: (theme) => theme.palette.secondary.main }} />
+                <AssignmentIcon
+                  sx={{ color: (theme) => theme.palette.secondary.main }}
+                />
               </ListItemIcon>
               <ListItemText primary="赤チーム入力" />
             </ListItemButton>
@@ -193,11 +219,14 @@ export const Dashboard: FC<DashboardProps> = ({
           </DrawerListLink>
         </List>
       </Drawer>
-      <Box component="main" sx={{
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-       }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
         <Box sx={(theme) => theme.mixins.toolbar} />
         <Container maxWidth="lg" sx={{ my: 4 }}>
           {children}
@@ -205,4 +234,4 @@ export const Dashboard: FC<DashboardProps> = ({
       </Box>
     </Box>
   );
-}
+};

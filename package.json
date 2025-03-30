@@ -1,10 +1,7 @@
 {
   "name": "@rolimoa/workspace",
   "private": true,
-  "workspaces": [
-    "packages/client",
-    "packages/server"
-  ],
+  "workspaces": ["packages/client", "packages/server"],
   "scripts": {
     "preinstall": "npx only-allow npm"
   }

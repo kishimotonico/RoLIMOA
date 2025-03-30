@@ -1,16 +1,27 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/slices';
-import { ConnectedDevice } from '@/slices/connectedDevices';
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
+import type { RootState } from '@/slices';
+import type { ConnectedDevice } from '@/slices/connectedDevices';
+import {
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { LyricalSocket } from '@/lyricalSocket';
 
 export const DeviceListContainer: FC = () => {
-  const connectedDevices = useSelector<RootState, ConnectedDevice[]>((state) => state.connectedDevices);
+  const connectedDevices = useSelector<RootState, ConnectedDevice[]>(
+    (state) => state.connectedDevices,
+  );
 
   const onSaveClick = () => {
-    LyricalSocket.sendOperation("save_store");
+    LyricalSocket.sendOperation('save_store');
   };
 
   return (
@@ -23,12 +34,8 @@ export const DeviceListContainer: FC = () => {
           <TableBody>
             {connectedDevices.map((device) => (
               <TableRow key={device.sockId}>
-                <TableCell scope="row">
-                  {device.deviceName}
-                </TableCell>
-                <TableCell>
-                  {device.currentPath ?? "-"}
-                </TableCell>
+                <TableCell scope="row">{device.deviceName}</TableCell>
+                <TableCell>{device.currentPath ?? '-'}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -4,7 +4,7 @@ import { customControlPanelSchema } from './controlPanel';
 
 const vgoalConditionSchema = z.union([
   z.object({
-    type: z.literal("manual"),
+    type: z.literal('manual'),
     required: z.object({
       tasks: z.array(
         z.object({
@@ -15,33 +15,37 @@ const vgoalConditionSchema = z.union([
     }),
   }),
   z.object({
-    type: z.literal("alwaysOk"),
+    type: z.literal('alwaysOk'),
   }),
   z.object({
-    type: z.literal("disabled"),
+    type: z.literal('disabled'),
   }),
   z.object({
-    type: z.literal("implement"),
+    type: z.literal('implement'),
   }),
 ]);
 
 const timeProgressSchema = z.object({
   id: z.string(),
-  type: z.enum(["default", "ready", "count"]),
+  type: z.enum(['default', 'ready', 'count']),
   time: z.number().optional(),
   description: z.string(),
   isAutoTransition: z.boolean().optional(),
-  style: z.object({
-    timerFormat: z.enum(["mm:ss", "m:ss", "ss", "s"]).optional(),
-    timerType: z.string().optional(),
-  }).optional(),
-  custom: z.array(
-    z.object({
-      elapsedTime: z.number(),
-      displayText: z.string().optional(),
-      sound: z.string().optional(),
-    }),
-  ).optional(),
+  style: z
+    .object({
+      timerFormat: z.enum(['mm:ss', 'm:ss', 'ss', 's']).optional(),
+      timerType: z.string().optional(),
+    })
+    .optional(),
+  custom: z
+    .array(
+      z.object({
+        elapsedTime: z.number(),
+        displayText: z.string().optional(),
+        sound: z.string().optional(),
+      }),
+    )
+    .optional(),
 });
 
 export const configSchema = z.object({
@@ -53,7 +57,7 @@ export const configSchema = z.object({
     task_objects: z.array(taskObjectSchema),
     score: z.union([
       z.object({
-        format: z.literal("simple"),
+        format: z.literal('simple'),
         expression: z.array(
           z.object({
             id: z.string(),
@@ -62,11 +66,11 @@ export const configSchema = z.object({
         ),
       }),
       z.object({
-        format: z.literal("formulaExpression"),
+        format: z.literal('formulaExpression'),
         expression: z.any(), // 再帰構造を含むのでとりあえずany
       }),
       z.object({
-        format: z.literal("implement"),
+        format: z.literal('implement'),
       }),
     ]),
     vgoal: z.object({
@@ -75,19 +79,15 @@ export const configSchema = z.object({
     }),
     control_panel: z.union([
       z.object({
-        type: z.literal("default"),
+        type: z.literal('default'),
       }),
       z.object({
-        type: z.literal("custom"),
-        panels: z.array(
-          customControlPanelSchema
-        ).optional(),
+        type: z.literal('custom'),
+        panels: z.array(customControlPanelSchema).optional(),
       }),
     ]),
   }),
-  time_progress: z.array(
-    timeProgressSchema
-  ),
+  time_progress: z.array(timeProgressSchema),
   teams_info: z.array(
     z.object({
       id: z.string(),

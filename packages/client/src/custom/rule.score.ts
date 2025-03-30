@@ -1,11 +1,12 @@
-import { CurrentMatchStateType } from '@/util/currentMatchStateType';
+import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
 
-type ScoreOutputType = {
-  value: number,
-  refs?: Record<string, number>,
-} | number;
+type ScoreOutputType =
+  | {
+      value: number;
+      refs?: Record<string, number>;
+    }
+  | number;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function score(_stat: CurrentMatchStateType): ScoreOutputType {
   // ここにスコアの計算処理をかく
   //
@@ -19,5 +20,5 @@ export function score(_stat: CurrentMatchStateType): ScoreOutputType {
   // return _stat.taskObjects["A_1_point"] + _stat.taskObjects["B_10_point"] * 10;
   // ```
 
-  return NaN;
+  return Number.NaN;
 }

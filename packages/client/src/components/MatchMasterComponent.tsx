@@ -1,14 +1,14 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Paper, Typography, Grid2, Button, TextField } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 
 interface MatchMasterComponentProps {
-  teamOptions: string[],
-  onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void,
-  onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void,
-  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-  isEnabledStartButton: boolean,
+  teamOptions: string[];
+  onChangeMatchName: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeBlueTeamName: (event: React.SyntheticEvent, value: string) => void;
+  onChangeRedTeamName: (event: React.SyntheticEvent, value: string) => void;
+  onStartButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  isEnabledStartButton: boolean;
 }
 
 export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
@@ -75,4 +75,4 @@ export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
       </Grid2>
     </Paper>
   );
-}
+};

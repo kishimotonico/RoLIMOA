@@ -1,12 +1,12 @@
-import { FC, useRef } from 'react';
+import { type FC, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 
 type SlideTransitionProps = {
-  in: boolean,
-  direction: "left" | "right",
-  appear?: boolean,
-  duration?: number,
-  children: React.ReactNode,
+  in: boolean;
+  direction: 'left' | 'right';
+  appear?: boolean;
+  duration?: number;
+  children: React.ReactNode;
 };
 
 export const SlideTransition: FC<SlideTransitionProps> = ({
@@ -22,7 +22,7 @@ export const SlideTransition: FC<SlideTransitionProps> = ({
     opacity: 0,
   };
 
-  const pos = direction === "left" ? 80 : -80;
+  const pos = direction === 'left' ? 80 : -80;
 
   const transitionStyles = {
     entering: {
@@ -41,16 +41,19 @@ export const SlideTransition: FC<SlideTransitionProps> = ({
       opacity: 0,
       transform: `translateX(${pos}%)`,
     },
-    unmounted: { },
+    unmounted: {},
   };
 
   return (
     <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
-      {state => (
-        <div ref={nodeRef} style={{
-          ...defaultStyle,
-          ...transitionStyles[state],
-        }}>
+      {(state) => (
+        <div
+          ref={nodeRef}
+          style={{
+            ...defaultStyle,
+            ...transitionStyles[state],
+          }}
+        >
           {children}
         </div>
       )}
