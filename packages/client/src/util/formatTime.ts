@@ -1,4 +1,4 @@
-import type { TimeFormat } from '@/config/types';
+import type { TimeFormat } from '@rolimoa/common/config';
 
 // 秒数をフォーマット表示した文字列を返す
 export const formatTime = (

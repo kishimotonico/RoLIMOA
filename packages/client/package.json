@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "biome lint .",
     "format": "biome format ."
@@ -17,7 +17,7 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/lab": "^6.0.0-beta.30",
     "@mui/material": "^6.4.7",
-    "@reduxjs/toolkit": "^1.9.5",
+    "@rolimoa/common": "^0.0.0",
     "dseg": "^0.46.0",
     "immer": "^10.1.1",
     "material-react-table": "^3.2.1",
@@ -39,8 +39,8 @@
     "@types/react": "^18.0.37",
     "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react-swc": "^3.8.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.8.2",
-    "vite": "^6.2.2"
+    "vite": "^6.2.3"
   }
 }

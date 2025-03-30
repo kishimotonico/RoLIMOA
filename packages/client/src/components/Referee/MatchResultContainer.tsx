@@ -19,13 +19,13 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { ScoreBlock } from '@/components/ScoreBlock';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
-import type { FieldSideType, ScoreState } from '@/slices/score';
-import { resultRecordsStateSlice } from '@/slices/resultRecord';
-import { type MatchState, matchStateSlice } from '@/slices/match';
-import type { CurrentPhaseState } from '@/slices/phase';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldSideType, ScoreState } from '@rolimoa/common/redux';
+import { resultRecordsStateSlice } from '@rolimoa/common/redux';
+import { type MatchState, matchStateSlice } from '@rolimoa/common/redux';
+import type { CurrentPhaseState } from '@rolimoa/common/redux';
 import { LyricalSocket } from '@/lyricalSocket';
-import { config } from '@/config/load';
+import { config } from '@rolimoa/common/config';
 import * as Phase from '@/util/PhaseStateUtil';
 
 const thStyle: SxProps<Theme> = {

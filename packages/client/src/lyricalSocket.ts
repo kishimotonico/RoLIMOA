@@ -1,4 +1,4 @@
-import type { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import type { AnyAction, Dispatch } from '@rolimoa/common/redux';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 export class LyricalSocket {

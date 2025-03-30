@@ -1,8 +1,11 @@
 import { type FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
-import type { RootState } from '@/slices';
-import { scoreStateSlice, type FieldScoreStateType } from '@/slices/score';
+import type { RootState } from '@rolimoa/common/redux';
+import {
+  scoreStateSlice,
+  type FieldScoreStateType,
+} from '@rolimoa/common/redux';
 import { LyricalSocket } from '@/lyricalSocket';
 import { isVgoalAvailable } from '@/util/VgoalHelper';
 import { useCurrentMatchState } from '@/functional/useCurrentMatchState';

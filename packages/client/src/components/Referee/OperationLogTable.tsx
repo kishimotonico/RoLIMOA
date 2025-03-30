@@ -6,8 +6,8 @@ import {
   type MRT_ColumnDef,
 } from 'material-react-table';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
-import type { OperationLog } from '@/slices/operationLogs';
+import type { RootState } from '@rolimoa/common/redux';
+import type { OperationLog } from '@rolimoa/common/redux';
 import { unixToTimeWithMillis } from '@/util/formatTime';
 
 type LogRow = {

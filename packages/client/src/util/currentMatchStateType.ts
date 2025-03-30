@@ -1,4 +1,4 @@
-import type { FieldSideType } from '@/slices/score';
+import type { FieldSideType } from '@rolimoa/common/redux';
 
 export type CurrentMatchStateType = {
   // 自チームの青コート or 赤コート

@@ -3,7 +3,7 @@ import { Grid2 } from '@mui/material';
 import type {
   CustomControlPanelType,
   TaskObjectConfigType,
-} from '@/config/types';
+} from '@rolimoa/common/config';
 import { ToggleSwitchControl } from './ToggleSwitchControl';
 import { ToggleButtonControl } from './ToggleButtonControl';
 import { MultiButtonControl } from './MultiButtonControl';

@@ -18,8 +18,8 @@ import {
 import { Dashboard } from '@/components/Dashboard';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import type { RootState } from '@/slices';
-import { streamingInterfaceSlice } from '@/slices/streamingInterface';
+import type { RootState } from '@rolimoa/common/redux';
+import { streamingInterfaceSlice } from '@rolimoa/common/redux';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { LyricalSocket } from '@/lyricalSocket';
 
