@@ -1,17 +1,39 @@
 name: rolimoa-dev
 
 services:
+  common:
+    build:
+      context: .
+      target: dev
+    command: npm run dev:common
+    volumes:
+      - type: bind
+        source: ./packages/common
+        target: /rolimoa/packages/common
+      - type: volume
+        source: node_modules
+        target: /rolimoa/node_modules
+      - type: volume
+        source: common_node_modules
+        target: /rolimoa/packages/common/node_modules
+
   client:
     build:
       context: .
       target: dev
-    command: npm run dev --workspace=packages/client -- --host
+    command: npm run dev:client -- --host
     ports:
       - "5173:5173"
     volumes:
       - type: bind
+        source: ./packages/common/dist
+        target: /rolimoa/packages/common/dist
+      - type: bind
         source: ./packages/client
         target: /rolimoa/packages/client
+      - type: volume
+        source: node_modules
+        target: /rolimoa/node_modules
       - type: volume
         source: client_node_modules
         target: /rolimoa/packages/client/node_modules
@@ -22,13 +44,19 @@ services:
     build:
       context: .
       target: dev
-    command: npm run dev --workspace=packages/server
+    command: npm run dev:server
     ports:
       - "8000:8000"
     volumes:
       - type: bind
+        source: ./packages/common/dist
+        target: /rolimoa/packages/common/dist
+      - type: bind
         source: ./packages/server
         target: /rolimoa/packages/server
+      - type: volume
+        source: node_modules
+        target: /rolimoa/node_modules
       - type: volume
         source: server_node_modules
         target: /rolimoa/packages/server/node_modules
@@ -40,5 +68,7 @@ networks:
     driver: bridge
 
 volumes:
+  node_modules:
+  common_node_modules:
   client_node_modules:
   server_node_modules:

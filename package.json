@@ -7,12 +7,12 @@
     "packages/server"
   ],
   "scripts": {
-    "dev": "run-p dev:common dev:client dev:server",
-    "dev:common": "npm run dev --workspace=@rolimoa/common",
-    "dev:client": "npm run dev --workspace=@rolimoa/client",
-    "dev:server": "npm run dev --workspace=@rolimoa/server",
-    "build": "npm run build --workspaces",
-    "start": "npm run start --workspace=@rolimoa/server",
+    "dev": "run-p dev:*",
+    "dev:common": "npm run dev --workspace=@rolimoa/common --",
+    "dev:client": "npm run dev --workspace=@rolimoa/client --",
+    "dev:server": "npm run dev --workspace=@rolimoa/server --",
+    "build": "npm run build --workspaces --",
+    "start": "npm start --workspace=@rolimoa/server --",
     "lint": "npm run lint --workspaces --",
     "format": "npm run format --workspaces --",
     "preinstall": "npx only-allow npm"
