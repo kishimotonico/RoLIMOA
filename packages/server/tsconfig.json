@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2019",
+    "target": "ES2023",
+    "module": "Node16",
+    "skipLibCheck": true,
+
+    "moduleResolution": "node16",
+    "isolatedModules": true,
+    "moduleDetection": "force",
     "declaration": true,
-    "removeComments": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": "./",
-    "outDir": "./dist",
-    "incremental": true,
-    "resolveJsonModule": true
-  }
+    "outDir": "dist",
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"]
 }

@@ -2,17 +2,17 @@ import express from 'express';
 import expressWs from 'express-ws';
 import WebSocket from 'ws';
 import { type AnyAction, createStore } from 'redux';
-import { rootReducer } from './features';
-import { connectedDevicesStateSlice } from './features/connectedDevices';
+import { rootReducer } from '@rolimoa/common/redux';
+import { connectedDevicesStateSlice } from '@rolimoa/common/redux';
 import path from 'node:path';
 import crypt from 'node:crypto';
-import { loadFromFile, saveToFile } from './backup';
+import { loadFromFile, saveToFile } from './backup.js';
 
 const { app, getWss } = expressWs(express());
 
 const store = createStore(rootReducer, loadFromFile('./save'));
 
-app.ws('/ws', (ws, req) => {
+app.ws('/ws', (ws, _req) => {
   const wss = getWss();
   const sessionId = crypt.randomUUID();
   console.log(`connected (sid: ${sessionId})`);
@@ -98,7 +98,8 @@ app.ws('/ws', (ws, req) => {
 app.get('/api/state', (req, res) => {
   const query = req.query.q?.toString();
   const state = store.getState();
-  let result = state;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  let result: any = state;
   if (query) {
     for (const key of query.split('.')) {
       if (result[key] === undefined) {
@@ -113,7 +114,7 @@ app.get('/api/state', (req, res) => {
 
 // クライアントのホスティング
 app.use(express.static('../client/dist'));
-app.get('*', (req, res, next) => {
+app.get('*', (_req, res, _next) => {
   res.sendFile(path.resolve('../client/dist/index.html'));
 });
 
