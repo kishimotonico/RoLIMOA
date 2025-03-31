@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import type { RootState } from '@/slices';
+import type { RootState } from '@rolimoa/common/redux';
 import {
   calculateElapsedSecond,
   type CurrentPhaseState,
   phaseStateSlice,
-} from '@/slices/phase';
+} from '@rolimoa/common/redux';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 
 export const useAppRootTimer = () => {

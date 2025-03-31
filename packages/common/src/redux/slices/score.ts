@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { config } from '@/config/load';
+import { config } from '../../config/index.js';
 
 export type ScoreState = {
   fields: Record<FieldSideType, FieldScoreStateType>;
@@ -15,7 +15,7 @@ export type FieldScoreStateType = {
 };
 export type ObjectsStateType = { [objectId: string]: number };
 
-export const initialState: ScoreState = {
+export const scoreInitialState: ScoreState = {
   fields: {
     blue: {
       tasks: Object.fromEntries(
@@ -61,7 +61,7 @@ type TaskUpdateActionPayload = {
 
 export const scoreStateSlice = createSlice({
   name: 'task',
-  initialState,
+  initialState: scoreInitialState,
   reducers: {
     setState: (_, action: PayloadAction<ScoreState>) => action.payload,
     setGloablUpdate: (

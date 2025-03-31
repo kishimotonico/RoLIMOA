@@ -1,4 +1,4 @@
-import { config as rootConfig } from '@/config/load';
+import { config as rootConfig } from '@rolimoa/common/config';
 import type { CurrentMatchStateType } from './currentMatchStateType';
 import { condition } from '@/custom/rule.vgoal';
 

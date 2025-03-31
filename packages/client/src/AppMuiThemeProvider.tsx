@@ -6,7 +6,7 @@ import {
   alpha,
 } from '@mui/material/styles';
 import { blue, grey, pink } from '@mui/material/colors';
-import '@fontsource/noto-sans-jp';
+import '@fontsource/noto-sans-jp/index.css';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {

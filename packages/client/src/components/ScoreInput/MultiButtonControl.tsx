@@ -4,7 +4,7 @@ import type { SxProps } from '@mui/material/styles';
 import type {
   TaskObjectConfigType,
   taskObjectMultiButtonUiType,
-} from '@/config/types';
+} from '@rolimoa/common/config';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';

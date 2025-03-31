@@ -30,12 +30,10 @@ packages/client/src/config.jsonを編集して、好みの設定にします。�
 git clone https://github.com/kishimotonico/RoLIMOA.git
 cd RoLIMOA
 npm i
-
-# クライアントをビルド
-npm run build --workspace=packages/client
+npm run build
 
 # サーバを起動する
-npm start --workspace=packages/server
+npm start
 ```
 
 http://localhost:8000 で管理画面を開けるようになります。OSやファイアウォールを設定すれば、他のデバイスからも操作できます。
@@ -71,16 +69,9 @@ http://localhost:8000 で管理画面を開けるようになります。OSや�
 
 ## 開発方法 / How to develop
 
-開発時には、サーバとクライアントをそれぞれ起動して開発します。
-
 ```bash
-# サーバ側
 cd /path/to/RoLIMOA
-npm start --workspace=packages/server
-
-# クライアント側
-cd /path/to/RoLIMOA
-npm run dev --workspace=packages/client
+npm run dev
 ```
 
 ### 要素技術

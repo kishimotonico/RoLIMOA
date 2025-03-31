@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { connectedDevicesStateSlice } from '@/slices/connectedDevices';
+import { connectedDevicesStateSlice } from '@rolimoa/common/redux';
 import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import { getSetting, setSetting } from '@/util/clientStoredSetting';
 import { LyricalSocket } from '@/lyricalSocket';

@@ -1,4 +1,4 @@
-import type { ObjectsStateType } from '@/slices/score';
+import type { ObjectsStateType } from '@rolimoa/common/redux';
 import { score as calculateScoreImplement } from '@/custom/rule.score';
 import { evaluateFormula, type FormulaExpression } from './formulaExpression';
 import type { CurrentMatchStateType } from './currentMatchStateType';

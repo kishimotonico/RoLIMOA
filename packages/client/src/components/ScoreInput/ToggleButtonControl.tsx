@@ -8,7 +8,7 @@ import {
 import type {
   TaskObjectConfigType,
   TaskObjectToggleButtonUiType,
-} from '@/config/types';
+} from '@rolimoa/common/config';
 
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType;

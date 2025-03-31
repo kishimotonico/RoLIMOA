@@ -2,11 +2,11 @@ import type { FC } from 'react';
 import type {
   CustomControlPanelType,
   TaskObjectConfigType,
-} from '@/config/types';
-import type { FieldSideType } from '@/slices/score';
+} from '@rolimoa/common/config';
+import type { FieldSideType } from '@rolimoa/common/redux';
 import { GlobalObjectContainer } from './GlobalObjectContainer';
 import { TaskObjectContainer } from './TaskObjectContainer';
-import { config } from '@/config/load';
+import { config } from '@rolimoa/common/config';
 import { ErrorObject } from './ErrorObject';
 
 type TaskType = 'global' | 'task';

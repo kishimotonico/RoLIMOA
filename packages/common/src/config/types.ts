@@ -1,11 +1,11 @@
 import type { z } from 'zod';
-import { configSchema } from './schema';
+import { configSchema } from './schema/index.js';
 import type {
   customControlPanelSchema,
   taskObjectMultiButtonSchema,
   taskObjectToggleButtonSchema,
   taskObjectToggleSwitchSchema,
-} from './schema/controlPanel';
+} from './schema/controlPanel.js';
 
 export type ConfigType = z.infer<typeof configSchema>;
 

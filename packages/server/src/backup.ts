@@ -1,9 +1,9 @@
 import type { createStore } from 'redux';
-import type { RootState } from './features';
+import type { RootState } from '@rolimoa/common/redux';
 import { format } from 'date-fns';
 import fs from 'node:fs';
 import path from 'node:path';
-import config from './config.json';
+import config from '@rolimoa/common/config';
 
 type StoreType = ReturnType<typeof createStore>;
 

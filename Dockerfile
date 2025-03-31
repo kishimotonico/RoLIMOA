@@ -7,7 +7,7 @@ RUN npm ci
 # ビルドステージ
 FROM dev AS build
 
-RUN npm run build --workspace=packages/client
+RUN npm run build
 
 
 # 実行環境ステージ
@@ -18,4 +18,4 @@ COPY --from=build --chown=node:node /rolimoa/ .
 RUN npm ci --omit=dev
 
 USER node
-CMD ["npm", "start", "--workspace=packages/server"]
+CMD ["npm", "start"]

@@ -1,14 +1,14 @@
 import type { FC, Ref } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
-import type { FieldSideType } from '@/slices/score';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldSideType } from '@rolimoa/common/redux';
 import { Box, Divider, Slide } from '@mui/material';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { useSearchParams } from 'react-router-dom';
 import { CenterFlex } from '@/ui/CenterFlex';
 import { formatTime } from '@/util/formatTime';
-import { config } from '@/config/load';
+import { config } from '@rolimoa/common/config';
 import { SlideTransition } from '@/ui/SlideTransition';
 
 type ScoreBlockProps = {

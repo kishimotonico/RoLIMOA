@@ -1,8 +1,23 @@
 {
   "name": "@rolimoa/workspace",
   "private": true,
-  "workspaces": ["packages/client", "packages/server"],
+  "workspaces": [
+    "packages/common",
+    "packages/client",
+    "packages/server"
+  ],
   "scripts": {
+    "dev": "run-p dev:*",
+    "dev:common": "npm run dev --workspace=@rolimoa/common --",
+    "dev:client": "npm run dev --workspace=@rolimoa/client --",
+    "dev:server": "npm run dev --workspace=@rolimoa/server --",
+    "build": "npm run build --workspaces --",
+    "start": "npm start --workspace=@rolimoa/server --",
+    "lint": "npm run lint --workspaces --",
+    "format": "npm run format --workspaces --",
     "preinstall": "npx only-allow npm"
+  },
+  "devDependencies": {
+    "npm-run-all2": "^7.0.2"
   }
 }

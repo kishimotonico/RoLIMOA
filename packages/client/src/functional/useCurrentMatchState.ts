@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
+import type { RootState } from '@rolimoa/common/redux';
 import type {
   FieldScoreStateType,
   FieldSideType,
   ScoreState,
-} from '@/slices/score';
-import type { PhaseState } from '@/slices/phase';
+} from '@rolimoa/common/redux';
+import type { PhaseState } from '@rolimoa/common/redux';
 import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
 import * as Phase from '@/util/PhaseStateUtil';
 

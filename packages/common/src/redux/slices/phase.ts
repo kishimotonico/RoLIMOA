@@ -21,7 +21,7 @@ export type CurrentPhaseState = {
   pausedTime?: number; // フェーズの一時停止時刻(Unix時間)
 };
 
-export const initialState: PhaseState = {
+export const phaseInitialState: PhaseState = {
   current: {
     id: 'default',
     startTime: Date.now(),
@@ -32,7 +32,7 @@ export const initialState: PhaseState = {
 
 export const phaseStateSlice = createSlice({
   name: 'phase',
-  initialState,
+  initialState: phaseInitialState,
   reducers: {
     setState: (state, action: PayloadAction<CurrentPhaseState>) => {
       state.elapsedSecond = calculateElapsedSecond(

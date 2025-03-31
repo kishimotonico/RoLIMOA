@@ -14,8 +14,8 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { TimerDisplay } from './TimerDisplay';
-import type { TimeProgressConfigType } from '@/config/types';
-import type { CurrentPhaseState } from '@/slices/phase';
+import type { TimeProgressConfigType } from '@rolimoa/common/config';
+import type { CurrentPhaseState } from '@rolimoa/common/redux';
 import { ConditionalTooltip } from '@/ui/ConditionalTooltip';
 import { unixToTimeWithMillis } from '@/util/formatTime';
 
