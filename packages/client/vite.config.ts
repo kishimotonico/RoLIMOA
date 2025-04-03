@@ -8,4 +8,17 @@ export default {
       '@': `${__dirname}/src`,
     },
   },
+  server: {
+    proxy: {
+      '/ws': {
+        target: 'ws://localhost:8000',
+        changeOrigin: true,
+        ws: true,
+      },
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
+  },
 } satisfies UserConfig;
