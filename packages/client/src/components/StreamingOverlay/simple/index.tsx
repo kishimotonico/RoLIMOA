@@ -3,11 +3,11 @@ import { Box } from '@mui/material';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { CenterFlex } from '@/ui/CenterFlex';
 import { SlideTransition } from '@/ui/SlideTransition';
-import type { RootState } from '@/slices';
-import type { FieldSideType } from '@/slices/score';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldSideType } from '@rolimoa/common/redux';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { formatTime } from '@/util/formatTime';
-import { config } from '@/config/load';
+import { config } from '@rolimoa/common/config';
 import { TimerDisplay } from '../TimerDisplay';
 
 const ScoreBlock = (props: {

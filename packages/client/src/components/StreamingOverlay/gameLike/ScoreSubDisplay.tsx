@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import type { FieldSideType } from '@/slices/score';
+import type { FieldSideType } from '@rolimoa/common/redux';
 import { useCurrentMatchState } from '@/functional/useCurrentMatchState';
 
 type ScoreSubDisplayProps = {

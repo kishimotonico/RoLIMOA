@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
+import type { RootState } from '@rolimoa/common/redux';
 import { Box, Slide } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { MainHud } from '@/components/StreamingOverlay/simple';

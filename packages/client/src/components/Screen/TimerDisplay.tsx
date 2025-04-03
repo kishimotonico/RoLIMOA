@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/slices';
+import type { RootState } from '@rolimoa/common/redux';
 import { Box, type SxProps } from '@mui/material';
 import type { Theme } from '@emotion/react';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
