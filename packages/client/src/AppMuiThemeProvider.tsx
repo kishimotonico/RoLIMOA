@@ -5,6 +5,7 @@ import {
   createTheme,
   alpha,
 } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { blue, grey, pink } from '@mui/material/colors';
 import '@fontsource/noto-sans-jp/index.css';
 
@@ -88,6 +89,7 @@ type Props = {
 export const AppMuiThemeProvider = ({ children }: Props) => {
   return (
     <StyledEngineProvider injectFirst>
+      <CssBaseline />
       <ThemeProvider theme={appTheme}>{children}</ThemeProvider>
     </StyledEngineProvider>
   );

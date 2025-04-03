@@ -6,7 +6,6 @@ import {
   Drawer as MuiDrawer,
   Box,
   Container,
-  CssBaseline,
   Divider,
   IconButton,
   List,
@@ -106,7 +105,6 @@ export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar color="default" position="absolute" open={open}>
         <Toolbar
           sx={{

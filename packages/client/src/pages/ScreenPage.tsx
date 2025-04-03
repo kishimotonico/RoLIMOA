@@ -1,12 +1,13 @@
-import { type FC, useState } from 'react';
-import { ScoreBlock, type ScoreBlockProps } from '@/components/ScoreBlock';
-import { TimerDisplay } from '@/components/TimerDisplay';
-import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
-import { Box, Grid2, IconButton } from '@mui/material';
+import { useState } from 'react';
+import { Box, IconButton } from '@mui/material';
 import { CenterFlex } from '@/ui/CenterFlex';
 import CachedIcon from '@mui/icons-material/Cached';
+import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
+import { ScoreBoard } from '@/components/Screen/ScoreBoard';
+import { TimerDisplay } from '@/components/Screen/TimerDisplay';
+import { Underlay } from '@/components/Screen/Underlay';
 
-export const ScreenPage: FC = () => {
+export const ScreenPage = () => {
   usePlaySoundEffect();
 
   const [reverse, setReverse] = useState(false);
@@ -14,67 +15,77 @@ export const ScreenPage: FC = () => {
     setReverse((toggle) => !toggle);
   };
 
-  const scoreBlockProps: Partial<ScoreBlockProps> = {
-    rootSx: {
-      borderWidth: '3px',
-    },
-    scoreVariant: 'h1',
-    teamNameVariant: 'h4',
-  };
-
   return (
-    <Box sx={{ padding: '2em' }}>
-      <Grid2 container spacing={6}>
-        {/* スコア */}
-        <Grid2
-          size={12}
-          container
-          sx={{
-            justify: 'space-between',
-            alignItems: 'center',
-            flexDirection: reverse ? 'row-reverse' : 'row',
-          }}
-        >
-          <Grid2 size={5}>
-            <ScoreBlock fieldSide="blue" {...scoreBlockProps} />
-          </Grid2>
-          <Grid2 size={2}>
+    <Box
+      sx={{
+        height: '99vh',
+        overflow: 'hidden',
+      }}
+    >
+      <Box
+        sx={{
+          fontSize: '50px',
+          height: '100vh',
+          p: 0.5,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <Box>
+          {/* スコア */}
+          <Box sx={{ display: 'flex' }}>
+            <Box sx={{ flex: 1 }}>
+              <ScoreBoard
+                fieldSide={reverse ? 'blue' : 'red'}
+                placement="left"
+              />
+            </Box>
             <CenterFlex
               sx={{
-                opacity: 0.1,
+                opacity: 0.3,
                 transition: 'opacity',
                 '&:hover': {
                   opacity: 1.0,
                 },
+                width: '80px',
+                fontSize: '20px',
               }}
             >
-              <IconButton
-                aria-label="delete"
-                color="default"
-                onClick={onReverseClick}
-              >
+              <IconButton color="default" onClick={onReverseClick}>
                 <CachedIcon />
               </IconButton>
             </CenterFlex>
-          </Grid2>
-          <Grid2 size={5}>
-            <ScoreBlock fieldSide="red" {...scoreBlockProps} />
-          </Grid2>
-        </Grid2>
-        {/* タイム */}
-        <Grid2 size={12}>
-          <TimerDisplay
-            descriptionSx={{
-              marginTop: '.5em',
-              marginBottom: '.5em',
-              fontSize: '400%',
+            <Box sx={{ flex: 1 }}>
+              <ScoreBoard
+                fieldSide={reverse ? 'red' : 'blue'}
+                placement="right"
+              />
+            </Box>
+          </Box>
+          {/* タイム */}
+          <CenterFlex
+            sx={{
+              py: '0.5em',
             }}
-            displayTimeSx={{
-              fontSize: '1200%',
-            }}
-          />
-        </Grid2>
-      </Grid2>
+          >
+            <TimerDisplay />
+          </CenterFlex>
+        </Box>
+
+        {/* underlay */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            zIndex: -100,
+          }}
+        >
+          <Underlay />
+        </Box>
+      </Box>
     </Box>
   );
 };
