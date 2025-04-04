@@ -1,0 +1,53 @@
+name: rolimoa-prod
+
+services:
+  app:
+    build:
+      context: .
+      target: prod
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: volume
+        source: node_modules
+        target: /rolimoa/node_modules
+      - type: volume
+        source: common_node_modules
+        target: /rolimoa/packages/common/node_modules
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  extension-example:
+    image: ghcr.io/astral-sh/uv:debian-slim
+    command: "uv run ./src/examples/basic/main.py"
+    environment:
+      - RoLIMOA_WS_URL=ws://app:8000/ws
+    working_dir: /rolimoa/extension-py
+    volumes:
+      - type: bind
+        source: ./extension-py
+        target: /rolimoa/extension-py
+      - type: volume
+        source: ext_py_venv
+        target: /rolimoa/extension-py/.venv
+    networks:
+      - app-network
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  node_modules:
+  common_node_modules:
+  client_node_modules:
+  server_node_modules:
+  ext_py_venv:

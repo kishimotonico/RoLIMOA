@@ -59,7 +59,11 @@ class RoLIMOAExtension:
                         await self._on_message(message)
 
             except Exception as e:
-                self.logger.error(f"Connection error: {e}")
+                self.logger.error(f"❌接続に失敗しました", {
+                    "url": self.url,
+                    "attempts": attempts,
+                    "error": str(e),
+                })
                 self._callback_invoke(self.on_error_callback, [e])
                 if not isinstance(e, httpx_ws.WebSocketNetworkError):
                     raise e
@@ -121,7 +125,10 @@ class RoLIMOAExtension:
 
 
 async def main():
-    ext = RoLIMOAExtension("ws://localhost:8000/ws")
+    import os
+
+    url = os.environ.get("RoLIMOA_WS_URL", "ws://localhost:8000/ws")
+    ext = RoLIMOAExtension(url)
 
     @ext.on_dispatch("task/setTaskUpdate")
     async def on_task_update(payload: dict):

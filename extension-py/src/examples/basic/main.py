@@ -7,6 +7,7 @@ RoLIMOAExtensionのかんたんなサンプルコードです
 """
 
 from logging import getLogger, StreamHandler, DEBUG
+import os
 import asyncio
 from rolimoa_extension import RoLIMOAExtension
 
@@ -17,7 +18,8 @@ handler.setLevel(DEBUG)
 logger.setLevel(DEBUG)
 logger.addHandler(handler)
 
-ext = RoLIMOAExtension("ws://localhost:8000/ws", logger=logger)
+url = os.environ.get("RoLIMOA_WS_URL", "ws://localhost:8000/ws")
+ext = RoLIMOAExtension(url, logger=logger)
 
 @ext.on_dispatch("task/setTaskUpdate")
 async def on_task_update_1(payload: dict):
