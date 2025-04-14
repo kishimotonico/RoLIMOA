@@ -1,24 +1,36 @@
-FROM node:22-bookworm-slim AS dev
+FROM node:22-bookworm-slim AS base
 WORKDIR /rolimoa
 
-COPY . .
+COPY package*.json ./
+COPY packages/common/package*.json ./packages/common/
+COPY packages/client/package*.json ./packages/client/
+COPY packages/server/package*.json ./packages/server/
+
+
+# 開発環境ステージ
+FROM base AS dev
+
 RUN --mount=type=cache,target=/root/.npm npm ci
+
 
 # ビルドステージ
 FROM dev AS build
 
+COPY . .
 RUN npm run build
 
 
 # 実行環境ステージ
-FROM node:22-bookworm-slim AS prod
-WORKDIR /rolimoa
+FROM base AS prod
 
 ENV NODE_ENV=production
 ENV PORT=8000
 
-COPY --from=build --chown=node:node /rolimoa/ .
-RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev
+COPY --from=build /rolimoa/packages/common/dist ./packages/common/dist
+COPY --from=build /rolimoa/packages/client/dist ./packages/client/dist
+COPY --from=build /rolimoa/packages/server/dist ./packages/server/dist
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev --workspace=@rolimoa/server \
+    && chown -R node:node .
 
 USER node
 EXPOSE ${PORT}
