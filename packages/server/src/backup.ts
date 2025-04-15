@@ -50,8 +50,8 @@ export async function saveToFile(
   }
 }
 
-function createDirectoryIfNotExists(path: string): void {
-  fs.existsSync(path) || fs.mkdirSync(path, { recursive: true });
+function createDirectoryIfNotExists(dirPath: string): void {
+  fs.existsSync(dirPath) || fs.mkdirSync(dirPath, { recursive: true });
 }
 
 function storedObjectValidator(state: RootState): boolean {
