@@ -89,22 +89,10 @@ export const TimerMasterContainer: FC = () => {
     const now = Date.now() + timeOffset;
     if (currentPhase.pausedTime) {
       // 再開
-      LyricalSocket.dispatchAll([
-        phaseStateSlice.actions.setPause({
-          pausedTime: undefined,
-        }),
-        phaseStateSlice.actions.setState({
-          id: currentPhase.id,
-          startTime: now - (currentPhase.pausedTime - currentPhase.startTime),
-        }),
-      ]);
+      LyricalSocket.dispatchAll([phaseStateSlice.actions.doResume({ now })]);
     } else {
       // 一時停止
-      LyricalSocket.dispatchAll([
-        phaseStateSlice.actions.setPause({
-          pausedTime: now,
-        }),
-      ]);
+      LyricalSocket.dispatchAll([phaseStateSlice.actions.doPause({ now })]);
     }
   }, [currentPhase, timeOffset]);
 

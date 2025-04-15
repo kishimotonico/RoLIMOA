@@ -386,4 +386,7 @@ export default {
   client: {
     standalone_mode: false,
   },
+  option: {
+    truncate_millisec_on_pause: true,
+  },
 } as ConfigType;

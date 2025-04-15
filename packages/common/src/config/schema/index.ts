@@ -99,4 +99,7 @@ export const configSchema = z.object({
   client: z.object({
     standalone_mode: z.boolean(),
   }),
+  option: z.object({
+    truncate_millisec_on_pause: z.boolean().optional(),
+  }),
 });
