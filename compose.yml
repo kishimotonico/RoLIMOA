@@ -22,6 +22,8 @@ services:
       context: .
       target: dev
     command: npm run dev:client -- --host
+    environment:
+      - VITE_PROXY_HOST=server:8000
     ports:
       - "5173:5173"
     volumes:

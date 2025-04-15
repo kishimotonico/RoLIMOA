@@ -15,12 +15,16 @@ export class LyricalSocket {
   private sessionId = '';
 
   private constructor() {
-    this.socket = new ReconnectingWebSocket(
-      `ws://${window.location.hostname}:8000/ws`,
-    );
+    this.socket = new ReconnectingWebSocket(this.url());
     this.socket.onopen = () => {
       console.log(`is connected: ${this.socket.readyState === WebSocket.OPEN}`);
     };
+  }
+
+  private url(): string {
+    const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const host = window.location.host;
+    return `${scheme}://${host}/ws`;
   }
 
   public static isActive(): boolean {

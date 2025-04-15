@@ -8,14 +8,17 @@ import config from '@rolimoa/common/config';
 type StoreType = ReturnType<typeof createStore>;
 
 export function loadFromFile(directoryPath: string): RootState | undefined {
-  const jsonFiles = fs
+  createDirectoryIfNotExists(directoryPath);
+
+  const fileName = fs
     .readdirSync(directoryPath)
-    .filter((name) => name.endsWith('.json'));
-  const fileName = jsonFiles.sort().reverse()[0];
+    .filter((name) => name.endsWith('.json'))
+    .sort()
+    .reverse()[0];
+
   if (!fileName) {
     return undefined;
   }
-
   console.log(`${fileName}が見つかったため、ストアを復元します`);
 
   const filePath = path.join(directoryPath, fileName);
@@ -45,6 +48,10 @@ export async function saveToFile(
   } catch (err) {
     console.error('ストアの保存に失敗しました', err);
   }
+}
+
+function createDirectoryIfNotExists(dirPath: string): void {
+  fs.existsSync(dirPath) || fs.mkdirSync(dirPath, { recursive: true });
 }
 
 function storedObjectValidator(state: RootState): boolean {

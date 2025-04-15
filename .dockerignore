@@ -1,3 +1,7 @@
 .git
 **/node_modules
 **/dist
+**/.vscode
+extension-py/**/.venv
+extension-py/**/__pycache__
+extension-py/**/env.py
