@@ -63,6 +63,7 @@ export const taskObjectMultiButtonSchema = z.object({
             variant: z.enum(['text', 'outlined', 'contained']).optional(),
           })
           .optional(),
+        shortcutKey: z.string().optional(),
       }),
     ),
     vertical: z.boolean().optional(),

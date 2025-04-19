@@ -89,6 +89,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'Q'
               },
             ],
           },
@@ -115,6 +116,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'W'
               },
               {
                 command: '+2',
@@ -149,6 +151,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'A'
               },
               {
                 command: '+2',
@@ -183,6 +186,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'S'
               },
               {
                 command: '+2',
@@ -217,6 +221,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'Z'
               },
               {
                 command: '+2',
@@ -244,6 +249,7 @@ export default {
               {
                 command: '+1',
                 label: '+1',
+                shortcutKey: 'X'
               },
             ],
           },

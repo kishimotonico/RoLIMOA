@@ -20,6 +20,7 @@ import { ScreenPage } from '@/pages/ScreenPage';
 import { LoadingOverlay } from '@/ui/LoadingOverlay';
 import { useAppRootTimer } from '@/functional/useAppRootTimer';
 import { useLoadSetting } from '@/functional/useLoadSetting';
+import { ShortcutKeyProvider } from './functional/useShortcutKey';
 import { config } from '@rolimoa/common/config';
 import { LyricalSocket } from './lyricalSocket';
 import { AppMuiThemeProvider } from './AppMuiThemeProvider';
@@ -115,28 +116,33 @@ const App: FC = () => {
   return (
     <>
       <AppMuiThemeProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/referee" element={<RefereePage />} />
-          <Route
-            path="/score/red"
-            element={<ScoreInputPage fieldSide="red" />}
+        <ShortcutKeyProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/referee" element={<RefereePage />} />
+            <Route
+              path="/score/red"
+              element={<ScoreInputPage fieldSide="red" />}
+            />
+            <Route
+              path="/score/blue"
+              element={<ScoreInputPage fieldSide="blue" />}
+            />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route
+              path="/streaming-overlay-opener"
+              element={<StreamingOverlayOpenerPage />}
+            />
+            <Route
+              path="/streaming-overlay"
+              element={<StreamingOverlayPage />}
+            />
+            <Route path="/screen" element={<ScreenPage />} />
+          </Routes>
+          <LoadingOverlay
+            loading={!config.client.standalone_mode && !isConnect}
           />
-          <Route
-            path="/score/blue"
-            element={<ScoreInputPage fieldSide="blue" />}
-          />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route
-            path="/streaming-overlay-opener"
-            element={<StreamingOverlayOpenerPage />}
-          />
-          <Route path="/streaming-overlay" element={<StreamingOverlayPage />} />
-          <Route path="/screen" element={<ScreenPage />} />
-        </Routes>
-        <LoadingOverlay
-          loading={!config.client.standalone_mode && !isConnect}
-        />
+        </ShortcutKeyProvider>
       </AppMuiThemeProvider>
     </>
   );
