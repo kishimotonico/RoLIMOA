@@ -48,7 +48,7 @@ export const scoreInitialState: ScoreState = {
   ),
 };
 
-type GloablUpdateActionPayload = {
+type GloballUpdateActionPayload = {
   taskObjectId: string;
   afterValue: number;
 };
@@ -64,9 +64,9 @@ export const scoreStateSlice = createSlice({
   initialState: scoreInitialState,
   reducers: {
     setState: (_, action: PayloadAction<ScoreState>) => action.payload,
-    setGloablUpdate: (
+    setGlobalUpdate: (
       state,
-      action: PayloadAction<GloablUpdateActionPayload>,
+      action: PayloadAction<GloballUpdateActionPayload>,
     ) => {
       state.global[action.payload.taskObjectId] = action.payload.afterValue;
     },

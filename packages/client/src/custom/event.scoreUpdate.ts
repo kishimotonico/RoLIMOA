@@ -3,7 +3,7 @@ import type { scoreStateSlice } from '@rolimoa/common/redux';
 
 type ActionType =
   | ReturnType<typeof scoreStateSlice.actions.setTaskUpdate>
-  | ReturnType<typeof scoreStateSlice.actions.setGloablUpdate>;
+  | ReturnType<typeof scoreStateSlice.actions.setGlobalUpdate>;
 
 export type ScoreUpdateContext = {
   dispatch: Dispatch<UnknownAction>;

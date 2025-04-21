@@ -34,7 +34,7 @@ export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
 
   const stateUpdate = useCallback(
     (value: number, command = '') => {
-      const taskUpdateAction = scoreStateSlice.actions.setGloablUpdate({
+      const taskUpdateAction = scoreStateSlice.actions.setGlobalUpdate({
         taskObjectId: id,
         afterValue: value,
       });
