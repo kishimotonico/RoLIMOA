@@ -1,10 +1,18 @@
-import { type FC, useCallback } from 'react';
-import { Button, ButtonGroup, Box, Paper, Typography } from '@mui/material';
+import { type FC, useCallback, useRef } from 'react';
+import {
+  Button,
+  ButtonGroup,
+  Box,
+  Paper,
+  Typography,
+  type ButtonProps,
+} from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type {
   TaskObjectConfigType,
   taskObjectMultiButtonUiType,
 } from '@rolimoa/common/config';
+import { useShortcutKey } from '@/functional/useShortcutKey';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
@@ -79,23 +87,42 @@ export const MultiButtonControl: FC<MultiButtonControlProps> = ({
 
       <Box sx={{ pt: 0.5 }}>
         <ButtonGroup sx={buttonGroupSx} color={color}>
-          {controlConfig.option.buttons.map((button) => {
-            const { disabled, onClick } = buttonProps(button.command);
-
-            return (
-              <Button
-                key={button.command}
-                sx={innnerButtonSx}
-                variant={button.style?.variant ?? 'contained'}
-                onClick={onClick}
-                disabled={disabled}
-              >
-                {button.label}
-              </Button>
-            );
-          })}
+          {controlConfig.option.buttons.map((button) => (
+            <GroupedButton
+              key={button.command}
+              shortcutKey={button?.shortcutKey}
+              buttonProps={{
+                ...buttonProps(button.command),
+                sx: innnerButtonSx,
+                variant: button.style?.variant ?? 'contained',
+              }}
+            >
+              {button.label}
+            </GroupedButton>
+          ))}
         </ButtonGroup>
       </Box>
     </Paper>
+  );
+};
+
+const GroupedButton = (props: {
+  children: React.ReactNode;
+  buttonProps: ButtonProps;
+  shortcutKey?: string;
+}) => {
+  const { children, buttonProps, shortcutKey } = props;
+
+  const ref = useRef<HTMLButtonElement>(null);
+  useShortcutKey(shortcutKey, () => {
+    if (ref.current) {
+      ref.current.click();
+    }
+  });
+
+  return (
+    <Button {...buttonProps} ref={ref}>
+      {children}
+    </Button>
   );
 };

@@ -10,6 +10,11 @@ import type {
 } from '@rolimoa/common/config';
 import { BaseControl } from './BaseControl';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
+import {
+  onScoreUpdateAfter,
+  onScoreUpdateBefore,
+  type ScoreUpdateContext,
+} from '@/custom/event.scoreUpdate';
 
 type TaskObjectContainerProps = {
   fieldSide: FieldSideType;
@@ -31,23 +36,39 @@ export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
 
   const stateUpdate = useCallback(
     (value: number, command = '') => {
-      const actions = [
-        scoreStateSlice.actions.setTaskUpdate({
+      const taskUpdateAction = scoreStateSlice.actions.setTaskUpdate({
+        fieldSide,
+        taskObjectId: id,
+        afterValue: value,
+      });
+      const addLogAction = operationLogsStateSlice.actions.addLog({
+        op: {
+          type: 'ScoreUpdate',
+          field: fieldSide,
+          obj: id,
+          value,
+          cmd: command,
+        },
+      });
+      const ctx: ScoreUpdateContext = {
+        dispatch,
+        event: {
+          type: 'scoreUpdate',
+          afterValue: value,
           fieldSide,
           taskObjectId: id,
-          afterValue: value,
-        }),
-        operationLogsStateSlice.actions.addLog({
-          op: {
-            type: 'ScoreUpdate',
-            field: fieldSide,
-            obj: id,
-            value,
-            cmd: command,
-          },
-        }),
-      ];
-      LyricalSocket.dispatch(actions, dispatch);
+          command,
+          action: taskUpdateAction,
+        },
+      };
+
+      const isOk = onScoreUpdateBefore(ctx);
+      if (!isOk) {
+        console.debug('onScoreUpdateBeforeでキャンセルされました', { ctx });
+        return;
+      }
+      LyricalSocket.dispatch([taskUpdateAction, addLogAction], dispatch);
+      onScoreUpdateAfter(ctx);
     },
     [dispatch, fieldSide, id],
   );
