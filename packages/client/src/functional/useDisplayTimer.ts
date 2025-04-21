@@ -1,10 +1,10 @@
-import * as Phase from '@/util/PhaseStateUtil';
-import { formatTime } from '@/util/formatTime';
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import * as Phase from '~/util/PhaseStateUtil';
+import { formatTime } from '~/util/formatTime';
 
 // 表示する時間の文字列を取得する
 function getDisplayString(

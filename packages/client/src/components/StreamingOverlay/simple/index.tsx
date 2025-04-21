@@ -1,13 +1,13 @@
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { CenterFlex } from '@/ui/CenterFlex';
-import { SlideTransition } from '@/ui/SlideTransition';
-import { formatTime } from '@/util/formatTime';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Box } from '@mui/material';
 import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { CenterFlex } from '~/ui/CenterFlex';
+import { SlideTransition } from '~/ui/SlideTransition';
+import { formatTime } from '~/util/formatTime';
 import { TimerDisplay } from '../TimerDisplay';
 
 const ScoreBlock = (props: {

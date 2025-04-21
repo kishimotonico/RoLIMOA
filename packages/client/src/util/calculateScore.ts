@@ -1,5 +1,5 @@
-import { score as calculateScoreImplement } from '@/custom/rule.score';
 import type { ObjectsStateType } from '@rolimoa/common/redux';
+import { score as calculateScoreImplement } from '~/custom/rule.score';
 import type { CurrentMatchStateType } from './currentMatchStateType';
 import { type FormulaExpression, evaluateFormula } from './formulaExpression';
 

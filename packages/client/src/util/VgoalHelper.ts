@@ -1,5 +1,5 @@
-import { condition } from '@/custom/rule.vgoal';
 import { config as rootConfig } from '@rolimoa/common/config';
+import { condition } from '~/custom/rule.vgoal';
 import type { CurrentMatchStateType } from './currentMatchStateType';
 
 // Vゴールが可能な状況かを判断する

@@ -1,4 +1,3 @@
-import { LyricalSocket } from '@/lyricalSocket';
 import SaveIcon from '@mui/icons-material/Save';
 import {
   IconButton,
@@ -13,6 +12,7 @@ import {
 import type { RootState } from '@rolimoa/common/redux';
 import type { ConnectedDevice } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { LyricalSocket } from '~/lyricalSocket';
 
 export const DeviceListContainer = () => {
   const connectedDevices = useSelector<RootState, ConnectedDevice[]>(

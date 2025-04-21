@@ -1,8 +1,8 @@
-import { MainHud } from '@/components/StreamingOverlay/simple';
 import { Box, Slide } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { MainHud } from '~/components/StreamingOverlay/simple';
 
 type StreamingOverlayPageParams = {
   reverse: boolean;

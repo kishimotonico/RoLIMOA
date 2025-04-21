@@ -1,6 +1,3 @@
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
-import { getSetting, setSetting } from '@/util/clientStoredSetting';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
@@ -20,6 +17,9 @@ import { useCallback, useRef, useState } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { LyricalSocket } from '~/lyricalSocket';
+import { getSetting, setSetting } from '~/util/clientStoredSetting';
 import { NowUnixtimeDisplay } from './NowUnixtimeDisplay';
 
 type FormValues = {

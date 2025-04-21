@@ -1,11 +1,11 @@
-import { Dashboard } from '@/components/Dashboard';
-import { DeviceListContainer } from '@/components/DeviceListContainer';
-import { MatchMasterContainer } from '@/components/MatchMasterContainer';
-import { TimerMasterContainer } from '@/components/TimerMasterContainer';
 import type { AlertProps } from '@mui/lab';
 import { Grid2 } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useCallback, useState } from 'react';
+import { Dashboard } from '~/components/Dashboard';
+import { DeviceListContainer } from '~/components/DeviceListContainer';
+import { MatchMasterContainer } from '~/components/MatchMasterContainer';
+import { TimerMasterContainer } from '~/components/TimerMasterContainer';
 
 const ClosableAlert = (props: AlertProps) => {
   const [open, setOpen] = useState(true);

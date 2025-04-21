@@ -1,4 +1,3 @@
-import { Dashboard } from '@/components/Dashboard';
 import styled from '@emotion/styled';
 import {
   Box,
@@ -15,6 +14,7 @@ import { blue, red } from '@mui/material/colors';
 import type { RootState } from '@rolimoa/common/redux';
 import type { ResultRecordsType } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { Dashboard } from '~/components/Dashboard';
 
 const GameResultsList = () => {
   const results = useSelector<RootState, ResultRecordsType>((state) => state.resultRecords);

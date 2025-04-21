@@ -1,6 +1,3 @@
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { Dashboard } from '@/components/Dashboard';
-import { LyricalSocket } from '@/lyricalSocket';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
@@ -22,6 +19,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useResolvedPath } from 'react-router';
 import { useRecoilValue } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { Dashboard } from '~/components/Dashboard';
+import { LyricalSocket } from '~/lyricalSocket';
 
 function useAbsoluteUrl(to: string) {
   // 現在のURLとpathnameから`to`のURLを生成

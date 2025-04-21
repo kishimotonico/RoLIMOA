@@ -1,10 +1,10 @@
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime } from '@/util/formatTime';
 import { Box, type SxProps, type Theme, Typography, type TypographyVariant } from '@mui/material';
 import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { formatTime } from '~/util/formatTime';
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType;

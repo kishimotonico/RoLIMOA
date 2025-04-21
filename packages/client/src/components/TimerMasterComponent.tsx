@@ -1,5 +1,3 @@
-import { ConditionalTooltip } from '@/ui/ConditionalTooltip';
-import { unixToTimeWithMillis } from '@/util/formatTime';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -9,6 +7,8 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import { Box, Button, ButtonGroup, Grid2, Paper, Typography } from '@mui/material'; // Grid2に変更
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
 import type { CurrentPhaseState } from '@rolimoa/common/redux';
+import { ConditionalTooltip } from '~/ui/ConditionalTooltip';
+import { unixToTimeWithMillis } from '~/util/formatTime';
 import { TimerDisplay } from './TimerDisplay';
 
 interface TimerMasterComponentProps {

@@ -1,10 +1,10 @@
-import * as Phase from '@/util/PhaseStateUtil';
-import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldScoreStateType, FieldSideType, ScoreState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import * as Phase from '~/util/PhaseStateUtil';
+import type { CurrentMatchStateType } from '~/util/currentMatchStateType';
 
 // 点数計算に、適切な経過時間を取得する
 function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {

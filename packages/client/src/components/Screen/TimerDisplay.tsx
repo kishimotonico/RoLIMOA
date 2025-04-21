@@ -1,8 +1,8 @@
-import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import type { Theme } from '@emotion/react';
 import { Box, type SxProps } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { useDisplayTimer } from '~/functional/useDisplayTimer';
 
 const textShadow = (px: number, color = '#FFF') =>
   `${px}px ${px}px 0 ${color}, -${px}px -${px}px 0 ${color}, -${px}px ${px}px 0 ${color}, ${px}px -${px}px 0 ${color}, 0px ${px}px 0 ${color},  0-${px}px 0 ${color}, -${px}px 0 0 ${color}, ${px}px 0 0 ${color}`;

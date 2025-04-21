@@ -1,10 +1,3 @@
-import { Dashboard } from '@/components/Dashboard';
-import { ScoreBlock } from '@/components/ScoreBlock';
-import { ScoreInputPanel } from '@/components/ScoreInput/ScoreInputPanel';
-import { ScoreInputVgoalButton } from '@/components/ScoreInputVgoalButton';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { LyricalSocket } from '@/lyricalSocket';
-import { formatTime, parseFormatTime } from '@/util/formatTime';
 import CheckIcon from '@mui/icons-material/Check';
 import FlagIcon from '@mui/icons-material/Flag';
 import {
@@ -34,6 +27,13 @@ import {
 } from '@rolimoa/common/redux';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dashboard } from '~/components/Dashboard';
+import { ScoreBlock } from '~/components/ScoreBlock';
+import { ScoreInputPanel } from '~/components/ScoreInput/ScoreInputPanel';
+import { ScoreInputVgoalButton } from '~/components/ScoreInputVgoalButton';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { LyricalSocket } from '~/lyricalSocket';
+import { formatTime, parseFormatTime } from '~/util/formatTime';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void;

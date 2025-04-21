@@ -1,12 +1,12 @@
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
-import * as Phase from '@/util/PhaseStateUtil';
 import type { RootState } from '@rolimoa/common/redux';
 import { type CurrentPhaseState, type PhaseState, phaseStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { LyricalSocket } from '~/lyricalSocket';
+import * as Phase from '~/util/PhaseStateUtil';
 import { TimerMasterComponent } from './TimerMasterComponent';
 
 function gotoPhaseCommand(

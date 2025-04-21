@@ -1,7 +1,3 @@
-import { ScoreBlock } from '@/components/ScoreBlock';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { LyricalSocket } from '@/lyricalSocket';
-import * as Phase from '@/util/PhaseStateUtil';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import CachedIcon from '@mui/icons-material/Cached';
 import {
@@ -27,6 +23,10 @@ import { type MatchState, matchStateSlice } from '@rolimoa/common/redux';
 import type { CurrentPhaseState } from '@rolimoa/common/redux';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ScoreBlock } from '~/components/ScoreBlock';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { LyricalSocket } from '~/lyricalSocket';
+import * as Phase from '~/util/PhaseStateUtil';
 
 const thStyle: SxProps<Theme> = {
   whiteSpace: 'nowrap',

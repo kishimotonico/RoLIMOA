@@ -1,15 +1,15 @@
-import {
-  type ScoreUpdateContext,
-  onScoreUpdateAfter,
-  onScoreUpdateBefore,
-} from '@/custom/event.scoreUpdate';
-import { LyricalSocket } from '@/lyricalSocket';
 import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import { type FieldSideType, scoreStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  type ScoreUpdateContext,
+  onScoreUpdateAfter,
+  onScoreUpdateBefore,
+} from '~/custom/event.scoreUpdate';
+import { LyricalSocket } from '~/lyricalSocket';
 import { BaseControl } from './BaseControl';
 import { ErrorObject } from './ErrorObject';
 

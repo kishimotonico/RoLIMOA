@@ -1,11 +1,11 @@
-import { ScoreBoard } from '@/components/Screen/ScoreBoard';
-import { TimerDisplay } from '@/components/Screen/TimerDisplay';
-import { Underlay } from '@/components/Screen/Underlay';
-import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
-import { CenterFlex } from '@/ui/CenterFlex';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Box, IconButton } from '@mui/material';
 import { useState } from 'react';
+import { ScoreBoard } from '~/components/Screen/ScoreBoard';
+import { TimerDisplay } from '~/components/Screen/TimerDisplay';
+import { Underlay } from '~/components/Screen/Underlay';
+import { usePlaySoundEffect } from '~/functional/usePlaySoundEffect';
+import { CenterFlex } from '~/ui/CenterFlex';
 
 export const ScreenPage = () => {
   usePlaySoundEffect();

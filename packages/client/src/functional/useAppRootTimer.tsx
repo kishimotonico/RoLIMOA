@@ -1,4 +1,3 @@
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
 import type { RootState } from '@rolimoa/common/redux';
 import {
   type CurrentPhaseState,
@@ -8,6 +7,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
 
 export const useAppRootTimer = () => {
   const dispatch = useDispatch();

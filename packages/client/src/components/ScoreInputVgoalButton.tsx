@@ -1,11 +1,11 @@
-import { useCurrentMatchState } from '@/functional/useCurrentMatchState';
-import { LyricalSocket } from '@/lyricalSocket';
-import { isVgoalAvailable } from '@/util/VgoalHelper';
 import { Button } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import { type FieldScoreStateType, scoreStateSlice } from '@rolimoa/common/redux';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCurrentMatchState } from '~/functional/useCurrentMatchState';
+import { LyricalSocket } from '~/lyricalSocket';
+import { isVgoalAvailable } from '~/util/VgoalHelper';
 
 type ScoreInputVgoalButtonProps = {
   fieldSide: 'blue' | 'red';

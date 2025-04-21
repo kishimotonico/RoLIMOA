@@ -1,4 +1,3 @@
-import { unixToTimeWithMillis } from '@/util/formatTime';
 import { Box } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import type { OperationLog } from '@rolimoa/common/redux';
@@ -9,6 +8,7 @@ import {
 } from 'material-react-table';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { unixToTimeWithMillis } from '~/util/formatTime';
 
 type LogRow = {
   id: string;

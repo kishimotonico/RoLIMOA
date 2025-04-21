@@ -1,4 +1,3 @@
-import { isDrawerOpen } from '@/atoms/isDrawerOpen';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BuildIcon from '@mui/icons-material/Build';
 import CastIcon from '@mui/icons-material/Cast';
@@ -27,6 +26,7 @@ import { styled } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { isDrawerOpen } from '~/atoms/isDrawerOpen';
 import { SettingButton } from './SettingModal';
 import { StandaloneIndicator } from './StandaloneIndicator';
 

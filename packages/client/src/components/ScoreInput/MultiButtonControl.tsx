@@ -1,8 +1,8 @@
-import { useShortcutKey } from '@/functional/useShortcutKey';
 import { Box, Button, ButtonGroup, type ButtonProps, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType, taskObjectMultiButtonUiType } from '@rolimoa/common/config';
 import { useCallback, useRef } from 'react';
+import { useShortcutKey } from '~/functional/useShortcutKey';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';

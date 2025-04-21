@@ -1,4 +1,4 @@
-import type { CurrentMatchStateType as VgoalConditionInputType } from '@/util/currentMatchStateType';
+import type { CurrentMatchStateType as VgoalConditionInputType } from '~/util/currentMatchStateType';
 
 export function condition(_stat: VgoalConditionInputType): boolean | undefined {
   // ここにVゴール可能の条件をかく

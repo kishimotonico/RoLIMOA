@@ -1,8 +1,8 @@
-import * as Phase from '@/util/PhaseStateUtil';
 import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import * as Phase from '~/util/PhaseStateUtil';
 
 export const usePlaySoundEffect = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);

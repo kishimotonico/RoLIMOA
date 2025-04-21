@@ -7,7 +7,7 @@ export default {
   plugins: [react()],
   resolve: {
     alias: {
-      '@': `${__dirname}/src`,
+      '~': `${__dirname}/src`,
     },
   },
   server: {

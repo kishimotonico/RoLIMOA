@@ -1,6 +1,6 @@
-import { useCurrentMatchState } from '@/functional/useCurrentMatchState';
 import { Box } from '@mui/material';
 import type { FieldSideType } from '@rolimoa/common/redux';
+import { useCurrentMatchState } from '~/functional/useCurrentMatchState';
 
 type ScoreSubDisplayProps = {
   fieldSide: FieldSideType;

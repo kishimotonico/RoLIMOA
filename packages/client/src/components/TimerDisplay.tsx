@@ -1,6 +1,6 @@
-import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { Grid2, type SxProps, Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
+import { useDisplayTimer } from '~/functional/useDisplayTimer';
 
 type TypographyVariant =
   | 'h1'

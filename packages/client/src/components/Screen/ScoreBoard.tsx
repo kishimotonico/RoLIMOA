@@ -1,10 +1,10 @@
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime } from '@/util/formatTime';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Box } from '@mui/material';
 import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { formatTime } from '~/util/formatTime';
 
 type ScoreBoardProps = {
   fieldSide: 'blue' | 'red';
