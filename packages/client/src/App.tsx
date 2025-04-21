@@ -17,7 +17,7 @@ import { operationLogsStateSlice } from '@rolimoa/common/redux';
 import { resultRecordsStateSlice } from '@rolimoa/common/redux';
 import { connectedDevicesStateSlice } from '@rolimoa/common/redux';
 import { streamingInterfaceSlice } from '@rolimoa/common/redux';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router';
 import { useRecoilState } from 'recoil';
@@ -27,7 +27,7 @@ import { LyricalSocket } from './lyricalSocket';
 import { getSetting } from './util/clientStoredSetting';
 import 'dseg/css/dseg.css';
 
-const App: FC = () => {
+const App = () => {
   const [isConnect, setIsConnect] = useRecoilState(connectionState);
   const location = useLocation();
   const dispatch = useDispatch();

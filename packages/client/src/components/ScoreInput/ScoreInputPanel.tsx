@@ -1,13 +1,12 @@
 import { config } from '@rolimoa/common/config';
 import type { FieldSideType } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { ScoreInputControl } from './ScoreInputControl';
 
 type ScoreInputPanelProps = {
   fieldSide: FieldSideType;
 };
 
-export const ScoreInputPanel: FC<ScoreInputPanelProps> = ({ fieldSide }) => {
+export const ScoreInputPanel = ({ fieldSide }: ScoreInputPanelProps) => {
   if (config.rule.control_panel?.type === 'custom') {
     // カスタム: config.jsonで指定したUIを表示
     return (

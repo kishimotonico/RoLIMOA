@@ -14,10 +14,9 @@ import {
 import { blue, red } from '@mui/material/colors';
 import type { RootState } from '@rolimoa/common/redux';
 import type { ResultRecordsType } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
-const GameResultsList: React.FC = () => {
+const GameResultsList = () => {
   const results = useSelector<RootState, ResultRecordsType>((state) => state.resultRecords);
 
   const WinMark = styled('span')({
@@ -74,7 +73,7 @@ const GameResultsList: React.FC = () => {
   );
 };
 
-export const HomePage: FC = () => {
+export const HomePage = () => {
   return (
     <Dashboard title="Dashboard">
       <Grid2 container>

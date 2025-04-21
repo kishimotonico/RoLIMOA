@@ -1,6 +1,6 @@
 import { Paper, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import type { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@rolimoa/common/config';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType;
@@ -9,12 +9,12 @@ interface ToggleButtonControlProps {
   controlConfig: TaskObjectToggleButtonUiType;
 }
 
-export const ToggleButtonControl: FC<ToggleButtonControlProps> = ({
+export const ToggleButtonControl = ({
   taskConfig,
   currentValue,
   stateUpdate,
   controlConfig,
-}) => {
+}: ToggleButtonControlProps) => {
   const { description } = taskConfig;
   const option = controlConfig.option;
 

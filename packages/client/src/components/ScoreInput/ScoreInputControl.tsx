@@ -1,7 +1,6 @@
 import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
 import { config } from '@rolimoa/common/config';
 import type { FieldSideType } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { ErrorObject } from './ErrorObject';
 import { GlobalObjectContainer } from './GlobalObjectContainer';
 import { TaskObjectContainer } from './TaskObjectContainer';
@@ -42,11 +41,11 @@ type ScoreInputControlProps = {
   controlPanelConfig?: CustomControlPanelType;
 };
 
-export const ScoreInputControl: FC<ScoreInputControlProps> = ({
+export const ScoreInputControl = ({
   fieldSide,
   taskObjectConfig,
   controlPanelConfig,
-}) => {
+}: ScoreInputControlProps) => {
   if (taskObjectConfig === undefined && controlPanelConfig === undefined) {
     console.error('ふぇぇ…taskObjectConfigとcontrolPanelConfigがundefinedです');
     return <></>;

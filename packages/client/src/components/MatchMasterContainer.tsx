@@ -6,7 +6,7 @@ import type { RootState } from '@rolimoa/common/redux';
 import { type TeamType, matchStateSlice } from '@rolimoa/common/redux';
 import { phaseStateSlice } from '@rolimoa/common/redux';
 import { scoreInitialState, scoreStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { MatchMasterComponent } from './MatchMasterComponent';
@@ -20,7 +20,7 @@ function getTeamInfo(short: string): TeamType {
   };
 }
 
-export const MatchMasterContainer: FC = () => {
+export const MatchMasterContainer = () => {
   const teamList = config.teams_info.map((info) => info.short);
   const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
   const timeOffset = useRecoilValue(unixtimeOffset);

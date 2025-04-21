@@ -9,7 +9,6 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import { Box, Button, ButtonGroup, Grid2, Paper, Typography } from '@mui/material'; // Grid2に変更
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
 import type { CurrentPhaseState } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { TimerDisplay } from './TimerDisplay';
 
 interface TimerMasterComponentProps {
@@ -28,7 +27,7 @@ interface TimerMasterComponentProps {
   currentPhaseState: CurrentPhaseState;
 }
 
-export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
+export const TimerMasterComponent = ({
   isFirstPhase,
   isLastPhase,
   isPaused,
@@ -42,7 +41,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
   isEnabledNextButton,
   phaseConfig,
   currentPhaseState,
-}) => {
+}: TimerMasterComponentProps) => {
   return (
     <Paper sx={{ padding: '1em' }}>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>

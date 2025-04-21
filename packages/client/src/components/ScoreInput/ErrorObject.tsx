@@ -1,11 +1,10 @@
 import { Box, Grid2, Paper, Typography } from '@mui/material';
-import type { FC } from 'react';
 
 interface ErrorObjectProps {
   description: string;
 }
 
-export const ErrorObject: FC<ErrorObjectProps> = ({ description }) => {
+export const ErrorObject = ({ description }: ErrorObjectProps) => {
   return (
     <Grid2 size={{ xs: 12, sm: 6 }}>
       <Paper sx={{ p: '1em', userSelect: 'none' }}>

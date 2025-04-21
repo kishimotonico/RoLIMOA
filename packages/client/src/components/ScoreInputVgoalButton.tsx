@@ -4,7 +4,7 @@ import { isVgoalAvailable } from '@/util/VgoalHelper';
 import { Button } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import { type FieldScoreStateType, scoreStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 type ScoreInputVgoalButtonProps = {
@@ -12,7 +12,7 @@ type ScoreInputVgoalButtonProps = {
   color: 'primary' | 'secondary';
 };
 
-export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({ fieldSide, color }) => {
+export const ScoreInputVgoalButton = ({ fieldSide, color }: ScoreInputVgoalButtonProps) => {
   const dispatch = useDispatch();
   const scoreState = useSelector<RootState, FieldScoreStateType>(
     (state) => state.score.fields[fieldSide],

@@ -1,7 +1,7 @@
 import { Box, Button, ButtonGroup, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType } from '@rolimoa/common/config';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 
 interface PluseMinuseButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
@@ -10,12 +10,12 @@ interface PluseMinuseButtonControlProps {
   stateUpdate: (value: number, cmd: string) => void;
 }
 
-export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
+export const PluseMinuseButtonControl = ({
   color,
   config,
   currentValue,
   stateUpdate,
-}) => {
+}: PluseMinuseButtonControlProps) => {
   const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {

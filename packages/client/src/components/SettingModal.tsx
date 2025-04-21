@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { connectedDevicesStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSetRecoilState } from 'recoil';
@@ -32,7 +32,7 @@ type SettingModalProps = {
   onClose: () => void;
 };
 
-export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
+export const SettingModal = ({ open, onClose }: SettingModalProps) => {
   const savedSetting = getSetting();
   const dispatch = useDispatch();
   const prevDeviceName = useRef<string>(savedSetting.deviceName);
@@ -139,7 +139,7 @@ export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
   );
 };
 
-export const SettingButton: FC = () => {
+export const SettingButton = () => {
   const [open, setOpen] = useState(false);
 
   const onClick = () => {

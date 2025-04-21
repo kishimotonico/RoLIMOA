@@ -8,7 +8,7 @@ import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/comm
 import type { RootState } from '@rolimoa/common/redux';
 import { scoreStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BaseControl } from './BaseControl';
 import { ErrorObject } from './ErrorObject';
@@ -18,10 +18,10 @@ type GlobalObjectContainerProps = {
   controlConfig?: CustomControlPanelType;
 };
 
-export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
+export const GlobalObjectContainer = ({
   taskConfig,
   controlConfig,
-}) => {
+}: GlobalObjectContainerProps) => {
   const { id } = taskConfig;
 
   const currentValue = useSelector<RootState, number | undefined>(

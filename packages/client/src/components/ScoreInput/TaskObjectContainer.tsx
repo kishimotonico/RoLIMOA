@@ -8,7 +8,7 @@ import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/comm
 import type { RootState } from '@rolimoa/common/redux';
 import { type FieldSideType, scoreStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BaseControl } from './BaseControl';
 import { ErrorObject } from './ErrorObject';
@@ -19,11 +19,11 @@ type TaskObjectContainerProps = {
   controlConfig?: CustomControlPanelType;
 };
 
-export const TaskObjectContainer: FC<TaskObjectContainerProps> = ({
+export const TaskObjectContainer = ({
   fieldSide,
   taskConfig,
   controlConfig,
-}) => {
+}: TaskObjectContainerProps) => {
   const { id } = taskConfig;
 
   const currentValue = useSelector<RootState, number | undefined>(

@@ -12,10 +12,9 @@ import {
 } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import type { ConnectedDevice } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
-export const DeviceListContainer: FC = () => {
+export const DeviceListContainer = () => {
   const connectedDevices = useSelector<RootState, ConnectedDevice[]>(
     (state) => state.connectedDevices,
   );

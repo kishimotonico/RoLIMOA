@@ -4,7 +4,6 @@ import { Box, type SxProps, type Theme, Typography, type TypographyVariant } fro
 import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType } from '@rolimoa/common/redux';
-import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 export type ScoreBlockProps = {
@@ -18,7 +17,7 @@ export type ScoreBlockProps = {
   scoreSx?: SxProps;
 };
 
-export const ScoreBlock: FC<ScoreBlockProps> = ({
+export const ScoreBlock = ({
   fieldSide,
   focused = true,
   rootSx = {},
@@ -26,7 +25,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
   teamNameSx = {},
   scoreVariant = 'h4',
   scoreSx = {},
-}) => {
+}: ScoreBlockProps) => {
   const teamName = useSelector<RootState, string | undefined>(
     (state) => state.match.teams[fieldSide]?.shortName,
   );

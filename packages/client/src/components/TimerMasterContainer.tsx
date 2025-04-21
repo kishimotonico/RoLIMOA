@@ -4,7 +4,7 @@ import * as Phase from '@/util/PhaseStateUtil';
 import type { RootState } from '@rolimoa/common/redux';
 import { type CurrentPhaseState, type PhaseState, phaseStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
-import { type FC, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { TimerMasterComponent } from './TimerMasterComponent';
@@ -63,7 +63,7 @@ function isManualTransition(phaseState: PhaseState): boolean {
   return true;
 }
 
-export const TimerMasterContainer: FC = () => {
+export const TimerMasterContainer = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);

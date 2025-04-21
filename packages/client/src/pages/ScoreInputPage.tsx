@@ -32,7 +32,7 @@ import {
   type FieldSideType,
   scoreStateSlice,
 } from '@rolimoa/common/redux';
-import { type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 type VGoalTimeInputProps = {
@@ -40,7 +40,7 @@ type VGoalTimeInputProps = {
   vgoalTime?: number;
 };
 
-const VGoalTimeInput: FC<VGoalTimeInputProps> = ({ onInputValidVgoalTime, vgoalTime }) => {
+const VGoalTimeInput = ({ onInputValidVgoalTime, vgoalTime }: VGoalTimeInputProps) => {
   const initialValue = vgoalTime ? formatTime(vgoalTime, 'm:ss') : '';
   const [value, setValue] = useState(initialValue);
   const [invalid, setInvalid] = useState(false);
@@ -91,7 +91,7 @@ type FlagInputProps = {
   color: 'primary' | 'secondary';
 };
 
-const FlagInput: FC<FlagInputProps> = ({ fieldSide, color }) => {
+const FlagInput = ({ fieldSide, color }: FlagInputProps) => {
   const dispatch = useDispatch();
   const scoreState = useSelector<RootState, FieldScoreStateType>(
     (state) => state.score.fields[fieldSide],
@@ -158,7 +158,7 @@ type ScoreDisplayProps = {
   fieldSide: FieldSideType;
 };
 
-const ScoreDisplay: FC<ScoreDisplayProps> = ({ fieldSide }) => {
+const ScoreDisplay = ({ fieldSide }: ScoreDisplayProps) => {
   const { refs } = useDisplayScore(fieldSide);
   const refValues = Object.entries(refs ?? {});
 
@@ -191,7 +191,7 @@ type ScoreInputPageProps = {
   fieldSide: FieldSideType;
 };
 
-export const ScoreInputPage: FC<ScoreInputPageProps> = ({ fieldSide }) => {
+export const ScoreInputPage = ({ fieldSide }: ScoreInputPageProps) => {
   const isScoreEnable = useSelector<RootState, boolean>(
     (state) => state.score.fields[fieldSide].enable,
   );

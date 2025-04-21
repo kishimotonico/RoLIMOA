@@ -1,6 +1,6 @@
 import { Box, FormControlLabel, FormGroup, Paper, Switch, Typography } from '@mui/material';
 import type { TaskObjectConfigType, TaskObjectToggleSwitchUiType } from '@rolimoa/common/config';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 
 interface ToggleSwitchControlProps {
   color: 'primary' | 'secondary' | 'default';
@@ -11,13 +11,13 @@ interface ToggleSwitchControlProps {
 }
 
 // しばらくは実際に使わなそうなので、試験的な実装
-export const ToggleSwitchControl: FC<ToggleSwitchControlProps> = ({
+export const ToggleSwitchControl = ({
   color,
   taskConfig,
   currentValue,
   stateUpdate,
   controlConfig,
-}) => {
+}: ToggleSwitchControlProps) => {
   const { description } = taskConfig;
 
   const checked = currentValue === controlConfig.option.on_value;

@@ -1,7 +1,6 @@
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import { Grid2, type SxProps, Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
-import type { FC } from 'react';
 
 type TypographyVariant =
   | 'h1'
@@ -23,12 +22,12 @@ type TimerDisplayProps = {
   displayTimeSx?: SxProps;
 };
 
-export const TimerDisplay: FC<TimerDisplayProps> = ({
+export const TimerDisplay = ({
   descriptionVariant = 'h4',
   descriptionSx = {},
   displayTimeVariant = 'h1',
   displayTimeSx = {},
-}) => {
+}: TimerDisplayProps) => {
   const { description, displayTime } = useDisplayTimer();
 
   return (

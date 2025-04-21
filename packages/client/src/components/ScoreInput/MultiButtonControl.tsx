@@ -2,7 +2,7 @@ import { useShortcutKey } from '@/functional/useShortcutKey';
 import { Box, Button, ButtonGroup, type ButtonProps, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType, taskObjectMultiButtonUiType } from '@rolimoa/common/config';
-import { type FC, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
@@ -12,13 +12,13 @@ interface MultiButtonControlProps {
   controlConfig: taskObjectMultiButtonUiType;
 }
 
-export const MultiButtonControl: FC<MultiButtonControlProps> = ({
+export const MultiButtonControl = ({
   color,
   taskConfig,
   currentValue,
   stateUpdate,
   controlConfig,
-}) => {
+}: MultiButtonControlProps) => {
   const { description, min = 0, max = 524 } = taskConfig;
 
   // styles

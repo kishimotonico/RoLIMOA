@@ -1,12 +1,11 @@
 import { Grid2, Paper } from '@mui/material';
-import type { FC } from 'react';
 import { ScoreBlock } from './ScoreBlock';
 
 interface ScoreBoardProps {
   focusedFieldSide?: 'blue' | 'red' | undefined;
 }
 
-export const ScoreBoard: FC<ScoreBoardProps> = ({ focusedFieldSide = undefined }) => {
+export const ScoreBoard = ({ focusedFieldSide = undefined }: ScoreBoardProps) => {
   const [blueFocused, redFocused] =
     focusedFieldSide === 'blue'
       ? [true, false]

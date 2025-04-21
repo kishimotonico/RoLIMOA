@@ -1,6 +1,5 @@
 import { Button, Grid2, Paper, TextField, Typography } from '@mui/material';
 import { Autocomplete } from '@mui/material';
-import type { FC } from 'react';
 
 interface MatchMasterComponentProps {
   teamOptions: string[];
@@ -11,14 +10,14 @@ interface MatchMasterComponentProps {
   isEnabledStartButton: boolean;
 }
 
-export const MatchMasterComponent: FC<MatchMasterComponentProps> = ({
+export const MatchMasterComponent = ({
   teamOptions,
   onChangeMatchName,
   onChangeBlueTeamName,
   onChangeRedTeamName,
   onStartButton,
   isEnabledStartButton,
-}) => {
+}: MatchMasterComponentProps) => {
   return (
     <Paper sx={{ padding: '1em' }}>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>

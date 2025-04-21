@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
 import { streamingInterfaceSlice } from '@rolimoa/common/redux';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useResolvedPath } from 'react-router';
@@ -52,7 +52,7 @@ function addQueryToUrl(
   return url.href;
 }
 
-export const StreamingOverlayOpenerPage: FC = () => {
+export const StreamingOverlayOpenerPage = () => {
   const timeOffset = useRecoilValue(unixtimeOffset);
   const baseUrl = useAbsoluteUrl('/streaming-overlay');
   const [overlayUrl, setOverlayUrl] = useState(baseUrl);
@@ -129,7 +129,7 @@ export const StreamingOverlayOpenerPage: FC = () => {
   );
 };
 
-const StreamingInterfaceController: FC = () => {
+const StreamingInterfaceController = () => {
   const dispatch = useDispatch();
   const showMainHud = useSelector<RootState, boolean>(
     (state) => state.streamingInterface.showMainHud,

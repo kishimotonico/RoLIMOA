@@ -25,7 +25,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { SettingButton } from './SettingModal';
@@ -91,7 +90,7 @@ interface DashboardProps {
   title: string;
 }
 
-export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
+export const Dashboard = ({ children, title }: DashboardProps) => {
   const [_open, setOpen] = useRecoilState(isDrawerOpen);
   const handleDrawerOpen = () => {
     setOpen(true);
