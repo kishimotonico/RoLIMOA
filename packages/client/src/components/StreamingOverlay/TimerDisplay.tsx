@@ -1,9 +1,9 @@
-import type { Ref } from 'react';
-import { useSelector } from 'react-redux';
-import { Box, Divider, type SxProps } from '@mui/material';
-import type { RootState } from '@rolimoa/common/redux';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
 import type { Theme } from '@emotion/react';
+import { Box, Divider, type SxProps } from '@mui/material';
+import type { RootState } from '@rolimoa/common/redux';
+import type { Ref } from 'react';
+import { useSelector } from 'react-redux';
 
 type ScoreDisplayProps = {
   ref?: Ref<HTMLDivElement>;

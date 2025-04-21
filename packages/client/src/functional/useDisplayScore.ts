@@ -1,9 +1,9 @@
+import { type ScoreRuleType, calculateScore } from '@/util/calculateScore';
+import { config } from '@rolimoa/common/config';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldScoreStateType, FieldSideType } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import type { FieldSideType, FieldScoreStateType } from '@rolimoa/common/redux';
-import { calculateScore, type ScoreRuleType } from '@/util/calculateScore';
-import { config } from '@rolimoa/common/config';
 import { useCurrentMatchState } from './useCurrentMatchState';
 
 const scoreRule = config.rule.score as ScoreRuleType;

@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
+import { unixToTimeWithMillis } from '@/util/formatTime';
 import { Box } from '@mui/material';
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-  type MRT_ColumnDef,
-} from 'material-react-table';
-import { useSelector } from 'react-redux';
 import type { RootState } from '@rolimoa/common/redux';
 import type { OperationLog } from '@rolimoa/common/redux';
-import { unixToTimeWithMillis } from '@/util/formatTime';
+import {
+  type MRT_ColumnDef,
+  MaterialReactTable,
+  useMaterialReactTable,
+} from 'material-react-table';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 type LogRow = {
   id: string;
@@ -39,9 +39,7 @@ const logToComment = (log: OperationLog) => {
 };
 
 export const OperationLogTable = () => {
-  const operationLogs = useSelector<RootState, OperationLog[]>(
-    (state) => state.operationLogs,
-  );
+  const operationLogs = useSelector<RootState, OperationLog[]>((state) => state.operationLogs);
 
   const data = useMemo(
     () =>

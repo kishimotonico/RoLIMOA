@@ -1,20 +1,13 @@
+import * as Phase from '@/util/PhaseStateUtil';
+import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldScoreStateType, FieldSideType, ScoreState } from '@rolimoa/common/redux';
+import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import type {
-  FieldScoreStateType,
-  FieldSideType,
-  ScoreState,
-} from '@rolimoa/common/redux';
-import type { PhaseState } from '@rolimoa/common/redux';
-import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
-import * as Phase from '@/util/PhaseStateUtil';
 
 // 点数計算に、適切な経過時間を取得する
-function matchElapsedSec(
-  scoreState: FieldScoreStateType,
-  phaseState?: PhaseState,
-): number {
+function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {
   if (!phaseState) {
     return Number.NaN;
   }
@@ -36,9 +29,7 @@ function matchElapsedSec(
 }
 
 // 現在の全体的な試合状況を取得する
-export function useCurrentMatchState(
-  fieldSide: FieldSideType,
-): CurrentMatchStateType {
+export function useCurrentMatchState(fieldSide: FieldSideType): CurrentMatchStateType {
   const scoreState = useSelector<RootState, ScoreState>((state) => state.score);
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
 

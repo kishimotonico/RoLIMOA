@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import type { PhaseState } from '@rolimoa/common/redux';
+import * as Phase from '@/util/PhaseStateUtil';
 import { formatTime } from '@/util/formatTime';
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
-import * as Phase from '@/util/PhaseStateUtil';
+import type { RootState } from '@rolimoa/common/redux';
+import type { PhaseState } from '@rolimoa/common/redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 // 表示する時間の文字列を取得する
 function getDisplayString(
@@ -18,10 +18,7 @@ function getDisplayString(
     return currentConfig.custom[0]?.displayText ?? 'READY';
   }
 
-  const { config, custom, elapsedSec } = getCustomConfig(
-    phaseState,
-    currentConfig,
-  );
+  const { config, custom, elapsedSec } = getCustomConfig(phaseState, currentConfig);
   if (custom?.displayText) {
     return custom.displayText;
   }
@@ -38,17 +35,11 @@ function getDisplayString(
 }
 
 // 適用するフェーズ設定や、フェーズ時刻を取得する
-function getCustomConfig(
-  phaseState: PhaseState,
-  currentConfig: Required<TimeProgressConfigType>,
-) {
+function getCustomConfig(phaseState: PhaseState, currentConfig: Required<TimeProgressConfigType>) {
   let applyConfig = currentConfig;
   let elapsedSec = phaseState.elapsedSecond;
   // フェーズ遷移時のちらつき防止のため、本来フェーズ遷移している状況のときは次のフェーズの設定を適用
-  if (
-    currentConfig.isAutoTransition &&
-    currentConfig.time <= phaseState.elapsedSecond
-  ) {
+  if (currentConfig.isAutoTransition && currentConfig.time <= phaseState.elapsedSecond) {
     const nextPhaseId = Phase.getNextPhase(phaseState.current.id);
     applyConfig = Phase.getConfig(nextPhaseId);
     elapsedSec = 0;

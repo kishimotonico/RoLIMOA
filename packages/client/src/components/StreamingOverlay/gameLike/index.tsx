@@ -1,13 +1,13 @@
-import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
-import TimerIcon from '@mui/icons-material/Timer';
+import { useDisplayScore } from '@/functional/useDisplayScore';
 import { CenterFlex } from '@/ui/CenterFlex';
 import { SlideTransition } from '@/ui/SlideTransition';
+import { formatTime } from '@/util/formatTime';
+import TimerIcon from '@mui/icons-material/Timer';
+import { Box } from '@mui/material';
+import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType } from '@rolimoa/common/redux';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime } from '@/util/formatTime';
-import { config } from '@rolimoa/common/config';
+import { useSelector } from 'react-redux';
 import { TimerDisplay } from '../TimerDisplay';
 import { ScoreSubDisplay } from './ScoreSubDisplay';
 
@@ -21,8 +21,7 @@ const ScoreBlock = (props: {
   );
   const displayScore = useDisplayScore(fieldSide);
 
-  const color =
-    fieldSide === 'blue' ? 'rgba(0, 0, 240, 0.8)' : 'rgba(240, 0, 0, 0.8)';
+  const color = fieldSide === 'blue' ? 'rgba(0, 0, 240, 0.8)' : 'rgba(240, 0, 0, 0.8)';
 
   const containerHeight = 260;
   const nameBlockHeight = 55;
@@ -37,8 +36,7 @@ const ScoreBlock = (props: {
           height: `${containerHeight}px`,
           textAlign: 'center',
           backgroundColor: 'rgba(240, 240, 240, 0.8)',
-          clipPath:
-            'polygon(0 0, 0 100%, 30% 100%, 50% 190px, 100% 190px, 100% 0)',
+          clipPath: 'polygon(0 0, 0 100%, 30% 100%, 50% 190px, 100% 190px, 100% 0)',
           transform: placement === 'left' ? '' : 'scaleX(-1)',
         }}
       >
@@ -86,9 +84,7 @@ const ScoreBlock = (props: {
                 </CenterFlex>
               </Box>
             ) : (
-              <CenterFlex
-                sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}
-              >
+              <CenterFlex sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}>
                 {displayScore.value}
               </CenterFlex>
             )}
@@ -157,17 +153,9 @@ export const MainHud = ({
         display: 'flex',
       }}
     >
-      <SlideTransition
-        in={showScoreBoard}
-        direction="left"
-        duration={800}
-        appear={false}
-      >
+      <SlideTransition in={showScoreBoard} direction="left" duration={800} appear={false}>
         <Box>
-          <ScoreBlock
-            fieldSide={params.reverse ? 'blue' : 'red'}
-            placement="left"
-          />
+          <ScoreBlock fieldSide={params.reverse ? 'blue' : 'red'} placement="left" />
         </Box>
       </SlideTransition>
       <TimerDisplay
@@ -188,17 +176,9 @@ export const MainHud = ({
           lineHeight: '50px',
         }}
       />
-      <SlideTransition
-        in={showScoreBoard}
-        direction="right"
-        duration={800}
-        appear={false}
-      >
+      <SlideTransition in={showScoreBoard} direction="right" duration={800} appear={false}>
         <Box>
-          <ScoreBlock
-            fieldSide={params.reverse ? 'red' : 'blue'}
-            placement="right"
-          />
+          <ScoreBlock fieldSide={params.reverse ? 'red' : 'blue'} placement="right" />
         </Box>
       </SlideTransition>
     </Box>

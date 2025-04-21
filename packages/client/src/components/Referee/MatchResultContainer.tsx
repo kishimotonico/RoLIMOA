@@ -1,4 +1,9 @@
-import { useCallback, useState } from 'react';
+import { ScoreBlock } from '@/components/ScoreBlock';
+import { useDisplayScore } from '@/functional/useDisplayScore';
+import { LyricalSocket } from '@/lyricalSocket';
+import * as Phase from '@/util/PhaseStateUtil';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import CachedIcon from '@mui/icons-material/Cached';
 import {
   Box,
   Button,
@@ -14,19 +19,14 @@ import {
   Typography,
 } from '@mui/material';
 import type { Theme } from '@mui/system';
-import CachedIcon from '@mui/icons-material/Cached';
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import { ScoreBlock } from '@/components/ScoreBlock';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { useDispatch, useSelector } from 'react-redux';
+import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType, ScoreState } from '@rolimoa/common/redux';
 import { resultRecordsStateSlice } from '@rolimoa/common/redux';
 import { type MatchState, matchStateSlice } from '@rolimoa/common/redux';
 import type { CurrentPhaseState } from '@rolimoa/common/redux';
-import { LyricalSocket } from '@/lyricalSocket';
-import { config } from '@rolimoa/common/config';
-import * as Phase from '@/util/PhaseStateUtil';
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const thStyle: SxProps<Theme> = {
   whiteSpace: 'nowrap',
@@ -49,10 +49,7 @@ const ScoreDetailTable = (props: {
       <Table sx={{ tableLayout: 'fixed', marginBottom: '3rem' }} size="small">
         <TableBody>
           {config.rule.task_objects.map((config) => (
-            <TableRow
-              key={config.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+            <TableRow key={config.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row" sx={{ ...thStyle }}>
                 {config.description}
               </TableCell>
@@ -79,9 +76,7 @@ const ScoreDetailTable = (props: {
             <TableCell component="th" scope="row" sx={{ ...thStyle }}>
               勝利フラグ
             </TableCell>
-            <TableCell align="right">
-              {scoreState.winner ? '⭕' : '❌'}
-            </TableCell>
+            <TableCell align="right">{scoreState.winner ? '⭕' : '❌'}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -93,19 +88,15 @@ const ResultConfirm = () => {
   const dispath = useDispatch();
   const match = useSelector<RootState, MatchState>((state) => state.match);
   const score = useSelector<RootState, ScoreState>((state) => state.score);
-  const currentPhase = useSelector<RootState, CurrentPhaseState>(
-    (state) => state.phase.current,
-  );
+  const currentPhase = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
   const { value: blueScoreValue } = useDisplayScore('blue');
   const { value: redScoreValue } = useDisplayScore('red');
   const isLastPhase = Phase.isLast(currentPhase.id);
 
   const [comment, setComment] = useState<string>('');
-  const onCommentChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setComment(e.target.value);
+  const onCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => setComment(e.target.value);
 
-  const isConfirmable =
-    isLastPhase && !match.isConfirmed && currentPhase.id !== 'default';
+  const isConfirmable = isLastPhase && !match.isConfirmed && currentPhase.id !== 'default';
 
   const onConfirmButtonClick = useCallback(() => {
     const confirmedAt = Number(new Date());
@@ -141,9 +132,7 @@ const ResultConfirm = () => {
             <TableCell component="th" scope="row">
               確定済み？
             </TableCell>
-            <TableCell align="right">
-              {match.isConfirmed ? '⭕' : '❌'}
-            </TableCell>
+            <TableCell align="right">{match.isConfirmed ? '⭕' : '❌'}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -165,8 +154,7 @@ const ResultConfirm = () => {
         onClick={onConfirmButtonClick}
         disabled={!isConfirmable}
       >
-        {isLastPhase ? '試合結果を確定' : '競技が進行中です'}{' '}
-        <AssignmentTurnedInIcon />
+        {isLastPhase ? '試合結果を確定' : '競技が進行中です'} <AssignmentTurnedInIcon />
       </Button>
     </Box>
   );

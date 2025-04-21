@@ -1,20 +1,17 @@
-import { type FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import { scoreStateSlice } from '@rolimoa/common/redux';
-import { ErrorObject } from './ErrorObject';
-import { LyricalSocket } from '@/lyricalSocket';
-import type {
-  CustomControlPanelType,
-  TaskObjectConfigType,
-} from '@rolimoa/common/config';
-import { BaseControl } from './BaseControl';
-import { operationLogsStateSlice } from '@rolimoa/common/redux';
 import {
+  type ScoreUpdateContext,
   onScoreUpdateAfter,
   onScoreUpdateBefore,
-  type ScoreUpdateContext,
 } from '@/custom/event.scoreUpdate';
+import { LyricalSocket } from '@/lyricalSocket';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
+import type { RootState } from '@rolimoa/common/redux';
+import { scoreStateSlice } from '@rolimoa/common/redux';
+import { operationLogsStateSlice } from '@rolimoa/common/redux';
+import { type FC, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BaseControl } from './BaseControl';
+import { ErrorObject } from './ErrorObject';
 
 type GlobalObjectContainerProps = {
   taskConfig: TaskObjectConfigType;

@@ -1,18 +1,8 @@
-import { type FC, useCallback, useRef } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Box,
-  Paper,
-  Typography,
-  type ButtonProps,
-} from '@mui/material';
-import type { SxProps } from '@mui/material/styles';
-import type {
-  TaskObjectConfigType,
-  taskObjectMultiButtonUiType,
-} from '@rolimoa/common/config';
 import { useShortcutKey } from '@/functional/useShortcutKey';
+import { Box, Button, ButtonGroup, type ButtonProps, Paper, Typography } from '@mui/material';
+import type { SxProps } from '@mui/material/styles';
+import type { TaskObjectConfigType, taskObjectMultiButtonUiType } from '@rolimoa/common/config';
+import { type FC, useCallback, useRef } from 'react';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';

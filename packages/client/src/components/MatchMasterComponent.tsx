@@ -1,6 +1,6 @@
-import type { FC } from 'react';
-import { Paper, Typography, Grid2, Button, TextField } from '@mui/material';
+import { Button, Grid2, Paper, TextField, Typography } from '@mui/material';
 import { Autocomplete } from '@mui/material';
+import type { FC } from 'react';
 
 interface MatchMasterComponentProps {
   teamOptions: string[];

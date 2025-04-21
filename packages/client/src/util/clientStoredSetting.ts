@@ -22,9 +22,7 @@ export function getSetting(): SettingType {
 
   const parseResult = settingSchema.partial().safeParse(JSON.parse(rawSetting));
   if (!parseResult.success) {
-    console.warn(
-      'ふぇぇ…LocalStorageの設定が壊れているので、デフォルト値を使います',
-    );
+    console.warn('ふぇぇ…LocalStorageの設定が壊れているので、デフォルト値を使います');
     return defaultValues;
   }
 

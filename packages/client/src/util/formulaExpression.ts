@@ -98,10 +98,7 @@ type ReferenceVariables = {
 };
 
 // 演算対象となる項（オペランド: 値もしくは計算式）を評価する
-function EvaluateOperand(
-  referencedStats: ReferenceVariables,
-  operand: OperandType,
-): number {
+function EvaluateOperand(referencedStats: ReferenceVariables, operand: OperandType): number {
   let result = Number.NaN;
 
   if (isOperatorType(operand)) {
@@ -138,10 +135,7 @@ function EvaluateOperand(
 }
 
 // 各演算子に対応する計算結果を求める
-function EvaluateOperation(
-  referencedStats: ReferenceVariables,
-  op: OperatorType,
-): number {
+function EvaluateOperation(referencedStats: ReferenceVariables, op: OperatorType): number {
   const values = (op.operands as OperandType[]).map((operand) =>
     EvaluateOperand(referencedStats, operand),
   );

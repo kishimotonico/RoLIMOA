@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { taskObjectSchema } from './taskObject.js';
 import { customControlPanelSchema } from './controlPanel.js';
+import { taskObjectSchema } from './taskObject.js';
 
 const vgoalConditionSchema = z.union([
   z.object({

@@ -1,9 +1,9 @@
-import type { createStore } from 'redux';
-import type { RootState } from '@rolimoa/common/redux';
-import { format } from 'date-fns';
 import fs from 'node:fs';
 import path from 'node:path';
 import config from '@rolimoa/common/config';
+import type { RootState } from '@rolimoa/common/redux';
+import { format } from 'date-fns';
+import type { createStore } from 'redux';
 
 type StoreType = ReturnType<typeof createStore>;
 
@@ -25,18 +25,13 @@ export function loadFromFile(directoryPath: string): RootState | undefined {
   const raw = fs.readFileSync(filePath, 'utf-8');
   const state = JSON.parse(raw);
   if (!storedObjectValidator(state)) {
-    console.error(
-      'ストアのバリデーションに失敗しました。config.jsonが変更されています',
-    );
+    console.error('ストアのバリデーションに失敗しました。config.jsonが変更されています');
     return undefined;
   }
   return state;
 }
 
-export async function saveToFile(
-  directoryPath: string,
-  store: StoreType,
-): Promise<void> {
+export async function saveToFile(directoryPath: string, store: StoreType): Promise<void> {
   try {
     const storeStaet = store.getState();
 
@@ -65,10 +60,7 @@ function storedObjectValidator(state: RootState): boolean {
   const fieldTaskIds = config.rule.task_objects.map((task) => task.id);
   const globalTaskIds = config.rule.global_objects.map((task) => task.id);
 
-  return (
-    isSameList(stateFieldTaskKeys, fieldTaskIds) &&
-    isSameList(globalTaskKeys, globalTaskIds)
-  );
+  return isSameList(stateFieldTaskKeys, fieldTaskIds) && isSameList(globalTaskKeys, globalTaskIds);
 }
 
 function saveFileName(): string {

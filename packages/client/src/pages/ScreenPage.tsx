@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Box, IconButton } from '@mui/material';
-import { CenterFlex } from '@/ui/CenterFlex';
-import CachedIcon from '@mui/icons-material/Cached';
-import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
 import { ScoreBoard } from '@/components/Screen/ScoreBoard';
 import { TimerDisplay } from '@/components/Screen/TimerDisplay';
 import { Underlay } from '@/components/Screen/Underlay';
+import { usePlaySoundEffect } from '@/functional/usePlaySoundEffect';
+import { CenterFlex } from '@/ui/CenterFlex';
+import CachedIcon from '@mui/icons-material/Cached';
+import { Box, IconButton } from '@mui/material';
+import { useState } from 'react';
 
 export const ScreenPage = () => {
   usePlaySoundEffect();
@@ -35,10 +35,7 @@ export const ScreenPage = () => {
           {/* スコア */}
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ flex: 1 }}>
-              <ScoreBoard
-                fieldSide={reverse ? 'blue' : 'red'}
-                placement="left"
-              />
+              <ScoreBoard fieldSide={reverse ? 'blue' : 'red'} placement="left" />
             </Box>
             <CenterFlex
               sx={{
@@ -56,10 +53,7 @@ export const ScreenPage = () => {
               </IconButton>
             </CenterFlex>
             <Box sx={{ flex: 1 }}>
-              <ScoreBoard
-                fieldSide={reverse ? 'red' : 'blue'}
-                placement="right"
-              />
+              <ScoreBoard fieldSide={reverse ? 'red' : 'blue'} placement="right" />
             </Box>
           </Box>
           {/* タイム */}

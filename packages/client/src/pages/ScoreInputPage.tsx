@@ -1,5 +1,12 @@
-import { type FC, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Dashboard } from '@/components/Dashboard';
+import { ScoreBlock } from '@/components/ScoreBlock';
+import { ScoreInputPanel } from '@/components/ScoreInput/ScoreInputPanel';
+import { ScoreInputVgoalButton } from '@/components/ScoreInputVgoalButton';
+import { useDisplayScore } from '@/functional/useDisplayScore';
+import { LyricalSocket } from '@/lyricalSocket';
+import { formatTime, parseFormatTime } from '@/util/formatTime';
+import CheckIcon from '@mui/icons-material/Check';
+import FlagIcon from '@mui/icons-material/Flag';
 import {
   Backdrop,
   Box,
@@ -9,7 +16,6 @@ import {
   FormGroup,
   Grid2,
   Paper,
-  Tooltip,
   Switch,
   Table,
   TableBody,
@@ -17,33 +23,24 @@ import {
   TableContainer,
   TableRow,
   TextField,
+  Tooltip,
 } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import FlagIcon from '@mui/icons-material/Flag';
+import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import {
+  type FieldScoreStateType,
   type FieldSideType,
   scoreStateSlice,
-  type FieldScoreStateType,
 } from '@rolimoa/common/redux';
-import { Dashboard } from '@/components/Dashboard';
-import { ScoreInputVgoalButton } from '@/components/ScoreInputVgoalButton';
-import { LyricalSocket } from '@/lyricalSocket';
-import { ScoreBlock } from '@/components/ScoreBlock';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime, parseFormatTime } from '@/util/formatTime';
-import { ScoreInputPanel } from '@/components/ScoreInput/ScoreInputPanel';
-import { config } from '@rolimoa/common/config';
+import { type FC, useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 type VGoalTimeInputProps = {
   onInputValidVgoalTime: (vgoalTime: number) => void;
   vgoalTime?: number;
 };
 
-const VGoalTimeInput: FC<VGoalTimeInputProps> = ({
-  onInputValidVgoalTime,
-  vgoalTime,
-}) => {
+const VGoalTimeInput: FC<VGoalTimeInputProps> = ({ onInputValidVgoalTime, vgoalTime }) => {
   const initialValue = vgoalTime ? formatTime(vgoalTime, 'm:ss') : '';
   const [value, setValue] = useState(initialValue);
   const [invalid, setInvalid] = useState(false);
@@ -134,25 +131,13 @@ const FlagInput: FC<FlagInputProps> = ({ fieldSide, color }) => {
     <>
       <FormGroup>
         <FormControlLabel
-          control={
-            <Switch
-              checked={scoreState.enable}
-              onChange={onEnableButton}
-              color={color}
-            />
-          }
+          control={<Switch checked={scoreState.enable} onChange={onEnableButton} color={color} />}
           label="スコア有効"
         />
       </FormGroup>
       <FormGroup>
         <FormControlLabel
-          control={
-            <Switch
-              checked={scoreState.winner}
-              onChange={onWinnerButton}
-              color={color}
-            />
-          }
+          control={<Switch checked={scoreState.winner} onChange={onWinnerButton} color={color} />}
           label="勝利フラグ"
         />
       </FormGroup>
@@ -188,10 +173,7 @@ const ScoreDisplay: FC<ScoreDisplayProps> = ({ fieldSide }) => {
             <Table size="small">
               <TableBody>
                 {refValues.map(([k, v]) => (
-                  <TableRow
-                    key={k}
-                    sx={{ '&:last-child td': { borderBottom: 0 } }}
-                  >
+                  <TableRow key={k} sx={{ '&:last-child td': { borderBottom: 0 } }}>
                     <TableCell>{k}</TableCell>
                     <TableCell>{v}</TableCell>
                   </TableRow>

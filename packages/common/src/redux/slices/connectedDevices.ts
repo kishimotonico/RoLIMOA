@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type ConnectedDevice = {
   deviceName: string;
@@ -18,9 +18,7 @@ export const connectedDevicesStateSlice = createSlice({
     setState: (_, action: PayloadAction<ConnectedDevice[]>) => action.payload,
     // デバイスの追加もしくは更新
     addDeviceOrUpdate: (cur, action: PayloadAction<PartialConnectedDevice>) => {
-      const i = cur.findIndex(
-        (device) => device.sockId === action.payload.sockId,
-      );
+      const i = cur.findIndex((device) => device.sockId === action.payload.sockId);
       if (i === -1) {
         // 既存デバイスがないときはデバイスを新規追加
         cur.push({

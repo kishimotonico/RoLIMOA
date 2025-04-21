@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { Box, Grid2, Paper, Typography } from '@mui/material';
+import type { FC } from 'react';
 
 interface ErrorObjectProps {
   description: string;
@@ -13,9 +13,7 @@ export const ErrorObject: FC<ErrorObjectProps> = ({ description }) => {
           {description}
         </Typography>
         <Box sx={{ py: 1 }}>⚠️ エラー</Box>
-        <Box sx={{ fontSize: '12px' }}>
-          ページを再読み込みするか、config.jsonを見直してください
-        </Box>
+        <Box sx={{ fontSize: '12px' }}>ページを再読み込みするか、config.jsonを見直してください</Box>
       </Paper>
     </Grid2>
   );

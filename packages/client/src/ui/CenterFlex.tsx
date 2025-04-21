@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { Box, type BoxProps } from '@mui/material';
+import type { FC } from 'react';
 
 type CenterFlexProp = BoxProps;
 

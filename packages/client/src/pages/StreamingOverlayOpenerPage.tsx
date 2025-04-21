@@ -1,8 +1,8 @@
-import { type FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRecoilValue } from 'recoil';
-import { useResolvedPath } from 'react-router';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { unixtimeOffset } from '@/atoms/unixtimeOffset';
+import { Dashboard } from '@/components/Dashboard';
+import { LyricalSocket } from '@/lyricalSocket';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   Box,
   Divider,
@@ -15,13 +15,13 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
-import { Dashboard } from '@/components/Dashboard';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import type { RootState } from '@rolimoa/common/redux';
 import { streamingInterfaceSlice } from '@rolimoa/common/redux';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
+import { type FC, useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { useResolvedPath } from 'react-router';
+import { useRecoilValue } from 'recoil';
 
 function useAbsoluteUrl(to: string) {
   // 現在のURLとpathnameから`to`のURLを生成
@@ -84,10 +84,7 @@ export const StreamingOverlayOpenerPage: FC = () => {
                   readOnly: true,
                   endAdornment: (
                     <InputAdornment position="end">
-                      <CopyToClipboard
-                        text={overlayUrl}
-                        onCopy={() => setOpenTooltip(true)}
-                      >
+                      <CopyToClipboard text={overlayUrl} onCopy={() => setOpenTooltip(true)}>
                         <Tooltip
                           title="コピーしました！"
                           arrow
@@ -148,9 +145,7 @@ const StreamingInterfaceController: FC = () => {
     );
   };
 
-  const onChangeShowScoreBoard = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const onChangeShowScoreBoard = (event: React.ChangeEvent<HTMLInputElement>) => {
     LyricalSocket.dispatch(
       [streamingInterfaceSlice.actions.setShowScoreBoard(event.target.checked)],
       dispatch,
@@ -160,15 +155,11 @@ const StreamingInterfaceController: FC = () => {
   return (
     <Box>
       <FormControlLabel
-        control={
-          <Switch checked={showMainHud} onChange={onChangeShowMainHud} />
-        }
+        control={<Switch checked={showMainHud} onChange={onChangeShowMainHud} />}
         label="メインHUDを表示する"
       />
       <FormControlLabel
-        control={
-          <Switch checked={showScoreBoard} onChange={onChangeShowScoreBoard} />
-        }
+        control={<Switch checked={showScoreBoard} onChange={onChangeShowScoreBoard} />}
         label="スコアを表示する"
       />
     </Box>

@@ -1,7 +1,7 @@
-import type { ObjectsStateType } from '@rolimoa/common/redux';
 import { score as calculateScoreImplement } from '@/custom/rule.score';
-import { evaluateFormula, type FormulaExpression } from './formulaExpression';
+import type { ObjectsStateType } from '@rolimoa/common/redux';
 import type { CurrentMatchStateType } from './currentMatchStateType';
+import { type FormulaExpression, evaluateFormula } from './formulaExpression';
 
 export type ScoreRuleType =
   | ScoreRuleSimpleType
@@ -34,9 +34,7 @@ type ScoreResultType = {
 function isScoreRuleSimpleType(arg: unknown): arg is ScoreRuleSimpleType {
   return (arg as ScoreRuleType).format === 'simple';
 }
-function isScoreRuleFormulaExpressionType(
-  arg: unknown,
-): arg is ScoreRuleFormulaExpressionType {
+function isScoreRuleFormulaExpressionType(arg: unknown): arg is ScoreRuleFormulaExpressionType {
   return (arg as ScoreRuleType).format === 'formulaExpression';
 }
 function isScoreRuleImplementType(arg: unknown): arg is ScoreRuleImplementType {

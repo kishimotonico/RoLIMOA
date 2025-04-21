@@ -1,11 +1,11 @@
-import { type FC, useCallback, useState } from 'react';
+import { Dashboard } from '@/components/Dashboard';
+import { DeviceListContainer } from '@/components/DeviceListContainer';
+import { MatchMasterContainer } from '@/components/MatchMasterContainer';
+import { TimerMasterContainer } from '@/components/TimerMasterContainer';
+import type { AlertProps } from '@mui/lab';
 import { Grid2 } from '@mui/material';
 import { Alert } from '@mui/material';
-import type { AlertProps } from '@mui/lab';
-import { Dashboard } from '@/components/Dashboard';
-import { TimerMasterContainer } from '@/components/TimerMasterContainer';
-import { MatchMasterContainer } from '@/components/MatchMasterContainer';
-import { DeviceListContainer } from '@/components/DeviceListContainer';
+import { type FC, useCallback, useState } from 'react';
 
 const ClosableAlert: FC<AlertProps> = (props) => {
   const [open, setOpen] = useState(true);

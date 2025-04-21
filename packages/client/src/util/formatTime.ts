@@ -1,11 +1,7 @@
 import type { TimeFormat } from '@rolimoa/common/config';
 
 // 秒数をフォーマット表示した文字列を返す
-export const formatTime = (
-  second: number,
-  format: TimeFormat,
-  colonWithSpace = false,
-): string => {
+export const formatTime = (second: number, format: TimeFormat, colonWithSpace = false): string => {
   const m = Math.floor(second / 60);
   const s = second % 60;
   const colon = colonWithSpace ? ' : ' : ':';
@@ -32,9 +28,7 @@ export const parseFormatTime = (time: string): number => {
     return Number.parseInt(timeArray[0], 10);
   }
   if (timeArray.length === 2) {
-    return (
-      Number.parseInt(timeArray[0], 10) * 60 + Number.parseInt(timeArray[1], 10)
-    );
+    return Number.parseInt(timeArray[0], 10) * 60 + Number.parseInt(timeArray[1], 10);
   }
   throw new Error('Invalid time format');
 };

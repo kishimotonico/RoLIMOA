@@ -1,13 +1,10 @@
-import type { FC } from 'react';
-import type {
-  CustomControlPanelType,
-  TaskObjectConfigType,
-} from '@rolimoa/common/config';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
+import { config } from '@rolimoa/common/config';
 import type { FieldSideType } from '@rolimoa/common/redux';
+import type { FC } from 'react';
+import { ErrorObject } from './ErrorObject';
 import { GlobalObjectContainer } from './GlobalObjectContainer';
 import { TaskObjectContainer } from './TaskObjectContainer';
-import { config } from '@rolimoa/common/config';
-import { ErrorObject } from './ErrorObject';
 
 type TaskType = 'global' | 'task';
 
@@ -68,10 +65,7 @@ export const ScoreInputControl: FC<ScoreInputControlProps> = ({
   }
   if (type === 'global') {
     return (
-      <GlobalObjectContainer
-        taskConfig={taskObjectConfig}
-        controlConfig={controlPanelConfig}
-      />
+      <GlobalObjectContainer taskConfig={taskObjectConfig} controlConfig={controlPanelConfig} />
     );
   }
   if (type === 'task') {

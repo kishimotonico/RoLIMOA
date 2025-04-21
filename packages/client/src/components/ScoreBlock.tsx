@@ -1,17 +1,11 @@
-import type { FC } from 'react';
-import {
-  Box,
-  type SxProps,
-  type Theme,
-  Typography,
-  type TypographyVariant,
-} from '@mui/material';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import type { FieldSideType } from '@rolimoa/common/redux';
 import { useDisplayScore } from '@/functional/useDisplayScore';
 import { formatTime } from '@/util/formatTime';
+import { Box, type SxProps, type Theme, Typography, type TypographyVariant } from '@mui/material';
 import { config } from '@rolimoa/common/config';
+import type { RootState } from '@rolimoa/common/redux';
+import type { FieldSideType } from '@rolimoa/common/redux';
+import type { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType;
@@ -46,8 +40,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
       sx={{
         width: '100%',
         textAlign: 'center',
-        border: (theme: Theme) =>
-          `1px solid ${theme.palette[fieldColor][mainOrLight]}`,
+        border: (theme: Theme) => `1px solid ${theme.palette[fieldColor][mainOrLight]}`,
         ...rootSx,
       }}
     >
@@ -58,8 +51,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         sx={{
           lineHeight: 2,
           color: (theme: Theme) => theme.palette.background.default,
-          backgroundColor: (theme: Theme) =>
-            theme.palette[fieldColor][mainOrLight],
+          backgroundColor: (theme: Theme) => theme.palette[fieldColor][mainOrLight],
           ...teamNameSx,
         }}
       >

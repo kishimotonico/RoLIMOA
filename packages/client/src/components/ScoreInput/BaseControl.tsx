@@ -1,13 +1,10 @@
-import type { FC } from 'react';
 import { Grid2 } from '@mui/material';
-import type {
-  CustomControlPanelType,
-  TaskObjectConfigType,
-} from '@rolimoa/common/config';
-import { ToggleSwitchControl } from './ToggleSwitchControl';
-import { ToggleButtonControl } from './ToggleButtonControl';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
+import type { FC } from 'react';
 import { MultiButtonControl } from './MultiButtonControl';
 import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
+import { ToggleButtonControl } from './ToggleButtonControl';
+import { ToggleSwitchControl } from './ToggleSwitchControl';
 
 interface BaseControlProps {
   taskConfig: TaskObjectConfigType;

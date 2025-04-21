@@ -1,7 +1,7 @@
-import { type FC, useCallback } from 'react';
-import { Button, ButtonGroup, Box, Paper, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType } from '@rolimoa/common/config';
+import { type FC, useCallback } from 'react';
 
 interface PluseMinuseButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';

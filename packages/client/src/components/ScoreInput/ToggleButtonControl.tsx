@@ -1,14 +1,6 @@
+import { Paper, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import type { TaskObjectConfigType, TaskObjectToggleButtonUiType } from '@rolimoa/common/config';
 import { type FC, useCallback } from 'react';
-import {
-  ToggleButtonGroup,
-  ToggleButton,
-  Paper,
-  Typography,
-} from '@mui/material';
-import type {
-  TaskObjectConfigType,
-  TaskObjectToggleButtonUiType,
-} from '@rolimoa/common/config';
 
 interface ToggleButtonControlProps {
   taskConfig: TaskObjectConfigType;

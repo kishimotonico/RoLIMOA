@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import { Typography, type SxProps, Grid2 } from '@mui/material';
-import type { Theme } from '@mui/material/styles';
 import { useDisplayTimer } from '@/functional/useDisplayTimer';
+import { Grid2, type SxProps, Typography } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
+import type { FC } from 'react';
 
 type TypographyVariant =
   | 'h1'
@@ -40,8 +40,7 @@ export const TimerDisplay: FC<TimerDisplayProps> = ({
           color="textSecondary"
           sx={{
             textAlign: 'center',
-            minHeight: (theme: Theme) =>
-              `${theme.typography[descriptionVariant].lineHeight}em`,
+            minHeight: (theme: Theme) => `${theme.typography[descriptionVariant].lineHeight}em`,
             ...descriptionSx,
           }}
         >
