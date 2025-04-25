@@ -85,7 +85,7 @@ const ScoreDetailTable = (props: {
 };
 
 const ResultConfirm = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const match = useSelector<RootState, MatchState>((state) => state.match);
   const score = useSelector<RootState, ScoreState>((state) => state.score);
   const currentPhase = useSelector<RootState, CurrentPhaseState>((state) => state.phase.current);
@@ -115,8 +115,8 @@ const ResultConfirm = () => {
       confirmedBy,
     });
 
-    LyricalSocket.dispatch([matchAction, resultRecordAction], dispath);
-  }, [match, score, blueScoreValue, redScoreValue, comment, dispath]);
+    LyricalSocket.dispatch([matchAction, resultRecordAction], dispatch);
+  }, [match, score, blueScoreValue, redScoreValue, comment, dispatch]);
 
   return (
     <Box>
