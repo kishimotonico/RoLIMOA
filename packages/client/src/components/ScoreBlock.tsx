@@ -1,17 +1,10 @@
-import type { FC } from 'react';
-import {
-  Box,
-  type SxProps,
-  type Theme,
-  Typography,
-  type TypographyVariant,
-} from '@mui/material';
-import { useSelector } from 'react-redux';
+import { Box, type SxProps, type Theme, Typography, type TypographyVariant } from '@mui/material';
+import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType } from '@rolimoa/common/redux';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime } from '@/util/formatTime';
-import { config } from '@rolimoa/common/config';
+import { useSelector } from 'react-redux';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { formatTime } from '~/util/formatTime';
 
 export type ScoreBlockProps = {
   fieldSide: FieldSideType;
@@ -24,7 +17,7 @@ export type ScoreBlockProps = {
   scoreSx?: SxProps;
 };
 
-export const ScoreBlock: FC<ScoreBlockProps> = ({
+export const ScoreBlock = ({
   fieldSide,
   focused = true,
   rootSx = {},
@@ -32,7 +25,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
   teamNameSx = {},
   scoreVariant = 'h4',
   scoreSx = {},
-}) => {
+}: ScoreBlockProps) => {
   const teamName = useSelector<RootState, string | undefined>(
     (state) => state.match.teams[fieldSide]?.shortName,
   );
@@ -46,8 +39,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
       sx={{
         width: '100%',
         textAlign: 'center',
-        border: (theme: Theme) =>
-          `1px solid ${theme.palette[fieldColor][mainOrLight]}`,
+        border: (theme: Theme) => `1px solid ${theme.palette[fieldColor][mainOrLight]}`,
         ...rootSx,
       }}
     >
@@ -58,8 +50,7 @@ export const ScoreBlock: FC<ScoreBlockProps> = ({
         sx={{
           lineHeight: 2,
           color: (theme: Theme) => theme.palette.background.default,
-          backgroundColor: (theme: Theme) =>
-            theme.palette[fieldColor][mainOrLight],
+          backgroundColor: (theme: Theme) => theme.palette[fieldColor][mainOrLight],
           ...teamNameSx,
         }}
       >

@@ -1,23 +1,18 @@
-import type { FC } from 'react';
-import type { FieldSideType } from '@rolimoa/common/redux';
 import { config } from '@rolimoa/common/config';
+import type { FieldSideType } from '@rolimoa/common/redux';
 import { ScoreInputControl } from './ScoreInputControl';
 
 type ScoreInputPanelProps = {
   fieldSide: FieldSideType;
 };
 
-export const ScoreInputPanel: FC<ScoreInputPanelProps> = ({ fieldSide }) => {
+export const ScoreInputPanel = ({ fieldSide }: ScoreInputPanelProps) => {
   if (config.rule.control_panel?.type === 'custom') {
     // カスタム: config.jsonで指定したUIを表示
     return (
       <>
         {config.rule.control_panel.panels?.map((panel) => (
-          <ScoreInputControl
-            key={panel.id}
-            fieldSide={fieldSide}
-            controlPanelConfig={panel}
-          />
+          <ScoreInputControl key={panel.id} fieldSide={fieldSide} controlPanelConfig={panel} />
         ))}
       </>
     );
@@ -26,15 +21,9 @@ export const ScoreInputPanel: FC<ScoreInputPanelProps> = ({ fieldSide }) => {
   // デフォルト: 全てのタスクオブジェクトを表示
   return (
     <>
-      {[...config.rule.global_objects, ...config.rule.task_objects].map(
-        (config) => (
-          <ScoreInputControl
-            key={config.id}
-            fieldSide={fieldSide}
-            taskObjectConfig={config}
-          />
-        ),
-      )}
+      {[...config.rule.global_objects, ...config.rule.task_objects].map((config) => (
+        <ScoreInputControl key={config.id} fieldSide={fieldSide} taskObjectConfig={config} />
+      ))}
     </>
   );
 };

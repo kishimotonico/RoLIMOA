@@ -1,21 +1,21 @@
-import { type FC, useCallback } from 'react';
-import { Button, ButtonGroup, Box, Paper, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType } from '@rolimoa/common/config';
+import { useCallback } from 'react';
 
-interface PluseMinuseButtonControlProps {
+interface PlusMinusButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
   config: TaskObjectConfigType;
   currentValue: number;
   stateUpdate: (value: number, cmd: string) => void;
 }
 
-export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
+export const PlusMinusButtonControl = ({
   color,
   config,
   currentValue,
   stateUpdate,
-}) => {
+}: PlusMinusButtonControlProps) => {
   const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {
@@ -34,7 +34,7 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
     verticalAlign: 'baseline',
     padding: '0 .25em 0 0',
   };
-  const innnerButtonSx: SxProps = {
+  const innerButtonSx: SxProps = {
     width: '50%',
   };
 
@@ -50,7 +50,7 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
       <Box sx={{ pt: 0.5 }}>
         <ButtonGroup sx={buttonGroupSx} color={color}>
           <Button
-            sx={innnerButtonSx}
+            sx={innerButtonSx}
             variant="outlined"
             onClick={decrement}
             disabled={currentValue === min}
@@ -58,7 +58,7 @@ export const PluseMinuseButtonControl: FC<PluseMinuseButtonControlProps> = ({
             -1
           </Button>
           <Button
-            sx={innnerButtonSx}
+            sx={innerButtonSx}
             variant="contained"
             onClick={increment}
             disabled={currentValue === max}

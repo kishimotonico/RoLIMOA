@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { MatchState } from './match.js';
 import type { FieldSideType, ScoreState } from './score.js';
 

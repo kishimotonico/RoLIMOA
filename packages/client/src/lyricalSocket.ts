@@ -29,8 +29,7 @@ export class LyricalSocket {
 
   public static isActive(): boolean {
     return (
-      LyricalSocket.instance.socket &&
-      LyricalSocket.instance.socket.readyState === WebSocket.OPEN
+      LyricalSocket.instance.socket && LyricalSocket.instance.socket.readyState === WebSocket.OPEN
     );
   }
 
@@ -42,10 +41,7 @@ export class LyricalSocket {
     return LyricalSocket.instance.sessionId;
   }
 
-  public static sendOperation(
-    operationType: string,
-    option: object = {},
-  ): void {
+  public static sendOperation(operationType: string, option: object = {}): void {
     if (!LyricalSocket.isActive()) {
       console.error('WebSocket is not connected');
       return;

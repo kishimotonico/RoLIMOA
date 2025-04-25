@@ -1,11 +1,11 @@
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from '@rolimoa/common/redux';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
 import { RecoilRoot } from 'recoil';
-import { rootReducer } from '@rolimoa/common/redux';
+import App from './App';
 
 const store = configureStore({
   reducer: rootReducer,

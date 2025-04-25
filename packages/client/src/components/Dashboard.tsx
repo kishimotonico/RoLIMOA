@@ -1,9 +1,12 @@
-import type { FC } from 'react';
-import { Link } from 'react-router-dom';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BuildIcon from '@mui/icons-material/Build';
+import CastIcon from '@mui/icons-material/Cast';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MenuIcon from '@mui/icons-material/Menu';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import {
-  AppBar as MuiAppBar,
-  type AppBarProps as MuiAppBarProps,
-  Drawer as MuiDrawer,
   Box,
   Container,
   Divider,
@@ -11,25 +14,21 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  AppBar as MuiAppBar,
+  type AppBarProps as MuiAppBarProps,
+  Drawer as MuiDrawer,
+  type Theme,
   Toolbar,
   Typography,
   useMediaQuery,
-  type Theme,
 } from '@mui/material';
 import { styled } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import BuildIcon from '@mui/icons-material/Build';
-import CastIcon from '@mui/icons-material/Cast';
-import VideocamIcon from '@mui/icons-material/Videocam';
-import { StandaloneIndicator } from './StandaloneIndicator';
-import { SettingButton } from './SettingModal';
-import { isDrawerOpen } from '@/atoms/isDrawerOpen';
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { isDrawerOpen } from '~/atoms/isDrawerOpen';
+import { SettingButton } from './SettingModal';
+import { StandaloneIndicator } from './StandaloneIndicator';
 
 const drawerWidth = 240;
 
@@ -91,7 +90,7 @@ interface DashboardProps {
   title: string;
 }
 
-export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
+export const Dashboard = ({ children, title }: DashboardProps) => {
   const [_open, setOpen] = useRecoilState(isDrawerOpen);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,13 +123,7 @@ export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
+          <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
           <StandaloneIndicator />
@@ -171,9 +164,7 @@ export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
           <DrawerListLink to="/score/blue/">
             <ListItemButton>
               <ListItemIcon>
-                <AssignmentIcon
-                  sx={{ color: (theme) => theme.palette.primary.main }}
-                />
+                <AssignmentIcon sx={{ color: (theme) => theme.palette.primary.main }} />
               </ListItemIcon>
               <ListItemText primary="青チーム入力" />
             </ListItemButton>
@@ -181,9 +172,7 @@ export const Dashboard: FC<DashboardProps> = ({ children, title }) => {
           <DrawerListLink to="/score/red/">
             <ListItemButton>
               <ListItemIcon>
-                <AssignmentIcon
-                  sx={{ color: (theme) => theme.palette.secondary.main }}
-                />
+                <AssignmentIcon sx={{ color: (theme) => theme.palette.secondary.main }} />
               </ListItemIcon>
               <ListItemText primary="赤チーム入力" />
             </ListItemButton>

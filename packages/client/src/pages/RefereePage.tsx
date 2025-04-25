@@ -1,7 +1,7 @@
 import { Grid2 } from '@mui/material';
-import { Dashboard } from '@/components/Dashboard';
-import { MatchResultContainer } from '@/components/Referee/MatchResultContainer';
-import { OperationLogTable } from '@/components/Referee/OperationLogTable';
+import { Dashboard } from '~/components/Dashboard';
+import { MatchResultContainer } from '~/components/Referee/MatchResultContainer';
+import { OperationLogTable } from '~/components/Referee/OperationLogTable';
 
 export const RefereePage = () => {
   return (

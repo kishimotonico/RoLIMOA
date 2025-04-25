@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { getSetting, setSetting } from '@/util/clientStoredSetting';
 import { useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { getSetting, setSetting } from '~/util/clientStoredSetting';
 
 export const useLoadSetting = () => {
   const savedSetting = getSetting();

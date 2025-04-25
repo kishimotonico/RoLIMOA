@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { config } from '../../config/index.js';
 
 export type ScoreState = {
@@ -19,10 +19,7 @@ export const scoreInitialState: ScoreState = {
   fields: {
     blue: {
       tasks: Object.fromEntries(
-        config.rule.task_objects.map((taskObj) => [
-          taskObj.id,
-          taskObj.initialValue ?? 0,
-        ]),
+        config.rule.task_objects.map((taskObj) => [taskObj.id, taskObj.initialValue ?? 0]),
       ),
       enable: true,
       winner: false,
@@ -30,10 +27,7 @@ export const scoreInitialState: ScoreState = {
     },
     red: {
       tasks: Object.fromEntries(
-        config.rule.task_objects.map((taskObj) => [
-          taskObj.id,
-          taskObj.initialValue ?? 0,
-        ]),
+        config.rule.task_objects.map((taskObj) => [taskObj.id, taskObj.initialValue ?? 0]),
       ),
       enable: true,
       winner: false,
@@ -41,10 +35,7 @@ export const scoreInitialState: ScoreState = {
     },
   },
   global: Object.fromEntries(
-    config.rule.global_objects.map((taskObj) => [
-      taskObj.id,
-      taskObj.initialValue ?? 0,
-    ]),
+    config.rule.global_objects.map((taskObj) => [taskObj.id, taskObj.initialValue ?? 0]),
   ),
 };
 
@@ -64,16 +55,12 @@ export const scoreStateSlice = createSlice({
   initialState: scoreInitialState,
   reducers: {
     setState: (_, action: PayloadAction<ScoreState>) => action.payload,
-    setGlobalUpdate: (
-      state,
-      action: PayloadAction<GlobalUpdateActionPayload>,
-    ) => {
+    setGlobalUpdate: (state, action: PayloadAction<GlobalUpdateActionPayload>) => {
       state.global[action.payload.taskObjectId] = action.payload.afterValue;
     },
     setTaskUpdate: (state, action: PayloadAction<TaskUpdateActionPayload>) => {
-      state.fields[action.payload.fieldSide].tasks[
-        action.payload.taskObjectId
-      ] = action.payload.afterValue;
+      state.fields[action.payload.fieldSide].tasks[action.payload.taskObjectId] =
+        action.payload.afterValue;
     },
     setScoreEnable: (
       state,
@@ -93,10 +80,7 @@ export const scoreStateSlice = createSlice({
     ) => {
       state.fields[action.payload.fieldSide].vgoal = action.payload.vgoalTime;
     },
-    unsetVgoalTime: (
-      state,
-      action: PayloadAction<{ fieldSide: FieldSideType }>,
-    ) => {
+    unsetVgoalTime: (state, action: PayloadAction<{ fieldSide: FieldSideType }>) => {
       state.fields[action.payload.fieldSide].vgoal = undefined;
     },
   },

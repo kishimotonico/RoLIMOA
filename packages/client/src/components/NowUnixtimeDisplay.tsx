@@ -1,6 +1,6 @@
-import { type FC, useState, useRef, useEffect } from 'react';
-import { Box, Typography, Avatar, Fade } from '@mui/material';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import { Avatar, Box, Fade, Typography } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 
 const REFRESH_INTERVAL = 25; // だいたい40fps
 
@@ -20,7 +20,7 @@ type Props = {
   offsetTime?: number;
 };
 
-export const NowUnixtimeDisplay: FC<Props> = ({ offsetTime = 0 }) => {
+export const NowUnixtimeDisplay = ({ offsetTime = 0 }: Props) => {
   const [nowTime, setNowTime] = useState<FormattedTime>({
     date: '',
     h: 0,

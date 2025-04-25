@@ -1,12 +1,7 @@
-import type { ReactNode } from 'react';
-import {
-  ThemeProvider,
-  StyledEngineProvider,
-  createTheme,
-  alpha,
-} from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { blue, grey, pink } from '@mui/material/colors';
+import { StyledEngineProvider, ThemeProvider, alpha, createTheme } from '@mui/material/styles';
+import type { ReactNode } from 'react';
 import '@fontsource/noto-sans-jp/index.css';
 
 declare module '@mui/material/Button' {
@@ -37,9 +32,7 @@ const appTheme = createTheme(baseTheme, {
         {
           props: { variant: 'contained', color: 'grey' },
           style: {
-            color: baseTheme.palette.getContrastText(
-              baseTheme.palette.grey[300],
-            ),
+            color: baseTheme.palette.getContrastText(baseTheme.palette.grey[300]),
           },
         },
         {

@@ -1,9 +1,8 @@
-import type { FC } from 'react';
 import { Box, type BoxProps } from '@mui/material';
 
 type CenterFlexProp = BoxProps;
 
-export const CenterFlex: FC<CenterFlexProp> = ({ sx, children, ...rest }) => {
+export const CenterFlex = ({ sx, children, ...rest }: CenterFlexProp) => {
   return (
     <Box
       {...rest}

@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { config } from '../../config/index.js';
 
 // `startTime`から経過した現在の秒数を取得する
@@ -42,10 +42,7 @@ export const phaseStateSlice = createSlice({
       );
       state.current = action.payload;
     },
-    setElapsedSecond: (
-      state,
-      action: PayloadAction<{ newElapsedSecond: number }>,
-    ) => {
+    setElapsedSecond: (state, action: PayloadAction<{ newElapsedSecond: number }>) => {
       state.elapsedSecond = action.payload.newElapsedSecond;
     },
     // タイマーを一時停止する
@@ -75,8 +72,7 @@ export const phaseStateSlice = createSlice({
         state.current.pausedTime = undefined;
       } else {
         // 切り捨てない
-        const pausedDuration =
-          state.current.pausedTime - state.current.startTime;
+        const pausedDuration = state.current.pausedTime - state.current.startTime;
         state.current.startTime = now - pausedDuration;
         state.current.pausedTime = undefined;
       }

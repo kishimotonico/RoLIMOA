@@ -1,11 +1,9 @@
 import { config as rootConfig } from '@rolimoa/common/config';
+import { condition } from '~/custom/rule.vgoal';
 import type { CurrentMatchStateType } from './currentMatchStateType';
-import { condition } from '@/custom/rule.vgoal';
 
 // Vゴールが可能な状況かを判断する
-export function isVgoalAvailable(
-  currentMatchState: CurrentMatchStateType,
-): boolean {
+export function isVgoalAvailable(currentMatchState: CurrentMatchStateType): boolean {
   const vgoalCondition = rootConfig.rule.vgoal.condition;
 
   // type: manual

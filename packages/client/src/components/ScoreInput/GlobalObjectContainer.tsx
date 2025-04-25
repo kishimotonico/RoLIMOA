@@ -1,30 +1,27 @@
-import { type FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import { scoreStateSlice } from '@rolimoa/common/redux';
-import { ErrorObject } from './ErrorObject';
-import { LyricalSocket } from '@/lyricalSocket';
-import type {
-  CustomControlPanelType,
-  TaskObjectConfigType,
-} from '@rolimoa/common/config';
-import { BaseControl } from './BaseControl';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  type ScoreUpdateContext,
   onScoreUpdateAfter,
   onScoreUpdateBefore,
-  type ScoreUpdateContext,
-} from '@/custom/event.scoreUpdate';
+} from '~/custom/event.scoreUpdate';
+import { LyricalSocket } from '~/lyricalSocket';
+import { BaseControl } from './BaseControl';
+import { ErrorObject } from './ErrorObject';
 
 type GlobalObjectContainerProps = {
   taskConfig: TaskObjectConfigType;
   controlConfig?: CustomControlPanelType;
 };
 
-export const GlobalObjectContainer: FC<GlobalObjectContainerProps> = ({
+export const GlobalObjectContainer = ({
   taskConfig,
   controlConfig,
-}) => {
+}: GlobalObjectContainerProps) => {
   const { id } = taskConfig;
 
   const currentValue = useSelector<RootState, number | undefined>(

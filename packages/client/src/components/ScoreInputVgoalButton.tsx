@@ -1,31 +1,23 @@
-import { type FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import type { RootState } from '@rolimoa/common/redux';
-import {
-  scoreStateSlice,
-  type FieldScoreStateType,
-} from '@rolimoa/common/redux';
-import { LyricalSocket } from '@/lyricalSocket';
-import { isVgoalAvailable } from '@/util/VgoalHelper';
-import { useCurrentMatchState } from '@/functional/useCurrentMatchState';
+import { type FieldScoreStateType, scoreStateSlice } from '@rolimoa/common/redux';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCurrentMatchState } from '~/functional/useCurrentMatchState';
+import { LyricalSocket } from '~/lyricalSocket';
+import { isVgoalAvailable } from '~/util/VgoalHelper';
 
 type ScoreInputVgoalButtonProps = {
   fieldSide: 'blue' | 'red';
   color: 'primary' | 'secondary';
 };
 
-export const ScoreInputVgoalButton: FC<ScoreInputVgoalButtonProps> = ({
-  fieldSide,
-  color,
-}) => {
+export const ScoreInputVgoalButton = ({ fieldSide, color }: ScoreInputVgoalButtonProps) => {
   const dispatch = useDispatch();
   const scoreState = useSelector<RootState, FieldScoreStateType>(
     (state) => state.score.fields[fieldSide],
   );
-  const elapsedSec = useSelector<RootState, number>(
-    (state) => state.phase.elapsedSecond,
-  );
+  const elapsedSec = useSelector<RootState, number>((state) => state.phase.elapsedSecond);
   const currentMatchState = useCurrentMatchState(fieldSide);
 
   const onVgoalButton = useCallback(() => {

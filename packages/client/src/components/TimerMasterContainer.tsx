@@ -1,16 +1,12 @@
-import { type FC, useCallback, useEffect, useState } from 'react';
+import type { RootState } from '@rolimoa/common/redux';
+import { type CurrentPhaseState, type PhaseState, phaseStateSlice } from '@rolimoa/common/redux';
+import { operationLogsStateSlice } from '@rolimoa/common/redux';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
-import type { RootState } from '@rolimoa/common/redux';
-import {
-  type PhaseState,
-  type CurrentPhaseState,
-  phaseStateSlice,
-} from '@rolimoa/common/redux';
-import { operationLogsStateSlice } from '@rolimoa/common/redux';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { LyricalSocket } from '@/lyricalSocket';
-import * as Phase from '@/util/PhaseStateUtil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { LyricalSocket } from '~/lyricalSocket';
+import * as Phase from '~/util/PhaseStateUtil';
 import { TimerMasterComponent } from './TimerMasterComponent';
 
 function gotoPhaseCommand(
@@ -67,7 +63,7 @@ function isManualTransition(phaseState: PhaseState): boolean {
   return true;
 }
 
-export const TimerMasterContainer: FC = () => {
+export const TimerMasterContainer = () => {
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [isEnabledNextButton, setIsEnabledNextButton] = useState(true);

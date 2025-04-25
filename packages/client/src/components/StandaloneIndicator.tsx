@@ -1,5 +1,5 @@
-import { Badge, Tooltip } from '@mui/material';
 import PowerOffIcon from '@mui/icons-material/PowerOff';
+import { Badge, Tooltip } from '@mui/material';
 import { config } from '@rolimoa/common/config';
 
 export const StandaloneIndicator = () => {

@@ -1,7 +1,4 @@
-import type { FC } from 'react';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@rolimoa/common/redux';
-import type { ConnectedDevice } from '@rolimoa/common/redux';
+import SaveIcon from '@mui/icons-material/Save';
 import {
   IconButton,
   Paper,
@@ -12,10 +9,12 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-import { LyricalSocket } from '@/lyricalSocket';
+import type { RootState } from '@rolimoa/common/redux';
+import type { ConnectedDevice } from '@rolimoa/common/redux';
+import { useSelector } from 'react-redux';
+import { LyricalSocket } from '~/lyricalSocket';
 
-export const DeviceListContainer: FC = () => {
+export const DeviceListContainer = () => {
   const connectedDevices = useSelector<RootState, ConnectedDevice[]>(
     (state) => state.connectedDevices,
   );

@@ -1,13 +1,9 @@
-import type { FC } from 'react';
 import { Grid2 } from '@mui/material';
-import type {
-  CustomControlPanelType,
-  TaskObjectConfigType,
-} from '@rolimoa/common/config';
-import { ToggleSwitchControl } from './ToggleSwitchControl';
-import { ToggleButtonControl } from './ToggleButtonControl';
+import type { CustomControlPanelType, TaskObjectConfigType } from '@rolimoa/common/config';
 import { MultiButtonControl } from './MultiButtonControl';
-import { PluseMinuseButtonControl } from './PluseMinuseButtonControl';
+import { PlusMinusButtonControl } from './PlusMinusButtonControl';
+import { ToggleButtonControl } from './ToggleButtonControl';
+import { ToggleSwitchControl } from './ToggleSwitchControl';
 
 interface BaseControlProps {
   taskConfig: TaskObjectConfigType;
@@ -17,13 +13,13 @@ interface BaseControlProps {
   color?: 'primary' | 'secondary';
 }
 
-export const BaseControl: FC<BaseControlProps> = ({
+export const BaseControl = ({
   taskConfig,
   controlConfig,
   currentValue,
   stateUpdate,
   color,
-}) => {
+}: BaseControlProps) => {
   const style = controlConfig?.style;
 
   return (
@@ -52,7 +48,7 @@ export const BaseControl: FC<BaseControlProps> = ({
           controlConfig={controlConfig}
         />
       ) : (
-        <PluseMinuseButtonControl
+        <PlusMinusButtonControl
           color={color ?? 'inherit'}
           config={taskConfig}
           currentValue={currentValue}

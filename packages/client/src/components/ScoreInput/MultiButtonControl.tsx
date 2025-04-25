@@ -1,18 +1,8 @@
-import { type FC, useCallback, useRef } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Box,
-  Paper,
-  Typography,
-  type ButtonProps,
-} from '@mui/material';
+import { Box, Button, ButtonGroup, type ButtonProps, Paper, Typography } from '@mui/material';
 import type { SxProps } from '@mui/material/styles';
-import type {
-  TaskObjectConfigType,
-  taskObjectMultiButtonUiType,
-} from '@rolimoa/common/config';
-import { useShortcutKey } from '@/functional/useShortcutKey';
+import type { TaskObjectConfigType, taskObjectMultiButtonUiType } from '@rolimoa/common/config';
+import { useCallback, useRef } from 'react';
+import { useShortcutKey } from '~/functional/useShortcutKey';
 
 interface MultiButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
@@ -22,13 +12,13 @@ interface MultiButtonControlProps {
   controlConfig: taskObjectMultiButtonUiType;
 }
 
-export const MultiButtonControl: FC<MultiButtonControlProps> = ({
+export const MultiButtonControl = ({
   color,
   taskConfig,
   currentValue,
   stateUpdate,
   controlConfig,
-}) => {
+}: MultiButtonControlProps) => {
   const { description, min = 0, max = 524 } = taskConfig;
 
   // styles
@@ -39,7 +29,7 @@ export const MultiButtonControl: FC<MultiButtonControlProps> = ({
     verticalAlign: 'baseline',
     padding: '0 .25em 0 0',
   };
-  const innnerButtonSx: SxProps = {
+  const innerButtonSx: SxProps = {
     width: '50%',
   };
 
@@ -93,7 +83,7 @@ export const MultiButtonControl: FC<MultiButtonControlProps> = ({
               shortcutKey={button?.shortcutKey}
               buttonProps={{
                 ...buttonProps(button.command),
-                sx: innnerButtonSx,
+                sx: innerButtonSx,
                 variant: button.style?.variant ?? 'contained',
               }}
             >

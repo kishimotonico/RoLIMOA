@@ -1,4 +1,4 @@
-import type { CurrentMatchStateType } from '@/util/currentMatchStateType';
+import type { CurrentMatchStateType } from '~/util/currentMatchStateType';
 
 type ScoreOutputType =
   | {

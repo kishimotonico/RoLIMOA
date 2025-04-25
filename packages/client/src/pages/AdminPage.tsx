@@ -1,13 +1,13 @@
-import { type FC, useCallback, useState } from 'react';
+import type { AlertProps } from '@mui/lab';
 import { Grid2 } from '@mui/material';
 import { Alert } from '@mui/material';
-import type { AlertProps } from '@mui/lab';
-import { Dashboard } from '@/components/Dashboard';
-import { TimerMasterContainer } from '@/components/TimerMasterContainer';
-import { MatchMasterContainer } from '@/components/MatchMasterContainer';
-import { DeviceListContainer } from '@/components/DeviceListContainer';
+import { useCallback, useState } from 'react';
+import { Dashboard } from '~/components/Dashboard';
+import { DeviceListContainer } from '~/components/DeviceListContainer';
+import { MatchMasterContainer } from '~/components/MatchMasterContainer';
+import { TimerMasterContainer } from '~/components/TimerMasterContainer';
 
-const ClosableAlert: FC<AlertProps> = (props) => {
+const ClosableAlert = (props: AlertProps) => {
   const [open, setOpen] = useState(true);
   const onClose = useCallback(() => {
     setOpen(false);
@@ -22,7 +22,7 @@ const ClosableAlert: FC<AlertProps> = (props) => {
   );
 };
 
-export const AdminPage: FC = () => {
+export const AdminPage = () => {
   return (
     <Dashboard title="試合管理（マスタ）">
       <Grid2 container spacing={3}>

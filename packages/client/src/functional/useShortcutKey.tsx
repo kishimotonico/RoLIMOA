@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useCallback,
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from 'react';
+import { type ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 // ショートカットキーのコンテキストの型
 interface ShortcutContextType {
@@ -27,9 +20,7 @@ interface ShortcutKeyProviderProps {
 // ショートカットキーのプロバイダー
 export const ShortcutKeyProvider = (props: ShortcutKeyProviderProps) => {
   // 登録されたショートカットを管理するstate
-  const [shortcuts, setShortcuts] = useState<Map<string, () => void>>(
-    new Map(),
-  );
+  const [shortcuts, setShortcuts] = useState<Map<string, () => void>>(new Map());
 
   // ショートカットの登録
   const registerShortcut = useCallback((key: string, callback: () => void) => {

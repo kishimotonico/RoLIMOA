@@ -1,25 +1,25 @@
-import { type FC, useCallback, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSetRecoilState } from 'recoil';
-import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
+  Box,
+  Button,
   Dialog,
-  DialogTitle,
-  IconButton,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  TextField,
-  DialogActions,
-  Button,
+  DialogTitle,
+  IconButton,
   Slider,
-  Box,
+  TextField,
   Typography,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { connectedDevicesStateSlice } from '@rolimoa/common/redux';
-import { unixtimeOffset } from '@/atoms/unixtimeOffset';
-import { getSetting, setSetting } from '@/util/clientStoredSetting';
-import { LyricalSocket } from '@/lyricalSocket';
+import { useCallback, useRef, useState } from 'react';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
+import { unixtimeOffset } from '~/atoms/unixtimeOffset';
+import { LyricalSocket } from '~/lyricalSocket';
+import { getSetting, setSetting } from '~/util/clientStoredSetting';
 import { NowUnixtimeDisplay } from './NowUnixtimeDisplay';
 
 type FormValues = {
@@ -32,7 +32,7 @@ type SettingModalProps = {
   onClose: () => void;
 };
 
-export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
+export const SettingModal = ({ open, onClose }: SettingModalProps) => {
   const savedSetting = getSetting();
   const dispatch = useDispatch();
   const prevDeviceName = useRef<string>(savedSetting.deviceName);
@@ -74,12 +74,7 @@ export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog
-      aria-labelledby="setting-modal-title"
-      open={open}
-      onClose={closeHandler}
-      fullWidth
-    >
+    <Dialog aria-labelledby="setting-modal-title" open={open} onClose={closeHandler} fullWidth>
       <DialogTitle id="setting-modal-title">設定</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ mb: 3 }}>
@@ -119,9 +114,7 @@ export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
                     {...field}
                     onChange={(_, value) => field.onChange(value)}
                     valueLabelDisplay="auto"
-                    valueLabelFormat={(value) =>
-                      `${value > 0 ? '+' : ''}${value} ms`
-                    }
+                    valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${value} ms`}
                     min={-2000}
                     max={2000}
                     step={20}
@@ -146,7 +139,7 @@ export const SettingModal: FC<SettingModalProps> = ({ open, onClose }) => {
   );
 };
 
-export const SettingButton: FC = () => {
+export const SettingButton = () => {
   const [open, setOpen] = useState(false);
 
   const onClick = () => {

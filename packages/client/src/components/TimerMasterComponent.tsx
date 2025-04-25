@@ -1,23 +1,15 @@
-import type { FC } from 'react';
-import {
-  Paper,
-  Typography,
-  Grid2,
-  Button,
-  ButtonGroup,
-  Box,
-} from '@mui/material'; // Grid2に変更
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
-import FastRewindIcon from '@mui/icons-material/FastRewind';
-import FastForwardIcon from '@mui/icons-material/FastForward';
-import { TimerDisplay } from './TimerDisplay';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import { Box, Button, ButtonGroup, Grid2, Paper, Typography } from '@mui/material'; // Grid2に変更
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
 import type { CurrentPhaseState } from '@rolimoa/common/redux';
-import { ConditionalTooltip } from '@/ui/ConditionalTooltip';
-import { unixToTimeWithMillis } from '@/util/formatTime';
+import { ConditionalTooltip } from '~/ui/ConditionalTooltip';
+import { unixToTimeWithMillis } from '~/util/formatTime';
+import { TimerDisplay } from './TimerDisplay';
 
 interface TimerMasterComponentProps {
   isFirstPhase: boolean;
@@ -29,15 +21,13 @@ interface TimerMasterComponentProps {
   onPauseButton: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onNextPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onLastPhase: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  onTimeChange: (
-    ms: number,
-  ) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onTimeChange: (ms: number) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   isEnabledNextButton: boolean;
   phaseConfig: TimeProgressConfigType;
   currentPhaseState: CurrentPhaseState;
 }
 
-export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
+export const TimerMasterComponent = ({
   isFirstPhase,
   isLastPhase,
   isPaused,
@@ -51,7 +41,7 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
   isEnabledNextButton,
   phaseConfig,
   currentPhaseState,
-}) => {
+}: TimerMasterComponentProps) => {
   return (
     <Paper sx={{ padding: '1em' }}>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -145,20 +135,12 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
               },
             }}
           >
-            <ConditionalTooltip
-              condition={!isFirstPhase}
-              title="最初のフェーズに"
-              placement="top"
-            >
+            <ConditionalTooltip condition={!isFirstPhase} title="最初のフェーズに" placement="top">
               <Button onClick={onFirstPhase} disabled={isFirstPhase}>
                 <SkipPreviousIcon />
               </Button>
             </ConditionalTooltip>
-            <ConditionalTooltip
-              condition={!isFirstPhase}
-              title="前のフェーズに"
-              placement="top"
-            >
+            <ConditionalTooltip condition={!isFirstPhase} title="前のフェーズに" placement="top">
               <Button onClick={onPrevPhase} disabled={isFirstPhase}>
                 <FastRewindIcon />
               </Button>
@@ -168,27 +150,16 @@ export const TimerMasterComponent: FC<TimerMasterComponentProps> = ({
               title={isPaused ? '再開' : '一時停止'}
               placement="top"
             >
-              <Button
-                onClick={onPauseButton}
-                disabled={phaseConfig.type !== 'count'}
-              >
+              <Button onClick={onPauseButton} disabled={phaseConfig.type !== 'count'}>
                 {isPaused ? <PlayArrowIcon /> : <PauseIcon />}
               </Button>
             </ConditionalTooltip>
-            <ConditionalTooltip
-              condition={!isLastPhase}
-              title="次のフェーズに"
-              placement="top"
-            >
+            <ConditionalTooltip condition={!isLastPhase} title="次のフェーズに" placement="top">
               <Button onClick={onNextPhase} disabled={isLastPhase}>
                 <FastForwardIcon />
               </Button>
             </ConditionalTooltip>
-            <ConditionalTooltip
-              condition={!isLastPhase}
-              title="最初のフェーズに"
-              placement="top"
-            >
+            <ConditionalTooltip condition={!isLastPhase} title="最初のフェーズに" placement="top">
               <Button onClick={onLastPhase} disabled={isLastPhase}>
                 <SkipNextIcon />
               </Button>

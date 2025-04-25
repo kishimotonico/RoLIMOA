@@ -1,10 +1,10 @@
-import { Box } from '@mui/material';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import { Box } from '@mui/material';
+import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
 import { useSelector } from 'react-redux';
-import { useDisplayScore } from '@/functional/useDisplayScore';
-import { formatTime } from '@/util/formatTime';
-import { config } from '@rolimoa/common/config';
+import { useDisplayScore } from '~/functional/useDisplayScore';
+import { formatTime } from '~/util/formatTime';
 
 type ScoreBoardProps = {
   fieldSide: 'blue' | 'red';
@@ -16,8 +16,7 @@ export const ScoreBoard = ({ fieldSide }: ScoreBoardProps) => {
     (state) => state.match.teams[fieldSide]?.shortName ?? '',
   );
   const { value, scoreState } = useDisplayScore(fieldSide);
-  const color =
-    fieldSide === 'blue' ? 'rgba(0, 0, 250, 0.9)' : 'rgba(250, 0, 0, 0.9)';
+  const color = fieldSide === 'blue' ? 'rgba(0, 0, 250, 0.9)' : 'rgba(250, 0, 0, 0.9)';
 
   return (
     <Box
