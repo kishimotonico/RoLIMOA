@@ -34,7 +34,7 @@ export const PlusMinusButtonControl = ({
     verticalAlign: 'baseline',
     padding: '0 .25em 0 0',
   };
-  const innnerButtonSx: SxProps = {
+  const innerButtonSx: SxProps = {
     width: '50%',
   };
 
@@ -50,7 +50,7 @@ export const PlusMinusButtonControl = ({
       <Box sx={{ pt: 0.5 }}>
         <ButtonGroup sx={buttonGroupSx} color={color}>
           <Button
-            sx={innnerButtonSx}
+            sx={innerButtonSx}
             variant="outlined"
             onClick={decrement}
             disabled={currentValue === min}
@@ -58,7 +58,7 @@ export const PlusMinusButtonControl = ({
             -1
           </Button>
           <Button
-            sx={innnerButtonSx}
+            sx={innerButtonSx}
             variant="contained"
             onClick={increment}
             disabled={currentValue === max}

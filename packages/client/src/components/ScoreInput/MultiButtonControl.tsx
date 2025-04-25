@@ -29,7 +29,7 @@ export const MultiButtonControl = ({
     verticalAlign: 'baseline',
     padding: '0 .25em 0 0',
   };
-  const innnerButtonSx: SxProps = {
+  const innerButtonSx: SxProps = {
     width: '50%',
   };
 
@@ -83,7 +83,7 @@ export const MultiButtonControl = ({
               shortcutKey={button?.shortcutKey}
               buttonProps={{
                 ...buttonProps(button.command),
-                sx: innnerButtonSx,
+                sx: innerButtonSx,
                 variant: button.style?.variant ?? 'contained',
               }}
             >
