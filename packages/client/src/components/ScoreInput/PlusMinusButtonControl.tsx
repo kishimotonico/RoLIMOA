@@ -3,19 +3,19 @@ import type { SxProps } from '@mui/material/styles';
 import type { TaskObjectConfigType } from '@rolimoa/common/config';
 import { useCallback } from 'react';
 
-interface PlusMinuseButtonControlProps {
+interface PlusMinusButtonControlProps {
   color: 'primary' | 'secondary' | 'inherit';
   config: TaskObjectConfigType;
   currentValue: number;
   stateUpdate: (value: number, cmd: string) => void;
 }
 
-export const PlusMinuseButtonControl = ({
+export const PlusMinusButtonControl = ({
   color,
   config,
   currentValue,
   stateUpdate,
-}: PlusMinuseButtonControlProps) => {
+}: PlusMinusButtonControlProps) => {
   const { description, min = 0, max = 524 } = config;
 
   const decrement = useCallback(() => {
