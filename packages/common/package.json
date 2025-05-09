@@ -8,6 +8,10 @@
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js"
     },
+    "./config/helper": {
+      "types": "./dist/config/helper/index.d.ts",
+      "import": "./dist/config/helper/index.js"
+    },
     "./redux": {
       "types": "./dist/redux/index.d.ts",
       "import": "./dist/redux/index.js"

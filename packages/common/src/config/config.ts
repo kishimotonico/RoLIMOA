@@ -340,19 +340,19 @@ export default {
           sound: 'tone_880hz_1000ms.mp3',
         },
         {
-          elapsedTime: 177,
+          elapsedTime: 'L-3',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 178,
+          elapsedTime: 'L-2',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 179,
+          elapsedTime: 'L-1',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 180,
+          elapsedTime: 'L-0',
           sound: 'tone_880hz_1000ms.mp3',
         },
       ],

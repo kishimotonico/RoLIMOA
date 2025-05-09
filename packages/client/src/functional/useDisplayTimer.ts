@@ -1,4 +1,5 @@
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
+import { createTimeConfigMatcher } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
@@ -46,7 +47,7 @@ function getCustomConfig(phaseState: PhaseState, currentConfig: Required<TimePro
   }
   return {
     config: applyConfig,
-    custom: applyConfig.custom.find((elem) => elem.elapsedTime === elapsedSec),
+    custom: applyConfig.custom.find(createTimeConfigMatcher(elapsedSec, applyConfig.time)),
     elapsedSec,
   };
 }

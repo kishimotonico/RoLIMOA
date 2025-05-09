@@ -3,20 +3,11 @@ import { useAudioContext } from './useAudioContext';
 import { useSoundCache } from './useSoundCache';
 
 export const usePlaySoundEffect = () => {
-  const {
-    volume,
-    setVolume,
-    gainNodeRef,
-    ensureAudioContext,
-    resumeAudioContext,
-  } = useAudioContext();
-  
-  const {
-    isPreloaded,
-    loadSound,
-    preloadSounds,
-    getSoundFromCache,
-  } = useSoundCache(ensureAudioContext);
+  const { volume, setVolume, gainNodeRef, ensureAudioContext, resumeAudioContext } =
+    useAudioContext();
+
+  const { isPreloaded, loadSound, preloadSounds, getSoundFromCache } =
+    useSoundCache(ensureAudioContext);
 
   const playSound = useCallback(
     async (soundUrl: string, soundVolume?: number) => {

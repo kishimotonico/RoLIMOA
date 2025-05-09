@@ -40,7 +40,7 @@ const timeProgressSchema = z.object({
   custom: z
     .array(
       z.object({
-        elapsedTime: z.number(),
+        elapsedTime: z.union([z.number(), z.string().regex(/^L-\d+$/)]),
         displayText: z.string().optional(),
         sound: z.string().optional(),
       }),
