@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import type { Theme } from '@mui/system';
 import { config } from '@rolimoa/common/config';
+import { Phase } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldSideType, ScoreState } from '@rolimoa/common/redux';
 import { resultRecordsStateSlice } from '@rolimoa/common/redux';
@@ -26,7 +27,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ScoreBlock } from '~/components/ScoreBlock';
 import { useDisplayScore } from '~/functional/useDisplayScore';
 import { LyricalSocket } from '~/lyricalSocket';
-import * as Phase from '~/util/PhaseStateUtil';
 
 const thStyle: SxProps<Theme> = {
   whiteSpace: 'nowrap',
