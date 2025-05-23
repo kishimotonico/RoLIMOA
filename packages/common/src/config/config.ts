@@ -311,6 +311,14 @@ export default {
       },
       custom: [
         {
+          // 1音目のラグ対策のため、小さい音を鳴らす
+          elapsedTime: 1,
+          sound: {
+            name: 'tone_440hz_500ms.mp3',
+            volume: 0.01,
+          },
+        },
+        {
           elapsedTime: 2,
           sound: 'tone_440hz_500ms.mp3',
         },
@@ -338,6 +346,14 @@ export default {
           elapsedTime: 0,
           displayText: 'GO',
           sound: 'tone_880hz_1000ms.mp3',
+        },
+        {
+          // 1音目のラグ対策のため、小さい音を鳴らす
+          elapsedTime: 'L-4',
+          sound: {
+            name: 'tone_440hz_500ms.mp3',
+            volume: 0.01,
+          },
         },
         {
           elapsedTime: 'L-3',
