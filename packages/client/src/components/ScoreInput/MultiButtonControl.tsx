@@ -104,11 +104,12 @@ const GroupedButton = (props: {
   const { children, buttonProps, shortcutKey } = props;
 
   const ref = useRef<HTMLButtonElement>(null);
-  useShortcutKey(shortcutKey, () => {
+  const callback = useCallback(() => {
     if (ref.current) {
       ref.current.click();
     }
-  });
+  }, []);
+  useShortcutKey(shortcutKey, callback);
 
   return (
     <Button {...buttonProps} ref={ref}>
