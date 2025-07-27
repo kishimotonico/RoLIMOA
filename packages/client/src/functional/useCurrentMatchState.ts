@@ -17,7 +17,7 @@ function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseStat
   }
   // 競技終了後は競技時間を経過時間として扱う
   if (phaseState.current.id === 'match_finish') {
-    return Phase.getConfig('match').time;
+    return Phase.getConfig('match').duration;
   }
   // 競技開始前は0秒として扱う
   if (phaseState.current.id !== 'match') {

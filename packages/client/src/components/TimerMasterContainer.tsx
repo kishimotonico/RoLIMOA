@@ -42,10 +42,10 @@ function isAutoTransition(phaseState: PhaseState): boolean {
   if (config.type === 'ready') {
     return false;
   }
-  if (config.time === undefined || config.isAutoTransition === undefined) {
+  if (config.duration === undefined || config.isAutoTransition === undefined) {
     return false;
   }
-  return config.isAutoTransition && config.time <= phaseState.elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
+  return config.isAutoTransition && config.duration <= phaseState.elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
 }
 
 // フェーズの手動遷移ボタンの有効/無効
@@ -57,7 +57,7 @@ function isManualTransition(phaseState: PhaseState): boolean {
   if (config.type === 'ready') {
     return true;
   }
-  if (config.isAutoTransition || config.time > phaseState.elapsedSecond) {
+  if (config.isAutoTransition || config.duration > phaseState.elapsedSecond) {
     return false;
   }
   return true;

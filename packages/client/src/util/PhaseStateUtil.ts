@@ -5,7 +5,7 @@ const defaultConfig = {
   id: 'default',
   type: 'default',
   description: '',
-  time: Number.MAX_SAFE_INTEGER,
+  duration: Number.MAX_SAFE_INTEGER,
   isAutoTransition: false,
   style: {
     timerFormat: 's',

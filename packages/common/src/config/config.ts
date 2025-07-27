@@ -302,7 +302,7 @@ export default {
     {
       id: 'match_countdown',
       type: 'count',
-      time: 5,
+      duration: 5,
       description: '',
       isAutoTransition: true,
       style: {
@@ -327,7 +327,7 @@ export default {
     {
       id: 'match',
       type: 'count',
-      time: 180,
+      duration: 180,
       description: '競技中',
       style: {
         timerFormat: 'm:ss',
