@@ -2,7 +2,7 @@ import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import * as Phase from '~/util/PhaseStateUtil';
+import { Phase, createTimeConfigMatcher } from '@rolimoa/common/config/helper';
 import { usePlaySoundEffect } from './usePlaySoundEffect';
 
 const parseSound = (sound: string | { name: string; volume?: number }) => {
@@ -21,7 +21,8 @@ export const useAutoPlaySoundEffect = () => {
     const phaseConfig = Phase.getConfig(phaseState.current.id);
     const elapsedSec = phaseState.elapsedSecond;
 
-    const matched = phaseConfig.custom?.find((elem) => elem.elapsedTime === elapsedSec);
+    const matcher = createTimeConfigMatcher(elapsedSec, phaseConfig.duration);
+    const matched = phaseConfig.custom?.find(matcher);
 
     if (!matched?.sound) {
       return;

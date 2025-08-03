@@ -277,7 +277,7 @@ export default {
     {
       id: 'setting',
       type: 'count',
-      time: 60,
+      duration: 60,
       description: 'セッティングタイム',
       style: {
         timerFormat: 'm:ss',
