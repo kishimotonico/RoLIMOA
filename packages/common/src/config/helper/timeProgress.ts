@@ -117,11 +117,11 @@ const getOverriddenConfig = (
 ): Partial<TimeProgressConfigType> => {
   // configOverridesは `{ 'phase.match': { duration: 60 } }` のような形
   const unknownOverrides = configOverrides?.[`phase.${phaseId}`];
-  const parsed = overridesSheme.safeParse(unknownOverrides);
+  const parsed = overridesSchema.safeParse(unknownOverrides);
 
   return parsed.success ? { ...parsed.data } : {};
 };
 
-const overridesSheme = z.object({
+const overridesSchema = z.object({
   duration: z.number().optional(),
 });
