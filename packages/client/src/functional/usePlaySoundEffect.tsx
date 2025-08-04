@@ -13,7 +13,7 @@ export const usePlaySoundEffect = () => {
     async (soundUrl: string, soundVolume?: number) => {
       try {
         const audioContext = await ensureAudioContext();
-        if (!gainNodeRef) {
+        if (!gainNodeRef.current) {
           console.error('GainNode is not initialized');
           return;
         }
