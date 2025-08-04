@@ -62,8 +62,8 @@ export const useAudioContext = () => {
   return {
     volume,
     setVolume,
-    audioContextRef: audioContextRef.current,
-    gainNodeRef: gainNodeRef.current,
+    audioContext: audioContextRef.current,
+    gainNode: gainNodeRef.current,
     ensureAudioContext,
     resumeAudioContext,
   };

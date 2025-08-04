@@ -1,16 +1,9 @@
 import config from '@rolimoa/common/config';
 import { useCallback, useRef, useState } from 'react';
 
-const parseSound = (sound: string | { name: string; volume?: number }) => {
-  if (typeof sound === 'string') {
-    return { name: sound, volume: undefined };
-  }
-  return { name: sound.name, volume: sound.volume };
-};
-
 const soundNames = config.time_progress
   .flatMap((tp) => tp.custom?.map((cus) => cus.sound))
-  .map((sound) => sound && parseSound(sound).name)
+  .map((sound) => (typeof sound === 'string' ? sound : sound?.name))
   .filter((s): s is string => s !== undefined)
   .filter((s, i, arr) => arr.indexOf(s) === i);
 

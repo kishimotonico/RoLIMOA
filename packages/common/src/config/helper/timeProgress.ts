@@ -11,7 +11,7 @@ type CustomType = NonNullable<TimeProgressConfigType['custom']>[number];
  *
  * @param elapsedSec 現在のフェーズ経過秒数
  * @param wholeMatchTime フェーズ全体の秒数
- * @returns
+ * @returns {(custom: CustomType) => boolean} 指定された時間と一致するかを判定する関数
  */
 export const createTimeConfigMatcher =
   (elapsedSec: number, wholeMatchTime: number) => (custom: CustomType) => {

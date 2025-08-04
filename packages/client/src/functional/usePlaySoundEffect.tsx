@@ -3,8 +3,7 @@ import { useAudioContext } from './useAudioContext';
 import { useSoundCache } from './useSoundCache';
 
 export const usePlaySoundEffect = () => {
-  const { volume, setVolume, gainNodeRef, ensureAudioContext, resumeAudioContext } =
-    useAudioContext();
+  const { volume, setVolume, gainNode, ensureAudioContext, resumeAudioContext } = useAudioContext();
 
   const { isPreloaded, loadSound, preloadSounds, getSoundFromCache } =
     useSoundCache(ensureAudioContext);
@@ -13,7 +12,7 @@ export const usePlaySoundEffect = () => {
     async (soundUrl: string, soundVolume?: number) => {
       try {
         const audioContext = await ensureAudioContext();
-        if (!gainNodeRef.current) {
+        if (!gainNode) {
           console.error('GainNode is not initialized');
           return;
         }
@@ -32,11 +31,11 @@ export const usePlaySoundEffect = () => {
           volumeGainNode.gain.value = soundVolume;
 
           sourceNode.connect(volumeGainNode);
-          volumeGainNode.connect(gainNodeRef);
+          volumeGainNode.connect(gainNode);
 
           console.debug(`Playing sound: ${soundUrl} at config volume: ${soundVolume}`);
         } else {
-          sourceNode.connect(gainNodeRef);
+          sourceNode.connect(gainNode);
 
           console.debug(`Playing sound: ${soundUrl} at slider volume: ${volume}`);
         }
@@ -47,7 +46,7 @@ export const usePlaySoundEffect = () => {
         console.error('Sound playback failed:', error);
       }
     },
-    [ensureAudioContext, loadSound, getSoundFromCache, gainNodeRef, volume],
+    [ensureAudioContext, loadSound, getSoundFromCache, gainNode, volume],
   );
 
   return {
