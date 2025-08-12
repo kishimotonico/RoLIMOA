@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { ScoreBoard } from '~/components/Screen/ScoreBoard';
 import { TimerDisplay } from '~/components/Screen/TimerDisplay';
 import { Underlay } from '~/components/Screen/Underlay';
-import { usePlaySoundEffect } from '~/functional/usePlaySoundEffect';
+import { useAutoPlaySoundEffect } from '~/functional/useAutoPlaySoundEffect';
 import { CenterFlex } from '~/ui/CenterFlex';
 
 export const ScreenPage = () => {
-  usePlaySoundEffect();
+  useAutoPlaySoundEffect();
 
   const [reverse, setReverse] = useState(false);
   const onReverseClick = () => {

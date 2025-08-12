@@ -1,13 +1,17 @@
+import { Phase } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import type { FieldScoreStateType, FieldSideType, ScoreState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import * as Phase from '~/util/PhaseStateUtil';
 import type { CurrentMatchStateType } from '~/util/currentMatchStateType';
 
 // 点数計算に、適切な経過時間を取得する
-function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseState): number {
+function matchElapsedSec(
+  scoreState: FieldScoreStateType,
+  phaseState: PhaseState,
+  matchDuration: number,
+): number {
   if (!phaseState) {
     return Number.NaN;
   }
@@ -17,7 +21,7 @@ function matchElapsedSec(scoreState: FieldScoreStateType, phaseState?: PhaseStat
   }
   // 競技終了後は競技時間を経過時間として扱う
   if (phaseState.current.id === 'match_finish') {
-    return Phase.getConfig('match').time;
+    return matchDuration;
   }
   // 競技開始前は0秒として扱う
   if (phaseState.current.id !== 'match') {
@@ -33,6 +37,7 @@ export function useCurrentMatchState(fieldSide: FieldSideType): CurrentMatchStat
   const scoreState = useSelector<RootState, ScoreState>((state) => state.score);
   const phaseState = useSelector<RootState, PhaseState>((state) => state.phase);
 
+  const matchDuration = Phase.getConfig('match').duration;
   const opponentField = fieldSide === 'red' ? 'blue' : 'red';
 
   return useMemo(
@@ -42,11 +47,11 @@ export function useCurrentMatchState(fieldSide: FieldSideType): CurrentMatchStat
       taskObjects: scoreState.fields[fieldSide].tasks,
       opponentTaskObjects: scoreState.fields[opponentField].tasks,
       matchStats: {
-        elapsedTime: matchElapsedSec(scoreState.fields[fieldSide], phaseState),
+        elapsedTime: matchElapsedSec(scoreState.fields[fieldSide], phaseState, matchDuration),
         isVgoaled: scoreState.fields[fieldSide].vgoal !== undefined ? 1 : 0,
         vgoalTime: scoreState.fields[fieldSide].vgoal ?? Number.NaN,
       },
     }),
-    [fieldSide, scoreState, phaseState, opponentField],
+    [fieldSide, scoreState, phaseState, opponentField, matchDuration],
   );
 }

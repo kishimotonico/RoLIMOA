@@ -1,9 +1,9 @@
 import type { TimeProgressConfigType } from '@rolimoa/common/config';
+import { Phase, createTimeConfigMatcher } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import * as Phase from '~/util/PhaseStateUtil';
 import { formatTime } from '~/util/formatTime';
 
 // 表示する時間の文字列を取得する
@@ -23,9 +23,9 @@ function getDisplayString(
     return custom.displayText;
   }
 
-  let displaySec = Math.min(elapsedSec, config.time); // 最大時間を超過しないで表示
+  let displaySec = Math.min(elapsedSec, config.duration); // 最大時間を超過しないで表示
   if (config.style.timerType === 'countdown') {
-    displaySec = config.time - elapsedSec;
+    displaySec = config.duration - elapsedSec;
   }
 
   if (config.style.timerFormat) {
@@ -39,14 +39,14 @@ function getCustomConfig(phaseState: PhaseState, currentConfig: Required<TimePro
   let applyConfig = currentConfig;
   let elapsedSec = phaseState.elapsedSecond;
   // フェーズ遷移時のちらつき防止のため、本来フェーズ遷移している状況のときは次のフェーズの設定を適用
-  if (currentConfig.isAutoTransition && currentConfig.time <= phaseState.elapsedSecond) {
+  if (currentConfig.isAutoTransition && currentConfig.duration <= phaseState.elapsedSecond) {
     const nextPhaseId = Phase.getNextPhase(phaseState.current.id);
     applyConfig = Phase.getConfig(nextPhaseId);
     elapsedSec = 0;
   }
   return {
     config: applyConfig,
-    custom: applyConfig.custom.find((elem) => elem.elapsedTime === elapsedSec),
+    custom: applyConfig.custom.find(createTimeConfigMatcher(elapsedSec, applyConfig.duration)),
     elapsedSec,
   };
 }

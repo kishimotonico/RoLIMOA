@@ -1,3 +1,5 @@
+import type { TimeProgressConfigType } from '@rolimoa/common/config';
+import { Phase } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import { type CurrentPhaseState, type PhaseState, phaseStateSlice } from '@rolimoa/common/redux';
 import { operationLogsStateSlice } from '@rolimoa/common/redux';
@@ -6,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import { unixtimeOffset } from '~/atoms/unixtimeOffset';
 import { LyricalSocket } from '~/lyricalSocket';
-import * as Phase from '~/util/PhaseStateUtil';
 import { TimerMasterComponent } from './TimerMasterComponent';
 
 function gotoPhaseCommand(
@@ -37,27 +38,31 @@ function gotoPhaseCommand(
 }
 
 // フェーズの自動遷移を行うかを判断
-function isAutoTransition(phaseState: PhaseState): boolean {
-  const config = Phase.getConfig(phaseState.current.id);
+function isAutoTransition(
+  phaseState: PhaseState,
+  config: Required<TimeProgressConfigType>,
+): boolean {
   if (config.type === 'ready') {
     return false;
   }
-  if (config.time === undefined || config.isAutoTransition === undefined) {
+  if (config.duration === undefined || config.isAutoTransition === undefined) {
     return false;
   }
-  return config.isAutoTransition && config.time <= phaseState.elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
+  return config.isAutoTransition && config.duration <= phaseState.elapsedSecond; // 比較演算子を `<` にすると1sの猶予ができる
 }
 
 // フェーズの手動遷移ボタンの有効/無効
-function isManualTransition(phaseState: PhaseState): boolean {
-  const config = Phase.getConfig(phaseState.current.id);
+function isManualTransition(
+  phaseState: PhaseState,
+  config: Required<TimeProgressConfigType>,
+): boolean {
   if (Phase.isLast(phaseState.current.id)) {
     return false;
   }
   if (config.type === 'ready') {
     return true;
   }
-  if (config.isAutoTransition || config.time > phaseState.elapsedSecond) {
+  if (config.isAutoTransition || config.duration > phaseState.elapsedSecond) {
     return false;
   }
   return true;
@@ -81,6 +86,7 @@ export const TimerMasterContainer = () => {
   const onLastPhase = useCallback(() => {
     gotoPhaseCommand(currentPhase, 'last', timeOffset);
   }, [currentPhase, timeOffset]);
+
   const onPauseButton = useCallback(() => {
     const now = Date.now() + timeOffset;
     if (currentPhase.pausedTime) {
@@ -110,14 +116,16 @@ export const TimerMasterContainer = () => {
     ? (currentPhase.pausedTime - currentPhase.startTime) / 1000
     : undefined;
 
+  const phaseConfig = Phase.getConfig(phaseState.current.id);
+
   useEffect(() => {
     // タイマーの更新時にフェーズ移行を確認
-    if (isAutoTransition(phaseState)) {
+    if (isAutoTransition(phaseState, phaseConfig)) {
       gotoPhaseCommand(phaseState.current, 'next', timeOffset, true);
     }
     // 次フェーズボタンの有効/無効を設定
-    setIsEnabledNextButton(isManualTransition(phaseState));
-  }, [phaseState, timeOffset]);
+    setIsEnabledNextButton(isManualTransition(phaseState, phaseConfig));
+  }, [phaseState, phaseConfig, timeOffset]);
 
   return (
     <TimerMasterComponent

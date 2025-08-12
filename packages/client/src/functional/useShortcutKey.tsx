@@ -91,11 +91,7 @@ export const ShortcutKeyProvider = (props: ShortcutKeyProviderProps) => {
 };
 
 // カスタムフック: useShortcutKey
-export function useShortcutKey(
-  key: string | undefined,
-  callback: () => void,
-  dependencies: unknown[] = [],
-) {
+export function useShortcutKey(key: string | undefined, callback: () => void) {
   const { registerShortcut } = useContext(ShortcutContext);
 
   useEffect(() => {
@@ -106,5 +102,5 @@ export function useShortcutKey(
 
     // クリーンアップ時にショートカットを解除
     return unregister;
-  }, [key, callback, registerShortcut, ...dependencies]);
+  }, [key, callback, registerShortcut]);
 }

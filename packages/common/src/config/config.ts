@@ -277,7 +277,7 @@ export default {
     {
       id: 'setting',
       type: 'count',
-      time: 60,
+      duration: 60,
       description: 'セッティングタイム',
       style: {
         timerFormat: 'm:ss',
@@ -302,7 +302,7 @@ export default {
     {
       id: 'match_countdown',
       type: 'count',
-      time: 5,
+      duration: 5,
       description: '',
       isAutoTransition: true,
       style: {
@@ -310,6 +310,14 @@ export default {
         timerType: 'countdown',
       },
       custom: [
+        {
+          // 1音目のラグ対策のため、小さい音を鳴らす
+          elapsedTime: 1,
+          sound: {
+            name: 'tone_440hz_500ms.mp3',
+            volume: 0.01,
+          },
+        },
         {
           elapsedTime: 2,
           sound: 'tone_440hz_500ms.mp3',
@@ -327,7 +335,7 @@ export default {
     {
       id: 'match',
       type: 'count',
-      time: 180,
+      duration: 180,
       description: '競技中',
       style: {
         timerFormat: 'm:ss',
@@ -340,19 +348,27 @@ export default {
           sound: 'tone_880hz_1000ms.mp3',
         },
         {
-          elapsedTime: 177,
+          // 1音目のラグ対策のため、小さい音を鳴らす
+          elapsedTime: 'L-4',
+          sound: {
+            name: 'tone_440hz_500ms.mp3',
+            volume: 0.01,
+          },
+        },
+        {
+          elapsedTime: 'L-3',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 178,
+          elapsedTime: 'L-2',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 179,
+          elapsedTime: 'L-1',
           sound: 'tone_440hz_500ms.mp3',
         },
         {
-          elapsedTime: 180,
+          elapsedTime: 'L-0',
           sound: 'tone_880hz_1000ms.mp3',
         },
       ],

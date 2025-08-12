@@ -28,7 +28,7 @@ const vgoalConditionSchema = z.union([
 const timeProgressSchema = z.object({
   id: z.string(),
   type: z.enum(['default', 'ready', 'count']),
-  time: z.number().optional(),
+  duration: z.number().optional(),
   description: z.string(),
   isAutoTransition: z.boolean().optional(),
   style: z
@@ -40,9 +40,17 @@ const timeProgressSchema = z.object({
   custom: z
     .array(
       z.object({
-        elapsedTime: z.number(),
+        elapsedTime: z.union([z.number(), z.string().regex(/^L-\d+$/)]),
         displayText: z.string().optional(),
-        sound: z.string().optional(),
+        sound: z
+          .union([
+            z.string(),
+            z.object({
+              name: z.string(),
+              volume: z.number().optional(),
+            }),
+          ])
+          .optional(),
       }),
     )
     .optional(),
