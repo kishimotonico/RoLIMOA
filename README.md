@@ -19,11 +19,11 @@ NHK学生ロボコンのようなロボットコンテストの大会で、青�
 > [!NOTE]
 > 詳しくは、それぞれのドキュメントを参照してください
 > 
-> 📖 **運用ガイド**: [docs/getting-started.md](./docs/getting-started.md)
-> 大会での使用するにあたっての準備やトラブルシューティングについて
+> 📖 **運用ガイド**: [docs/getting-started.md](./docs/getting-started.md) \
+> 大会での使用するにあたって必要な準備やトラブルシューティングについてはこちらを参照してください
 >
-> 🔧 **カスタマイズ**: [docs/customization.md](./docs/customization.md)
-> 応用的なカスタマイズ実装の実例や方方について
+> 🔧 **カスタマイズ**: [docs/customization.md](./docs/customization.md) \
+> 応用的なカスタマイズ実装の実例や方法についてはこちらを参照してください
 
 ### 設定ファイルの編集
 
