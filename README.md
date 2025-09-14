@@ -16,11 +16,12 @@ NHK学生ロボコンのようなロボットコンテストの大会で、青�
 
 ## 使い方 / Usage
 
+> [!NOTE]
+> 📖 **運用ガイド**: 実際の大会での使用方法、設定ファイルの編集、トラブルシューティングについて、詳しくは [docs/getting-started.md](./docs/getting-started.md) を参照してください
+
 ### 設定ファイルの編集
 
 競技ルールの設定は `packages/common/src/config/config.ts` で行います。特にルールに関する `rule.task_objects`, `rule.score`, `rule.vgoal` を編集します。
-
-型定義は `packages/common/src/config/schema/` のZodスキーマを参照してください。
 
 ### 本番環境の起動
 
