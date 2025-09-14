@@ -1,8 +1,8 @@
+import { Phase, createTimeConfigMatcher } from '@rolimoa/common/config/helper';
 import type { RootState } from '@rolimoa/common/redux';
 import type { PhaseState } from '@rolimoa/common/redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Phase, createTimeConfigMatcher } from '@rolimoa/common/config/helper';
 import { usePlaySoundEffect } from './usePlaySoundEffect';
 
 const parseSound = (sound: string | { name: string; volume?: number }) => {
