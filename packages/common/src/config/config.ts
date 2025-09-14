@@ -8,74 +8,102 @@ export default {
     global_objects: [],
     task_objects: [
       {
-        id: 'Utsunomiya',
-        description: '宇都宮',
+        id: 'A_robot_moved',
+        description: 'A.ロボット移動',
+        initialValue: 0,
+        min: 0,
+        max: 1,
+      },
+      // カブトムシの状態（1個）
+      {
+        id: 'B_beetle_touched',
+        description: 'B.カブトムシ接地',
         initialValue: 0,
         min: 0,
         max: 1,
       },
       {
-        id: 'Chiba',
-        description: '千葉',
+        id: 'C_beetle_display',
+        description: 'C.カブトムシ展示',
         initialValue: 0,
+        min: 0,
+        max: 1,
+      },
+      // クワガタの状態（6個まで）
+      {
+        id: 'D_stag_museum',
+        description: 'D.クワガタ博物館',
+        initialValue: 0,
+        min: 0,
+        max: 6,
       },
       {
-        id: 'Saitama',
-        description: 'さいたま',
+        id: 'E_stag_display',
+        description: 'E.クワガタ展示',
         initialValue: 0,
+        min: 0,
+        max: 6,
       },
-      {
-        id: 'Yokohama',
-        description: '横浜',
-        initialValue: 0,
-      },
-      {
-        id: 'Shibuya',
-        description: '渋谷',
-        initialValue: 0,
-      },
+      // 違反・リトライ
       {
         id: 'violation',
         description: '違反回数',
         initialValue: 0,
+        min: 0,
       },
     ],
     score: {
       format: 'simple',
       expression: [
         {
-          id: 'Utsunomiya',
-          coefficient: 10,
+          id: 'A_robot_moved',
+          coefficient: 3,
         },
         {
-          id: 'Chiba',
-          coefficient: 10,
+          id: 'B_beetle_touched',
+          coefficient: 40,
         },
         {
-          id: 'Saitama',
-          coefficient: 11,
+          id: 'C_beetle_display',
+          coefficient: 100,
         },
         {
-          id: 'Yokohama',
-          coefficient: 14,
+          id: 'D_stag_museum',
+          coefficient: 50,
         },
         {
-          id: 'Shibuya',
-          coefficient: 15,
+          id: 'E_stag_display',
+          coefficient: 75,
         },
       ],
     },
     vgoal: {
-      name: 'Vゴール',
+      name: '昆虫図鑑完成',
       condition: {
-        type: 'disabled',
+        type: 'alwaysOk',
       },
     },
     control_panel: {
       type: 'custom',
       panels: [
         {
-          id: 'Utsunomiya',
+          id: 'A_robot_moved',
+          type: 'toggle_switch',
+          option: {
+            off_value: 0,
+            on_value: 1,
+          },
+        },
+        {
+          id: 'B_beetle_touched',
+          type: 'toggle_switch',
+          option: {
+            off_value: 0,
+            on_value: 1,
+          },
+        },
+        {
+          id: 'C_beetle_display',
           type: 'multi_button',
           option: {
             buttons: [
@@ -87,25 +115,17 @@ export default {
                 },
               },
               {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'Q',
+                command: '=1',
+                label: '1',
               },
             ],
           },
         },
         {
-          id: 'Chiba',
+          id: 'D_stag_museum',
           type: 'multi_button',
           option: {
             buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
               {
                 command: '-1',
                 label: '-1',
@@ -116,31 +136,19 @@ export default {
               {
                 command: '+1',
                 label: '+1',
-                shortcutKey: 'W',
               },
               {
                 command: '+2',
                 label: '+2',
               },
-              {
-                command: '+4',
-                label: '+4',
-              },
             ],
           },
         },
         {
-          id: 'Saitama',
+          id: 'E_stag_display',
           type: 'multi_button',
           option: {
             buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
               {
                 command: '-1',
                 label: '-1',
@@ -151,85 +159,10 @@ export default {
               {
                 command: '+1',
                 label: '+1',
-                shortcutKey: 'A',
               },
               {
                 command: '+2',
                 label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
-              },
-            ],
-          },
-        },
-        {
-          id: 'Yokohama',
-          type: 'multi_button',
-          option: {
-            buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'S',
-              },
-              {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
-              },
-            ],
-          },
-        },
-        {
-          id: 'Shibuya',
-          type: 'multi_button',
-          option: {
-            buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'Z',
-              },
-              {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
               },
             ],
           },
@@ -249,7 +182,6 @@ export default {
               {
                 command: '+1',
                 label: '+1',
-                shortcutKey: 'X',
               },
             ],
           },
@@ -287,6 +219,13 @@ export default {
         {
           elapsedTime: 0,
           sound: 'tone_880hz_1000ms.mp3',
+        },
+        {
+          elapsedTime: 59,
+          sound: {
+            volume: 0.01,
+            name: 'tone_880hz_1000ms.mp3',
+          },
         },
         {
           elapsedTime: 60,
