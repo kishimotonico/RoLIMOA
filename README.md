@@ -2,11 +2,11 @@
 
 NHK学生ロボコンのようなロボットコンテストの大会で、青・赤チームの得点を各担当が入力し、それを会場のスクリーンやライブストリーミング（動画配信）に表示する統合的なシステムです。
 
-[![demo](./docs/demo-video.gif)](https://www.youtube.com/watch?v=NV2unpMqg-M)
+[![demo](./docs/images/demo-video.gif)](https://www.youtube.com/watch?v=NV2unpMqg-M)
 
 ## 機能 / features
 
-![RoLIMOAの想定構成図](./docs/RoLIMOAの想定構成図.drawio.png)
+![RoLIMOAの想定構成図](./docs/images/RoLIMOAの想定構成図.drawio.png)
 
 - NHK学生ロボコン・高専ロボコンと同じ、青コートと赤コートによる2チームの対戦形式
 - 毎年変わるルールに合わせ、JSONで得点計算やVゴール名などを柔軟に設定
