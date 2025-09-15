@@ -13,14 +13,15 @@ export const ScoreSubDisplay = ({ fieldSide }: ScoreSubDisplayProps) => {
   const { taskObjects } = useCurrentMatchState(fieldSide);
 
   return (
-    <Box sx={{
-      lineHeight: '135px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%'
-    }}>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+      }}
+    >
       <VgoalIndicator fieldSide={fieldSide} />
     </Box>
   );

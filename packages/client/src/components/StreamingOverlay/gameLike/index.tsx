@@ -68,7 +68,7 @@ const ScoreBlock = (props: {
             }}
           >
             {displayScore.scoreState.vgoal ? (
-              <Box sx={{ fontSize: '48px', pb: 3 }}>
+              <Box sx={{ fontSize: '42px', pb: 3 }}>
                 <Box>{config.rule.vgoal.name}</Box>
                 <CenterFlex
                   sx={{
