@@ -23,6 +23,7 @@ function getTeamInfo(short: string): TeamType {
 export const MatchMasterContainer = () => {
   const teamList = config.teams_info.map((info) => info.short);
   const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
+  const isMatchConfirmed = useSelector<RootState, boolean>((stete) => stete.match.isConfirmed);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [matchName, setMatchName] = useState('');
   const [blueTeamName, setBlueTeamName] = useState('');
@@ -59,6 +60,9 @@ export const MatchMasterContainer = () => {
     ]);
   }, [matchName, blueTeamName, redTeamName, timeOffset]);
 
+  const warningMessage =
+    Phase.isLast(currentPhaseId) && !isMatchConfirmed ? '試合結果の確定がまだです' : undefined;
+
   return (
     <MatchMasterComponent
       teamOptions={teamList}
@@ -66,6 +70,7 @@ export const MatchMasterContainer = () => {
       onChangeBlueTeamName={onChangeBlueTeamName}
       onChangeRedTeamName={onChangeRedTeamName}
       onStartButton={onSubmitButton}
+      warningMessage={warningMessage}
       isEnabledStartButton={Phase.isLast(currentPhaseId)}
     />
   );
