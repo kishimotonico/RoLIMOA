@@ -77,7 +77,7 @@ export const ScreenPage = () => {
             zIndex: -100,
           }}
         >
-          <Underlay />
+          <Underlay reverse={reverse} />
         </Box>
       </Box>
     </Box>
