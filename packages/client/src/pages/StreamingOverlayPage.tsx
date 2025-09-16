@@ -34,7 +34,9 @@ export const StreamingOverlayPage = () => {
       }}
     >
       <Slide in={showMainHud} direction="down" timeout={1000} appear={false}>
-        <MainHud showScoreBoard={showScoreBoard} params={params} />
+        <Box>
+          <MainHud showScoreBoard={showScoreBoard} params={params} />
+        </Box>
       </Slide>
       <Box
         sx={{
