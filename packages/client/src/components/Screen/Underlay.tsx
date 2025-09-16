@@ -1,6 +1,10 @@
 import { Box } from '@mui/material';
 
-export const Underlay = () => (
+type UnderlayProps = {
+  reverse?: boolean;
+};
+
+export const Underlay = (_props: UnderlayProps) => (
   <Box
     sx={{
       display: 'flex',
