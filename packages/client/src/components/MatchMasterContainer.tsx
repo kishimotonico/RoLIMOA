@@ -23,7 +23,7 @@ function getTeamInfo(short: string): TeamType {
 export const MatchMasterContainer = () => {
   const teamList = config.teams_info.map((info) => info.short);
   const currentPhaseId = useSelector<RootState, string>((state) => state.phase.current.id);
-  const isMatchConfirmed = useSelector<RootState, boolean>((stete) => stete.match.isConfirmed);
+  const isMatchConfirmed = useSelector<RootState, boolean>((state) => state.match.isConfirmed);
   const timeOffset = useRecoilValue(unixtimeOffset);
   const [matchName, setMatchName] = useState('');
   const [blueTeamName, setBlueTeamName] = useState('');
