@@ -95,16 +95,17 @@ const TeamNotesDisplay = ({ fieldSide }: { fieldSide: FieldSideType }) => {
 
 type UnderlayProps = {
   reverse?: boolean;
+  gap?: number;
 };
 
-export const Underlay = (_props: UnderlayProps) => (
+export const Underlay = ({ gap = 120 }: UnderlayProps) => (
   <Box
     sx={{
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       height: '100%',
-      gap: '120px',
+      gap: `${gap}px`,
       pt: '280px',
     }}
   >

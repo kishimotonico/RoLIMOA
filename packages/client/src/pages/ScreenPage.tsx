@@ -1,9 +1,12 @@
 import CachedIcon from '@mui/icons-material/Cached';
 import { Box, IconButton } from '@mui/material';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { underlayAdjustmentAtom } from '~/atoms/underlayAdjustment';
 import { ScoreBoard } from '~/components/Screen/ScoreBoard';
 import { TimerDisplay } from '~/components/Screen/TimerDisplay';
 import { Underlay } from '~/components/Screen/Underlay';
+import { UnderlayAdjustmentPanel } from '~/components/Screen/UnderlayAdjustmentPanel';
 import { useAutoPlaySoundEffect } from '~/functional/useAutoPlaySoundEffect';
 import { CenterFlex } from '~/ui/CenterFlex';
 
@@ -14,6 +17,8 @@ export const ScreenPage = () => {
   const onReverseClick = () => {
     setReverse((toggle) => !toggle);
   };
+
+  const { scale, offsetX, offsetY, gap } = useRecoilValue(underlayAdjustmentAtom);
 
   return (
     <Box
@@ -75,10 +80,14 @@ export const ScreenPage = () => {
             height: '100%',
             width: '100%',
             zIndex: -100,
+            transform: `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`,
+            transformOrigin: 'center center',
           }}
         >
-          <Underlay />
+          <Underlay gap={gap} />
         </Box>
+
+        <UnderlayAdjustmentPanel />
       </Box>
     </Box>
   );
