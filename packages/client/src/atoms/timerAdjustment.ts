@@ -1,18 +1,18 @@
 import { atom } from 'recoil';
 
-export type UnderlayAdjustment = {
+export type TimerAdjustment = {
   scale: number;
   offsetY: number;
-  gap: number;
+  bgOpacity: number;
 };
 
-export const defaultUnderlayAdjustment: UnderlayAdjustment = {
+export const defaultTimerAdjustment: TimerAdjustment = {
   scale: 1.0,
   offsetY: 0,
-  gap: 120,
+  bgOpacity: 0,
 };
 
-const LOCAL_STORAGE_KEY = 'RoLIMOA-underlay-adjustment';
+const LOCAL_STORAGE_KEY = 'RoLIMOA-timer-adjustment';
 
 const localStorageEffect =
   <T>(key: string) =>
@@ -30,8 +30,8 @@ const localStorageEffect =
     });
   };
 
-export const underlayAdjustmentAtom = atom<UnderlayAdjustment>({
-  key: 'underlayAdjustment',
-  default: defaultUnderlayAdjustment,
-  effects: [localStorageEffect<UnderlayAdjustment>(LOCAL_STORAGE_KEY)],
+export const timerAdjustmentAtom = atom<TimerAdjustment>({
+  key: 'timerAdjustment',
+  default: defaultTimerAdjustment,
+  effects: [localStorageEffect<TimerAdjustment>(LOCAL_STORAGE_KEY)],
 });
