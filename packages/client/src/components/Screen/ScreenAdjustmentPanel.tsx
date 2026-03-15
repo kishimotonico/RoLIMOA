@@ -7,10 +7,6 @@ import { screenDisplayAtom } from '~/atoms/screenDisplayAtom';
 import { defaultTimerAdjustment, timerAdjustmentAtom } from '~/atoms/timerAdjustment';
 import { defaultUnderlayAdjustment, underlayAdjustmentAtom } from '~/atoms/underlayAdjustment';
 
-const SCOREBOARD_STORAGE_KEY = 'RoLIMOA-scoreboard-adjustment';
-const SCREEN_DISPLAY_STORAGE_KEY = 'RoLIMOA-screen-display';
-const UNDERLAY_STORAGE_KEY = 'RoLIMOA-underlay-adjustment';
-const TIMER_STORAGE_KEY = 'RoLIMOA-timer-adjustment';
 
 type AdjustSliderProps = {
   label: string;
@@ -142,22 +138,18 @@ export const ScreenAdjustmentPanel = () => {
 
   const handleScreenDisplayReset = () => {
     resetScreenDisplay();
-    localStorage.removeItem(SCREEN_DISPLAY_STORAGE_KEY);
   };
 
   const handleScoreboardReset = () => {
     resetScoreboardAdj();
-    localStorage.removeItem(SCOREBOARD_STORAGE_KEY);
   };
 
   const handleUnderlayReset = () => {
     resetUnderlayAdj();
-    localStorage.removeItem(UNDERLAY_STORAGE_KEY);
   };
 
   const handleTimerReset = () => {
     resetTimerAdj();
-    localStorage.removeItem(TIMER_STORAGE_KEY);
   };
 
   const open = Boolean(anchorEl);

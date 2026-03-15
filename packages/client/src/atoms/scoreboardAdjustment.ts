@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { screenAdjustmentEffect } from './screenAdjustmentStorage';
 
 export type ScoreboardAdjustment = {
   scale: number;
@@ -14,26 +15,8 @@ export const defaultScoreboardAdjustment: ScoreboardAdjustment = {
   teamNameScale: 1.0,
 };
 
-const LOCAL_STORAGE_KEY = 'RoLIMOA-scoreboard-adjustment';
-
-const localStorageEffect =
-  <T>(key: string) =>
-  ({ setSelf, onSet }: { setSelf: (value: T) => void; onSet: (fn: (value: T) => void) => void }) => {
-    const stored = localStorage.getItem(key);
-    if (stored) {
-      try {
-        setSelf(JSON.parse(stored) as T);
-      } catch {
-        // パースに失敗した場合はデフォルト値を使用
-      }
-    }
-    onSet((newValue) => {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    });
-  };
-
 export const scoreboardAdjustmentAtom = atom<ScoreboardAdjustment>({
   key: 'scoreboardAdjustment',
   default: defaultScoreboardAdjustment,
-  effects: [localStorageEffect<ScoreboardAdjustment>(LOCAL_STORAGE_KEY)],
+  effects: [screenAdjustmentEffect('scoreboard')],
 });
