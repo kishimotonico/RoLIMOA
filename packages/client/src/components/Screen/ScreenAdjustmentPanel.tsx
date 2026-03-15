@@ -1,6 +1,6 @@
 import TuneIcon from '@mui/icons-material/Tune';
-import { Box, Button, Divider, IconButton, Popover, Slider, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, ButtonBase, Divider, Popover, Slider, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { defaultTimerAdjustment, timerAdjustmentAtom } from '~/atoms/timerAdjustment';
 import { defaultUnderlayAdjustment, underlayAdjustmentAtom } from '~/atoms/underlayAdjustment';
@@ -13,9 +13,21 @@ export const ScreenAdjustmentPanel = () => {
   const resetUnderlayAdj = useResetRecoilState(underlayAdjustmentAtom);
   const [timerAdj, setTimerAdj] = useRecoilState(timerAdjustmentAtom);
   const resetTimerAdj = useResetRecoilState(timerAdjustmentAtom);
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [visible, setVisible] = useState(false);
 
-  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  useEffect(() => {
+    const show = () => setVisible(true);
+    const hide = () => setVisible(false);
+    document.addEventListener('mouseenter', show);
+    document.addEventListener('mouseleave', hide);
+    return () => {
+      document.removeEventListener('mouseenter', show);
+      document.removeEventListener('mouseleave', hide);
+    };
+  }, []);
+
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -37,25 +49,36 @@ export const ScreenAdjustmentPanel = () => {
 
   return (
     <>
-      <IconButton
+      <ButtonBase
         onClick={handleOpen}
         sx={{
           position: 'absolute',
           bottom: 16,
           right: 16,
           zIndex: 10,
-          color: 'white',
-          opacity: 0.15,
-          transition: 'opacity 0.3s',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 0.5,
+          borderRadius: '20px',
+          px: 2,
+          py: 0.75,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          color: 'rgba(255,255,255,0.85)',
+          border: '1px solid rgba(255,255,255,0.4)',
+          transition: 'background-color 0.2s, border-color 0.2s, opacity 0.3s',
+          opacity: open || visible ? 1 : 0,
+          pointerEvents: open || visible ? 'auto' : 'none',
           '&:hover': {
-            opacity: 0.6,
-            backgroundColor: 'rgba(255,255,255,0.1)',
+            backgroundColor: 'rgba(0,0,0,0.65)',
+            border: '1px solid rgba(255,255,255,0.7)',
           },
-          p: 0.5,
         }}
       >
-        <TuneIcon sx={{ fontSize: 20 }} />
-      </IconButton>
+        <TuneIcon sx={{ fontSize: 18 }} />
+        <Typography variant="caption" sx={{ fontWeight: 500, lineHeight: 1 }}>
+          表示調整
+        </Typography>
+      </ButtonBase>
 
       <Popover
         open={open}
@@ -75,9 +98,17 @@ export const ScreenAdjustmentPanel = () => {
           },
         }}
       >
-        <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 1.5 }}>
-          Underlay 表示調整
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
+          <Typography variant="caption" sx={{ fontWeight: 700 }}>
+            Underlay 表示調整
+          </Typography>
+          <ButtonBase
+            onClick={handleUnderlayReset}
+            sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', '&:hover': { color: 'rgba(255,255,255,0.9)' } }}
+          >
+            リセット
+          </ButtonBase>
+        </Box>
 
         <Box sx={{ mb: 1.5 }}>
           <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
@@ -127,21 +158,19 @@ export const ScreenAdjustmentPanel = () => {
           />
         </Box>
 
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={handleUnderlayReset}
-          sx={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.3)', width: '100%', mb: 2 }}
-        >
-          Underlayリセット ({defaultUnderlayAdjustment.scale} / {defaultUnderlayAdjustment.offsetY} /{' '}
-          {defaultUnderlayAdjustment.gap}px)
-        </Button>
-
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mb: 1.5 }} />
 
-        <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 1.5 }}>
-          タイマー 表示調整
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
+          <Typography variant="caption" sx={{ fontWeight: 700 }}>
+            タイマー 表示調整
+          </Typography>
+          <ButtonBase
+            onClick={handleTimerReset}
+            sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', '&:hover': { color: 'rgba(255,255,255,0.9)' } }}
+          >
+            リセット
+          </ButtonBase>
+        </Box>
 
         <Box sx={{ mb: 1.5 }}>
           <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
@@ -191,15 +220,6 @@ export const ScreenAdjustmentPanel = () => {
           />
         </Box>
 
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={handleTimerReset}
-          sx={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.3)', width: '100%' }}
-        >
-          タイマーリセット ({defaultTimerAdjustment.scale} / {defaultTimerAdjustment.offsetY} /{' '}
-          {defaultTimerAdjustment.bgOpacity})
-        </Button>
       </Popover>
     </>
   );
