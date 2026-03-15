@@ -2,80 +2,61 @@ import type { ConfigType } from './types.js';
 
 export default {
   contest_info: {
-    name: '関東夏ロボコン2023',
+    name: '関東春ロボコン2026',
   },
   rule: {
     global_objects: [],
     task_objects: [
       {
-        id: 'Utsunomiya',
-        description: '宇都宮',
+        id: 'entered_notes_area',
+        description: 'ノーツエリア進入',
         initialValue: 0,
         min: 0,
         max: 1,
       },
       {
-        id: 'Chiba',
-        description: '千葉',
+        id: 'red_notes',
+        description: '赤ノーツ',
         initialValue: 0,
+        min: 0,
+        max: 2,
       },
       {
-        id: 'Saitama',
-        description: 'さいたま',
+        id: 'blue_notes',
+        description: '青ノーツ',
         initialValue: 0,
+        min: 0,
+        max: 2,
       },
       {
-        id: 'Yokohama',
-        description: '横浜',
+        id: 'yellow_notes',
+        description: '黄ノーツ',
         initialValue: 0,
-      },
-      {
-        id: 'Shibuya',
-        description: '渋谷',
-        initialValue: 0,
-      },
-      {
-        id: 'violation',
-        description: '違反回数',
-        initialValue: 0,
+        min: 0,
+        max: 2,
       },
     ],
     score: {
-      format: 'simple',
-      expression: [
-        {
-          id: 'Utsunomiya',
-          coefficient: 10,
-        },
-        {
-          id: 'Chiba',
-          coefficient: 10,
-        },
-        {
-          id: 'Saitama',
-          coefficient: 11,
-        },
-        {
-          id: 'Yokohama',
-          coefficient: 14,
-        },
-        {
-          id: 'Shibuya',
-          coefficient: 15,
-        },
-      ],
+      format: 'implement',
     },
     vgoal: {
-      name: 'Vゴール',
+      name: 'ファンファーレ',
       condition: {
-        type: 'disabled',
+        type: 'implement',
       },
     },
     control_panel: {
       type: 'custom',
       panels: [
         {
-          id: 'Utsunomiya',
+          id: 'entered_notes_area',
+          type: 'toggle_switch',
+          option: {
+            label: 'ノーツエリア進入(自動)',
+          },
+        },
+        {
+          id: 'red_notes',
           type: 'multi_button',
           option: {
             buttons: [
@@ -91,24 +72,21 @@ export default {
                 label: '+1',
                 shortcutKey: 'Q',
               },
+              {
+                command: '=2',
+                label: '=2',
+              },
             ],
           },
         },
         {
-          id: 'Chiba',
+          id: 'blue_notes',
           type: 'multi_button',
           option: {
             buttons: [
               {
                 command: '=0',
                 label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '-1',
-                label: '-1',
                 style: {
                   variant: 'outlined',
                 },
@@ -119,18 +97,14 @@ export default {
                 shortcutKey: 'W',
               },
               {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
+                command: '=2',
+                label: '=2',
               },
             ],
           },
         },
         {
-          id: 'Saitama',
+          id: 'yellow_notes',
           type: 'multi_button',
           option: {
             buttons: [
@@ -142,114 +116,13 @@ export default {
                 },
               },
               {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
                 command: '+1',
                 label: '+1',
-                shortcutKey: 'A',
+                shortcutKey: 'E',
               },
               {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
-              },
-            ],
-          },
-        },
-        {
-          id: 'Yokohama',
-          type: 'multi_button',
-          option: {
-            buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'S',
-              },
-              {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
-              },
-            ],
-          },
-        },
-        {
-          id: 'Shibuya',
-          type: 'multi_button',
-          option: {
-            buttons: [
-              {
-                command: '=0',
-                label: '0',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'Z',
-              },
-              {
-                command: '+2',
-                label: '+2',
-              },
-              {
-                command: '+4',
-                label: '+4',
-              },
-            ],
-          },
-        },
-        {
-          id: 'violation',
-          type: 'multi_button',
-          option: {
-            buttons: [
-              {
-                command: '-1',
-                label: '-1',
-                style: {
-                  variant: 'outlined',
-                },
-              },
-              {
-                command: '+1',
-                label: '+1',
-                shortcutKey: 'X',
+                command: '=2',
+                label: '=2',
               },
             ],
           },
@@ -311,7 +184,6 @@ export default {
       },
       custom: [
         {
-          // 1音目のラグ対策のため、小さい音を鳴らす
           elapsedTime: 1,
           sound: {
             name: 'tone_440hz_500ms.mp3',
@@ -348,7 +220,6 @@ export default {
           sound: 'tone_880hz_1000ms.mp3',
         },
         {
-          // 1音目のラグ対策のため、小さい音を鳴らす
           elapsedTime: 'L-4',
           sound: {
             name: 'tone_440hz_500ms.mp3',
@@ -385,26 +256,7 @@ export default {
       ],
     },
   ],
-  teams_info: [
-    {
-      id: '1',
-      name: '触手もぐもぐ',
-      school: '国際信州大',
-      short: '触手もぐもぐ（国際信州大）',
-    },
-    {
-      id: '2',
-      name: '白米ぬるぬる',
-      school: '国際信州大',
-      short: '白米ぬるぬる（国際信州大）',
-    },
-    {
-      id: '3',
-      name: '常磐の森ねこねこカレッジ',
-      school: '横浜大学',
-      short: '常磐の森ねこねこカレッジ（横浜大）',
-    },
-  ],
+  teams_info: [],
   client: {
     standalone_mode: false,
   },

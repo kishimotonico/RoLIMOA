@@ -7,18 +7,37 @@ type ScoreOutputType =
     }
   | number;
 
-export function score(_stat: CurrentMatchStateType): ScoreOutputType {
-  // ここにスコアの計算処理をかく
-  //
-  // config.json の rule.score に `"format": "implement"` を指定した場合のみ、
-  // この実装が有効
-  //
-  // 例えば下記のようなケースでは、TypeScriptでの得点計算を実装するのでなく、
-  // config.json の rule.score に `"format": "simple"` を指定する方が簡単
-  //
-  // ```
-  // return _stat.taskObjects["A_1_point"] + _stat.taskObjects["B_10_point"] * 10;
-  // ```
+/**
+ * 関東春ロボコン2026「10周年の祝奏（ファンファーレ）」得点計算
+ *
+ * A: 「自動モード」で「ノーツエリア」に進入したことがある → 10点
+ * B: 「ノーツ」が「スコア」に入っている → 1個につき5点（各色最大2個）
+ * C: 「ノーツ」が「スコア」に2個以上入っている → 1箱につき20点
+ */
+export function score(stat: CurrentMatchStateType): ScoreOutputType {
+  const enteredNotesArea = stat.taskObjects.entered_notes_area ?? 0;
+  const redNotes = stat.taskObjects.red_notes ?? 0;
+  const blueNotes = stat.taskObjects.blue_notes ?? 0;
+  const yellowNotes = stat.taskObjects.yellow_notes ?? 0;
 
-  return Number.NaN;
+  // A: ノーツエリア進入ボーナス
+  const scoreA = enteredNotesArea >= 1 ? 10 : 0;
+
+  // B: ノーツ得点（1個5点、各色最大2個）
+  const scoreB = (redNotes + blueNotes + yellowNotes) * 5;
+
+  // C: スコアボーナス（2個以上入っている箱1つにつき20点）
+  const redBonus = redNotes >= 2 ? 20 : 0;
+  const blueBonus = blueNotes >= 2 ? 20 : 0;
+  const yellowBonus = yellowNotes >= 2 ? 20 : 0;
+  const scoreC = redBonus + blueBonus + yellowBonus;
+
+  return {
+    value: scoreA + scoreB + scoreC,
+    refs: {
+      'A. エリア進入': scoreA,
+      'B. ノーツ': scoreB,
+      'C. ボーナス': scoreC,
+    },
+  };
 }
