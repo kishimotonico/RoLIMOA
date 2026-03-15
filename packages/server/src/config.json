@@ -50,7 +50,10 @@
           "id": "entered_notes_area",
           "type": "toggle_switch",
           "option": {
-            "label": "ノーツエリア進入(自動)"
+            "off_value": 0,
+            "on_value": 1,
+            "off_label": "未進入",
+            "on_label": "進入(自動)"
           }
         },
         {
