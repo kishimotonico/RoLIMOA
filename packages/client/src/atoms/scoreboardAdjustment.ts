@@ -1,20 +1,20 @@
 import { atom } from 'recoil';
 
-export type UnderlayAdjustment = {
+export type ScoreboardAdjustment = {
   scale: number;
   offsetY: number;
-  gap: number;
-  opacity: number;
+  scoreScale: number;
+  teamNameScale: number;
 };
 
-export const defaultUnderlayAdjustment: UnderlayAdjustment = {
+export const defaultScoreboardAdjustment: ScoreboardAdjustment = {
   scale: 1.0,
   offsetY: 0,
-  gap: 120,
-  opacity: 1.0,
+  scoreScale: 1.0,
+  teamNameScale: 1.0,
 };
 
-const LOCAL_STORAGE_KEY = 'RoLIMOA-underlay-adjustment';
+const LOCAL_STORAGE_KEY = 'RoLIMOA-scoreboard-adjustment';
 
 const localStorageEffect =
   <T>(key: string) =>
@@ -32,8 +32,8 @@ const localStorageEffect =
     });
   };
 
-export const underlayAdjustmentAtom = atom<UnderlayAdjustment>({
-  key: 'underlayAdjustment',
-  default: defaultUnderlayAdjustment,
-  effects: [localStorageEffect<UnderlayAdjustment>(LOCAL_STORAGE_KEY)],
+export const scoreboardAdjustmentAtom = atom<ScoreboardAdjustment>({
+  key: 'scoreboardAdjustment',
+  default: defaultScoreboardAdjustment,
+  effects: [localStorageEffect<ScoreboardAdjustment>(LOCAL_STORAGE_KEY)],
 });

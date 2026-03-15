@@ -98,7 +98,7 @@ type UnderlayProps = {
   gap?: number;
 };
 
-export const Underlay = ({ gap = 120 }: UnderlayProps) => (
+export const Underlay = ({ gap = 120, reverse = false }: UnderlayProps) => (
   <Box
     sx={{
       display: 'flex',
@@ -109,7 +109,7 @@ export const Underlay = ({ gap = 120 }: UnderlayProps) => (
       pt: '280px',
     }}
   >
-    <TeamNotesDisplay fieldSide="red" />
-    <TeamNotesDisplay fieldSide="blue" />
+    <TeamNotesDisplay fieldSide={reverse ? 'blue' : 'red'} />
+    <TeamNotesDisplay fieldSide={reverse ? 'red' : 'blue'} />
   </Box>
 );

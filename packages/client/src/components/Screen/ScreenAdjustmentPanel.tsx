@@ -1,20 +1,105 @@
 import TuneIcon from '@mui/icons-material/Tune';
-import { Box, ButtonBase, Divider, Popover, Slider, Typography } from '@mui/material';
+import { Box, ButtonBase, Divider, Popover, Slider, Switch, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { defaultScoreboardAdjustment, scoreboardAdjustmentAtom } from '~/atoms/scoreboardAdjustment';
+import { screenDisplayAtom } from '~/atoms/screenDisplayAtom';
 import { defaultTimerAdjustment, timerAdjustmentAtom } from '~/atoms/timerAdjustment';
 import { defaultUnderlayAdjustment, underlayAdjustmentAtom } from '~/atoms/underlayAdjustment';
 
+const SCOREBOARD_STORAGE_KEY = 'RoLIMOA-scoreboard-adjustment';
+const SCREEN_DISPLAY_STORAGE_KEY = 'RoLIMOA-screen-display';
 const UNDERLAY_STORAGE_KEY = 'RoLIMOA-underlay-adjustment';
 const TIMER_STORAGE_KEY = 'RoLIMOA-timer-adjustment';
 
+type AdjustSliderProps = {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (value: number) => void;
+  onReset: () => void;
+  format?: (v: number) => string;
+};
+
+const AdjustSlider = ({ label, value, min, max, step, onChange, onReset, format }: AdjustSliderProps) => (
+  <Box sx={{ mb: 1.5 }}>
+    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+      {label}: {format ? format(value) : value}
+    </Typography>
+    <Slider
+      size="small"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(_, v) => onChange(v as number)}
+      onDoubleClick={onReset}
+      sx={{ color: 'white' }}
+    />
+  </Box>
+);
+
+type SectionHeaderProps = {
+  title: string;
+  onReset: () => void;
+};
+
+const SectionHeader = ({ title, onReset }: SectionHeaderProps) => (
+  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
+    <Typography variant="caption" sx={{ fontWeight: 700 }}>
+      {title}
+    </Typography>
+    <ButtonBase
+      onClick={onReset}
+      sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', '&:hover': { color: 'rgba(255,255,255,0.9)' } }}
+    >
+      リセット
+    </ButtonBase>
+  </Box>
+);
+
+type ToggleRowProps = {
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+};
+
+const ToggleRow = ({ label, checked, onChange }: ToggleRowProps) => (
+  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.85)' }}>
+      {label}
+    </Typography>
+    <Switch
+      size="small"
+      checked={checked}
+      onChange={(e) => onChange(e.target.checked)}
+      sx={{
+        '& .MuiSwitch-switchBase.Mui-checked': { color: 'white' },
+        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.5)' },
+        '& .MuiSwitch-track': { backgroundColor: 'rgba(255,255,255,0.2)' },
+      }}
+    />
+  </Box>
+);
+
 export const ScreenAdjustmentPanel = () => {
+  const [screenDisplay, setScreenDisplay] = useRecoilState(screenDisplayAtom);
+  const resetScreenDisplay = useResetRecoilState(screenDisplayAtom);
+
+  const [scoreboardAdj, setScoreboardAdj] = useRecoilState(scoreboardAdjustmentAtom);
+  const resetScoreboardAdj = useResetRecoilState(scoreboardAdjustmentAtom);
+
   const [underlayAdj, setUnderlayAdj] = useRecoilState(underlayAdjustmentAtom);
   const resetUnderlayAdj = useResetRecoilState(underlayAdjustmentAtom);
+
   const [timerAdj, setTimerAdj] = useRecoilState(timerAdjustmentAtom);
   const resetTimerAdj = useResetRecoilState(timerAdjustmentAtom);
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const show = () => setVisible(true);
@@ -27,12 +112,42 @@ export const ScreenAdjustmentPanel = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleFullscreenToggle = async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await document.documentElement.requestFullscreen();
+      }
+    } catch {
+      // フルスクリーンAPIが失敗した場合は無視
+    }
+  };
+
+  const handleScreenDisplayReset = () => {
+    resetScreenDisplay();
+    localStorage.removeItem(SCREEN_DISPLAY_STORAGE_KEY);
+  };
+
+  const handleScoreboardReset = () => {
+    resetScoreboardAdj();
+    localStorage.removeItem(SCOREBOARD_STORAGE_KEY);
   };
 
   const handleUnderlayReset = () => {
@@ -92,134 +207,167 @@ export const ScreenAdjustmentPanel = () => {
               backgroundColor: 'rgba(0,0,0,0.85)',
               backdropFilter: 'blur(4px)',
               color: 'white',
-              width: 260,
+              width: 340,
               p: 2,
+              maxHeight: '80vh',
+              overflowY: 'auto',
+              '&::-webkit-scrollbar': { width: '4px' },
+              '&::-webkit-scrollbar-track': { background: 'rgba(255,255,255,0.05)' },
+              '&::-webkit-scrollbar-thumb': { background: 'rgba(255,255,255,0.2)', borderRadius: '2px' },
             },
           },
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
-          <Typography variant="caption" sx={{ fontWeight: 700 }}>
-            Underlay 表示調整
-          </Typography>
-          <ButtonBase
-            onClick={handleUnderlayReset}
-            sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', '&:hover': { color: 'rgba(255,255,255,0.9)' } }}
-          >
-            リセット
-          </ButtonBase>
-        </Box>
+        {/* 全般セクション */}
+        <SectionHeader title="全般" onReset={handleScreenDisplayReset} />
 
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            拡大: {underlayAdj.scale.toFixed(2)}
-          </Typography>
-          <Slider
-            size="small"
-            min={0.3}
-            max={2.5}
-            step={0.05}
-            value={underlayAdj.scale}
-            onChange={(_, value) => setUnderlayAdj((prev) => ({ ...prev, scale: value as number }))}
-            onDoubleClick={() => setUnderlayAdj((prev) => ({ ...prev, scale: defaultUnderlayAdjustment.scale }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
+        <ToggleRow
+          label="赤青入替"
+          checked={screenDisplay.reverse}
+          onChange={(checked) => setScreenDisplay((prev) => ({ ...prev, reverse: checked }))}
+        />
 
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            縦位置: {underlayAdj.offsetY}px
-          </Typography>
-          <Slider
-            size="small"
-            min={-500}
-            max={500}
-            step={5}
-            value={underlayAdj.offsetY}
-            onChange={(_, value) => setUnderlayAdj((prev) => ({ ...prev, offsetY: value as number }))}
-            onDoubleClick={() => setUnderlayAdj((prev) => ({ ...prev, offsetY: defaultUnderlayAdjustment.offsetY }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
-
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            間隔: {underlayAdj.gap}px
-          </Typography>
-          <Slider
-            size="small"
-            min={0}
-            max={400}
-            step={5}
-            value={underlayAdj.gap}
-            onChange={(_, value) => setUnderlayAdj((prev) => ({ ...prev, gap: value as number }))}
-            onDoubleClick={() => setUnderlayAdj((prev) => ({ ...prev, gap: defaultUnderlayAdjustment.gap }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
+        <ToggleRow
+          label="フルスクリーン"
+          checked={isFullscreen}
+          onChange={handleFullscreenToggle}
+        />
 
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mb: 1.5 }} />
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
-          <Typography variant="caption" sx={{ fontWeight: 700 }}>
-            タイマー 表示調整
-          </Typography>
-          <ButtonBase
-            onClick={handleTimerReset}
-            sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', '&:hover': { color: 'rgba(255,255,255,0.9)' } }}
-          >
-            リセット
-          </ButtonBase>
-        </Box>
+        {/* 画面全体セクション */}
+        <SectionHeader title="画面全体" onReset={handleScoreboardReset} />
 
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            大きさ: {timerAdj.scale.toFixed(2)}
-          </Typography>
-          <Slider
-            size="small"
-            min={0.5}
-            max={2.0}
-            step={0.05}
-            value={timerAdj.scale}
-            onChange={(_, value) => setTimerAdj((prev) => ({ ...prev, scale: value as number }))}
-            onDoubleClick={() => setTimerAdj((prev) => ({ ...prev, scale: defaultTimerAdjustment.scale }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
+        <AdjustSlider
+          label="大きさ"
+          value={scoreboardAdj.scale}
+          min={0.5}
+          max={2.0}
+          step={0.05}
+          onChange={(v) => setScoreboardAdj((prev) => ({ ...prev, scale: v }))}
+          onReset={() => setScoreboardAdj((prev) => ({ ...prev, scale: defaultScoreboardAdjustment.scale }))}
+          format={(v) => v.toFixed(2)}
+        />
 
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            縦位置: {timerAdj.offsetY}px
-          </Typography>
-          <Slider
-            size="small"
-            min={-200}
-            max={200}
-            step={5}
-            value={timerAdj.offsetY}
-            onChange={(_, value) => setTimerAdj((prev) => ({ ...prev, offsetY: value as number }))}
-            onDoubleClick={() => setTimerAdj((prev) => ({ ...prev, offsetY: defaultTimerAdjustment.offsetY }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
+        <AdjustSlider
+          label="縦位置"
+          value={scoreboardAdj.offsetY}
+          min={-200}
+          max={200}
+          step={5}
+          onChange={(v) => setScoreboardAdj((prev) => ({ ...prev, offsetY: v }))}
+          onReset={() => setScoreboardAdj((prev) => ({ ...prev, offsetY: defaultScoreboardAdjustment.offsetY }))}
+          format={(v) => `${v}px`}
+        />
 
-        <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-            背景透過度: {timerAdj.bgOpacity.toFixed(2)}
-          </Typography>
-          <Slider
-            size="small"
-            min={0}
-            max={0.9}
-            step={0.05}
-            value={timerAdj.bgOpacity}
-            onChange={(_, value) => setTimerAdj((prev) => ({ ...prev, bgOpacity: value as number }))}
-            onDoubleClick={() => setTimerAdj((prev) => ({ ...prev, bgOpacity: defaultTimerAdjustment.bgOpacity }))}
-            sx={{ color: 'white' }}
-          />
-        </Box>
+        <AdjustSlider
+          label="得点の大きさ"
+          value={scoreboardAdj.scoreScale ?? 1.0}
+          min={0.5}
+          max={3.0}
+          step={0.05}
+          onChange={(v) => setScoreboardAdj((prev) => ({ ...prev, scoreScale: v }))}
+          onReset={() => setScoreboardAdj((prev) => ({ ...prev, scoreScale: defaultScoreboardAdjustment.scoreScale }))}
+          format={(v) => v.toFixed(2)}
+        />
 
+        <AdjustSlider
+          label="チーム名の大きさ"
+          value={scoreboardAdj.teamNameScale ?? 1.0}
+          min={0.5}
+          max={3.0}
+          step={0.05}
+          onChange={(v) => setScoreboardAdj((prev) => ({ ...prev, teamNameScale: v }))}
+          onReset={() => setScoreboardAdj((prev) => ({ ...prev, teamNameScale: defaultScoreboardAdjustment.teamNameScale }))}
+          format={(v) => v.toFixed(2)}
+        />
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mb: 1.5 }} />
+
+        {/* Underlayセクション */}
+        <SectionHeader title="Underlay" onReset={handleUnderlayReset} />
+
+        <AdjustSlider
+          label="不透明度"
+          value={underlayAdj.opacity ?? 1.0}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={(v) => setUnderlayAdj((prev) => ({ ...prev, opacity: v }))}
+          onReset={() => setUnderlayAdj((prev) => ({ ...prev, opacity: defaultUnderlayAdjustment.opacity }))}
+          format={(v) => v.toFixed(2)}
+        />
+
+        <AdjustSlider
+          label="拡大"
+          value={underlayAdj.scale}
+          min={0.3}
+          max={2.5}
+          step={0.05}
+          onChange={(v) => setUnderlayAdj((prev) => ({ ...prev, scale: v }))}
+          onReset={() => setUnderlayAdj((prev) => ({ ...prev, scale: defaultUnderlayAdjustment.scale }))}
+          format={(v) => v.toFixed(2)}
+        />
+
+        <AdjustSlider
+          label="縦位置"
+          value={underlayAdj.offsetY}
+          min={-500}
+          max={500}
+          step={5}
+          onChange={(v) => setUnderlayAdj((prev) => ({ ...prev, offsetY: v }))}
+          onReset={() => setUnderlayAdj((prev) => ({ ...prev, offsetY: defaultUnderlayAdjustment.offsetY }))}
+          format={(v) => `${v}px`}
+        />
+
+        <AdjustSlider
+          label="間隔"
+          value={underlayAdj.gap}
+          min={0}
+          max={400}
+          step={5}
+          onChange={(v) => setUnderlayAdj((prev) => ({ ...prev, gap: v }))}
+          onReset={() => setUnderlayAdj((prev) => ({ ...prev, gap: defaultUnderlayAdjustment.gap }))}
+          format={(v) => `${v}px`}
+        />
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)', mb: 1.5 }} />
+
+        {/* タイマーセクション */}
+        <SectionHeader title="タイマー" onReset={handleTimerReset} />
+
+        <AdjustSlider
+          label="大きさ"
+          value={timerAdj.scale}
+          min={0.5}
+          max={2.0}
+          step={0.05}
+          onChange={(v) => setTimerAdj((prev) => ({ ...prev, scale: v }))}
+          onReset={() => setTimerAdj((prev) => ({ ...prev, scale: defaultTimerAdjustment.scale }))}
+          format={(v) => v.toFixed(2)}
+        />
+
+        <AdjustSlider
+          label="縦位置"
+          value={timerAdj.offsetY}
+          min={-200}
+          max={200}
+          step={5}
+          onChange={(v) => setTimerAdj((prev) => ({ ...prev, offsetY: v }))}
+          onReset={() => setTimerAdj((prev) => ({ ...prev, offsetY: defaultTimerAdjustment.offsetY }))}
+          format={(v) => `${v}px`}
+        />
+
+        <AdjustSlider
+          label="背景透過度"
+          value={timerAdj.bgOpacity}
+          min={0}
+          max={0.9}
+          step={0.05}
+          onChange={(v) => setTimerAdj((prev) => ({ ...prev, bgOpacity: v }))}
+          onReset={() => setTimerAdj((prev) => ({ ...prev, bgOpacity: defaultTimerAdjustment.bgOpacity }))}
+          format={(v) => v.toFixed(2)}
+        />
       </Popover>
     </>
   );

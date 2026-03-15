@@ -1,20 +1,14 @@
 import { atom } from 'recoil';
 
-export type UnderlayAdjustment = {
-  scale: number;
-  offsetY: number;
-  gap: number;
-  opacity: number;
+export type ScreenDisplay = {
+  reverse: boolean;
 };
 
-export const defaultUnderlayAdjustment: UnderlayAdjustment = {
-  scale: 1.0,
-  offsetY: 0,
-  gap: 120,
-  opacity: 1.0,
+export const defaultScreenDisplay: ScreenDisplay = {
+  reverse: false,
 };
 
-const LOCAL_STORAGE_KEY = 'RoLIMOA-underlay-adjustment';
+const LOCAL_STORAGE_KEY = 'RoLIMOA-screen-display';
 
 const localStorageEffect =
   <T>(key: string) =>
@@ -32,8 +26,8 @@ const localStorageEffect =
     });
   };
 
-export const underlayAdjustmentAtom = atom<UnderlayAdjustment>({
-  key: 'underlayAdjustment',
-  default: defaultUnderlayAdjustment,
-  effects: [localStorageEffect<UnderlayAdjustment>(LOCAL_STORAGE_KEY)],
+export const screenDisplayAtom = atom<ScreenDisplay>({
+  key: 'screenDisplay',
+  default: defaultScreenDisplay,
+  effects: [localStorageEffect<ScreenDisplay>(LOCAL_STORAGE_KEY)],
 });

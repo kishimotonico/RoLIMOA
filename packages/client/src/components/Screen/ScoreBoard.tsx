@@ -9,9 +9,11 @@ import { formatTime } from '~/util/formatTime';
 type ScoreBoardProps = {
   fieldSide: 'blue' | 'red';
   placement: 'left' | 'right';
+  scoreScale?: number;
+  teamNameScale?: number;
 };
 
-export const ScoreBoard = ({ fieldSide }: ScoreBoardProps) => {
+export const ScoreBoard = ({ fieldSide, scoreScale, teamNameScale }: ScoreBoardProps) => {
   const teamName = useSelector<RootState, string>(
     (state) => state.match.teams[fieldSide]?.shortName ?? '',
   );
@@ -34,7 +36,7 @@ export const ScoreBoard = ({ fieldSide }: ScoreBoardProps) => {
           color: 'rgb(240, 240, 240)',
           height: '60px',
           lineHeight: '65px',
-          fontSize: '0.7em',
+          fontSize: `${0.7 * (teamNameScale ?? 1.0)}em`,
           px: '0.5em',
         }}
       >
@@ -43,7 +45,7 @@ export const ScoreBoard = ({ fieldSide }: ScoreBoardProps) => {
       <Box
         sx={{
           height: '120px',
-          fontSize: '1.5em',
+          fontSize: `${1.5 * (scoreScale ?? 1.0)}em`,
           backgroundColor: 'rgba(255, 255, 255, 0.6)',
           display: 'flex',
           alignItems: 'center',
