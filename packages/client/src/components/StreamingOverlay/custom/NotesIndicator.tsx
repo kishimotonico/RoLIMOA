@@ -29,7 +29,7 @@ const NotesRow = ({ label, color, count }: NotesColor) => (
     <Box
       sx={{
         fontSize: '16px',
-        width: '24px',
+        width: '28px',
         textAlign: 'center',
         color: color,
         fontWeight: 700,
@@ -54,17 +54,36 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
       borderRadius: '0 0 4px 4px',
     }}
   >
-    <Box
-      sx={{
-        width: '12px',
-        height: '12px',
-        borderRadius: '50%',
-        backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.2)',
-        border: '2px solid rgba(255,255,255,0.4)',
-        flexShrink: 0,
-      }}
-      title="ノーツエリア進入"
-    />
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+      <Box
+        sx={{
+          fontSize: '16px',
+          width: '28px',
+          textAlign: 'center',
+          color: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.3)',
+          fontWeight: 700,
+        }}
+      >
+        A
+      </Box>
+      <Box
+        sx={{
+          width: '16px',
+          height: '16px',
+          borderRadius: '50%',
+          backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.2)',
+          border: '2px solid rgba(255,255,255,0.4)',
+          flexShrink: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {enteredNotesArea && (
+          <Box sx={{ color: 'white', fontSize: '10px', fontWeight: 700, lineHeight: 1 }}>✓</Box>
+        )}
+      </Box>
+    </Box>
     {notes.map((note) => (
       <NotesRow key={note.label} {...note} />
     ))}

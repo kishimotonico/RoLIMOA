@@ -55,9 +55,26 @@ const TeamNotesDisplay = ({ fieldSide }: { fieldSide: FieldSideType }) => {
             backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(0,0,0,0.15)',
             border: '3px solid',
             borderColor: enteredNotesArea ? '#4caf50' : 'rgba(0,0,0,0.2)',
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
-        エリア進入
+        >
+          {enteredNotesArea && (
+            <Box
+              sx={{
+                color: 'white',
+                fontSize: '14px',
+                fontWeight: 700,
+                lineHeight: 1,
+              }}
+            >
+              ✓
+            </Box>
+          )}
+        </Box>
+        自動モードでノーツエリア進入
       </Box>
       {/* 各色のノーツ */}
       <Box sx={{ display: 'flex', gap: '24px' }}>
@@ -78,9 +95,7 @@ const TeamNotesDisplay = ({ fieldSide }: { fieldSide: FieldSideType }) => {
                 transition: 'all 0.3s ease',
               }}
             >
-              <Box sx={{ fontSize: '20px', fontWeight: 700, color: nc.color }}>
-                {nc.label}
-              </Box>
+              <Box sx={{ fontSize: '20px', fontWeight: 700, color: nc.color }}>{nc.label}</Box>
               <Box sx={{ display: 'flex' }}>
                 <NoteCircle filled={count >= 1} color={nc.color} size={36} />
                 <NoteCircle filled={count >= 2} color={nc.color} size={36} />

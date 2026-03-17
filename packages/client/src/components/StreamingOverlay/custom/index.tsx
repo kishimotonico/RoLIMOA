@@ -13,9 +13,9 @@ import { TimerDisplay } from '../TimerDisplay';
 import { NotesIndicator } from './NotesIndicator';
 
 const NOTES_COLORS = [
-  { id: 'red_notes', label: 'R', color: '#e53935' },
-  { id: 'blue_notes', label: 'B', color: '#1e88e5' },
-  { id: 'yellow_notes', label: 'Y', color: '#fdd835' },
+  { id: 'red_notes', label: '赤', color: '#ef5350' },
+  { id: 'blue_notes', label: '青', color: '#42a5f5' },
+  { id: 'yellow_notes', label: '黄', color: '#fdd835' },
 ] as const;
 
 const ScoreBlock = (props: {
