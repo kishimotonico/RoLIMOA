@@ -1,4 +1,4 @@
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import TimerIcon from '@mui/icons-material/Timer';
 import { Box } from '@mui/material';
 import { config } from '@rolimoa/common/config';
 import type { RootState } from '@rolimoa/common/redux';
@@ -29,13 +29,11 @@ const ScoreBlock = (props: {
   const displayScore = useDisplayScore(fieldSide);
   const { taskObjects } = useCurrentMatchState(fieldSide);
 
-  const color = fieldSide as string;
+  const color = fieldSide === 'blue' ? 'rgba(0, 0, 240, 0.8)' : 'rgba(240, 0, 0, 0.8)';
 
-  const containerHeight = 190;
-  const outlineBorderWidth = 6;
-  const innerBorderWidth = 4;
+  const containerHeight = 260;
   const nameBlockHeight = 55;
-  const scoreBlockHeight = containerHeight - nameBlockHeight - outlineBorderWidth * 2;
+  const scoreBlockHeight = containerHeight - nameBlockHeight - 5;
 
   let teamNameFontSize = 34;
   if (teamName && teamName?.length > 12) {
@@ -59,80 +57,93 @@ const ScoreBlock = (props: {
           width: '600px',
           height: `${containerHeight}px`,
           textAlign: 'center',
-          border: `${outlineBorderWidth}px solid ${color}`,
-          boxSizing: 'border-box',
           backgroundColor: 'rgba(240, 240, 240, 0.8)',
+          clipPath: 'polygon(0 0, 0 100%, 30% 100%, 50% 190px, 100% 190px, 100% 0)',
+          transform: placement === 'left' ? '' : 'scaleX(-1)',
         }}
       >
-        <CenterFlex
+        <Box
           sx={{
             height: `${nameBlockHeight}px`,
-            lineHeight: `${nameBlockHeight}px`,
-            borderBottom: `${innerBorderWidth}px solid ${color}`,
-            boxSizing: 'border-box',
+            lineHeight: `${nameBlockHeight + 2}px`,
+            backgroundColor: color,
             fontSize: `${teamNameFontSize}px`,
+            color: 'rgba(255, 255, 255, 0.9)',
+            transform: placement === 'left' ? '' : 'scaleX(-1)',
           }}
         >
           {teamName ?? ' '}
-        </CenterFlex>
-        <CenterFlex
+        </Box>
+        <Box
           sx={{
             height: `${scoreBlockHeight}px`,
-            fontSize: '80px',
             flexDirection: placement === 'left' ? 'row' : 'row-reverse',
+            display: 'flex',
+            transform: placement === 'left' ? '' : 'scaleX(-1)',
           }}
         >
-          {displayScore.scoreState.vgoal && (
-            <Box sx={{ fontSize: '32px' }}>
-              <Box>{config.rule.vgoal.name}</Box>
-              <Box
-                sx={{
-                  mt: 0.5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <TimerOutlinedIcon
+          {/* 点数表示 */}
+          <CenterFlex sx={{ width: '280px' }}>
+            {displayScore.scoreState.vgoal ? (
+              <Box sx={{ fontSize: '48px', pb: 3 }}>
+                <Box>{config.rule.vgoal.name}</Box>
+                <CenterFlex
                   sx={{
-                    mr: 1,
-                    pt: 0.5,
-                    fontSize: '120%',
-                    color: 'rgba(80, 80, 80, 0.9)',
+                    fontSize: '32px',
+                    flexDirection: 'row',
+                    color: 'rgba(30, 30, 30, 0.9)',
                   }}
-                />
-                {formatTime(displayScore.scoreState.vgoal, 'm:ss')}
+                >
+                  {displayScore.value}
+                  &nbsp;/&nbsp;
+                  <TimerIcon sx={{ mr: 1 }} />
+                  {formatTime(displayScore.scoreState.vgoal, 'm:ss')}
+                </CenterFlex>
               </Box>
-            </Box>
-          )}
-          <Box sx={{ padding: '0 .5em', lineHeight: `${scoreBlockHeight}px` }}>
-            {displayScore.value}
+            ) : (
+              <CenterFlex sx={{ fontSize: '90px', lineHeight: `${scoreBlockHeight}px` }}>
+                {displayScore.value}
+              </CenterFlex>
+            )}
+          </CenterFlex>
+          {/* ノーツ表示 */}
+          <Box
+            sx={{
+              width: '300px',
+              height: '135px',
+              padding: placement === 'left' ? '0 0 0 20px' : '0 20px 0 0',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              color: 'rgba(30, 30, 30, 0.9)',
+            }}
+          >
+            <NotesIndicator notes={notes} enteredNotesArea={enteredNotesArea} />
           </Box>
-        </CenterFlex>
+        </Box>
       </Box>
-      {/* ノーツ状況インジケータ */}
+      {/* Winner バナー（平行四辺形） */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: placement === 'left' ? 'flex-start' : 'flex-end',
-        }}
-      >
-        <NotesIndicator notes={notes} enteredNotesArea={enteredNotesArea} />
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          justifyContent: placement === 'left' ? 'flex-start' : 'flex-end',
+          position: 'relative',
+          width: '420px',
+          top: '-70px',
+          left: placement === 'left' ? '180px' : '0',
+          clipPath:
+            placement === 'left'
+              ? 'polygon(0 100%, 71% 100%, 100% 0, 29% 0)'
+              : 'polygon(0 0, 29% 100%, 100% 100%, 71% 0)',
         }}
       >
         {displayScore.scoreState.winner && (
           <CenterFlex
             sx={{
-              width: '240px',
-              height: '48px',
+              height: '70px',
+              width: '420px',
               backgroundColor: `${color}`,
-              fontSize: '36px',
+              fontSize: '42px',
               color: 'rgba(255, 255, 255, 0.95)',
             }}
           >
@@ -166,9 +177,9 @@ export const MainHud = ({
       </SlideTransition>
       <TimerDisplay
         sxContainer={{ height: '190px', fontSize: '20px' }}
-        sxDescription={{ height: '50px' }}
-        sxTime={{ height: '90px' }}
-        sxMatchName={{ height: '48px' }}
+        sxDescription={{ height: '50px', lineHeight: '50px' }}
+        sxTime={{ height: '90px', lineHeight: '90px' }}
+        sxMatchName={{ height: '50px', lineHeight: '50px' }}
       />
       <SlideTransition in={showScoreBoard} direction="right" duration={800} appear={false}>
         <Box>

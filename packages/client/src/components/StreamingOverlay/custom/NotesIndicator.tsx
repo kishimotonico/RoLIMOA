@@ -46,12 +46,10 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
   <Box
     sx={{
       display: 'flex',
-      alignItems: 'center',
-      gap: '12px',
-      px: '12px',
-      py: '4px',
-      backgroundColor: 'rgba(10, 10, 10, 0.85)',
-      borderRadius: '0 0 4px 4px',
+      flexDirection: 'column',
+      gap: '8px',
+      px: '8px',
+      py: '8px',
     }}
   >
     <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -60,7 +58,7 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
           fontSize: '14px',
           width: '24px',
           textAlign: 'center',
-          color: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.3)',
+          color: enteredNotesArea ? '#4caf50' : 'rgba(0, 0, 0, 0.3)',
           fontWeight: 700,
         }}
       >
@@ -71,8 +69,8 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
           width: '14px',
           height: '14px',
           borderRadius: '50%',
-          backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.2)',
-          border: '2px solid rgba(255,255,255,0.4)',
+          backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(0, 0, 0, 0.2)',
+          border: '2px solid rgba(0, 0, 0, 0.4)',
           flexShrink: 0,
           display: 'flex',
           alignItems: 'center',
