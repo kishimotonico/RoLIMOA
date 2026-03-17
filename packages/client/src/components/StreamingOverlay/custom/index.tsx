@@ -60,6 +60,7 @@ const ScoreBlock = (props: {
           backgroundColor: 'rgba(240, 240, 240, 0.8)',
           clipPath: 'polygon(0 0, 0 100%, 30% 100%, 50% 190px, 100% 190px, 100% 0)',
           transform: placement === 'left' ? '' : 'scaleX(-1)',
+          fontFamily: "Noto Sans JP, Noto Sans Color Emoji', sans-serif",
         }}
       >
         <Box
@@ -85,8 +86,18 @@ const ScoreBlock = (props: {
           {/* 点数表示 */}
           <CenterFlex sx={{ width: '280px' }}>
             {displayScore.scoreState.vgoal ? (
-              <Box sx={{ fontSize: '48px', pb: 3 }}>
-                <Box>{config.rule.vgoal.name}</Box>
+              <Box sx={{ fontSize: '48px' }}>
+                <Box
+                  sx={{
+                    lineHeight: 1,
+                    textAlign: 'left',
+                    pb: 1,
+                  }}
+                >
+                  {/* 表示崩れに対応するため調整 */}
+                  ファン 🎉<br />
+                  ファーレ
+                </Box>
                 <CenterFlex
                   sx={{
                     fontSize: '32px',
