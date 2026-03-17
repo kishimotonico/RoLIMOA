@@ -31,18 +31,18 @@ const ScoreBlock = (props: {
 
   const color = fieldSide as string;
 
-  const containerHeight = 260;
-  const outlineBorderWidth = 8;
-  const innerBorderWidth = 6;
-  const nameBlockHeight = 80;
+  const containerHeight = 190;
+  const outlineBorderWidth = 6;
+  const innerBorderWidth = 4;
+  const nameBlockHeight = 55;
   const scoreBlockHeight = containerHeight - nameBlockHeight - outlineBorderWidth * 2;
 
-  let teamNameFontSize = 40;
+  let teamNameFontSize = 34;
   if (teamName && teamName?.length > 12) {
-    teamNameFontSize = 36;
+    teamNameFontSize = 30;
   }
   if (teamName && teamName?.length > 14) {
-    teamNameFontSize = 30;
+    teamNameFontSize = 26;
   }
 
   const enteredNotesArea = (taskObjects.entered_notes_area ?? 0) >= 1;
@@ -78,12 +78,12 @@ const ScoreBlock = (props: {
         <CenterFlex
           sx={{
             height: `${scoreBlockHeight}px`,
-            fontSize: '100px',
+            fontSize: '80px',
             flexDirection: placement === 'left' ? 'row' : 'row-reverse',
           }}
         >
           {displayScore.scoreState.vgoal && (
-            <Box sx={{ fontSize: '40px' }}>
+            <Box sx={{ fontSize: '32px' }}>
               <Box>{config.rule.vgoal.name}</Box>
               <Box
                 sx={{
@@ -130,9 +130,9 @@ const ScoreBlock = (props: {
           <CenterFlex
             sx={{
               width: '240px',
-              height: '60px',
+              height: '48px',
               backgroundColor: `${color}`,
-              fontSize: '42px',
+              fontSize: '36px',
               color: 'rgba(255, 255, 255, 0.95)',
             }}
           >
@@ -155,7 +155,7 @@ export const MainHud = ({
     <Box
       sx={{
         width: '100%',
-        height: '380px',
+        height: '280px',
         display: 'flex',
       }}
     >
@@ -164,7 +164,12 @@ export const MainHud = ({
           <ScoreBlock fieldSide={params.reverse ? 'blue' : 'red'} placement="left" />
         </Box>
       </SlideTransition>
-      <TimerDisplay />
+      <TimerDisplay
+        sxContainer={{ height: '190px', fontSize: '20px' }}
+        sxDescription={{ height: '50px' }}
+        sxTime={{ height: '90px' }}
+        sxMatchName={{ height: '48px' }}
+      />
       <SlideTransition in={showScoreBoard} direction="right" duration={800} appear={false}>
         <Box>
           <ScoreBlock fieldSide={params.reverse ? 'red' : 'blue'} placement="right" />

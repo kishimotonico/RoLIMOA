@@ -14,10 +14,10 @@ type NotesIndicatorProps = {
 const NoteCircle = ({ filled, color }: { filled: boolean; color: string }) => (
   <Box
     sx={{
-      width: '24px',
-      height: '24px',
+      width: '20px',
+      height: '20px',
       borderRadius: '50%',
-      border: `3px solid ${color}`,
+      border: `2px solid ${color}`,
       backgroundColor: filled ? color : 'transparent',
       mx: '2px',
     }}
@@ -28,8 +28,8 @@ const NotesRow = ({ label, color, count }: NotesColor) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
     <Box
       sx={{
-        fontSize: '16px',
-        width: '28px',
+        fontSize: '14px',
+        width: '24px',
         textAlign: 'center',
         color: color,
         fontWeight: 700,
@@ -47,9 +47,9 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
     sx={{
       display: 'flex',
       alignItems: 'center',
-      gap: '16px',
-      px: '16px',
-      py: '6px',
+      gap: '12px',
+      px: '12px',
+      py: '4px',
       backgroundColor: 'rgba(10, 10, 10, 0.85)',
       borderRadius: '0 0 4px 4px',
     }}
@@ -57,8 +57,8 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
     <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
       <Box
         sx={{
-          fontSize: '16px',
-          width: '28px',
+          fontSize: '14px',
+          width: '24px',
           textAlign: 'center',
           color: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.3)',
           fontWeight: 700,
@@ -68,8 +68,8 @@ export const NotesIndicator = ({ notes, enteredNotesArea }: NotesIndicatorProps)
       </Box>
       <Box
         sx={{
-          width: '16px',
-          height: '16px',
+          width: '14px',
+          height: '14px',
           borderRadius: '50%',
           backgroundColor: enteredNotesArea ? '#4caf50' : 'rgba(255,255,255,0.2)',
           border: '2px solid rgba(255,255,255,0.4)',
